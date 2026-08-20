@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy/evidence/utterance.schema.json",
+  "title": "Labelled gym utterance",
+  "description": "One real recorded utterance plus its HUMAN-ASSIGNED expected meaning. The expected block must never be produced by the system under test.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["utteranceId", "audioPath", "conditions", "expected", "labelledBy"],
+  "properties": {
+    "utteranceId": { "type": "string", "pattern": "^U[0-9]{3,}$" },
+    "audioPath": { "type": "string", "description": "Path under evidence/audio/ (git-ignored)." },
+    "groundTruthTranscript": { "type": ["string", "null"], "description": "What was actually said. Null if not transcribed by a human." },
+    "spokenLanguage": { "type": "string", "description": "BCP-47, or a code-mix tag such as te-en." },
+    "category": {
+      "type": "string",
+      "enum": ["set_logging", "numbers_weights", "correction", "question", "casual_feedback", "command", "safety", "multilingual"]
+    },
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["noise", "music", "mic"],
+      "properties": {
+        "noise": { "type": "string", "enum": ["quiet", "normal_gym", "loud_gym"] },
+        "music": { "type": "boolean" },
+        "mic": { "type": "string", "enum": ["headset", "speakerphone"] },
+        "distanceCm": { "type": ["integer", "null"] },
+        "bystandersNearby": { "type": "boolean" },
+        "breathingHeavily": { "type": "boolean" },
+        "speakerId": { "type": ["string", "null"], "description": "Pseudonymous. No names." },
+        "accent": { "type": ["string", "null"] }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intent", "mutationExpected"],
+      "properties": {
+        "intent": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "enum": ["SET_COMPLETED", "SET_CORRECTED", "SET_DELETED", "WEIGHT_CHANGED", "USER_QUESTION", "USER_FEEDBACK", "USER_NOTE", "COMMAND", "SUBSTITUTION_PROPOSE", "SAFETY", "CLARIFY", "NONE"] }
+        },
+        "exercise": { "type": ["string", "null"] },
+        "weightKg": { "type": ["number", "null"] },
+        "reps": { "type": ["integer", "null"] },
+        "correction": { "type": "boolean", "default": false },
+        "mutationExpected": { "type": "boolean", "description": "Whether a workout row should change. False for questions, casual talk, clarify." },
+        "safetySeverity": { "type": ["string", "null"], "enum": ["low", "medium", "high", "critical", null] },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "labelledBy": { "type": "string", "description": "Human annotator id. Never 'model'." },
+    "labelledAt": { "type": "string" }
+  }
+}
