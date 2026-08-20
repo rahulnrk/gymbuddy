@@ -1,0 +1,15 @@
+{
+  "id": "06-state-machine.event.workout-started-from-idle-rejected",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "06-deterministic-workout-state-machine",
+  "stage": "event",
+  "expect": {
+    "from": "IDLE",
+    "event": "WORKOUT_STARTED",
+    "legal": false
+  }
+}

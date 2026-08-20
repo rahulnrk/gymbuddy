@@ -1,0 +1,14 @@
+{
+  "id": "03-voice.voice.barge-in-lt-200ms",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "5"
+  ],
+  "contract": "03-voice-pipeline",
+  "stage": "voice",
+  "expect": {
+    "bargeInCancelP95Ms": 200,
+    "ttsMustCancel": true
+  }
+}

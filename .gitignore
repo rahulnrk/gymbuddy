@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+local.properties
+
+# Kotlin / JVM
+.kotlin/
+out/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+*.tmp
+
+# Secrets — provider credentials for the voice evidence spike must never be committed
+.env
+.env.*
+*.key
+secrets.properties
+evidence/credentials/
+
+# Captured audio is large and may contain personal data (PRODUCT.md §35).
+# Track manifests and labels; never track raw audio.
+evidence/audio/
+*.wav
+*.m4a
+*.mp3
+*.flac

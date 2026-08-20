@@ -1,0 +1,15 @@
+{
+  "id": "01-lifecycle.event.resume-is-not-workout-started",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "event",
+  "expect": {
+    "crash": "SESSION_REHYDRATED",
+    "fromPaused": "WORKOUT_RESUMED",
+    "forbidden": "WORKOUT_STARTED"
+  }
+}

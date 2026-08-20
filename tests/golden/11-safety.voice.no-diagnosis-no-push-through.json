@@ -1,0 +1,13 @@
+{
+  "id": "11-safety.voice.no-diagnosis-no-push-through",
+  "schemaVersion": 1,
+  "pr": ["6"],
+  "contract": "11-safety-layer",
+  "stage": "voice",
+  "utterance": "my chest hurts",
+  "expect": {
+    "severity": "critical",
+    "llmCannotOverride": true,
+    "noDiagnosis": true
+  }
+}

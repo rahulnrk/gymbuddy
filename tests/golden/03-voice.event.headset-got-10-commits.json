@@ -1,0 +1,56 @@
+{
+  "id": "03-voice.event.headset-got-10-commits",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "03-voice-pipeline",
+  "stage": "event",
+  "utterance": "Got 10.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "currentWeightKg": 60,
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 400,
+    "overlappingVad": false,
+    "completedSets": []
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.96
+        },
+        "payload": {
+          "reps": 10
+        },
+        "loggingMode": "live"
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetCompleted",
+    "reps": 10,
+    "weightKg": 60,
+    "inheritWeight": true,
+    "loggingMode": "live",
+    "mustNotContain": [
+      "setNumber",
+      "SET_STARTED",
+      "REST_STARTED",
+      "REST_ENDED",
+      "SESSION_INITIALIZED",
+      "WORKOUT_STARTED"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "19-substitution.event.occupied-machine-accept",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "16"
+  ],
+  "contract": "19-substitution-engine",
+  "stage": "event",
+  "utterance": "That machine is occupied.",
+  "expect": {
+    "proposeThen": "SUBSTITUTION_APPLIED",
+    "forbiddenCommitted": [
+      "EXERCISE_CHANGED"
+    ]
+  }
+}

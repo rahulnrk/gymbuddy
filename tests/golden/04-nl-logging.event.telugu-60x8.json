@@ -1,0 +1,57 @@
+{
+  "id": "04-nl-logging.event.telugu-60x8",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "contract": "12-multilingual-normalized-storage",
+  "stage": "event",
+  "utterance": "Nenu 60 kilos tho eight reps chesa.",
+  "llm_required": true,
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "currentExerciseName": "Bench Press",
+    "units": "kg",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 800,
+    "overlappingVad": false,
+    "completedSets": []
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.95
+        },
+        "payload": {
+          "reps": 8,
+          "weight": 60,
+          "weightUnit": "kg"
+        },
+        "exerciseNameRaw": "bench",
+        "loggingMode": "live"
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetCompleted",
+    "canonicalExercise": "Bench Press",
+    "weightKg": 60,
+    "reps": 8,
+    "storageLanguage": "en",
+    "mustNotContain": [
+      "setNumber",
+      "REST_STARTED"
+    ]
+  },
+  "layer": "pr1_validator"
+}

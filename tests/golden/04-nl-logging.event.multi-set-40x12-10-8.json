@@ -1,0 +1,110 @@
+{
+  "id": "04-nl-logging.event.multi-set-40x12-10-8",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "relatedPr2Golden": "06-state-machine.event.catch-up-40x12-10-8",
+  "contract": "04-conversational-workout-parsing",
+  "stage": "event",
+  "utterance": "First set was 12 at 40, second was 10, and I got 8 on this one.",
+  "llm_required": true,
+  "notes": "Same gym utterance as 06-state-machine.event.catch-up-40x12-10-8. PR 1: facts only. PR 2: official numbers and rest.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "currentWeightKg": null,
+    "completedSets": [],
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 2500,
+    "overlappingVad": false
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.9,
+        "fieldConfidence": {
+          "reps": 0.9,
+          "weight": 0.9
+        },
+        "setNumberHint": "first",
+        "loggingMode": "catch_up",
+        "payload": {
+          "reps": 12,
+          "weight": 40,
+          "weightUnit": "kg"
+        }
+      },
+      {
+        "candidateId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.9,
+        "fieldConfidence": {
+          "reps": 0.9
+        },
+        "setNumberHint": "second",
+        "loggingMode": "catch_up",
+        "payload": {
+          "reps": 10
+        }
+      },
+      {
+        "candidateId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.9,
+        "fieldConfidence": {
+          "reps": 0.9
+        },
+        "setNumberHint": "this",
+        "loggingMode": "catch_up",
+        "payload": {
+          "reps": 8
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "layer": "pr1_validator",
+    "acceptFactCount": 3,
+    "factType": "SetCompleted",
+    "reps": [
+      12,
+      10,
+      8
+    ],
+    "weightsKg": [
+      40,
+      40,
+      40
+    ],
+    "inheritWeight": [
+      false,
+      true,
+      true
+    ],
+    "loggingMode": "catch_up",
+    "setNumberHints": [
+      "first",
+      "second",
+      "this"
+    ],
+    "batchIdentity": "shared_or_same_turn",
+    "mustNotContain": [
+      "setNumber",
+      "officialSetNumbers",
+      "REST_STARTED",
+      "REST_ENDED",
+      "SET_STARTED",
+      "WorkoutSessionState",
+      "remainingSetsPlanned"
+    ]
+  }
+}

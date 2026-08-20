@@ -1,0 +1,38 @@
+{
+  "id": "17-plans.event.skip-this",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "17-workout-plans-and-editing",
+  "stage": "event",
+  "utterance": "Skip this.",
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "COMMAND",
+        "overallConfidence": 0.85,
+        "fieldConfidence": {
+          "kind": 0.85
+        },
+        "payload": {
+          "kind": "skip"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "eventType": "EXERCISE_SKIPPED",
+    "foldRestores": true
+  },
+  "layer": "pr2_projector",
+  "notes": "PR 1 may accept ValidatedFact.Command(SKIP) only. fold/EXERCISE_COMPLETE is PR 2. This golden is the PR 2 layer.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "workoutExerciseId": "55555555-5555-4555-8555-555555555555"
+  }
+}

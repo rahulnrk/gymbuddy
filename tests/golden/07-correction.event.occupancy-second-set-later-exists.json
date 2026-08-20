@@ -1,0 +1,68 @@
+{
+  "id": "07-correction.event.occupancy-second-set-later-exists",
+  "schemaVersion": 1,
+  "pr": ["1"],
+  "layer": "pr1_validator",
+  "contract": "07-correction-reconciliation",
+  "stage": "event",
+  "utterance": "That was actually my second set — 9 reps.",
+  "notes": "Occupancy freeze: Set1 60x10, Set2 60x8, Set3 60x7 all recorded. Target slot 2 is occupied and a later set exists. Clarify. Do not overwrite set 2, do not change set 3, do not assign set numbers, do not append.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 900,
+    "overlappingVad": false,
+    "completedSets": [
+      {
+        "setId": "66666666-6666-4666-8666-666666666666",
+        "setNumber": 1,
+        "reps": 10,
+        "weightKg": 60,
+        "occurredAt": "2026-08-20T15:58:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      },
+      {
+        "setId": "66666666-6666-4666-8666-666666666667",
+        "setNumber": 2,
+        "reps": 8,
+        "weightKg": 60,
+        "occurredAt": "2026-08-20T15:59:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      },
+      {
+        "setId": "66666666-6666-4666-8666-666666666668",
+        "setNumber": 3,
+        "reps": 7,
+        "weightKg": 60,
+        "occurredAt": "2026-08-20T16:00:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      }
+    ]
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_CORRECTED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": { "reps": 0.9, "target": 0.9 },
+        "setNumberHint": "second",
+        "payload": { "reps": 9, "target": "second" }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "clarify",
+    "promptContains": "replace set 2 or keep both",
+    "acceptFactCount": 0,
+    "newSetRow": false,
+    "laterSetsUnchanged": true,
+    "targetNotSilentlyCorrected": true,
+    "notFactType": "SetCompleted",
+    "doNotGuess": true
+  }
+}

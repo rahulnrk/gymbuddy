@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/historical-context.schema.json",
+  "title": "HistoricalStateContext",
+  "description": "ONLY rows that exist. Empty means coaching must not invent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "previousSessionsForExercise",
+    "lastWorkoutSummary",
+    "knownPrs",
+    "aggregates",
+    "recentNotesForExercise"
+  ],
+  "properties": {
+    "previousSessionsForExercise": {
+      "type": "array"
+    },
+    "lastWorkoutSummary": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "knownPrs": {
+      "type": "array"
+    },
+    "aggregates": {
+      "type": "array",
+      "items": {
+        "$ref": "gymbuddy://schemas/v1/epistemic-fact.schema.json"
+      }
+    },
+    "recentNotesForExercise": {
+      "type": "array"
+    }
+  }
+}

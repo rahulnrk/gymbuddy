@@ -1,0 +1,15 @@
+{
+  "id": "10-local-first.offline.three-sets-process-kill",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "3"
+  ],
+  "contract": "10-local-first-session-reliability",
+  "stage": "offline",
+  "expect": {
+    "afterProcessKill": "same three sets",
+    "event": "SESSION_REHYDRATED",
+    "not": "WORKOUT_STARTED"
+  }
+}

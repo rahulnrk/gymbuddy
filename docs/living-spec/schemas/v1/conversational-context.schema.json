@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/conversational-context.schema.json",
+  "title": "ConversationalStateContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "queuedSpeechActs",
+    "recentCorrections",
+    "languageDetected"
+  ],
+  "properties": {
+    "currentTopic": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastUserUtterance": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "lastAiUtterance": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "pendingClarification": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "pendingCommand": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "queuedSpeechActs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recentCorrections": {
+      "type": "array"
+    },
+    "languageDetected": {
+      "type": "string"
+    }
+  }
+}

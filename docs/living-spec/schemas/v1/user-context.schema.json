@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/user-context.schema.json",
+  "title": "UserStateContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "userId",
+    "goals",
+    "experience",
+    "equipment",
+    "units",
+    "primaryLanguage",
+    "additionalLanguages",
+    "preferences",
+    "limitations"
+  ],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "muscle_gain",
+          "strength",
+          "fat_loss",
+          "general_fitness",
+          "conditioning",
+          "recomposition"
+        ]
+      }
+    },
+    "experience": {
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ]
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "units": {
+      "enum": [
+        "kg",
+        "lb"
+      ]
+    },
+    "primaryLanguage": {
+      "type": "string"
+    },
+    "additionalLanguages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferences": {
+      "type": "array"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

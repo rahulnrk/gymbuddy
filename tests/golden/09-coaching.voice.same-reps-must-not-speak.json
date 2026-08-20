@@ -1,0 +1,24 @@
+{
+  "id": "09-coaching.voice.same-reps-must-not-speak",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "9"
+  ],
+  "contract": "09-coaching-response-generation",
+  "stage": "voice",
+  "given": {
+    "previousReps": 10,
+    "thisReps": 10,
+    "previousWeightKg": 60,
+    "thisWeightKg": 60,
+    "notFirstSet": true,
+    "sessionState": "RESTING"
+  },
+  "expect": {
+    "speak": false,
+    "reason": "no_useful_delta",
+    "persistCoachingResponse": true,
+    "silence": true
+  }
+}

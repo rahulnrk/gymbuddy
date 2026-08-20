@@ -1,0 +1,11 @@
+{
+  "id": "03-voice.event.echo-does-not-log-ai-words",
+  "schemaVersion": 1,
+  "pr": ["5"],
+  "contract": "03-voice-pipeline",
+  "stage": "event",
+  "expect": {
+    "echoDoesNotBargeIn": true,
+    "ttsContinues": true
+  }
+}

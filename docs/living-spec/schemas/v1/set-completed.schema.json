@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/set-completed.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "sessionId",
+    "userId",
+    "occurredAt",
+    "recordedAt",
+    "source",
+    "schemaVersion",
+    "type",
+    "payload"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "sessionId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recordedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "enum": [
+        "voice",
+        "manual",
+        "imported",
+        "ai-generated",
+        "system"
+      ]
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "transcriptId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "sttFinalHash": {
+      "type": "string",
+      "minLength": 8
+    },
+    "batchId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "const": "SET_COMPLETED"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setId",
+        "workoutExerciseId",
+        "exerciseId",
+        "setNumber",
+        "loggingMode"
+      ],
+      "properties": {
+        "setId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workoutExerciseId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "exerciseId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "setNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "weight": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "weightUnit": {
+          "enum": [
+            "kg",
+            "lb"
+          ]
+        },
+        "weightKg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "reps": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "rpe": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "rir": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "effortNote": {
+          "type": "string"
+        },
+        "loggingMode": {
+          "enum": [
+            "live",
+            "catch_up"
+          ]
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    }
+  }
+}

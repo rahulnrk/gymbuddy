@@ -1,0 +1,53 @@
+{
+  "id": "04-nl-logging.event.40-for-10",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "contract": "04-conversational-workout-parsing",
+  "stage": "event",
+  "utterance": "40 for 10.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 400,
+    "overlappingVad": false,
+    "completedSets": []
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.9,
+          "weight": 0.9
+        },
+        "payload": {
+          "reps": 10,
+          "weight": 40,
+          "weightUnit": "kg"
+        },
+        "loggingMode": "live"
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetCompleted",
+    "reps": 10,
+    "weightKg": 40,
+    "inheritWeight": false,
+    "mustNotContain": [
+      "setNumber",
+      "REST_STARTED"
+    ]
+  },
+  "layer": "pr1_validator"
+}

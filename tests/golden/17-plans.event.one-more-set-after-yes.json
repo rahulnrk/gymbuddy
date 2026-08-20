@@ -1,0 +1,16 @@
+{
+  "id": "17-plans.event.one-more-set-after-yes",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "17-workout-plans-and-editing",
+  "stage": "event",
+  "utterance": "Can we do one more? Yeah.",
+  "expect": {
+    "eventType": "PLANNED_SETS_CHANGED",
+    "reason": "extra_set",
+    "doesNotLogSet": true
+  }
+}

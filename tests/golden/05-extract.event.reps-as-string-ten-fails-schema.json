@@ -1,0 +1,35 @@
+{
+  "id": "05-extract.event.reps-as-string-ten-fails-schema",
+  "schemaVersion": 1,
+  "pr": [
+    "0"
+  ],
+  "contract": "05-structured-event-extraction",
+  "stage": "event",
+  "utterance": "ten",
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_COMPLETED",
+        "overallConfidence": 0.9,
+        "fieldConfidence": {
+          "reps": 0.9
+        },
+        "payload": {
+          "reps": "ten"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": false,
+    "reason": "reps_must_be_integer"
+  },
+  "layer": "pr0_schema",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444"
+  }
+}

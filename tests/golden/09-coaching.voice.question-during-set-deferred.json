@@ -1,0 +1,26 @@
+{
+  "id": "09-coaching.voice.question-during-set-deferred",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "9"
+  ],
+  "contract": "09-coaching-response-generation",
+  "stage": "voice",
+  "given": {
+    "sessionState": "SET_ACTIVE",
+    "userQuestion": true
+  },
+  "expect": {
+    "speakNow": false,
+    "reason": "set_active",
+    "queue": [
+      "answer_question"
+    ],
+    "drainOn": [
+      "RESTING",
+      "SET_COMPLETED",
+      "EXERCISE_COMPLETE"
+    ]
+  }
+}

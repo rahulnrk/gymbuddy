@@ -1,0 +1,13 @@
+{
+  "id": "27-music.event.duck-before-tts",
+  "schemaVersion": 1,
+  "pr": ["5"],
+  "contract": "27-music-coexistence-audio-focus",
+  "stage": "event",
+  "expect": {
+    "duckRequested": true,
+    "ttsStarted": true,
+    "restoreRequested": true,
+    "focusReleased": true
+  }
+}

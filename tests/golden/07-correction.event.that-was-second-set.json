@@ -1,0 +1,79 @@
+{
+  "id": "07-correction.event.that-was-second-set",
+  "schemaVersion": 1,
+  "pr": [
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "07-correction-reconciliation",
+  "stage": "event",
+  "utterance": "No, that was the second set.",
+  "notes": "Target resolution uses existing completedSets. Validator does not assign official setNumber; it selects setId for slot 'second'. Last uttered 8 was mis-attributed as a new set.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 700,
+    "overlappingVad": false,
+    "completedSets": [
+      {
+        "setId": "66666666-6666-4666-8666-666666666666",
+        "setNumber": 1,
+        "reps": 12,
+        "weightKg": 40,
+        "occurredAt": "2026-08-20T15:59:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      },
+      {
+        "setId": "66666666-6666-4666-8666-666666666667",
+        "setNumber": 2,
+        "reps": 10,
+        "weightKg": 40,
+        "occurredAt": "2026-08-20T15:59:40Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      }
+    ],
+    "lastAttemptedLog": {
+      "reps": 8,
+      "wouldCreateNewSet": true
+    }
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_CORRECTED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.9,
+          "target": 0.9
+        },
+        "payload": {
+          "reps": 8,
+          "target": "second"
+        },
+        "setNumberHint": "second"
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetCorrected",
+    "setId": "66666666-6666-4666-8666-666666666667",
+    "resolvedFromContext": "completedSets.setNumber==2",
+    "reps": 8,
+    "newSetRow": false,
+    "notFactType": "SetCompleted",
+    "previous": {
+      "setId": "66666666-6666-4666-8666-666666666667",
+      "reps": 10,
+      "weightKg": 40
+    },
+    "mustNotContain": [
+      "officialSetNumberAssignment"
+    ]
+  }
+}

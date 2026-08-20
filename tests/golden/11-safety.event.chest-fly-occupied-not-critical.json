@@ -1,0 +1,15 @@
+{
+  "id": "11-safety.event.chest-fly-occupied-not-critical",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "6"
+  ],
+  "contract": "11-safety-layer",
+  "stage": "event",
+  "utterance": "That chest fly machine is occupied.",
+  "expect": {
+    "safetyConcern": false,
+    "route": "substitution"
+  }
+}

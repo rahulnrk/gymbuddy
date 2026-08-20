@@ -1,0 +1,71 @@
+{
+  "id": "07-correction.multilingual.kaadu-8",
+  "schemaVersion": 1,
+  "pr": [
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "07-correction-reconciliation",
+  "stage": "event",
+  "utterance": "Kaadu, 8.",
+  "llm_required": true,
+  "canonicalInterpretation": "No, 8.",
+  "notes": "Frozen multilingual fixture. Utterance is Telugu-English code-mix: Kaadu (కాదు, kādu) = no. Canonical interpretation is English 'No, 8.' Same SetCorrected behavior. Not listed in PRODUCT.md; living-spec test of §§15 and 32.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "currentWeightKg": 60,
+    "primaryLanguage": "te",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 500,
+    "overlappingVad": false,
+    "completedSets": [
+      {
+        "setId": "66666666-6666-4666-8666-666666666666",
+        "setNumber": 1,
+        "reps": 10,
+        "weightKg": 60,
+        "occurredAt": "2026-08-20T16:00:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      }
+    ],
+    "lastSet": {
+      "setId": "66666666-6666-4666-8666-666666666666",
+      "reps": 10,
+      "weightKg": 60
+    }
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_CORRECTED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.9
+        },
+        "payload": {
+          "reps": 8,
+          "target": "last"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetCorrected",
+    "setId": "66666666-6666-4666-8666-666666666666",
+    "reps": 8,
+    "newSetRow": false,
+    "notFactType": "SetCompleted",
+    "previous": {
+      "setId": "66666666-6666-4666-8666-666666666666",
+      "reps": 10,
+      "weightKg": 60
+    },
+    "storageLanguage": "en"
+  }
+}

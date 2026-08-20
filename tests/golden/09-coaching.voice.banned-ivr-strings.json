@@ -1,0 +1,14 @@
+{
+  "id": "09-coaching.voice.banned-ivr-strings",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "09-coaching-response-generation",
+  "stage": "voice",
+  "expect": {
+    "forbidden": [
+      "Command received.",
+      "Your set has been logged.",
+      "Proceed to the next exercise."
+    ]
+  }
+}

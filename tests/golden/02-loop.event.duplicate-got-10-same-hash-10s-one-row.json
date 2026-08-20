@@ -1,0 +1,11 @@
+{
+  "id": "02-loop.event.duplicate-got-10-same-hash-10s-one-row",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "02-continuous-interaction-loop",
+  "stage": "event",
+  "expect": {
+    "setCount": 1,
+    "duplicateSuppressed": true
+  }
+}

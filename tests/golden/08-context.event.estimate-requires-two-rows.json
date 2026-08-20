@@ -1,0 +1,29 @@
+{
+  "id": "08-context.event.estimate-requires-two-rows",
+  "schemaVersion": 1,
+  "pr": ["4"],
+  "contract": "08-four-context-assembly",
+  "stage": "event",
+  "given": {
+    "historical": {
+      "previousSessionsForExercise": [
+        {
+          "occurredOn": "2026-08-06",
+          "sets": [
+            {"setId": "cccccccc-cccc-4ccc-8ccc-ccccccccccc1", "setNumber": 1, "weightKg": 50, "reps": 10}
+          ]
+        },
+        {
+          "occurredOn": "2026-08-13",
+          "sets": [
+            {"setId": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2", "setNumber": 1, "weightKg": 70, "reps": 8}
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "stance": "estimated",
+    "meanWeightKg": 60.0
+  }
+}

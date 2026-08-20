@@ -1,0 +1,38 @@
+{
+  "id": "05-extract.event.unknown-type-dropped",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "contract": "05-structured-event-extraction",
+  "stage": "event",
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "HALLUCINATED_PR",
+        "overallConfidence": 0.99,
+        "fieldConfidence": {},
+        "payload": {
+          "weightKg": 200
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": false,
+    "dropUnknownType": true,
+    "commit": false
+  },
+  "layer": "pr1_validator",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 300,
+    "overlappingVad": false
+  }
+}

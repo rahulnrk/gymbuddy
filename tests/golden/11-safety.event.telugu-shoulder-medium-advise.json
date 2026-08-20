@@ -1,0 +1,15 @@
+{
+  "id": "11-safety.event.telugu-shoulder-medium-advise",
+  "schemaVersion": 1,
+  "pr": ["6"],
+  "contract": "11-safety-layer",
+  "stage": "event",
+  "utterance": "Naku chest kanna shoulder lo ekkuva feel avutundi.",
+  "expect": {
+    "category": "discomfort_mild",
+    "severity": "medium",
+    "action": "advise",
+    "pause": false,
+    "safetyConcern": true
+  }
+}

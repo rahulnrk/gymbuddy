@@ -1,0 +1,15 @@
+{
+  "id": "06-state-machine.state.set-started-required",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "06-deterministic-workout-state-machine",
+  "stage": "state",
+  "expect": {
+    "setActiveRequires": "SET_STARTED",
+    "producer": "engine",
+    "llmMayEmit": false
+  }
+}

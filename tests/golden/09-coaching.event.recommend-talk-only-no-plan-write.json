@@ -1,0 +1,10 @@
+{
+  "id": "09-coaching.event.recommend-talk-only-no-plan-write",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "09-coaching-response-generation",
+  "stage": "event",
+  "expect": {
+    "noPrescribedWeightWrite": true
+  }
+}

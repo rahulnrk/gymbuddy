@@ -1,0 +1,21 @@
+{
+  "id": "08-context.event.empty-history-no-invented-weight",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "4"
+  ],
+  "contract": "08-four-context-assembly",
+  "stage": "event",
+  "given": {
+    "previousSessionsForExercise": []
+  },
+  "expect": {
+    "stance": "none",
+    "forbiddenSpeech": [
+      "60 kilos",
+      "last time"
+    ],
+    "requiredSpeechClass": "i_dont_have_a_previous_number"
+  }
+}

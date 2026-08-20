@@ -1,0 +1,3222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/workout-event.schema.json",
+  "title": "WorkoutEvent",
+  "description": "Committed append-only event. The LLM cannot emit this object as truth. schemaVersion 1.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SET_COMPLETED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "setId",
+            "workoutExerciseId",
+            "exerciseId",
+            "setNumber",
+            "loggingMode"
+          ],
+          "properties": {
+            "setId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "exerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "setNumber": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "weight": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "weightUnit": {
+              "enum": [
+                "kg",
+                "lb"
+              ]
+            },
+            "weightKg": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "reps": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "rpe": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "rir": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "effortNote": {
+              "type": "string"
+            },
+            "loggingMode": {
+              "enum": [
+                "live",
+                "catch_up"
+              ]
+            },
+            "batchId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SET_CORRECTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "setId",
+            "fields",
+            "previous"
+          ],
+          "properties": {
+            "setId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "fields": {
+              "type": "object"
+            },
+            "previous": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "EXERCISE_STARTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "exerciseId",
+            "plannedSets"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "exerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "plannedSets": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "targetReps": {
+              "type": "string"
+            },
+            "restTargetSec": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "WORKOUT_STARTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutId",
+            "startedAt"
+          ],
+          "properties": {
+            "workoutId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "WORKOUT_PAUSED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reason"
+          ],
+          "properties": {
+            "reason": {
+              "enum": [
+                "user",
+                "audio_error",
+                "app_background",
+                "safety"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "WORKOUT_RESUMED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "restoredState"
+          ],
+          "properties": {
+            "restoredState": {
+              "type": "string"
+            },
+            "restRemainingSec": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "WORKOUT_COMPLETED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "completedAt"
+          ],
+          "properties": {
+            "completedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "summaryRef": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "USER_QUESTION"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "questionOriginal",
+            "questionCanonical"
+          ],
+          "properties": {
+            "questionOriginal": {
+              "type": "string",
+              "minLength": 1
+            },
+            "questionCanonical": {
+              "type": "string",
+              "minLength": 1
+            },
+            "topic": {
+              "enum": [
+                "technique",
+                "history",
+                "plan",
+                "nutrition",
+                "recovery",
+                "other"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "USER_FEEDBACK"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "easy",
+                "hard",
+                "dislike_exercise",
+                "fatigue",
+                "shoulder_discomfort",
+                "other"
+              ]
+            },
+            "intensity": {
+              "type": "number"
+            },
+            "refId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "USER_NOTE_CREATED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "noteId",
+            "textCanonical",
+            "textOriginal",
+            "lang",
+            "scope"
+          ],
+          "properties": {
+            "noteId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "textCanonical": {
+              "type": "string"
+            },
+            "textOriginal": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lang": {
+              "type": "string"
+            },
+            "scope": {
+              "enum": [
+                "set",
+                "exercise",
+                "session",
+                "user"
+              ]
+            },
+            "refId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SAFETY_CONCERN"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "severity",
+            "category",
+            "transcriptSnippet",
+            "action"
+          ],
+          "properties": {
+            "severity": {
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "category": {
+              "type": "string"
+            },
+            "transcriptSnippet": {
+              "type": "string"
+            },
+            "action": {
+              "enum": [
+                "advise",
+                "pause",
+                "stop_recommend"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SESSION_INITIALIZED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sessionId",
+            "workoutId"
+          ],
+          "properties": {
+            "sessionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workoutId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SESSION_REHYDRATED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sessionId"
+          ],
+          "properties": {
+            "sessionId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SET_STARTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "setNumber"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "setNumber": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SET_DELETED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "setId"
+          ],
+          "properties": {
+            "setId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "WEIGHT_CHANGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "weight",
+            "weightKg"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "weight": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "weightUnit": {
+              "enum": [
+                "kg",
+                "lb"
+              ]
+            },
+            "weightKg": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "REPS_CHANGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "targetReps": {
+              "type": "string"
+            },
+            "setId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reps": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "EXERCISE_CHANGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "fromExerciseId",
+            "toExerciseId"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "fromExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "toExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "EXERCISE_SKIPPED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "PLANNED_SETS_CHANGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "plannedSets",
+            "previousPlannedSets",
+            "reason"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "plannedSets": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "previousPlannedSets": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reason": {
+              "enum": [
+                "extra_set",
+                "user_edit"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "REST_STARTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "afterSetId",
+            "targetSec"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "afterSetId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "targetSec": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "REST_ENDED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "reason"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reason": {
+              "enum": [
+                "timer",
+                "user",
+                "logged_through"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "COACHING_RESPONSE"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "textSpoken",
+            "lang",
+            "silence",
+            "citedFacts"
+          ],
+          "properties": {
+            "textSpoken": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "lang": {
+              "type": "string"
+            },
+            "silence": {
+              "type": "boolean"
+            },
+            "actId": {
+              "type": "string"
+            },
+            "citedFacts": {
+              "type": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "CLARIFICATION_REQUESTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prompt"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pendingCandidate": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "INTENT_REJECTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reason",
+            "candidateType"
+          ],
+          "properties": {
+            "reason": {
+              "type": "string"
+            },
+            "candidateType": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SUBSTITUTION_APPLIED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workoutExerciseId",
+            "fromExerciseId",
+            "toExerciseId",
+            "preserveObjective"
+          ],
+          "properties": {
+            "workoutExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "fromExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "toExerciseId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "preserveObjective": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "LANGUAGE_DETECTED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lang",
+            "confidence",
+            "mixed"
+          ],
+          "properties": {
+            "lang": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number"
+            },
+            "mixed": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "BARGE_IN"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cancelledTtsId"
+          ],
+          "properties": {
+            "cancelledTtsId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "TURN_ENDED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "turnId",
+            "durationMs"
+          ],
+          "properties": {
+            "turnId": {
+              "type": "string"
+            },
+            "durationMs": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "AUDIO_FOCUS_CHANGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "phase"
+          ],
+          "properties": {
+            "phase": {
+              "enum": [
+                "ducked",
+                "restored",
+                "denied",
+                "unsupported"
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "MEMORY_UPDATED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "preferenceKey",
+            "value",
+            "userVisible"
+          ],
+          "properties": {
+            "preferenceKey": {
+              "type": "string"
+            },
+            "value": true,
+            "userVisible": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "occurredAt",
+        "recordedAt",
+        "source",
+        "schemaVersion",
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "voice",
+            "manual",
+            "imported",
+            "ai-generated",
+            "system"
+          ]
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "transcriptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sttFinalHash": {
+          "type": "string",
+          "minLength": 8
+        },
+        "batchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "const": "SYNC_ACKNOWLEDGED"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "serverSeq"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "serverSeq": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

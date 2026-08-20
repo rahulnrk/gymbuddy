@@ -1,0 +1,12 @@
+{
+  "id": "27-music.event.unsupported-still-logs",
+  "schemaVersion": 1,
+  "pr": ["5"],
+  "contract": "27-music-coexistence-audio-focus",
+  "stage": "event",
+  "expect": {
+    "unsupported": true,
+    "ttsStarted": true,
+    "focusReleased": true
+  }
+}

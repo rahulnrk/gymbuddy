@@ -1,0 +1,32 @@
+{
+  "id": "06-state-machine.event.catch-up-40x12-10-8",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "layer": "pr2_projector",
+  "relatedPr1Golden": "04-nl-logging.event.multi-set-40x12-10-8",
+  "contract": "06-deterministic-workout-state-machine",
+  "stage": "event",
+  "utterance": "First set was 12 at 40, second was 10, and I got 8 on this one.",
+  "notes": "Same scenario as 04-nl-logging.event.multi-set-40x12-10-8, projector layer. Do not implement in PR 1.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "completedSets": [],
+    "plannedSets": 4
+  },
+  "expect": {
+    "layer": "pr2_projector",
+    "rows": 3,
+    "officialSetNumbers": [
+      1,
+      2,
+      3
+    ],
+    "restStartedBetween": 0,
+    "restStartedAfterLastIfPlannedRemain": true,
+    "setStartedPerBackfill": false
+  }
+}

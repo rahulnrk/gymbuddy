@@ -1,0 +1,22 @@
+{
+  "id": "01-lifecycle.event.session-init-then-workout-started",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "2"
+  ],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "event",
+  "expect": {
+    "from": "IDLE",
+    "sequence": [
+      "SESSION_INITIALIZED",
+      "WORKOUT_STARTED"
+    ],
+    "invalid": {
+      "from": "IDLE",
+      "event": "WORKOUT_STARTED"
+    }
+  },
+  "layer": "pr2_state_machine"
+}

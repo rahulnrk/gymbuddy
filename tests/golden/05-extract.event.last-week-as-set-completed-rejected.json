@@ -1,0 +1,48 @@
+{
+  "id": "05-extract.event.last-week-as-set-completed-rejected",
+  "schemaVersion": 1,
+  "pr": [
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "05-structured-event-extraction",
+  "stage": "event",
+  "utterance": "Last week I did 55.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "intent": "question",
+    "historical": {
+      "previousSessionsForExercise": []
+    },
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 700,
+    "overlappingVad": false
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "USER_QUESTION",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "questionOriginal": 0.9
+        },
+        "payload": {
+          "questionOriginal": "Last week I did 55?",
+          "topic": "history"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "UserQuestion",
+    "commitSet": false,
+    "notFactType": "SetCompleted",
+    "notInventHistory": true
+  }
+}

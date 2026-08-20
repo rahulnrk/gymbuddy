@@ -1,0 +1,45 @@
+{
+  "id": "04-nl-logging.event.drop-weight-not-a-set",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "1"
+  ],
+  "contract": "04-conversational-workout-parsing",
+  "stage": "event",
+  "utterance": "Let's drop the weight.",
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "WEIGHT_CHANGED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "weight": 0.8
+        },
+        "payload": {
+          "weight": 55,
+          "weightUnit": "kg"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "WeightChanged",
+    "weightKg": 55,
+    "notFactType": "SetCompleted"
+  },
+  "layer": "pr1_validator",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "currentWeightKg": 60,
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 500,
+    "overlappingVad": false
+  }
+}

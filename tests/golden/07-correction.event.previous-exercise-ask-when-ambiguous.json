@@ -1,0 +1,57 @@
+{
+  "id": "07-correction.event.previous-exercise-ask-when-ambiguous",
+  "schemaVersion": 1,
+  "pr": [
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "07-correction-reconciliation",
+  "stage": "event",
+  "utterance": "That was 9.",
+  "given": {
+    "sessionState": "EXERCISE_ACTIVE",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444445",
+    "currentExerciseName": "Incline Press",
+    "currentExerciseStartedAt": "2026-08-20T16:00:00Z",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 400,
+    "overlappingVad": false,
+    "completedSets": [],
+    "conversationalTopic": "incline",
+    "previousExerciseLastSet": {
+      "setId": "66666666-6666-4666-8666-666666666666",
+      "setNumber": 1,
+      "reps": 10,
+      "weightKg": 60,
+      "occurredAt": "2026-08-20T15:57:00Z",
+      "exerciseId": "44444444-4444-4444-8444-444444444444"
+    }
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_CORRECTED",
+        "overallConfidence": 0.92,
+        "fieldConfidence": {
+          "reps": 0.8
+        },
+        "payload": {
+          "reps": 9,
+          "target": "last"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "clarify",
+    "promptContains": "bench or incline",
+    "newSetRow": false,
+    "notFactType": "SetCompleted",
+    "acceptFactCount": 0,
+    "doNotGuess": true
+  }
+}

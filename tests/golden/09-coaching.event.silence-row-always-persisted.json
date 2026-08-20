@@ -1,0 +1,14 @@
+{
+  "id": "09-coaching.event.silence-row-always-persisted",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "9"
+  ],
+  "contract": "09-coaching-response-generation",
+  "stage": "event",
+  "expect": {
+    "coachingResponseRequired": true,
+    "silenceFieldRequired": true
+  }
+}

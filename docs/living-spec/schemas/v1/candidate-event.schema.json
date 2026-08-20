@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/candidate-event.schema.json",
+  "title": "CandidateEventEnvelope",
+  "description": "LLM extractors MUST emit this union. Unknown type values are dropped. This is not a committed catalog row. schemaVersion 1.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "candidates"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CandidateEvent"
+      }
+    }
+  },
+  "$defs": {
+    "CandidateEvent": {
+      "allOf": [
+        {
+          "type": "object",
+          "required": [
+            "candidateId",
+            "type",
+            "overallConfidence",
+            "fieldConfidence",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "candidateId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": {
+              "enum": [
+                "SET_COMPLETED",
+                "SET_CORRECTED",
+                "SET_DELETED",
+                "WEIGHT_CHANGED",
+                "REPS_CHANGED",
+                "EXERCISE_CHANGED",
+                "SUBSTITUTION_PROPOSE",
+                "USER_NOTE",
+                "USER_FEEDBACK",
+                "USER_QUESTION",
+                "COMMAND",
+                "SAFETY"
+              ]
+            },
+            "overallConfidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "fieldConfidence": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "exerciseNameRaw": {
+              "type": "string"
+            },
+            "setNumberHint": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "enum": [
+                    "first",
+                    "second",
+                    "third",
+                    "last",
+                    "this"
+                  ]
+                }
+              ]
+            },
+            "speechSpan": {
+              "type": "object",
+              "required": [
+                "startMs",
+                "endMs"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "startMs": {
+                  "type": "number"
+                },
+                "endMs": {
+                  "type": "number"
+                }
+              }
+            },
+            "loggingMode": {
+              "enum": [
+                "live",
+                "catch_up"
+              ]
+            },
+            "payload": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "const": "SET_COMPLETED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "reps": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "weight": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "weightUnit": {
+                      "enum": [
+                        "kg",
+                        "lb"
+                      ]
+                    },
+                    "rpe": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "rir": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 5
+                    },
+                    "effortNote": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "SET_CORRECTED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "reps": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "weight": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "weightUnit": {
+                      "enum": [
+                        "kg",
+                        "lb"
+                      ]
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "SET_DELETED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "WEIGHT_CHANGED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "weight"
+                  ],
+                  "properties": {
+                    "weight": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "weightUnit": {
+                      "enum": [
+                        "kg",
+                        "lb"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "REPS_CHANGED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "reps": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "targetReps": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "EXERCISE_CHANGED"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fromExerciseId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "toExerciseId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "SUBSTITUTION_PROPOSE"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fromExerciseId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "toExerciseId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "toExerciseNameRaw": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "USER_NOTE"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "textOriginal"
+                  ],
+                  "properties": {
+                    "textOriginal": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "scope": {
+                      "enum": [
+                        "set",
+                        "exercise",
+                        "session",
+                        "user"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "USER_FEEDBACK"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "easy",
+                        "hard",
+                        "dislike_exercise",
+                        "fatigue",
+                        "shoulder_discomfort",
+                        "other"
+                      ]
+                    },
+                    "intensity": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "USER_QUESTION"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "questionOriginal"
+                  ],
+                  "properties": {
+                    "questionOriginal": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "topic": {
+                      "enum": [
+                        "technique",
+                        "history",
+                        "plan",
+                        "nutrition",
+                        "recovery",
+                        "other"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "COMMAND"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "pause",
+                        "resume",
+                        "skip",
+                        "extra_set",
+                        "end_workout"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "SAFETY"
+                },
+                "payload": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "severity": {
+                      "enum": [
+                        "low",
+                        "medium",
+                        "high",
+                        "critical"
+                      ]
+                    },
+                    "category": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

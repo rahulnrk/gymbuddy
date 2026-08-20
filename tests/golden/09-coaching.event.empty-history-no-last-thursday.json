@@ -1,0 +1,12 @@
+{
+  "id": "09-coaching.event.empty-history-no-last-thursday",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "09-coaching-response-generation",
+  "stage": "event",
+  "utterance": "What did I do last Thursday?",
+  "expect": {
+    "inventedHistory": false,
+    "speak": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "02-loop.event.gold-scene-got-10-plus-one-must-speak",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "02-continuous-interaction-loop",
+  "stage": "event",
+  "utterance": "Got 10.",
+  "expect": {
+    "speak": true,
+    "actId": "useful_delta"
+  }
+}

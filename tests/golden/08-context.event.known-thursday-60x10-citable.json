@@ -1,0 +1,29 @@
+{
+  "id": "08-context.event.known-thursday-60x10-citable",
+  "schemaVersion": 1,
+  "pr": ["4"],
+  "contract": "08-four-context-assembly",
+  "stage": "event",
+  "given": {
+    "currentWeightKg": 62.5,
+    "historical": {
+      "previousSessionsForExercise": [
+        {
+          "occurredOn": "2026-08-13",
+          "sets": [
+            {"setId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1", "setNumber": 1, "weightKg": 60, "reps": 10},
+            {"setId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2", "setNumber": 2, "weightKg": 60, "reps": 9},
+            {"setId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3", "setNumber": 3, "weightKg": 60, "reps": 8}
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "stance": "known",
+    "historicalReps": [10, 9, 8],
+    "setNumbers": [1, 2, 3],
+    "citable": true,
+    "currentWeightKg": 62.5
+  }
+}

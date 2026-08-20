@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/workout-context.schema.json",
+  "title": "WorkoutStateContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sessionId",
+    "workoutId",
+    "workoutName",
+    "sessionState",
+    "voiceState",
+    "completedSets",
+    "remainingSetsPlanned",
+    "substitutions",
+    "startedAt"
+  ],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "workoutId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "workoutName": {
+      "type": "string"
+    },
+    "sessionState": {
+      "enum": [
+        "IDLE",
+        "WORKOUT_STARTING",
+        "READY_FOR_EXERCISE",
+        "EXERCISE_ACTIVE",
+        "SET_ACTIVE",
+        "SET_COMPLETED",
+        "RESTING",
+        "PAUSED",
+        "EXERCISE_COMPLETE",
+        "WORKOUT_COMPLETE",
+        "ERROR_RECOVERY"
+      ]
+    },
+    "voiceState": {
+      "enum": [
+        "SILENT",
+        "LISTENING",
+        "USER_SPEAKING",
+        "PROCESSING",
+        "AI_SPEAKING",
+        "INTERRUPTED",
+        "STOPPED"
+      ]
+    },
+    "currentExerciseId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "currentExerciseName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "currentSetNumber": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "completedSets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "setId",
+          "setNumber"
+        ],
+        "properties": {
+          "setId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "setNumber": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "exerciseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "weightKg": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "reps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "rpe": {
+            "type": "number"
+          },
+          "rir": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "remainingSetsPlanned": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "targetReps": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "currentWeightKg": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "restStartedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "restTargetSec": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "restRemainingSec": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "substitutions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fromExerciseId",
+          "toExerciseId"
+        ],
+        "properties": {
+          "fromExerciseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "toExerciseId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "previousExerciseLastSet": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "currentExerciseStartedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

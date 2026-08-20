@@ -1,0 +1,19 @@
+{
+  "id": "09-coaching.voice.plus-one-rep-must-speak",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "9"
+  ],
+  "contract": "09-coaching-response-generation",
+  "stage": "voice",
+  "given": {
+    "previousReps": 9,
+    "thisReps": 10,
+    "sessionState": "RESTING"
+  },
+  "expect": {
+    "speak": true,
+    "actId": "useful_delta"
+  }
+}

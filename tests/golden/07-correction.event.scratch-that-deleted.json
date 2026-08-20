@@ -1,0 +1,64 @@
+{
+  "id": "07-correction.event.scratch-that-deleted",
+  "schemaVersion": 1,
+  "pr": [
+    "1"
+  ],
+  "layer": "pr1_validator",
+  "contract": "07-correction-reconciliation",
+  "stage": "event",
+  "utterance": "Scratch that.",
+  "given": {
+    "sessionState": "RESTING",
+    "currentExerciseId": "44444444-4444-4444-8444-444444444444",
+    "audioRoute": "headset",
+    "talkerCount": 1,
+    "sttDurationMs": 400,
+    "overlappingVad": false,
+    "completedSets": [
+      {
+        "setId": "66666666-6666-4666-8666-666666666666",
+        "setNumber": 1,
+        "reps": 10,
+        "weightKg": 60,
+        "occurredAt": "2026-08-20T16:00:00Z",
+        "exerciseId": "44444444-4444-4444-8444-444444444444"
+      }
+    ],
+    "lastSet": {
+      "setId": "66666666-6666-4666-8666-666666666666",
+      "reps": 10,
+      "weightKg": 60
+    }
+  },
+  "input": {
+    "schemaVersion": 1,
+    "candidates": [
+      {
+        "candidateId": "77777777-7777-4777-8777-777777777777",
+        "type": "SET_DELETED",
+        "overallConfidence": 0.9,
+        "fieldConfidence": {
+          "reason": 0.9
+        },
+        "payload": {
+          "reason": "scratch that"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "schemaValid": true,
+    "decision": "accept",
+    "factType": "SetDeleted",
+    "setId": "66666666-6666-4666-8666-666666666666",
+    "newSetRow": false,
+    "notFactType": "SetCompleted",
+    "previous": {
+      "setId": "66666666-6666-4666-8666-666666666666",
+      "reps": 10,
+      "weightKg": 60
+    },
+    "replacementSetCompleted": false
+  }
+}

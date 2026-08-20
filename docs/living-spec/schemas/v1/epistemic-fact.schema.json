@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/epistemic-fact.schema.json",
+  "title": "EpistemicFact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "stance",
+    "sourceRowIds",
+    "speechAllowed"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "set",
+        "session_summary",
+        "pr",
+        "note",
+        "aggregate",
+        "knowledge",
+        "catalog_exercise"
+      ]
+    },
+    "stance": {
+      "enum": [
+        "known",
+        "estimated",
+        "inferred",
+        "uncertain",
+        "none"
+      ]
+    },
+    "value": true,
+    "sourceRowIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "speechAllowed": {
+      "type": "boolean"
+    }
+  }
+}

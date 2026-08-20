@@ -1,0 +1,11 @@
+{
+  "id": "11-safety.event.why-shoulder-question-no-safety-concern",
+  "schemaVersion": 1,
+  "pr": ["6"],
+  "contract": "11-safety-layer",
+  "stage": "event",
+  "utterance": "Why do I feel this in my shoulder?",
+  "expect": {
+    "safetyConcern": false
+  }
+}

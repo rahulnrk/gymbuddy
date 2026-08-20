@@ -1,0 +1,14 @@
+{
+  "id": "27-music.event.restore-after-barge-in",
+  "schemaVersion": 1,
+  "pr": ["5"],
+  "contract": "27-music-coexistence-audio-focus",
+  "stage": "event",
+  "expect": {
+    "duckRequested": true,
+    "ttsStarted": true,
+    "ttsMustCancel": true,
+    "restoreRequested": true,
+    "focusReleased": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "08-context.offline.assemble-from-local",
+  "schemaVersion": 1,
+  "pr": ["4"],
+  "contract": "08-four-context-assembly",
+  "stage": "offline",
+  "given": {
+    "currentWeightKg": 60,
+    "pendingClarification": {
+      "question": "Replace set 2 or keep both?",
+      "options": ["replace", "keep_both"]
+    },
+    "historical": {
+      "previousSessionsForExercise": [
+        {
+          "occurredOn": "2026-08-13",
+          "sets": [
+            {"setId": "dddddddd-dddd-4ddd-8ddd-ddddddddddd1", "setNumber": 1, "weightKg": 60, "reps": 10}
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "stance": "known",
+    "historicalReps": [10],
+    "setNumbers": [1],
+    "currentWeightKg": 60,
+    "pendingQuestion": "Replace set 2 or keep both?",
+    "citable": true
+  }
+}

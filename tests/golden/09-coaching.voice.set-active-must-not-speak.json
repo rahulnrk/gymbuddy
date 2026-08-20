@@ -1,0 +1,15 @@
+{
+  "id": "09-coaching.voice.set-active-must-not-speak",
+  "schemaVersion": 1,
+  "pr": ["9"],
+  "contract": "09-coaching-response-generation",
+  "stage": "voice",
+  "given": {
+    "sessionState": "SET_ACTIVE",
+    "userQuestion": false
+  },
+  "expect": {
+    "speakNow": false,
+    "reason": "set_active"
+  }
+}

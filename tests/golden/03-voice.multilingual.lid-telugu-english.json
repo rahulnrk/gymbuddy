@@ -1,0 +1,15 @@
+{
+  "id": "03-voice.multilingual.lid-telugu-english",
+  "schemaVersion": 1,
+  "pr": ["5"],
+  "contract": "03-voice-pipeline",
+  "stage": "multilingual",
+  "input": {
+    "transcript": "Nenu 60 kilos tho eight reps chesa."
+  },
+  "expect": {
+    "lang": "te",
+    "mixed": true,
+    "transcriptUnchanged": true
+  }
+}

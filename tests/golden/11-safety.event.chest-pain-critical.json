@@ -1,0 +1,19 @@
+{
+  "id": "11-safety.event.chest-pain-critical",
+  "schemaVersion": 1,
+  "pr": [
+    "0",
+    "6"
+  ],
+  "contract": "11-safety-layer",
+  "stage": "event",
+  "utterance": "my chest hurts",
+  "expect": {
+    "runsOn": "raw_transcript_before_extract",
+    "category": "chest_pain",
+    "severity": "critical",
+    "action": "stop_recommend",
+    "pause": true,
+    "llmCannotOverride": true
+  }
+}

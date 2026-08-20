@@ -1,0 +1,26 @@
+{
+  "id": "08-context.event.uncertain-must-check-db",
+  "schemaVersion": 1,
+  "pr": ["4"],
+  "contract": "08-four-context-assembly",
+  "stage": "event",
+  "given": {
+    "previousSessionsForExercise": [],
+    "lastUserUtterance": {
+      "text": "I think I used 55 last week.",
+      "lang": "en",
+      "at": "2026-08-20T16:00:00Z"
+    },
+    "uncertainFacts": [
+      {
+        "id": "fact:uncertain:last-week-weight",
+        "kind": "aggregate",
+        "value": 55
+      }
+    ]
+  },
+  "expect": {
+    "stance": "uncertain",
+    "forbiddenSpeech": ["last time"]
+  }
+}

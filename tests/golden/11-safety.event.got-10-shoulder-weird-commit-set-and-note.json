@@ -1,0 +1,16 @@
+{
+  "id": "11-safety.event.got-10-shoulder-weird-commit-set-and-note",
+  "schemaVersion": 1,
+  "pr": ["6"],
+  "contract": "11-safety-layer",
+  "stage": "event",
+  "utterance": "I got 10 but my shoulder feels weird",
+  "expect": {
+    "category": "discomfort_mild",
+    "severity": "medium",
+    "action": "advise",
+    "pause": false,
+    "allowSetCompleted": true,
+    "safetyConcern": true
+  }
+}
