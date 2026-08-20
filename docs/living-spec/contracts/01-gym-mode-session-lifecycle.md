@@ -1,13 +1,13 @@
 ---
 id: 01-gym-mode-session-lifecycle
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Gym Mode session lifecycle (start, pause, resume, complete)
 
-**Status:** implemented  
+**Status:** implementing  
 **Core-loop role:** Kernel. Enters and exits the continuous interaction loop. Without this, there is no companion session.
 
 ### User behavior

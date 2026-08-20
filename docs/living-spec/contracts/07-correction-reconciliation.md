@@ -1,6 +1,6 @@
 ---
 id: 07-correction-reconciliation
-status: specified
+status: implemented
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---

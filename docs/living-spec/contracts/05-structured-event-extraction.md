@@ -1,13 +1,13 @@
 ---
 id: 05-structured-event-extraction
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Structured event extraction and validation
 
-**Status:** implemented  
+**Status:** implementing  
 
 **Core-loop role:** Kernel. The only gate from language to truth.
 

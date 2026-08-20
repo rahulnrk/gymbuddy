@@ -1,13 +1,13 @@
 ---
 id: 17-workout-plans-and-editing
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Workout plans and workout editing
 
-**Status:** specified  
+**Status:** implementing  
 **Core-loop role:** Supporting. Lets the user (and later the adapter) change what Gym Mode will run. AI plan is a recommendation, not a lock (product §29).
 
 ### User behavior

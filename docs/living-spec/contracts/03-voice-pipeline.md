@@ -1,13 +1,13 @@
 ---
 id: 03-voice-pipeline
-status: implemented
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Voice pipeline (VAD, STT, language ID, barge-in, TTS, echo, turn detection)
 
-**Status:** implemented (PR 5 ports + fakes + FakeClock barge-in). Real microphone / vendor adapters are later.  
+**Status:** implementing (PR 5 ports + fakes + FakeClock barge-in). Real microphone / vendor adapters are later.  
 **Core-loop role:** Kernel I/O. Converts sound to utterances and SpeakCommands to sound. Does not own workout truth.
 
 Natural human-AI conversation is unrestricted. Voice ports transport speech; they do not constrain the user's vocabulary to commands.

@@ -1,13 +1,13 @@
 ---
 id: 04-conversational-workout-parsing
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Conversational workout parsing / natural-language set logging
 
-**Status:** implemented  
+**Status:** implementing  
 
 **Core-loop role:** Kernel NLU. Turns natural speech into candidate set facts using four contexts. Does not commit DB.
 

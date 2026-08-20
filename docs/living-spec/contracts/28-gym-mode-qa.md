@@ -1,13 +1,13 @@
 ---
 id: 28-gym-mode-qa
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Gym Mode Q&A (questions + secondary nutrition)
 
-**Status:** specified  
+**Status:** implementing  
 **Core-loop role:** Kernel-adjacent. User questions during rest keep the companion useful without turning Gym Mode into a chat tab. Nutrition is **secondary and non-medical** (product §§25–26). Silent / **not a chat tab**.
 
 ### User behavior

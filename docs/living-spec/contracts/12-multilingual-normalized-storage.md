@@ -1,13 +1,13 @@
 ---
 id: 12-multilingual-normalized-storage
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Multilingual / code-mixed conversation with English/normalized storage
 
-**Status:** specified  
+**Status:** implementing  
 **Core-loop role:** Kernel language path. Conversation language ≠ storage language (product §15).
 
 ### User behavior

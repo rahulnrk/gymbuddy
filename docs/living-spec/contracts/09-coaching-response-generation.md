@@ -1,6 +1,6 @@
 ---
 id: 09-coaching-response-generation
-status: specified
+status: implemented
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---

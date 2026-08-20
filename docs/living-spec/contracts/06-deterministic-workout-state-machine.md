@@ -1,13 +1,13 @@
 ---
 id: 06-deterministic-workout-state-machine
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Deterministic workout state machine
 
-**Status:** implemented  
+**Status:** implementing  
 
 **Core-loop role:** Kernel source of truth for session.
 

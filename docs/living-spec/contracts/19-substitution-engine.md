@@ -1,13 +1,13 @@
 ---
 id: 19-substitution-engine
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Substitution engine
 
-**Status:** specified  
+**Status:** implementing  
 **Core-loop role:** Keeps the loop going when the plan collides with reality (occupied machine, missing equipment) without the user operating a catalog.
 
 ### User behavior

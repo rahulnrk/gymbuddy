@@ -166,12 +166,72 @@ FORBIDDEN_VALIDATION_IMPORTS = (
 )
 
 
+NAMED_CASE_RE = re.compile(
+    r"\b(\d{2}-[a-z-]+\.(?:event|state|voice|ui|db|offline|multilingual|correction)\.[a-z0-9-]+)"
+)
+VALID_STATUSES = ("proposed", "specified", "implementing", "implemented", "drifted")
+
+
+def contract_status(text: str) -> tuple[str | None, str | None]:
+    """Return (frontmatter_status, body_status). Either may be None."""
+    fm = re.search(r"(?m)^status:\s*(\S+)", text)
+    bd = re.search(r"(?m)^\*\*Status:\*\*\s*(\S+)", text)
+    return (fm.group(1).strip() if fm else None, bd.group(1).strip() if bd else None)
+
+
+def named_goldens(text: str) -> list[str]:
+    """Test-case ids named in the contract's ### Tests section."""
+    if "### Tests" not in text:
+        return []
+    return sorted(set(NAMED_CASE_RE.findall(text.split("### Tests")[-1])))
+
+
+def check_status_evidence(name: str, text: str, present: set[str]) -> list[str]:
+    """Status must agree with the evidence actually on disk.
+
+    A manually maintained field is not the source of truth. The rule is:
+      implemented  => every named golden exists (AGENTS.md forbidden #14)
+      specified    => no named golden exists yet (otherwise it is understated)
+      frontmatter  == body, always
+    """
+    out: list[str] = []
+    fm, bd = contract_status(text)
+    if fm is None:
+        return [f"{name} missing frontmatter 'status:'"]
+    if bd is None:
+        return [f"{name} missing body '**Status:**'"]
+    if fm not in VALID_STATUSES:
+        out.append(f"{name} invalid status {fm!r}")
+    if fm != bd:
+        out.append(f"{name} status drift: frontmatter={fm!r} but body={bd!r}")
+    if fm == "drifted":
+        out.append(f"{name} is marked drifted; repair before further feature work")
+
+    ids = named_goldens(text)
+    missing = [i for i in ids if i not in present]
+    have = [i for i in ids if i in present]
+
+    if fm == "implemented" and missing:
+        out.append(
+            f"{name} claims implemented but {len(missing)} named golden(s) are absent: "
+            + ", ".join(missing[:4])
+            + ("…" if len(missing) > 4 else "")
+        )
+    if fm == "specified" and have:
+        out.append(
+            f"{name} claims specified but {len(have)} named golden(s) already exist "
+            f"({', '.join(have[:3])}); use 'implementing'"
+        )
+    return out
+
+
 def load_golden(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def main() -> None:
     errors: list[str] = []
+    present_goldens = {p.stem for p in GOLDENS.glob("*.json")}
 
     for name in REQUIRED_CONTRACTS:
         path = CONTRACTS / name
@@ -181,6 +241,7 @@ def main() -> None:
         text = path.read_text(encoding="utf-8")
         if name == "26-dashboard-todays-workout.md" and "Status:** implemented" in text:
             errors.append("dashboard contract must not be implemented in PR 0")
+        errors.extend(check_status_evidence(name, text, present_goldens))
         for stage in (
             "User behavior",
             "System state",

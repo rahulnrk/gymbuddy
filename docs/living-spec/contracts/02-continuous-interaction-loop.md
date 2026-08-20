@@ -1,13 +1,13 @@
 ---
 id: 02-continuous-interaction-loop
-status: specified
+status: implementing
 schemaVersion: 1
 source: docs/living-spec/TECHNICAL_SPEC.md
 ---
 
 ## Feature: Continuous interaction loop
 
-**Status:** implemented  
+**Status:** implementing  
 **Core-loop role:** **The product kernel.** All other features must declare how they feed this loop.
 
 Headless `CompanionLoop` coordinates existing ports. No pixels. No vendor LLM.
