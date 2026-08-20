@@ -38,6 +38,13 @@ data class TurnResult(
     val duplicateSuppressed: Boolean = false,
     val error: TurnError? = null,
     val queuedSpeechActs: List<SpeechActId> = emptyList(),
+    /** Claims supporting [spokenText]. Empty when the line asserts nothing. */
+    val claims: List<Claim> = emptyList(),
+    /** Non-empty means a claim failed to recompute and the line was stripped. */
+    val claimViolations: List<String> = emptyList(),
 ) {
     val candidates: CandidateEventEnvelope get() = extraction.envelope
+
+    /** Fact ids actually cited by this turn's spoken line. */
+    val citedFactIds: List<String> get() = claims.flatMap { c -> c.evidence.map { it.id } }.distinct()
 }
