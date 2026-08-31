@@ -66,7 +66,7 @@ class ShouldSpeakTest {
             listOf(set(1, 10, 60.0, "a"), set(2, 10, 60.0, "b")),
         )
         val d = ShouldSpeak.decide(
-            ctx(WorkoutSessionState.RESTING), s, listOf(ev(CommittedEventType.SET_COMPLETED)),
+            assembled(s), s, listOf(ev(CommittedEventType.SET_COMPLETED)),
             SafetyResult(false), false, false, null,
         )
         assertFalse(d.speak)
