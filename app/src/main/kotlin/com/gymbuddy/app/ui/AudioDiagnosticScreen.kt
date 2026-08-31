@@ -2,7 +2,6 @@ package com.gymbuddy.app.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,6 +36,7 @@ fun AudioDiagnosticScreen(
     onFocus: () -> Unit,
     onAbandonFocus: () -> Unit,
     onRefresh: () -> Unit,
+    onRunSequence: () -> Unit,
 ) {
     Column(
         Modifier
@@ -60,10 +60,18 @@ fun AudioDiagnosticScreen(
             modifier = Modifier.padding(top = 6.dp, bottom = 16.dp),
         )
 
-        RowLine("Output", state.output?.label ?: "none")
+        RowLine("Refreshed", state.refreshedAt ?: "not yet — tap Refresh or wait for a route change")
+        RowLine("Output (current route)", state.output?.label ?: "none")
         RowLine("Output kind", kindName(state.output?.kind))
-        RowLine("Input", state.input?.label ?: "none")
-        RowLine("Input kind", kindName(state.input?.kind))
+        RowLine("A2DP on", yn(state.a2dpOn))
+        RowLine("SCO on", yn(state.scoOn))
+        RowLine("SCO state", state.scoState ?: "—")
+        RowLine("Communication device", state.communicationDevice ?: "—")
+        RowLine("Available outputs", state.availableOutputs ?: "—")
+        RowLine("Available inputs", state.availableInputs ?: "—")
+        RowLine("Likely input (not capturing)", if (state.micOpen) "mic is open — see routed capture" else state.input?.label ?: "none")
+        RowLine("Routed capture input", state.actualInput?.label ?: if (state.micOpen) "unreported" else "mic closed")
+        RowLine("Routed capture type", kindName(state.actualInputKind))
         RowLine("Mic", if (state.micOpen) "open" else "closed")
         RowLine("Before mic open", state.outputBeforeMic ?: "—")
         RowLine("After mic open", state.outputAfterMic ?: "—")
@@ -71,13 +79,29 @@ fun AudioDiagnosticScreen(
             "Output switched when mic opened",
             when (state.outputSwitchedOnMicOpen) {
                 null -> "not measured yet"
-                true -> "YES — headset left high-quality audio"
+                true -> "YES — output route changed"
+                false -> "no"
+            },
+        )
+        RowLine(
+            "High-quality Bluetooth dropped",
+            when (state.a2dpDroppedOnMicOpen) {
+                null -> "not measured yet"
+                true -> "YES — left A2DP"
                 false -> "no"
             },
         )
         RowLine("Requested sample rate", "${state.requestedSampleRate} Hz")
-        RowLine("Actual sample rate", state.actualSampleRate?.let { "$it Hz" } ?: "—")
-        RowLine("Actual input kind", kindName(state.actualInputKind))
+        RowLine("Actual capture sample rate", state.actualSampleRate?.let { "$it Hz" } ?: "—")
+        RowLine(
+            "Headset mic genuine",
+            when (state.headsetMicGenuine) {
+                true -> "YES"
+                false -> "NO — not the Bluetooth microphone"
+                null -> "not measured yet"
+            },
+        )
+        RowLine("Headset mic detail", state.headsetMicReason ?: "—")
         RowLine(
             "Audio focus (duck)",
             when (state.focusGranted) {
@@ -86,11 +110,13 @@ fun AudioDiagnosticScreen(
                 null -> "not requested"
             },
         )
+        RowLine("Last clip", state.clipLengthLabel)
+        RowLine("Playback", state.playbackLabel)
 
         Spacer(Modifier.height(16.dp))
         Text("Capture mode", color = Ink, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
         Text(
-            "Headset mic uses Bluetooth SCO (call quality). Phone mic keeps A2DP music and records from the handset.",
+            "Headset mic waits for Bluetooth SCO/LE and refuses the phone mic if that route never engages. Phone mic keeps A2DP.",
             color = Mute,
             fontSize = 13.sp,
             modifier = Modifier.padding(bottom = 8.dp),
@@ -111,12 +137,26 @@ fun AudioDiagnosticScreen(
 
         Spacer(Modifier.height(16.dp))
         Action("Start / stop microphone", onToggleMic)
-        Action("Record 3 seconds", onRecord)
-        Action("Play last recording", onPlay, enabled = state.hasClip)
+        Action("Record 3 seconds", onRecord, enabled = !state.runningSequence)
+        Action(
+            if (state.playing) "Playing… tap to restart" else "Play last recording",
+            onPlay,
+        )
         Action("Request ducking audio focus", onFocus)
         Action("Abandon audio focus", onAbandonFocus)
         Action("Refresh devices", onRefresh)
+        Action(
+            if (state.runningSequence) "Running diagnostic…" else "Run full diagnostic (writes report)",
+            onRunSequence,
+            enabled = !state.runningSequence,
+        )
 
+        if (!state.reportPath.isNullOrBlank()) {
+            Text("Report: ${state.reportPath}", color = Ink, fontSize = 13.sp, modifier = Modifier.padding(top = 12.dp))
+        }
+        if (!state.adbPull.isNullOrBlank()) {
+            Text(state.adbPull!!, color = Accent, fontSize = 13.sp, modifier = Modifier.padding(top = 4.dp))
+        }
         if (!state.lastMessage.isNullOrBlank()) {
             Text(state.lastMessage!!, color = Accent, fontSize = 14.sp, modifier = Modifier.padding(top = 16.dp))
         }
@@ -174,6 +214,13 @@ private fun kindName(kind: DeviceKind?): String = when (kind) {
     DeviceKind.WIRED_HEADSET -> "wired headset"
     DeviceKind.BLUETOOTH_A2DP -> "Bluetooth A2DP"
     DeviceKind.BLUETOOTH_SCO -> "Bluetooth SCO"
+    DeviceKind.BLUETOOTH_LE -> "Bluetooth LE"
     DeviceKind.OTHER -> "other"
+    null -> "—"
+}
+
+private fun yn(v: Boolean?): String = when (v) {
+    true -> "yes"
+    false -> "no"
     null -> "—"
 }

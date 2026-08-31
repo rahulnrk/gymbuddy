@@ -90,8 +90,8 @@ class GymModeActivity : ComponentActivity() {
             val padFocus = remember { FocusRequester() }
             val restFocus = remember { FocusRequester() }
             val scope = rememberCoroutineScope()
-            val perm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
-                audio = probe.snapshot()
+            val perm = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+                audio = probe.refresh()
             }
             val activity = this@GymModeActivity
 
@@ -159,12 +159,15 @@ class GymModeActivity : ComponentActivity() {
                             weight = (weight + delta).coerceAtLeast(2.5)
                         },
                         onOpenAudio = {
-                            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO)
-                                != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                perm.launch(Manifest.permission.RECORD_AUDIO)
+                            val needed = mutableListOf(Manifest.permission.RECORD_AUDIO)
+                            if (android.os.Build.VERSION.SDK_INT >= 31) {
+                                needed += Manifest.permission.BLUETOOTH_CONNECT
                             }
-                            audio = probe.snapshot()
+                            val missing = needed.filter {
+                                ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED
+                            }
+                            if (missing.isNotEmpty()) perm.launch(missing.toTypedArray())
+                            audio = probe.refresh()
                             pane = Pane.AUDIO
                         },
                     )
@@ -172,7 +175,12 @@ class GymModeActivity : ComponentActivity() {
                         state = audio,
                         onBack = { pane = Pane.GYM },
                         onToggleMic = {
-                            audio = if (audio.micOpen) probe.stopMic() else probe.startMic()
+                            scope.launch {
+                                val s = withContext(Dispatchers.IO) {
+                                    if (probe.snapshot().micOpen) probe.stopMic() else probe.startMic()
+                                }
+                                audio = s
+                            }
                         },
                         onMode = { mode: CaptureMode ->
                             probe.captureMode = mode
@@ -184,10 +192,22 @@ class GymModeActivity : ComponentActivity() {
                                 audio = s
                             }
                         },
-                        onPlay = { audio = probe.playClip() },
+                        onPlay = {
+                            scope.launch {
+                                val s = withContext(Dispatchers.IO) { probe.playClip() }
+                                audio = s
+                            }
+                        },
                         onFocus = { audio = probe.requestDuckFocus() },
                         onAbandonFocus = { audio = probe.abandonFocus() },
-                        onRefresh = { audio = probe.snapshot() },
+                        onRefresh = { audio = probe.refresh() },
+                        onRunSequence = {
+                            scope.launch {
+                                audio = probe.snapshot().copy(runningSequence = true, lastMessage = "Running diagnostic…")
+                                val s = withContext(Dispatchers.IO) { probe.runFullSequence() }
+                                audio = s
+                            }
+                        },
                     )
                 }
             }
