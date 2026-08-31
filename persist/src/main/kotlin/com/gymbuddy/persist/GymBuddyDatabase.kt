@@ -26,7 +26,7 @@ class GymBuddyDatabase private constructor(
     }
 
     companion object {
-        const val VERSION = 1
+        const val VERSION = SchemaSql.VERSION
 
         fun open(jdbcUrl: String): GymBuddyDatabase {
             Class.forName("org.sqlite.JDBC")
@@ -79,63 +79,7 @@ object SchemaMigrator {
 
     fun applyV1(conn: Connection) {
         conn.createStatement().use { st ->
-            st.execute(
-                """
-                CREATE TABLE IF NOT EXISTS event_log (
-                  event_id TEXT PRIMARY KEY NOT NULL,
-                  session_id TEXT NOT NULL,
-                  user_id TEXT NOT NULL,
-                  event_type TEXT NOT NULL,
-                  schema_version INTEGER NOT NULL,
-                  sequence INTEGER NOT NULL,
-                  payload_json TEXT NOT NULL,
-                  occurred_at TEXT NOT NULL,
-                  recorded_at TEXT NOT NULL,
-                  source TEXT NOT NULL,
-                  transcript_id TEXT,
-                  language TEXT,
-                  confidence REAL,
-                  stt_final_hash TEXT,
-                  batch_id TEXT,
-                  UNIQUE(user_id, event_id),
-                  UNIQUE(session_id, sequence)
-                )
-                """.trimIndent(),
-            )
-            st.execute(
-                """
-                CREATE TABLE IF NOT EXISTS fixture_user (
-                  id TEXT PRIMARY KEY NOT NULL,
-                  display_name TEXT NOT NULL
-                )
-                """.trimIndent(),
-            )
-            st.execute(
-                """
-                CREATE TABLE IF NOT EXISTS fixture_exercise (
-                  id TEXT PRIMARY KEY NOT NULL,
-                  canonical_name TEXT NOT NULL
-                )
-                """.trimIndent(),
-            )
-            st.execute(
-                """
-                CREATE TABLE IF NOT EXISTS fixture_workout (
-                  id TEXT PRIMARY KEY NOT NULL,
-                  user_id TEXT NOT NULL,
-                  name TEXT NOT NULL
-                )
-                """.trimIndent(),
-            )
-            st.execute(
-                """
-                CREATE TABLE IF NOT EXISTS fixture_session (
-                  id TEXT PRIMARY KEY NOT NULL,
-                  user_id TEXT NOT NULL,
-                  workout_id TEXT NOT NULL
-                )
-                """.trimIndent(),
-            )
+            SchemaSql.apply { sql -> st.execute(sql) }
         }
     }
 }
@@ -147,28 +91,27 @@ object PersistFixtures {
     const val SESSION_ID = "22222222-2222-4222-8222-222222222222"
     const val WORKOUT_EXERCISE_ID = "55555555-5555-4555-8555-555555555555"
 
+    fun seedStatements(): List<Pair<String, Array<String>>> = listOf(
+        "INSERT OR IGNORE INTO fixture_user(id, display_name) VALUES (?, ?)" to
+            arrayOf(USER_ID, "Fixture"),
+        "INSERT OR IGNORE INTO fixture_exercise(id, canonical_name) VALUES (?, ?)" to
+            arrayOf(EXERCISE_ID, "Bench Press"),
+        "INSERT OR IGNORE INTO fixture_workout(id, user_id, name) VALUES (?, ?, ?)" to
+            arrayOf(WORKOUT_ID, USER_ID, "Chest / Triceps"),
+        "INSERT OR IGNORE INTO fixture_session(id, user_id, workout_id) VALUES (?, ?, ?)" to
+            arrayOf(SESSION_ID, USER_ID, WORKOUT_ID),
+    )
+
+    fun seed(exec: (sql: String, args: Array<String>) -> Unit) {
+        seedStatements().forEach { (sql, args) -> exec(sql, args) }
+    }
+
     fun seed(conn: Connection) {
-        conn.prepareStatement("INSERT OR IGNORE INTO fixture_user(id, display_name) VALUES (?, ?)").use {
-            it.setString(1, USER_ID)
-            it.setString(2, "Fixture")
-            it.executeUpdate()
-        }
-        conn.prepareStatement("INSERT OR IGNORE INTO fixture_exercise(id, canonical_name) VALUES (?, ?)").use {
-            it.setString(1, EXERCISE_ID)
-            it.setString(2, "Bench Press")
-            it.executeUpdate()
-        }
-        conn.prepareStatement("INSERT OR IGNORE INTO fixture_workout(id, user_id, name) VALUES (?, ?, ?)").use {
-            it.setString(1, WORKOUT_ID)
-            it.setString(2, USER_ID)
-            it.setString(3, "Chest / Triceps")
-            it.executeUpdate()
-        }
-        conn.prepareStatement("INSERT OR IGNORE INTO fixture_session(id, user_id, workout_id) VALUES (?, ?, ?)").use {
-            it.setString(1, SESSION_ID)
-            it.setString(2, USER_ID)
-            it.setString(3, WORKOUT_ID)
-            it.executeUpdate()
+        seed { sql, args ->
+            conn.prepareStatement(sql).use { ps ->
+                args.forEachIndexed { i, v -> ps.setString(i + 1, v) }
+                ps.executeUpdate()
+            }
         }
     }
 }

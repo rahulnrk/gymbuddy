@@ -17,6 +17,12 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+sourceSets {
+    main {
+        resources.srcDir("schemas")
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }

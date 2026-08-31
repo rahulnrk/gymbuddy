@@ -54,6 +54,16 @@ class SchemaMigrationTest {
     }
 
     @Test
+    fun v1SqlIsTheOnlyEventLogDdl() {
+        val statements = SchemaSql.statements()
+        assertTrue(statements.any { it.startsWith("CREATE TABLE IF NOT EXISTS event_log") })
+        assertTrue(statements.any { "fixture_user" in it })
+        assertEquals(SchemaSql.VERSION, GymBuddyDatabase.VERSION)
+        val raw = SchemaSql.ddl()
+        assertTrue("-- GymBuddy persist schema version 1" in raw)
+    }
+
+    @Test
     fun downwardMigrateRejected() {
         Class.forName("org.sqlite.JDBC")
         val conn = DriverManager.getConnection("jdbc:sqlite::memory:")
