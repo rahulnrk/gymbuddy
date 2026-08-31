@@ -574,6 +574,46 @@ def main() -> None:
             if "com.openai" in ab or "elevenlabs" in ab.lower():
                 errors.append(":app PR 10 must not depend on voice vendors")
 
+        v1_sql = ROOT / "persist" / "schemas" / "v1.sql"
+        if not v1_sql.is_file() or "CREATE TABLE IF NOT EXISTS event_log" not in v1_sql.read_text(encoding="utf-8"):
+            errors.append("persist/schemas/v1.sql must be the event_log DDL")
+        android_log = (
+            ROOT / "app" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "app" / "persist" / "AndroidEventLog.kt"
+        )
+        if not android_log.is_file():
+            errors.append("AndroidEventLog missing")
+        else:
+            at = android_log.read_text(encoding="utf-8")
+            if "CREATE TABLE IF NOT EXISTS event_log" in at:
+                errors.append("AndroidEventLog must not declare event_log DDL; use persist SchemaSql")
+            if "SchemaSql" not in at:
+                errors.append("AndroidEventLog must apply persist SchemaSql")
+            if "PersistFixtures.seed" not in at:
+                errors.append("AndroidEventLog must seed via PersistFixtures")
+        app_test_dir = ROOT / "app" / "src" / "test"
+        persist_test_dir = ROOT / "persist" / "src" / "test"
+        app_tests = list(app_test_dir.rglob("*.kt")) if app_test_dir.is_dir() else []
+        persist_tests = list(persist_test_dir.rglob("*.kt")) if persist_test_dir.is_dir() else []
+        test_text = "\n".join(p.read_text(encoding="utf-8") for p in app_tests + persist_tests)
+        if "AndroidEventLog(" not in test_text:
+            errors.append("AndroidEventLog has no unit tests")
+        if "InMemoryEventLog" not in test_text or "RoomEventLog" not in test_text:
+            errors.append("EventLog equivalence must compare InMemoryEventLog, RoomEventLog, and AndroidEventLog")
+        if "ThreeWayEventLogEquivalenceTest" not in test_text:
+            errors.append("missing ThreeWayEventLogEquivalenceTest")
+        # Any production EventLog outside :domain must appear in tests.
+        impl_re = re.compile(r"class\s+(\w+)\b[^:{]*:\s*EventLog\b")
+        for folder in (ROOT / "app" / "src" / "main", ROOT / "persist" / "src" / "main"):
+            if not folder.is_dir():
+                continue
+            for p in folder.rglob("*.kt"):
+                src = p.read_text(encoding="utf-8")
+                for name in impl_re.findall(src):
+                    if name not in test_text:
+                        errors.append(f"{name} EventLog implementation has no tests")
+                    if name != "RoomEventLog" and "CREATE TABLE" in src:
+                        errors.append(f"{name} must not declare CREATE TABLE; share persist SchemaSql")
+
 
     persist_main = ROOT / "persist" / "src" / "main" / "kotlin"
     persist_kt = list(persist_main.rglob("*.kt")) if persist_main.is_dir() else []
@@ -586,6 +626,7 @@ def main() -> None:
             "class WorkoutEventEntity",
             "object WorkoutEventCodec",
             "class GymBuddyDatabase",
+            "object SchemaSql",
         ):
             if req not in persist_text:
                 errors.append(f"persist missing {req}")
