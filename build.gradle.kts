@@ -9,7 +9,7 @@ allprojects {
 }
 
 tasks.register("pr0Check") {
-    dependsOn(":domain:test")
+    dependsOn(":domain:test", ":app:test")
     doLast {
         exec {
             commandLine("python", "scripts/check_living_spec.py")

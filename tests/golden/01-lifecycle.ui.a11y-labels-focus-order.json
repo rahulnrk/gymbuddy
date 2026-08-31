@@ -1,0 +1,13 @@
+{
+  "id": "01-lifecycle.ui.a11y-labels-focus-order",
+  "schemaVersion": 1,
+  "pr": ["10"],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "ui",
+  "expect": {
+    "everyControlHasLabel": true,
+    "focusOrder": ["lifecycle", "numberPad", "rest"],
+    "minTapTargetDp": 44,
+    "highContrast": true
+  }
+}

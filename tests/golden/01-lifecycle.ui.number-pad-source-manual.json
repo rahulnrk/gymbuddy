@@ -1,0 +1,11 @@
+{
+  "id": "01-lifecycle.ui.number-pad-source-manual",
+  "schemaVersion": 1,
+  "pr": ["10"],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "ui",
+  "expect": {
+    "setSource": "manual",
+    "typesInclude": ["SET_COMPLETED"]
+  }
+}

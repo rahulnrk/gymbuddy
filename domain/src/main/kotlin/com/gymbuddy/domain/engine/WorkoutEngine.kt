@@ -42,6 +42,7 @@ class WorkoutEngine(
         userId: String,
         sessionId: String,
         plan: WorkoutPlan,
+        source: EventSource = EventSource.SYSTEM,
     ): EngineResult {
         val current = snapshot(sessionId, plan)
         if (current.phase != WorkoutSessionState.IDLE && current.phase != WorkoutSessionState.WORKOUT_COMPLETE) {
@@ -56,7 +57,7 @@ class WorkoutEngine(
         val started = EventFactory.event(
             CommittedEventType.WORKOUT_STARTED, userId, sessionId,
             EventFactory.payload("workoutId" to plan.workoutId, "startedAt" to now()),
-            EventSource.SYSTEM, now(),
+            source, now(),
         )
         val first = plan.exercises.first()
         val ex = EventFactory.event(
@@ -138,17 +139,22 @@ class WorkoutEngine(
         return commit(sessionId, plan, listOf(ev))
     }
 
-    fun pause(sessionId: String, plan: WorkoutPlan, restRemainingSec: Double? = sRest(sessionId, plan)): EngineResult {
+    fun pause(
+        sessionId: String,
+        plan: WorkoutPlan,
+        restRemainingSec: Double? = sRest(sessionId, plan),
+        source: EventSource = EventSource.SYSTEM,
+    ): EngineResult {
         val s = snapshot(sessionId, plan)
         val ev = EventFactory.event(
             CommittedEventType.WORKOUT_PAUSED, s.userId ?: return reject("no user"), s.sessionId,
             EventFactory.payload("reason" to "user", "restRemainingSec" to restRemainingSec),
-            EventSource.SYSTEM, now(),
+            source, now(),
         )
         return commit(sessionId, plan, listOf(ev))
     }
 
-    fun resume(sessionId: String, plan: WorkoutPlan): EngineResult {
+    fun resume(sessionId: String, plan: WorkoutPlan, source: EventSource = EventSource.SYSTEM): EngineResult {
         val s = snapshot(sessionId, plan)
         val ev = EventFactory.event(
             CommittedEventType.WORKOUT_RESUMED, s.userId ?: return reject("no user"), s.sessionId,
@@ -156,17 +162,17 @@ class WorkoutEngine(
                 "restoredState" to (s.prePauseState?.name ?: "READY_FOR_EXERCISE"),
                 "restRemainingSec" to s.restRemainingSec,
             ),
-            EventSource.SYSTEM, now(),
+            source, now(),
         )
         return commit(sessionId, plan, listOf(ev))
     }
 
-    fun complete(sessionId: String, plan: WorkoutPlan): EngineResult {
+    fun complete(sessionId: String, plan: WorkoutPlan, source: EventSource = EventSource.SYSTEM): EngineResult {
         val s = snapshot(sessionId, plan)
         val ev = EventFactory.event(
             CommittedEventType.WORKOUT_COMPLETED, s.userId ?: return reject("no user"), s.sessionId,
             EventFactory.payload("completedAt" to now()),
-            EventSource.SYSTEM, now(),
+            source, now(),
         )
         return commit(sessionId, plan, listOf(ev))
     }
@@ -191,7 +197,12 @@ class WorkoutEngine(
      * Commit validated facts. Never calls validateTurn. Occupancy CLARIFY
      * produces no facts; this method must not invent a correction.
      */
-    fun applyFacts(sessionId: String, plan: WorkoutPlan, facts: List<ValidatedFact>): EngineResult {
+    fun applyFacts(
+        sessionId: String,
+        plan: WorkoutPlan,
+        facts: List<ValidatedFact>,
+        source: EventSource = EventSource.VOICE,
+    ): EngineResult {
         if (facts.isEmpty()) return EngineResult.Committed(emptyList(), snapshot(sessionId, plan))
         var s = snapshot(sessionId, plan)
         val userId = s.userId ?: return reject("no user")
@@ -202,7 +213,8 @@ class WorkoutEngine(
         if (catchUp && completedFacts.isNotEmpty()) {
             val batch = completedFacts.first().batchId ?: newId()
             completedFacts.forEachIndexed { _, fact ->
-                val evs = emitSetCompleted(s, userId, fact, catchUp = true, batchId = batch) ?: return reject("cannot complete set from ${s.phase}")
+                val evs = emitSetCompleted(s, userId, fact, catchUp = true, batchId = batch, source = source)
+                    ?: return reject("cannot complete set from ${s.phase}")
                 evs.forEach { e ->
                     when (val r = WorkoutProjector.apply(s.copy(plan = plan), e)) {
                         is ApplyResult.Ok -> {
@@ -221,7 +233,7 @@ class WorkoutEngine(
             return appendAll(sessionId, plan, out)
         }
         for (fact in facts) {
-            val piece = eventsForFact(s, userId, fact) ?: return reject("cannot apply $fact from ${s.phase}")
+            val piece = eventsForFact(s, userId, fact, source) ?: return reject("cannot apply $fact from ${s.phase}")
             for (e in piece) {
                 when (val r = WorkoutProjector.apply(s.copy(plan = plan), e)) {
                     is ApplyResult.Ok -> {
@@ -263,11 +275,12 @@ class WorkoutEngine(
         s: WorkoutSessionSnapshot,
         userId: String,
         fact: ValidatedFact,
+        source: EventSource,
     ): List<WorkoutEvent>? {
         val sessionId = s.sessionId ?: return null
         val we = s.currentExercise
         return when (fact) {
-            is ValidatedFact.SetCompleted -> emitSetCompleted(s, userId, fact, catchUp = false, batchId = fact.batchId)
+            is ValidatedFact.SetCompleted -> emitSetCompleted(s, userId, fact, catchUp = false, batchId = fact.batchId, source = source)
             is ValidatedFact.SetCorrected -> listOf(
                 EventFactory.event(
                     CommittedEventType.SET_CORRECTED, userId, sessionId,
@@ -366,6 +379,7 @@ class WorkoutEngine(
         fact: ValidatedFact.SetCompleted,
         catchUp: Boolean,
         batchId: String?,
+        source: EventSource,
     ): List<WorkoutEvent>? {
         val sessionId = s.sessionId ?: return null
         val we = s.currentExercise ?: return null
@@ -398,7 +412,7 @@ class WorkoutEngine(
                 "reps" to fact.reps,
                 "loggingMode" to if (catchUp) LoggingMode.CATCH_UP else fact.loggingMode,
             ),
-            EventSource.VOICE, now(), batchId = batchId,
+            source, now(), batchId = batchId,
         )
         return out
     }

@@ -98,4 +98,4 @@ Block merge when any Forbidden item is true, when a major feature lacks a contra
 
 ## Current PR gate
 
-You are not allowed to start PR 1 work in a PR 0 change. You are not allowed to start dashboard work until PR 9 exists.
+PR 10 HUD binder is in `:app`. You are not allowed to start dashboard work (PR 18) or a conversation chat thread (PR 11) in a HUD change.

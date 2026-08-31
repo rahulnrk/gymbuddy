@@ -1,0 +1,12 @@
+{
+  "id": "01-lifecycle.ui.caption-stub-not-chat",
+  "schemaVersion": 1,
+  "pr": ["10"],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "ui",
+  "expect": {
+    "isChatThread": false,
+    "bubbleCount": 0,
+    "minimized": true
+  }
+}

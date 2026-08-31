@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 
 include(":domain")
 include(":persist")
+include(":app")

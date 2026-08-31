@@ -1,0 +1,12 @@
+{
+  "id": "01-lifecycle.ui.pause-resume-not-workout-started",
+  "schemaVersion": 1,
+  "pr": ["10"],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "ui",
+  "expect": {
+    "noWorkoutStartedOnResume": true,
+    "pauseType": "WORKOUT_PAUSED",
+    "resumeType": "WORKOUT_RESUMED"
+  }
+}

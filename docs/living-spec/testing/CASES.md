@@ -69,6 +69,19 @@ PR 1 goldens are **executable**: `input` + `given` + `expect`. Official set numb
 | `05-extract.event.last-week-as-set-completed-rejected` | extract | USER_QUESTION, not SET_COMPLETED |
 | `09-coaching.*` / `19-*` / `28-*` | later PRs | as before |
 
+## PR 10 Gym Mode HUD binder
+
+HUD binds to `WorkoutEngine` snapshot. Start/pause/resume call the existing session service. Number pad is `source=manual`. Caption is a stub, not a chat thread.
+
+| ID | Expect |
+|---|---|
+| `01-lifecycle.ui.a11y-labels-focus-order` | Every control has a label; focus order Start/Pause → number pad → rest; tap target ≥ 44 dp |
+| `01-lifecycle.ui.start-binds-existing-lifecycle` | Start emits `SESSION_INITIALIZED` (system) then `WORKOUT_STARTED` (manual) then `EXERCISE_STARTED` (system). Duplicate Start is a no-op |
+| `01-lifecycle.ui.number-pad-source-manual` | HUD log commits `SET_COMPLETED` with `source=manual` |
+| `01-lifecycle.ui.caption-stub-not-chat` | Caption is not a chat thread; bubble count 0; minimized |
+| `01-lifecycle.ui.glanceable-snapshot-fields` | Now-card: kicker, exercise, weight, set, target, set grid, previous (or "no previous"), rest, pocket, progress, voice |
+| `01-lifecycle.ui.pause-resume-not-workout-started` | Pause/resume emit `WORKOUT_PAUSED` / `WORKOUT_RESUMED` only; no second `WORKOUT_STARTED` |
+
 ## PR 9 headless companion loop
 
 Headless `CompanionLoop` + `shouldSpeak()` + `recommend()`. Silence is an intentional outcome, not a failure. No UI. No vendor.

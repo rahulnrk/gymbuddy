@@ -81,6 +81,11 @@ Named cases:
 - `01-lifecycle.voice.greeting-cites-60-only-if-known`
 - `01-lifecycle.db.kill-app-in-progress`
 - `01-lifecycle.ui.a11y-labels-focus-order`
+- `01-lifecycle.ui.start-binds-existing-lifecycle`
+- `01-lifecycle.ui.number-pad-source-manual`
+- `01-lifecycle.ui.caption-stub-not-chat`
+- `01-lifecycle.ui.glanceable-snapshot-fields`
+- `01-lifecycle.ui.pause-resume-not-workout-started`
 - `01-lifecycle.offline.start-with-fixture-workout`
 
 ---

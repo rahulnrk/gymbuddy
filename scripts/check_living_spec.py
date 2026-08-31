@@ -120,6 +120,15 @@ REQUIRED_PR5_GOLDENS = [
     "27-music.event.engine-has-no-os-audio-import.json",
 ]
 
+REQUIRED_PR10_GOLDENS = [
+    "01-lifecycle.ui.a11y-labels-focus-order.json",
+    "01-lifecycle.ui.start-binds-existing-lifecycle.json",
+    "01-lifecycle.ui.number-pad-source-manual.json",
+    "01-lifecycle.ui.caption-stub-not-chat.json",
+    "01-lifecycle.ui.glanceable-snapshot-fields.json",
+    "01-lifecycle.ui.pause-resume-not-workout-started.json",
+]
+
 REQUIRED_PR9_GOLDENS = [
     "02-loop.event.gold-scene-got-10-plus-one-must-speak.json",
     "02-loop.event.duplicate-got-10-same-hash-10s-one-row.json",
@@ -368,6 +377,10 @@ def main() -> None:
         if not (GOLDENS / name).is_file():
             errors.append(f"missing required PR9 golden {name}")
 
+    for name in REQUIRED_PR10_GOLDENS:
+        if not (GOLDENS / name).is_file():
+            errors.append(f"missing required PR10 golden {name}")
+
     # jsonschema on known-good / known-bad
     try:
         from jsonschema import Draft202012Validator
@@ -528,8 +541,38 @@ def main() -> None:
         errors.append(":domain must not depend on Room/SQL")
 
     app_kt = list((ROOT / "app").rglob("*.kt")) if (ROOT / "app").exists() else []
-    if app_kt:
-        errors.append("app/ contains Kotlin; PR 0 must not start UI")
+    if not app_kt:
+        errors.append("PR 10 HUD binder missing: app/ has no Kotlin")
+    else:
+        app_text = "\n".join(p.read_text(encoding="utf-8") for p in app_kt)
+        if "object GymHudBinder" not in app_text:
+            errors.append("GymHudBinder missing")
+        if "class GymHudSession" not in app_text:
+            errors.append("GymHudSession missing")
+        if "source=manual" not in app_text and "EventSource.MANUAL" not in app_text:
+            errors.append("HUD number pad / CTA must use EventSource.MANUAL")
+        for bad in (
+            "TodayScreen",
+            "NavHost",
+            "class Dashboard",
+            "FlatList",
+            "openai",
+            "ElevenLabs",
+            "AudioManager",
+        ):
+            if bad in app_text:
+                errors.append(f"app PR 10 must not contain {bad}")
+        settings = (ROOT / "settings.gradle.kts").read_text(encoding="utf-8") if (ROOT / "settings.gradle.kts").is_file() else ""
+        if 'include(":app")' not in settings.replace("'", '"'):
+            errors.append("settings.gradle.kts must include :app")
+        app_build = ROOT / "app" / "build.gradle.kts"
+        if app_build.is_file():
+            ab = app_build.read_text(encoding="utf-8")
+            if 'project(":domain")' not in ab.replace("'", '"'):
+                errors.append(":app must depend on :domain")
+            if "com.openai" in ab or "elevenlabs" in ab.lower():
+                errors.append(":app PR 10 must not depend on voice vendors")
+
 
     persist_main = ROOT / "persist" / "src" / "main" / "kotlin"
     persist_kt = list(persist_main.rglob("*.kt")) if persist_main.is_dir() else []

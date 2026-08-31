@@ -1,0 +1,10 @@
+{
+  "id": "01-lifecycle.ui.glanceable-snapshot-fields",
+  "schemaVersion": 1,
+  "pr": ["10"],
+  "contract": "01-gym-mode-session-lifecycle",
+  "stage": "ui",
+  "expect": {
+    "fields": ["exerciseName", "kicker", "weight", "set", "target", "setGrid", "previous", "rest", "pocket", "progress", "voice"]
+  }
+}
