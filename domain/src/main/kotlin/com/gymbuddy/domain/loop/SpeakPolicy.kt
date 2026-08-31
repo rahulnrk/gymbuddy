@@ -84,8 +84,10 @@ object ShouldSpeak {
         userAskedAdvice: Boolean = false,
     ): SpeakDecision {
         val types = committedThisTurn.map { it.type }.toSet()
+        val delta = Deltas.of(snapshot, contexts)
         val must = mustSpeakAct(
-            snapshot, types, safety, questionThisTurn, clarificationThisTurn, recommendation, userAskedAdvice,
+            snapshot, contexts, types, safety, questionThisTurn, clarificationThisTurn,
+            recommendation, userAskedAdvice, delta,
         )
         val high = safety.severity == SafetySeverity.HIGH || safety.severity == SafetySeverity.CRITICAL
         if (high) {
@@ -101,13 +103,13 @@ object ShouldSpeak {
         if (must != null) {
             return SpeakDecision.Speak(must, templateId(must), emptyList())
         }
-        if (sameRepsSameWeight(snapshot, types)) {
+        if (noUsefulDelta(snapshot, types, delta)) {
             return SpeakDecision.Silence(SilenceReason.NO_USEFUL_DELTA)
         }
         if (types.isEmpty() && !questionThisTurn && recommendation == null) {
             return SpeakDecision.Silence(SilenceReason.ACK_ONLY)
         }
-        if (recommendation != null && !userAskedAdvice && !usefulDelta(snapshot, types)) {
+        if (recommendation != null && !userAskedAdvice && !usefulDelta(types, delta)) {
             return SpeakDecision.Silence(SilenceReason.POLICY_SILENT_ACT)
         }
         if (types.all { it in SYSTEM_ONLY } && types.isNotEmpty()) {
@@ -118,12 +120,14 @@ object ShouldSpeak {
 
     private fun mustSpeakAct(
         snapshot: WorkoutSessionSnapshot,
+        contexts: FourContexts,
         types: Set<CommittedEventType>,
         safety: SafetyResult,
         question: Boolean,
         clarification: Boolean,
         recommendation: Recommendation?,
         userAskedAdvice: Boolean,
+        delta: DeltaAnalysis,
     ): SpeechActId? {
         if (safety.fired && (safety.severity == SafetySeverity.MEDIUM || safety.severity == SafetySeverity.LOW)) {
             return SpeechActId.SAFETY
@@ -142,7 +146,7 @@ object ShouldSpeak {
         if (CommittedEventType.SUBSTITUTION_APPLIED in types) return SpeechActId.SUBSTITUTION_APPLIED
         if (CommittedEventType.WEIGHT_CHANGED in types) return SpeechActId.WEIGHT_CHANGE_ACK
         if (firstSetThisExercise(snapshot, types)) return SpeechActId.FIRST_SET_OF_EXERCISE
-        if (usefulDelta(snapshot, types)) return SpeechActId.USEFUL_DELTA
+        if (usefulDelta(types, delta)) return SpeechActId.USEFUL_DELTA
         if (userAskedAdvice && recommendation != null) return SpeechActId.SUGGEST_WEIGHT_THIS_SESSION
         return null
     }
@@ -150,24 +154,23 @@ object ShouldSpeak {
     private fun firstSetThisExercise(snapshot: WorkoutSessionSnapshot, types: Set<CommittedEventType>): Boolean =
         CommittedEventType.SET_COMPLETED in types && snapshot.liveSetsOnCurrent().size == 1
 
-    private fun usefulDelta(snapshot: WorkoutSessionSnapshot, types: Set<CommittedEventType>): Boolean {
-        if (CommittedEventType.SET_COMPLETED !in types) return false
-        val live = snapshot.liveSetsOnCurrent()
-        if (live.size < 2) return false
-        val prev = live[live.lastIndex - 1]
-        val curr = live.last()
-        val dReps = kotlin.math.abs((curr.reps ?: 0) - (prev.reps ?: 0))
-        val dW = kotlin.math.abs((curr.weightKg ?: 0.0) - (prev.weightKg ?: 0.0))
-        return dReps >= 1 || dW >= 0.5
-    }
+    /**
+     * Delegates to [Deltas] so the gate and the spoken sentence are computed
+     * from the same numbers. Covers both the within-session baseline and the
+     * cross-session baseline required by the contract.
+     */
+    private fun usefulDelta(types: Set<CommittedEventType>, delta: DeltaAnalysis): Boolean =
+        CommittedEventType.SET_COMPLETED in types && delta.hasUsefulDelta
 
-    private fun sameRepsSameWeight(snapshot: WorkoutSessionSnapshot, types: Set<CommittedEventType>): Boolean {
+    /** A logged set that matched its baseline exactly: stay quiet. */
+    private fun noUsefulDelta(
+        snapshot: WorkoutSessionSnapshot,
+        types: Set<CommittedEventType>,
+        delta: DeltaAnalysis,
+    ): Boolean {
         if (CommittedEventType.SET_COMPLETED !in types) return false
-        val live = snapshot.liveSetsOnCurrent()
-        if (live.size < 2) return false
-        val prev = live[live.lastIndex - 1]
-        val curr = live.last()
-        return prev.reps == curr.reps && prev.weightKg == curr.weightKg
+        if (snapshot.liveSetsOnCurrent().size < 2) return false
+        return !delta.hasUsefulDelta
     }
 
     private fun templateId(act: SpeechActId): String = "speech.${act.name.lowercase()}"

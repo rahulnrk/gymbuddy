@@ -62,6 +62,9 @@ class CompanionLoop(
     val workoutName: String = "",
 ) {
     val queuedSpeechActs: MutableList<SpeechActId> = mutableListOf()
+
+    /** Claim-verification failures seen this session. Must stay empty in tests. */
+    val claimViolations: MutableList<String> = mutableListOf()
     private val recentHashes: MutableList<SttFinalRecord> = mutableListOf()
 
     fun start(): TurnResult {
@@ -70,8 +73,11 @@ class CompanionLoop(
         val snap = engine.snapshot(sessionId, plan)
         val ctx = assemble(snap)
         val speak = ShouldSpeak.shouldSpeak(ctx, snap, committed, SafetyResult(false), false, false, null)
-        val text = CoachingPhraser.phrase(speak, com.gymbuddy.domain.safety.SafetySpeechDirective(null, null, false), ctx, null)
-        val coach = persistCoaching(speak, text, ctx, hash = "start")
+        val statement = CoachingPhraser.phrase(
+            speak, com.gymbuddy.domain.safety.SafetySpeechDirective(null, null, false), ctx, null, snap,
+        )
+        val text = statement.text
+        val coach = persistCoaching(speak, statement, hash = "start")
         val speechErr = try {
             maybeTts(speak, text)
             null
@@ -98,6 +104,7 @@ class CompanionLoop(
             coachingPersisted = coach,
             workoutPersisted = r is EngineResult.Committed,
             queuedSpeechActs = queuedSpeechActs.toList(),
+            claims = statement.claims,
             error = (r as? EngineResult.Rejected)?.let { TurnError.Engine(it.reason) } ?: speechErr,
         )
     }
@@ -177,6 +184,7 @@ class CompanionLoop(
         val rec = try {
             Recommend.recommend(
                 snap,
+                ctx,
                 feedbackHard = facts.any { it is ValidatedFact.UserFeedback && it.kind.name == "HARD" },
             )
         } catch (e: Exception) {
@@ -198,14 +206,23 @@ class CompanionLoop(
             val drained = queuedSpeechActs.removeAt(0)
             speak = SpeakDecision.Speak(drained, "speech.${drained.name.lowercase()}")
         }
-        val spoken = if (high) {
-            extraction.speech.text
+        var statement = if (high) {
+            CoachingStatement.plain(extraction.speech.text)
         } else {
-            CoachingPhraser.phrase(speak, extraction.speech, ctx, rec)
+            CoachingPhraser.phrase(speak, extraction.speech, ctx, rec, snap)
         }
+        // Anti-hallucination gate: a line whose own claims do not recompute is
+        // stripped, not softened (TECHNICAL_SPEC four-context guardrail).
+        val violations = ClaimVerifier.verify(statement, ctx)
+        if (violations.isNotEmpty()) {
+            claimViolations += violations
+            statement = CoachingStatement.silent
+            speak = SpeakDecision.Silence(SilenceReason.POLICY_SILENT_ACT)
+        }
+        val spoken = statement.text
         var coachingOk = false
         try {
-            coachingOk = persistCoaching(speak, if (speak.speak) spoken else null, ctx, hash ?: transcript)
+            coachingOk = persistCoaching(speak, statement, hash ?: transcript)
         } catch (e: Exception) {
             error = error ?: TurnError.Persistence(e.message ?: "coaching persist failed")
         }
@@ -232,6 +249,8 @@ class CompanionLoop(
             duplicateSuppressed = duplicate,
             error = error,
             queuedSpeechActs = queuedSpeechActs.toList(),
+            claims = statement.claims,
+            claimViolations = violations,
         )
     }
 
@@ -268,11 +287,11 @@ class CompanionLoop(
 
     private fun persistCoaching(
         speak: SpeakDecision,
-        text: String?,
-        contexts: FourContexts,
+        statement: CoachingStatement,
         hash: String,
     ): Boolean {
         val silence = !speak.speak
+        val text = if (silence) null else statement.text
         val act = (speak as? SpeakDecision.Speak)?.actId?.name?.lowercase()
         val event = WorkoutEvent(
             eventId = UUID.nameUUIDFromBytes("coaching|$sessionId|$hash|$silence|$act".toByteArray()).toString(),
@@ -287,12 +306,13 @@ class CompanionLoop(
                 put("lang", "en")
                 put("silence", silence)
                 if (!silence && act != null) put("actId", act)
+                // Claim-derived, not "every allowed fact". A line that asserts
+                // nothing cites nothing; a line that asserts a delta cites the
+                // two rows the delta was computed from.
                 put(
                     "citedFacts",
                     buildJsonArray {
-                        if (!silence) {
-                            contexts.facts.filter { it.speechAllowed }.forEach { add(JsonPrimitive(it.id)) }
-                        }
+                        if (!silence) statement.citedFactIds.forEach { add(JsonPrimitive(it)) }
                     },
                 )
             },
