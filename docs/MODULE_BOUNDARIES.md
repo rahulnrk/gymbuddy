@@ -31,7 +31,7 @@ gymbuddy/
 | **loop** (`domain/.../loop`) | CompanionLoop, ShouldSpeak, Recommend, CoachingPhraser | Android, Compose, vendor SDKs, Room DAOs | Headless companion. Application owns speak vs silence. |
 | **safety** (`domain/.../safety` + `docs/living-spec/safety`) | Decision table, `DefaultSafetyClassifier`, `SafetyFirstTurn` | LLM override, diagnosis, WorkoutEngine, Room, UI | Product §34. Runs on raw transcript before extract. |
 | **test fixtures** (`tests/golden`, `domain/src/test`) | Named goldens, schema tests | Live vendor calls in CI | Agents cannot mark implemented with empty files. |
-| **:app** | Gym Mode HUD binder (`GymHudBinder`, `GymHudSession`). JVM view-model; no vendor SDKs | Dashboard, `TodayScreen`, chat thread, Compose navigation, STT/TTS/LLM vendors | HUD is PR 10. Dashboard is PR 18. Caption thread is PR 11. |
+| **:app** | Android application: Gym Mode HUD (`GymHudBinder` + Compose screen), `AndroidEventLog`, platform audio diagnostic | Dashboard, `TodayScreen`, chat thread, NavHost, STT/TTS/LLM vendors | HUD is PR 10. Audio adapters live here, never in `:domain`. Dashboard is PR 18. Caption thread is PR 11. |
 
 ## Data flow (enforced)
 

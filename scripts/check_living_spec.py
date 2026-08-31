@@ -558,10 +558,11 @@ def main() -> None:
             "FlatList",
             "openai",
             "ElevenLabs",
-            "AudioManager",
         ):
             if bad in app_text:
-                errors.append(f"app PR 10 must not contain {bad}")
+                errors.append(f"app must not contain {bad}")
+        # Audio adapters belong in :app (platform AudioManager, AudioRecord).
+        # They must not appear in :domain — checked on domain sources below.
         settings = (ROOT / "settings.gradle.kts").read_text(encoding="utf-8") if (ROOT / "settings.gradle.kts").is_file() else ""
         if 'include(":app")' not in settings.replace("'", '"'):
             errors.append("settings.gradle.kts must include :app")
@@ -630,6 +631,8 @@ def main() -> None:
                 errors.append(f"domain contains Room: {p.relative_to(ROOT)}")
             if "org.sqlite" in text:
                 errors.append(f"domain contains sqlite: {p.relative_to(ROOT)}")
+            if "AudioManager" in text:
+                errors.append(f"domain contains AudioManager: {p.relative_to(ROOT)}")
             for line in text.splitlines():
                 if line.strip().startswith("import android.") or line.strip().startswith("import java.sql"):
                     errors.append(f"domain forbidden import in {p.relative_to(ROOT)}: {line.strip()}")

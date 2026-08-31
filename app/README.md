@@ -1,27 +1,49 @@
-# :app — Gym Mode HUD binder (PR 10)
+# :app — Gym Mode (silent Android build)
 
-Glanceable HUD bound to `WorkoutEngine` session snapshot. Layout matches the
-working Voice Workout OS prototype (`06-body.html` `#screenWorkout` + `#pocket`
-+ `#dock`): now-card (weight / set / target, set grid, undo), rest ring,
-pocket mode, type-instead dock.
+Android application. One Gym Mode screen bound to `GymHudBinder` / `GymHudSession`,
+plus a platform audio diagnostic. No dashboard, no chat, no STT/TTS.
 
-Conversation is a caption stub, not a chat app. `#feed` as a thread is PR 11.
+- `GymHudBinder` maps snapshot + voice turn → HUD fields (unchanged JVM view-model).
+- `GymHudSession` binds Start/Pause/Resume and the number pad to `WorkoutEngine`.
+- `AndroidEventLog` writes committed events with `:persist` schema/codec so a
+  process kill keeps sets.
+- `AudioProbe` is the platform audio layer (AudioManager / AudioRecord / AudioTrack / focus).
 
-## Two MVPs of the same product
+## Build the debug APK
 
-Do not mix them in one change.
+Needs an Android SDK (compileSdk 34, minSdk 26). From the repo root:
 
-| Tree | What it is |
-|---|---|
-| `C:\Users\nande\Downloads\GYM` | Browser prototype. Real screens, mic, pocket mode. Newer (Grok voice, check-in/prep). |
-| `C:\Users\nande\Downloads\gymbuddy` | Android-first Kotlin kernel + living spec. This module. |
-| `gymbuddy/voice-workout-os-source` | Older copy of the prototype (warmup box). Not `:app`. |
+```
+.\gradlew.bat :app:assembleDebug
+```
 
-- `GymHudBinder` maps snapshot + voice turn → HUD fields, a11y labels, focus order, pocket.
-- `GymHudSession` binds Start/Pause/Resume and type-instead / number pad to the existing session service. It does not invent lifecycle event types.
-- CTA / typed set log are `source=manual`. Hydrate (`SESSION_INITIALIZED`, `EXERCISE_STARTED`) stays `source=system`.
-- Caption stub is Feature 25 / PR 11: two optional lines, minimized, never a chat thread.
+APK:
 
-**Dashboard is PR 18.** Do not add `TodayScreen`, bottom nav, or the body map here.
+```
+app\build\outputs\apk\debug\app-debug.apk
+```
 
-Deterministic voice fakes live in `:domain` (PR 5). Real vendor adapters (STT/TTS/LLM/AudioFocus) land in `:app` in PR 23–24. They must not live in `:domain`.
+Install:
+
+```
+adb install -r app\build\outputs\apk\debug\app-debug.apk
+```
+
+Unit tests (no device):
+
+```
+.\gradlew.bat :app:testDebugUnitTest
+```
+
+## Gym Mode
+
+Start → log sets on the number pad (source=manual) → kill from recents → reopen.
+Sets are restored from the local event log.
+
+## Audio diagnostic
+
+From Gym Mode, open **Audio diagnostic**. It reports the live output/input device
+(built-in, wired headset, Bluetooth A2DP, Bluetooth SCO), what happens to the
+output route when the mic opens, the actual sample rate, a headset-mic vs
+phone-mic+A2DP toggle, record/playback, and ducking audio focus against music
+from another app.

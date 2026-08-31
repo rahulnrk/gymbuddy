@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GymBuddy" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#FF0B0D10</item>
+        <item name="android:navigationBarColor">#FF0B0D10</item>
+        <item name="android:windowBackground">#FF0B0D10</item>
+        <item name="android:colorBackground">#FF0B0D10</item>
+        <item name="android:textColor">#FFF4F6F8</item>
+    </style>
+</resources>
