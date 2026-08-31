@@ -1,0 +1,348 @@
+<div id="app">
+
+  <div class="topbar">
+    <div>
+      <div class="title">Voice Workout OS</div>
+      <div class="sub" id="subline">prototype</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn sm" id="btnDemo" aria-label="Demo controls" title="Demo controls">▶</button>
+    <button class="iconbtn sm" id="btnSettings" aria-label="Settings">⚙</button>
+    <button id="btnHistory" class="hide" aria-hidden="true"></button>
+  </div>
+
+  <!-- ============ ONBOARDING ============ -->
+  <div class="screen hide" id="screenOnboard">
+    <div class="obbar"><div class="obfill" id="obProgress"></div></div>
+    <div class="obhead"><button class="btn sm ghost hide" id="obBack">Back</button>
+      <span class="note" id="obCount"></span>
+      <button class="btn sm ghost hide" id="obSkip">Skip</button></div>
+    <div id="obBody"></div>
+  </div>
+
+  <!-- ============ BODY MAP ============ -->
+  <div class="screen hide" id="screenBody">
+    <div class="bmtop">
+      <div class="chips" id="bmRange">
+        <button class="chip" data-v="recovery">Recovery</button>
+        <button class="chip" data-v="week">This week</button>
+        <button class="chip" data-v="session">Session</button>
+      </div>
+      <button class="btn sm" id="bmFlip"><span id="bmView">Front</span> ⟲</button>
+    </div>
+    <div class="bmstage">
+      <div id="bmFigure"></div>
+      <div id="bmMini" class="bmmini" title="tap to turn around"></div>
+      <div class="bmlegend">
+        <span id="bmLegendLo">recovered</span>
+        <i class="ramp"></i>
+        <span id="bmLegendHi">still sore</span>
+      </div>
+    </div>
+    <div class="card" id="bmDetail" style="min-height:64px"></div>
+    <div class="card"><h3 id="bmGroupTitle">By region</h3><div id="bmGroups"></div>
+      <div class="note" id="bmGaps" style="margin-top:12px"></div></div>
+    <div class="card hide" id="bmReadyCard"><h3>Ready to train</h3>
+      <div class="chips" id="bmReady"></div>
+      <div id="bmSore" style="margin-top:14px"></div></div>
+    <button class="btn wide ghost" id="bmClose">Back to training</button>
+  </div>
+
+  <!-- ============ TODAY (home) ============ -->
+  <div class="screen hide" id="screenToday">
+    <div class="hero">
+      <div class="herotop">
+        <div>
+          <div class="eyebrow" id="tdEyebrow">Today</div>
+          <h1 class="herotitle" id="tdName">—</h1>
+          <div class="note" id="tdMeta">—</div>
+        </div>
+        <button class="btn sm ghost" id="tdChangeDay">Change</button>
+      </div>
+
+      <div class="preview" id="tdPreview"></div>
+
+      <div class="quick">
+        <div class="qitem"><span class="ql">Energy</span>
+          <div class="stepper"><button data-q="energy" data-d="-1" aria-label="less energy">−</button>
+            <b id="qEnergy">7</b><button data-q="energy" data-d="1" aria-label="more energy">+</button></div></div>
+        <div class="qitem"><span class="ql">Soreness</span>
+          <div class="stepper"><button data-q="sore" data-d="-1" aria-label="less soreness">−</button>
+            <b id="qSore">2</b><button data-q="sore" data-d="1" aria-label="more soreness">+</button></div></div>
+        <div class="qitem"><span class="ql">Minutes</span>
+          <div class="stepper"><button data-q="mins" data-d="-5" aria-label="less time">−</button>
+            <b id="qMins">60</b><button data-q="mins" data-d="5" aria-label="more time">+</button></div></div>
+      </div>
+      <div class="note" id="tdEstimate" style="margin-top:10px"></div>
+
+      <button class="btn primary wide start" id="btnStartToday">Start workout</button>
+      <p class="note center" style="margin-top:9px">Then put the phone in your pocket.</p>
+    </div>
+
+    <button class="card tappable" id="tdRecovery">
+      <div class="row"><h3 style="margin:0">Recovery</h3><div class="spacer"></div><span class="note">See body map ›</span></div>
+      <div id="tdRecBars" style="margin-top:10px"></div>
+      <div class="note" id="tdRecNote" style="margin-top:8px"></div>
+    </button>
+
+    <button class="card tappable" id="tdPlan">
+      <div class="row"><h3 style="margin:0">Programme</h3><div class="spacer"></div><span class="note">Change ›</span></div>
+      <div id="tdPlanName" style="margin-top:6px;font-weight:600"></div>
+      <div class="note" id="tdPlanMeta" style="margin-top:4px"></div>
+    </button>
+
+    <button class="btn ghost wide" id="tdSetup" style="margin-top:2px">Voice, AI and music setup</button>
+  </div>
+
+  <!-- ============ SETUP ============ -->
+  <div class="screen hide" id="screenSetup">
+    <button class="btn ghost sm backlink" id="setupBack">‹ Back to today</button>
+
+    <div class="card">
+      <h3>1 · Voice</h3>
+      <div id="voiceSupport" class="note"></div>
+      <label class="field" style="margin-top:12px"><span>Agent voice</span>
+        <select id="voiceSel"></select>
+      </label>
+      <div class="row">
+        <button class="btn sm" id="btnTestVoice">Hear it</button>
+        <button class="btn sm" id="btnTestMic">Test microphone</button>
+        <span class="note" id="micResult"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2 · AI path</h3>
+      <p class="note">The fast path (reps, rest, skip, next) runs locally with no network. Everything else — questions, complaints, anything unexpected — goes to Claude. Your key stays in this browser and is sent only to api.anthropic.com.</p>
+      <label class="field" style="margin-top:12px"><span>Anthropic API key</span>
+        <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+      </label>
+      <label class="field"><span>Model</span>
+        <select id="modelSel"><option value="">— load models —</option></select>
+      </label>
+      <div class="row">
+        <button class="btn sm" id="btnLoadModels">Load models</button>
+        <button class="btn sm" id="btnTestLLM">Test</button>
+        <span class="note" id="llmResult"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3 · You</h3>
+      <label class="field"><span>Goal</span>
+        <div class="chips" id="goalChips">
+          <button class="chip" data-v="hypertrophy">Build muscle</button>
+          <button class="chip" data-v="strength">Get stronger</button>
+          <button class="chip" data-v="fatloss">Lose fat</button>
+          <button class="chip" data-v="general">General fitness</button>
+        </div>
+      </label>
+      <label class="field"><span>Experience</span>
+        <div class="chips" id="levelChips">
+          <button class="chip" data-v="beginner">Beginner</button>
+          <button class="chip" data-v="intermediate">Intermediate</button>
+          <button class="chip" data-v="advanced">Advanced</button>
+        </div>
+      </label>
+      <div class="row">
+        <label class="field" style="flex:1"><span>Days per week (realistically)</span>
+          <input type="number" id="daysWk" min="1" max="7" value="4"></label>
+        <label class="field" style="flex:1"><span>Typical session (min)</span>
+          <input type="number" id="sessMin" min="20" max="180" value="60"></label>
+      </div>
+      <label class="field"><span>Exercises you'd rather not do</span>
+        <div class="chips" id="dislikeChips"></div>
+        <div class="row" style="margin-top:8px">
+          <select id="dislikePick" style="flex:1"></select>
+          <button class="btn sm" id="btnAddDislike">Add</button>
+        </div>
+      </label>
+    </div>
+
+    <div class="card">
+      <h3>4 · Programme</h3>
+      <div class="chips" id="progChips"></div>
+      <div id="progNote" class="note" style="margin-top:8px"></div>
+      <div id="progPreview" class="plan" style="margin-top:14px"></div>
+      <hr>
+      <details id="ownProg">
+        <summary class="note" style="cursor:pointer">I already have my own programme</summary>
+        <p class="note" style="margin-top:10px">Type it however you like — one exercise per line, a heading to start a new day. Anything you leave out, it fills in or asks you about in the gym.</p>
+        <textarea id="customTxt" placeholder="Chest
+Bench 3 sets
+Inclined bench 3 set
+Cable flyes 3x12 20kg
+
+Legs
+Squat 4x5 100kg
+RDL 3 sets of 8-10
+Leg press 3x12"></textarea>
+        <div id="importPreview"></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary sm" id="btnImport">Use this programme</button>
+          <span class="note" id="importResult"></span>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3>5 · Today</h3>
+      <label class="field"><span>Which session</span><select id="daySel"></select></label>
+      <div class="row">
+        <label class="field" style="flex:1"><span>Energy 1–10</span><input type="number" id="energyIn" min="1" max="10" value="7"></label>
+        <label class="field" style="flex:1"><span>Soreness 1–10</span><input type="number" id="soreIn" min="1" max="10" value="2"></label>
+        <label class="field" style="flex:1"><span>Minutes available</span><input type="number" id="budgetIn" min="15" max="180" placeholder="60"></label>
+      </div>
+      <div id="estimate" class="note"></div>
+    </div>
+
+    <div class="card">
+      <h3>6 · Music</h3>
+      <p class="note">A web page can't turn down Spotify or Apple Music — no browser exposes that. To demo the ducking, load audio files from this device; they drop to 18% whenever the agent speaks. On a native build this is an audio-session category, not a hack.</p>
+      <div class="row" style="margin-top:10px">
+        <input type="file" id="musicFiles" accept="audio/*" multiple style="flex:1">
+      </div>
+      <audio id="music" style="width:100%;margin-top:10px" controls loop></audio>
+    </div>
+
+    <button class="btn primary wide start" id="btnStart">Start workout</button>
+    <p class="note center" style="margin-top:10px">Then put the phone in your pocket.</p>
+  </div>
+
+  <!-- ============ WORKOUT ============ -->
+  <div class="screen hide" id="screenWorkout">
+    <!-- The warm-up replaces the working card until it is finished.
+         Same position on the screen, so the eye does not have to move. -->
+    <div class="now sticky warmup hide" id="wuBox">
+      <div class="kicker"><span id="wuKicker">Warm-up</span>
+        <span class="spacer"></span>
+        <button class="undo" id="wuSkip">Skip</button></div>
+      <div class="exname" id="wuName">—</div>
+      <div class="wuhow" id="wuHow"></div>
+      <div class="wusteps" id="wuSteps"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn primary" id="wuDone" data-say="done">Done</button>
+        <button class="btn sm ghost" id="wuWhy">Why this?</button>
+      </div>
+      <div class="note" id="wuWhyLine" style="margin-top:10px"></div>
+    </div>
+
+    <div class="now sticky" id="wkBox">
+      <div class="kicker"><span id="wkKicker">—</span>
+        <button class="undo hide" id="btnUndo">Undo</button></div>
+      <div class="exname" id="wkName">—</div>
+      <div class="metrics">
+        <div class="metric"><div class="k">Weight</div><div class="v" id="mWeight">—</div></div>
+        <div class="metric"><div class="k">Set</div><div class="v" id="mSet">—</div></div>
+        <div class="metric"><div class="k">Target reps</div><div class="v" id="mReps">—</div></div>
+      </div>
+      <div class="setgrid" id="setGrid"></div>
+      <div class="note" id="whyLine" style="margin-top:10px"></div>
+    </div>
+
+    <div class="rest hide" id="restBox">
+      <div class="ring">
+        <svg width="74" height="74"><circle cx="37" cy="37" r="32" stroke="#242832" stroke-width="6" fill="none"></circle>
+          <circle id="ringArc" cx="37" cy="37" r="32" stroke="#59e0a0" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="0"></circle></svg>
+        <div class="num" id="restNum">0</div>
+      </div>
+      <div>
+        <div class="lbl" id="restLbl">Recovery</div>
+        <div class="msg" id="restMsg">—</div>
+        <div class="row" style="margin-top:9px">
+          <button class="btn sm" data-say="I'm ready">Ready</button>
+          <button class="btn sm" data-say="another minute">+1 min</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 14px">
+      <div id="feed"></div>
+    </div>
+
+    <button class="card tappable" id="wkBodyLink">
+      <div class="row"><h3 style="margin:0">Worked so far</h3><div class="spacer"></div><span class="note">Full map ›</span></div>
+      <div class="wkbody" style="margin-top:10px"><div id="wkFront"></div><div id="wkBack"></div></div>
+      <div class="note center" id="wkHeatNote" style="margin-top:2px"></div>
+    </button>
+
+    <div class="card">
+      <h3>Session</h3>
+      <div class="plan" id="planList"></div>
+      <div class="row wrap" style="margin-top:12px">
+        <span class="pill" id="pElapsed">0:00</span>
+        <span class="pill" id="pSets">0 sets</span>
+        <span class="pill" id="pVol">0 kg</span>
+        <span class="pill" id="pTouch">0 taps</span>
+        <span class="pill" id="pVoice">0 voice</span>
+        <span class="pill" id="pLat">—</span>
+      </div>
+    </div>
+
+    <div class="row wrap" style="gap:8px;margin-bottom:10px">
+      <button class="btn sm" data-say="what's next">What's next</button>
+      <button class="btn sm" data-say="skip this exercise">Skip</button>
+      <button class="btn sm" data-say="undo">Undo</button>
+      <button class="btn sm" data-say="end the workout">End</button>
+    </div>
+  </div>
+
+  <!-- ============ SUMMARY ============ -->
+  <div class="screen hide" id="screenSummary">
+    <div class="card">
+      <h3>Session complete</h3>
+      <h1 id="sumTitle" style="font-size:26px;margin-bottom:14px">—</h1>
+      <div class="stat" id="sumStats"></div>
+    </div>
+    <div class="card"><h3>What you did</h3><div id="sumEx"></div></div>
+    <div class="card"><h3>Experiment log</h3><div id="sumMetrics"></div>
+      <p class="note" style="margin-top:10px">The number that matters: after ten sessions, do you miss it when it's off?</p>
+    </div>
+    <button class="btn primary wide" id="btnSaveSession">Save and finish</button>
+  </div>
+
+  <!-- ============ BOTTOM NAV ============ -->
+  <nav id="nav" class="hide">
+    <button class="navbtn on" data-nav="today"><span class="ni">▲</span><span>Train</span></button>
+    <button class="navbtn" data-nav="body"><span class="ni">◉</span><span>Body</span></button>
+    <button class="navbtn" data-nav="history"><span class="ni">≡</span><span>History</span></button>
+  </nav>
+
+  <!-- ============ DOCK ============ -->
+  <div id="dock" class="hide">
+    <div class="card mic-help hide" id="micHelp">
+      <div class="note" id="micHelpText"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn sm primary" id="micHelpType">Type instead</button>
+        <button class="btn sm ghost" id="micHelpDismiss">Dismiss</button>
+      </div>
+    </div>
+    <div id="composer" class="hide">
+      <input type="text" id="typeIn" placeholder="Type what you'd say — “9”, “ready”, “skip this”" autocomplete="off">
+      <button class="btn primary sm" id="typeSend">Send</button>
+    </div>
+    <div id="partial"></div>
+    <div class="inner">
+      <button class="mic" id="micBtn"><span class="pulse"></span><span id="micLbl">Start listening</span></button>
+      <button class="iconbtn" id="btnPocket" title="Pocket mode">🌙</button>
+      <button class="iconbtn" id="btnType" title="Type instead">⌨</button>
+    </div>
+  </div>
+
+  <!-- ============ POCKET ============ -->
+  <div id="pocket" class="hide">
+    <div class="lbl" id="pkLbl">Listening</div>
+    <div class="big" id="pkBig">—</div>
+    <div class="ex" id="pkEx">—</div>
+    <div class="hint">tap anywhere to wake the screen</div>
+  </div>
+
+  <!-- ============ SETTINGS SHEET ============ -->
+  <div class="sheet hide" id="sheet">
+    <div class="inner">
+      <div class="grabber"></div>
+      <div id="sheetBody"></div>
+      <button class="btn wide ghost" id="sheetClose" style="margin-top:14px">Close</button>
+    </div>
+  </div>
+</div>
