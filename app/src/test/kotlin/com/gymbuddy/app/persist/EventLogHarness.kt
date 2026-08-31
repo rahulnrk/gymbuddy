@@ -116,17 +116,28 @@ internal class CountingEventLog(private val inner: EventLog) : EventLog {
     var sessionReads = 0
     var appends = 0
     var latestVersionReads = 0
+    var sessionReadsOnMain = 0
+    var appendsOnMain = 0
 
-    override fun append(event: com.gymbuddy.domain.events.WorkoutEvent) = inner.append(event).also { appends++ }
+    override fun append(event: com.gymbuddy.domain.events.WorkoutEvent) = inner.append(event).also {
+        appends++
+        if (onMain()) appendsOnMain++
+    }
 
     override fun find(userId: com.gymbuddy.domain.UserId, eventId: com.gymbuddy.domain.EventId) =
         inner.find(userId, eventId)
 
     override fun sessionEvents(sessionId: com.gymbuddy.domain.SessionId) =
-        inner.sessionEvents(sessionId).also { sessionReads++ }
+        inner.sessionEvents(sessionId).also {
+            sessionReads++
+            if (onMain()) sessionReadsOnMain++
+        }
 
     override fun latestVersion(sessionId: com.gymbuddy.domain.SessionId): Int {
         latestVersionReads++
         return inner.latestVersion(sessionId)
     }
+
+    private fun onMain(): Boolean =
+        android.os.Looper.myLooper() == android.os.Looper.getMainLooper()
 }
