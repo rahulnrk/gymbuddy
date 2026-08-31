@@ -33,9 +33,27 @@ class WorkoutEngine(
     private val now: () -> String = { "2026-08-20T16:00:00Z" },
     private val newId: () -> String = { UUID.randomUUID().toString() },
 ) {
+    private val projected = mutableMapOf<String, WorkoutSessionSnapshot>()
+
+    /**
+     * Projected snapshot for [sessionId]. Hits disk only on a cold cache
+     * (process start / first touch). After that, [commit] / [appendAll] apply
+     * each newly written event with [WorkoutProjector.apply].
+     *
+     * Call [reload] after a process kill, or if something outside the engine
+     * may have written the log.
+     */
     fun snapshot(sessionId: String, plan: WorkoutPlan? = null): WorkoutSessionSnapshot {
+        val cached = projected[sessionId] ?: return reload(sessionId, plan)
+        return withPlan(cached, plan)
+    }
+
+    /** Fold the log from disk and replace the in-memory snapshot. */
+    fun reload(sessionId: String, plan: WorkoutPlan? = null): WorkoutSessionSnapshot {
         val events = log.sessionEvents(com.gymbuddy.domain.SessionId(sessionId))
-        return WorkoutProjector.fold(events, plan = plan)
+        val folded = WorkoutProjector.fold(events, plan = plan)
+        projected[sessionId] = folded
+        return folded
     }
 
     fun startSession(
@@ -99,6 +117,7 @@ class WorkoutEngine(
     fun recover(sessionId: String, plan: WorkoutPlan): EngineResult {
         val events = log.sessionEvents(com.gymbuddy.domain.SessionId(sessionId))
         val folded = WorkoutProjector.fold(events, plan = plan)
+        projected[sessionId] = folded
         if (folded.phase == WorkoutSessionState.IDLE) {
             return EngineResult.Rejected("nothing to recover")
         }
@@ -260,16 +279,16 @@ class WorkoutEngine(
     fun tryCommitEvent(sessionId: String, plan: WorkoutPlan, event: WorkoutEvent): EngineResult {
         val s = snapshot(sessionId, plan)
         if (!WorkoutTransitionContract.isLegal(s.phase, event.type) &&
-            event.type !in setOf(
-                CommittedEventType.SET_CORRECTED,
-                CommittedEventType.SET_DELETED,
-                CommittedEventType.SESSION_REHYDRATED,
-            )
+            event.type !in commitWithoutPhaseCheck
         ) {
             return reject("illegal ${s.phase} + ${event.type}")
         }
         return commit(sessionId, plan, listOf(event))
     }
+
+    /** Append a already-typed event (coaching, notes) and apply it to the cache. */
+    fun record(sessionId: String, plan: WorkoutPlan, event: WorkoutEvent): EngineResult =
+        commit(sessionId, plan, listOf(event))
 
     private fun eventsForFact(
         s: WorkoutSessionSnapshot,
@@ -504,43 +523,79 @@ class WorkoutEngine(
     }
 
     private fun commit(sessionId: String, plan: WorkoutPlan, events: List<WorkoutEvent>): EngineResult {
+        var s = snapshot(sessionId, plan)
         events.forEach { e ->
-            if (!WorkoutTransitionContract.isLegal(snapshot(sessionId, plan).phase, e.type) &&
-                e.type !in setOf(
-                    CommittedEventType.SET_CORRECTED,
-                    CommittedEventType.SET_DELETED,
-                    CommittedEventType.SESSION_REHYDRATED,
-                    CommittedEventType.PLANNED_SETS_CHANGED,
-                    CommittedEventType.SUBSTITUTION_APPLIED,
-                    CommittedEventType.WEIGHT_CHANGED,
-                    CommittedEventType.INTENT_REJECTED,
-                    CommittedEventType.EXERCISE_SKIPPED,
-                ) &&
-                !(e.type == CommittedEventType.SET_COMPLETED && snapshot(sessionId, plan).phase in setOf(
+            if (!WorkoutTransitionContract.isLegal(s.phase, e.type) &&
+                e.type !in commitWithoutPhaseCheck &&
+                !(e.type == CommittedEventType.SET_COMPLETED && s.phase in setOf(
                     WorkoutSessionState.RESTING,
                     WorkoutSessionState.SET_ACTIVE,
                     WorkoutSessionState.EXERCISE_ACTIVE,
                     WorkoutSessionState.SET_COMPLETED,
                 ))
             ) {
-                val s = snapshot(sessionId, plan)
                 if (!WorkoutTransitionContract.isLegal(s.phase, e.type)) {
                     return reject("illegal ${s.phase} + ${e.type}")
                 }
             }
             log.append(e)
+            s = applyOne(s, e, plan)
         }
-        return EngineResult.Committed(events, snapshot(sessionId, plan))
+        projected[sessionId] = s
+        return EngineResult.Committed(events, s)
     }
 
     private fun appendAll(sessionId: String, plan: WorkoutPlan, events: List<WorkoutEvent>): EngineResult {
-        events.forEach { log.append(it) }
-        return EngineResult.Committed(events, snapshot(sessionId, plan))
+        var s = snapshot(sessionId, plan)
+        events.forEach { e ->
+            log.append(e)
+            s = applyOne(s, e, plan)
+        }
+        projected[sessionId] = s
+        return EngineResult.Committed(events, s)
     }
+
+    private fun applyOne(
+        state: WorkoutSessionSnapshot,
+        event: WorkoutEvent,
+        plan: WorkoutPlan,
+    ): WorkoutSessionSnapshot {
+        val base = if (state.plan == null) state.copy(plan = plan) else state
+        return when (val r = WorkoutProjector.apply(base, event)) {
+            is ApplyResult.Ok -> r.snapshot
+            is ApplyResult.Duplicate -> base
+            is ApplyResult.Rejected -> base
+        }
+    }
+
+    private fun withPlan(state: WorkoutSessionSnapshot, plan: WorkoutPlan?): WorkoutSessionSnapshot =
+        if (state.plan == null && plan != null) state.copy(plan = plan) else state
 
     private fun reject(reason: String) = EngineResult.Rejected(reason)
 
     private fun sRest(sessionId: String, plan: WorkoutPlan): Double? = snapshot(sessionId, plan).restRemainingSec
+
+    private companion object {
+        val commitWithoutPhaseCheck = setOf(
+            CommittedEventType.SET_CORRECTED,
+            CommittedEventType.SET_DELETED,
+            CommittedEventType.SESSION_REHYDRATED,
+            CommittedEventType.PLANNED_SETS_CHANGED,
+            CommittedEventType.SUBSTITUTION_APPLIED,
+            CommittedEventType.WEIGHT_CHANGED,
+            CommittedEventType.INTENT_REJECTED,
+            CommittedEventType.EXERCISE_SKIPPED,
+            CommittedEventType.COACHING_RESPONSE,
+            CommittedEventType.USER_QUESTION,
+            CommittedEventType.USER_FEEDBACK,
+            CommittedEventType.USER_NOTE_CREATED,
+            CommittedEventType.LANGUAGE_DETECTED,
+            CommittedEventType.BARGE_IN,
+            CommittedEventType.TURN_ENDED,
+            CommittedEventType.AUDIO_FOCUS_CHANGED,
+            CommittedEventType.CLARIFICATION_REQUESTED,
+        )
+    }
 }
 
 class InMemoryEventLog : EventLog {

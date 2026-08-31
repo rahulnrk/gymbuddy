@@ -317,8 +317,7 @@ class CompanionLoop(
                 )
             },
         )
-        log.append(event)
-        return true
+        return engine.record(sessionId, plan, event) is EngineResult.Committed
     }
 
     private fun maybeTts(speak: SpeakDecision, text: String?) {
