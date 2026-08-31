@@ -13,6 +13,7 @@ import com.gymbuddy.domain.events.WorkoutEvent
 import com.gymbuddy.domain.persist.AppendAck
 import com.gymbuddy.domain.persist.EventLog
 import com.gymbuddy.persist.PersistFixtures
+import com.gymbuddy.persist.SchemaSql
 import com.gymbuddy.persist.WorkoutEventCodec
 import com.gymbuddy.persist.WorkoutEventEntity
 import java.util.concurrent.locks.ReentrantLock
@@ -25,9 +26,10 @@ import kotlin.concurrent.withLock
 class AndroidEventLog(
     context: Context,
     name: String = "gymbuddy.db",
+    version: Int = SchemaSql.VERSION,
 ) : EventLog {
 
-    private val helper = Helper(context.applicationContext, name)
+    private val helper = Helper(context.applicationContext, name, version)
     private val lock = ReentrantLock()
 
     override fun append(event: WorkoutEvent): AppendAck {
@@ -83,6 +85,9 @@ class AndroidEventLog(
     }
 
     fun close() = helper.close()
+
+    /** Exposed for tests that insert malformed rows. */
+    internal fun sqlite(): SQLiteDatabase = helper.writableDatabase
 
     private fun countById(db: SQLiteDatabase, userId: String, eventId: String): Int {
         db.rawQuery(
@@ -145,33 +150,11 @@ class AndroidEventLog(
         return if (isNull(i)) null else getString(i)
     }
 
-    private class Helper(context: Context, name: String) :
-        SQLiteOpenHelper(context, name, null, 1) {
+    private class Helper(context: Context, name: String, version: Int) :
+        SQLiteOpenHelper(context, name, null, version) {
         override fun onCreate(db: SQLiteDatabase) {
-            db.execSQL(
-                """
-                CREATE TABLE IF NOT EXISTS event_log (
-                  event_id TEXT PRIMARY KEY NOT NULL,
-                  session_id TEXT NOT NULL,
-                  user_id TEXT NOT NULL,
-                  event_type TEXT NOT NULL,
-                  schema_version INTEGER NOT NULL,
-                  sequence INTEGER NOT NULL,
-                  payload_json TEXT NOT NULL,
-                  occurred_at TEXT NOT NULL,
-                  recorded_at TEXT NOT NULL,
-                  source TEXT NOT NULL,
-                  transcript_id TEXT,
-                  language TEXT,
-                  confidence REAL,
-                  stt_final_hash TEXT,
-                  batch_id TEXT,
-                  UNIQUE(user_id, event_id),
-                  UNIQUE(session_id, sequence)
-                )
-                """.trimIndent(),
-            )
-            seed(db)
+            SchemaSql.apply { sql -> db.execSQL(sql) }
+            PersistFixtures.seed { sql, args -> db.execSQL(sql, args) }
         }
 
         override fun onConfigure(db: SQLiteDatabase) {
@@ -179,38 +162,11 @@ class AndroidEventLog(
         }
 
         override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-            error("destructive migration is forbidden ($oldVersion → $newVersion)")
+            error("no migration defined for $oldVersion → $newVersion (destructive migration is forbidden)")
         }
 
-        private fun seed(db: SQLiteDatabase) {
-            db.execSQL(
-                "CREATE TABLE IF NOT EXISTS fixture_user (id TEXT PRIMARY KEY NOT NULL, display_name TEXT NOT NULL)",
-            )
-            db.execSQL(
-                "CREATE TABLE IF NOT EXISTS fixture_exercise (id TEXT PRIMARY KEY NOT NULL, canonical_name TEXT NOT NULL)",
-            )
-            db.execSQL(
-                "CREATE TABLE IF NOT EXISTS fixture_workout (id TEXT PRIMARY KEY NOT NULL, user_id TEXT NOT NULL, name TEXT NOT NULL)",
-            )
-            db.execSQL(
-                "CREATE TABLE IF NOT EXISTS fixture_session (id TEXT PRIMARY KEY NOT NULL, user_id TEXT NOT NULL, workout_id TEXT NOT NULL)",
-            )
-            db.execSQL(
-                "INSERT OR IGNORE INTO fixture_user(id, display_name) VALUES (?, ?)",
-                arrayOf(PersistFixtures.USER_ID, "Fixture"),
-            )
-            db.execSQL(
-                "INSERT OR IGNORE INTO fixture_exercise(id, canonical_name) VALUES (?, ?)",
-                arrayOf(PersistFixtures.EXERCISE_ID, "Bench Press"),
-            )
-            db.execSQL(
-                "INSERT OR IGNORE INTO fixture_workout(id, user_id, name) VALUES (?, ?, ?)",
-                arrayOf(PersistFixtures.WORKOUT_ID, PersistFixtures.USER_ID, "Chest / Triceps"),
-            )
-            db.execSQL(
-                "INSERT OR IGNORE INTO fixture_session(id, user_id, workout_id) VALUES (?, ?, ?)",
-                arrayOf(PersistFixtures.SESSION_ID, PersistFixtures.USER_ID, PersistFixtures.WORKOUT_ID),
-            )
+        override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+            error("cannot migrate downward $oldVersion → $newVersion")
         }
     }
 }
