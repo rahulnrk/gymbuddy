@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import com.gymbuddy.app.audio.AudioProbe
 import com.gymbuddy.app.audio.CaptureMode
 import com.gymbuddy.app.hud.GymHudSession
+import com.gymbuddy.app.hud.HudWriter
 import com.gymbuddy.app.hud.LifecycleAction
 import com.gymbuddy.app.persist.AndroidEventLog
 import com.gymbuddy.app.ui.AudioDiagnosticScreen
@@ -44,6 +45,7 @@ class GymModeActivity : ComponentActivity() {
     private lateinit var engine: WorkoutEngine
     private lateinit var hud: GymHudSession
     private lateinit var probe: AudioProbe
+    private lateinit var writer: HudWriter
     private val main = Handler(Looper.getMainLooper())
 
     private enum class Pane { GYM, AUDIO }
@@ -72,20 +74,32 @@ class GymModeActivity : ComponentActivity() {
             sessionName = "Chest / Triceps",
             voiceAvailable = false,
         )
-        val snap = hud.snapshot()
-        if (snap.phase != WorkoutSessionState.IDLE && snap.phase != WorkoutSessionState.WORKOUT_COMPLETE) {
-            engine.recover(PersistFixtures.SESSION_ID, plan)
-        }
         probe = AudioProbe(this)
+        writer = HudWriter(main)
+        writer.run({
+            val snap = hud.snapshot()
+            if (snap.phase != WorkoutSessionState.IDLE && snap.phase != WorkoutSessionState.WORKOUT_COMPLETE) {
+                engine.recover(PersistFixtures.SESSION_ID, plan)
+            }
+            Triple(hud.ui(), hud.snapshot().workingWeightKg ?: 60.0, probe.snapshot())
+        }) { (ui0, w0, audio0) ->
+            if (!isDestroyed) bindScreen(ui0, w0, audio0)
+        }
+    }
 
+    private fun bindScreen(
+        ui0: com.gymbuddy.app.hud.HudUiState,
+        w0: Double,
+        audio0: com.gymbuddy.app.audio.AudioSnapshot,
+    ) {
         setContent {
             var pane by remember { mutableStateOf(Pane.GYM) }
-            var ui by remember { mutableStateOf(hud.ui()) }
-            var weight by remember { mutableStateOf(snap.workingWeightKg ?: 60.0) }
+            var ui by remember { mutableStateOf(ui0) }
+            var weight by remember { mutableStateOf(w0) }
             var reps by remember { mutableStateOf("") }
             var error by remember { mutableStateOf<String?>(null) }
             var restLeft by remember { mutableStateOf(ui.restSec) }
-            var audio by remember { mutableStateOf(probe.snapshot()) }
+            var audio by remember { mutableStateOf(audio0) }
             val lifecycleFocus = remember { FocusRequester() }
             val padFocus = remember { FocusRequester() }
             val restFocus = remember { FocusRequester() }
@@ -130,13 +144,15 @@ class GymModeActivity : ComponentActivity() {
                         restFocus = restFocus,
                         onLifecycle = {
                             error = null
-                            when (ui.lifecycleAction) {
-                                LifecycleAction.START -> hud.start()
-                                LifecycleAction.PAUSE -> hud.pause()
-                                LifecycleAction.RESUME -> hud.resume()
-                                LifecycleAction.COMPLETE -> hud.complete()
-                            }
-                            refreshHud()
+                            val action = ui.lifecycleAction
+                            writer.run({
+                                when (action) {
+                                    LifecycleAction.START -> hud.start()
+                                    LifecycleAction.PAUSE -> hud.pause()
+                                    LifecycleAction.RESUME -> hud.resume()
+                                    LifecycleAction.COMPLETE -> hud.complete()
+                                }
+                            }) { refreshHud() }
                         },
                         onDigit = { d -> if (reps.length < 3) reps += d },
                         onBackspace = { if (reps.isNotEmpty()) reps = reps.dropLast(1) },
@@ -145,15 +161,18 @@ class GymModeActivity : ComponentActivity() {
                             if (n == null || n <= 0) {
                                 error = "Enter reps on the number pad"
                             } else {
-                                when (val r = hud.logManualSet(n, weight)) {
-                                    is EngineResult.Rejected -> error = r.reason
-                                    else -> {
-                                        error = null
-                                        reps = ""
+                                val w = weight
+                                writer.run({ hud.logManualSet(n, w) }) { r ->
+                                    when (r) {
+                                        is EngineResult.Rejected -> error = r.reason
+                                        else -> {
+                                            error = null
+                                            reps = ""
+                                        }
                                     }
+                                    refreshHud()
                                 }
                             }
-                            refreshHud()
                         },
                         onWeightDelta = { delta ->
                             weight = (weight + delta).coerceAtLeast(2.5)
@@ -215,6 +234,7 @@ class GymModeActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        if (::writer.isInitialized) writer.shutdown()
         if (::probe.isInitialized) probe.release()
         if (::log.isInitialized) log.close()
         super.onDestroy()
