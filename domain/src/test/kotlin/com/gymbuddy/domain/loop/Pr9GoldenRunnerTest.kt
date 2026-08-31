@@ -6,6 +6,8 @@ import com.gymbuddy.domain.LoggingMode
 import com.gymbuddy.domain.SessionId
 import com.gymbuddy.domain.SetId
 import com.gymbuddy.domain.WorkoutSessionState
+import com.gymbuddy.domain.context.AssemblyRequest
+import com.gymbuddy.domain.context.FourContextAssembler
 import com.gymbuddy.domain.engine.InMemoryEventLog
 import com.gymbuddy.domain.engine.PlannedExercise
 import com.gymbuddy.domain.engine.ProjectedSet
@@ -154,10 +156,8 @@ class Pr9GoldenRunnerTest {
                         userId = "u",
                         workoutId = "w",
                     )
-                    val loop = harness()
-                    loop.start()
                     val d = ShouldSpeak.shouldSpeak(
-                        loop.handleTurn("What did I do last week?").contexts, snap,
+                        FourContextAssembler.assemble(AssemblyRequest(snapshot = snap)), snap,
                         listOf(
                             WorkoutEvent(
                                 "x", "s", "u", "t", "t",

@@ -81,7 +81,7 @@ class CompanionLoopTest {
         val t = loop.handleTurn("Got 10.")
         assertTrue(t.speak.speak)
         assertEquals(SpeechActId.USEFUL_DELTA, (t.speak as SpeakDecision.Speak).actId)
-        assertEquals("Nice. That's one more than last time.", t.spokenText)
+        assertEquals("Nice. One more rep than your last set.", t.spokenText)
         assertTrue(CoachingPhraser.banned.none { it in t.spokenText.orEmpty() })
     }
 

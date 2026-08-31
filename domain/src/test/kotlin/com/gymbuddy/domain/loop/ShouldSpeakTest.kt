@@ -8,7 +8,9 @@ import com.gymbuddy.domain.SafetySeverity
 import com.gymbuddy.domain.SetId
 import com.gymbuddy.domain.VoiceTurnState
 import com.gymbuddy.domain.WorkoutSessionState
+import com.gymbuddy.domain.context.AssemblyRequest
 import com.gymbuddy.domain.context.ConversationalStateContext
+import com.gymbuddy.domain.context.FourContextAssembler
 import com.gymbuddy.domain.context.FourContexts
 import com.gymbuddy.domain.context.HistoricalStateContext
 import com.gymbuddy.domain.context.UserStateContext
@@ -46,6 +48,9 @@ class ShouldSpeakTest {
         UserStateContext("u", emptyList(), "", emptyList(), com.gymbuddy.domain.WeightUnit.KG, "en"),
     )
 
+    private fun assembled(snapshot: WorkoutSessionSnapshot) =
+        FourContextAssembler.assemble(AssemblyRequest(snapshot = snapshot))
+
     private fun set(n: Int, reps: Int, w: Double, id: String) = ProjectedSet(
         SetId(id), we, ex, n, w, reps, LoggingMode.LIVE,
     )
@@ -75,7 +80,7 @@ class ShouldSpeakTest {
             listOf(set(1, 9, 60.0, "a"), set(2, 10, 60.0, "b")),
         )
         val d = ShouldSpeak.decide(
-            ctx(WorkoutSessionState.RESTING), s, listOf(ev(CommittedEventType.SET_COMPLETED)),
+            assembled(s), s, listOf(ev(CommittedEventType.SET_COMPLETED)),
             SafetyResult(false), false, false, null,
         )
         assertTrue(d.speak)
