@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://knowledge/schema/exercise.schema.json",
+  "title": "CatalogExercise",
+  "description": "PR 14a catalog entry. additionalProperties is false so a leftover load field fails the build.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "slug",
+    "id",
+    "name",
+    "kind",
+    "pattern",
+    "requiredEquipment",
+    "optionalEquipment",
+    "skillDemand",
+    "consequenceOfFailure",
+    "fatigueCost",
+    "damageMultiplier",
+    "unilateral",
+    "defaultRestSec",
+    "repWindow",
+    "aliases",
+    "spoken",
+    "safeToSpeakMidSet",
+    "substitutes",
+    "legacyIds",
+    "provenanceDefault"
+  ],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "enum": ["compound", "isolation"] },
+    "pattern": { "type": "string", "minLength": 1 },
+    "requiredEquipment": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "optionalEquipment": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "skillDemand": { "type": "string", "enum": ["low", "moderate", "high"] },
+    "consequenceOfFailure": { "type": "string", "enum": ["low", "moderate", "high"] },
+    "fatigueCost": { "type": "string", "enum": ["low", "moderate", "high"] },
+    "damageMultiplier": { "type": "number", "minimum": 0.5, "maximum": 3 },
+    "unilateral": { "type": "boolean" },
+    "defaultRestSec": { "type": "integer", "minimum": 0 },
+    "repWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "romNote": { "type": "string" },
+    "muscleOverrides": {
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+    },
+    "contraindications": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "locale", "confidence"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "locale": { "type": "string", "minLength": 1 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "spoken": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["short", "tts"],
+      "properties": {
+        "short": { "type": "string", "minLength": 1 },
+        "tts": { "type": "string", "minLength": 1 }
+      }
+    },
+    "safeToSpeakMidSet": { "type": "boolean" },
+    "substitutes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+    },
+    "legacyIds": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" }
+    },
+    "provenanceDefault": { "$ref": "#/$defs/provenance" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/provenance" }
+    }
+  },
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confidence", "basis", "source", "reviewed"],
+      "properties": {
+        "confidence": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "basis": { "type": "string", "enum": ["measured", "consensus", "judgement", "inherited"] },
+        "source": { "type": "string", "minLength": 1 },
+        "reviewed": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    }
+  }
+}
