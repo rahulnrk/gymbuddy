@@ -33,29 +33,30 @@ fun validateWeek(
 }
 
 /**
- * Hard sets per muscle this week. A unilateral logged set counts as one set
- * per side — it is not halved. A set counts toward a muscle when that
- * muscle's contribution is at least [ProgrammingConstants.PRIMARY_MUSCLE_CONTRIBUTION_MIN].
+ * Hard sets per muscle this week. Fractional: primary contribution (>= 0.75)
+ * credits 1.0, indirect (0.30–0.75) credits 0.5, below 0.30 credits 0.
+ * A unilateral logged set counts as one set per side — it is not halved.
  */
 fun hardSetsByMuscle(
     week: List<PlannedSession>,
     catalog: Catalog,
-): Map<String, Int> {
-    val tally = mutableMapOf<String, Int>()
+): Map<String, Double> {
+    val tally = mutableMapOf<String, Double>()
     week.forEach { session ->
         session.exercises.forEach { planned ->
-            musclesTrained(planned.exercise, catalog).forEach { muscleId ->
-                tally[muscleId] = (tally[muscleId] ?: 0) + planned.hardSets
+            catalog.musclesFor(planned.exercise).forEach { (muscleId, contrib) ->
+                val credit = setCredit(contrib) * planned.hardSets
+                if (credit > 0.0) {
+                    tally[muscleId] = (tally[muscleId] ?: 0.0) + credit
+                }
             }
         }
     }
     return tally
 }
 
-internal fun musclesTrained(exercise: Exercise, catalog: Catalog): List<String> {
-    val contrib = catalog.musclesFor(exercise)
-    return contrib.filter { it.value >= ProgrammingConstants.PRIMARY_MUSCLE_CONTRIBUTION_MIN }.keys.toList()
-}
+internal fun musclesTrained(exercise: Exercise, catalog: Catalog): List<String> =
+    catalog.musclesFor(exercise).filter { setCredit(it.value) > 0.0 }.keys.toList()
 
 private fun validateContraindications(
     session: PlannedSession,
@@ -80,8 +81,8 @@ private fun validatePrescriptions(
     session: PlannedSession,
     user: UserContext,
 ): List<Violation> {
-    val goalRestCompound = restSeconds(user.goal, ExerciseKind.COMPOUND)
-    val goalRestIsolation = restSeconds(user.goal, ExerciseKind.ISOLATION)
+    val goalRestCompound = restSeconds(user.goal, ExerciseKind.COMPOUND, user.trainingAge)
+    val goalRestIsolation = restSeconds(user.goal, ExerciseKind.ISOLATION, user.trainingAge)
     val goalReps = repRange(user.goal)
     val out = mutableListOf<Violation>()
     session.exercises.forEach { planned ->
@@ -138,20 +139,26 @@ private fun validateWeeklyVolume(
             sets > landmark.max -> Violation(
                 rule = "volume.weekly-hard-sets.high",
                 severity = Severity.WARN,
-                message = "That's $sets hard sets for $name this week — more than most people " +
+                message = "That's ${speakableSets(sets)} for $name this week — more than most people " +
                     "recover from. I'd cut it to about ${landmark.max} hard sets.",
                 provenance = landmark.basis,
             )
             sets < landmark.min -> Violation(
                 rule = "volume.weekly-hard-sets.low",
                 severity = Severity.INFO,
-                message = "That's $sets hard sets for $name this week — on the light side of " +
+                message = "That's ${speakableSets(sets)} for $name this week — on the light side of " +
                     "the ${landmark.min} to ${landmark.max} hard sets most people grow on. Fine if you're easing in.",
                 provenance = landmark.basis,
             )
             else -> null
         }
     }
+}
+
+internal fun speakableSets(n: Double): String {
+    val rounded = kotlin.math.round(n * 10.0) / 10.0
+    val text = if (rounded % 1.0 == 0.0) rounded.toInt().toString() else rounded.toString()
+    return "$text hard sets"
 }
 
 private fun validatePatternBalance(week: List<PlannedSession>): List<Violation> {

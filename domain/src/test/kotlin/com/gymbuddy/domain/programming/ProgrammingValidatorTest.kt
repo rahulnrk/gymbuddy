@@ -44,9 +44,26 @@ class ProgrammingValidatorTest {
         val tally = hardSetsByMuscle(week, catalog)
         val glute = tally["glute"]
         val quad = tally["quad"]
-        assertEquals(3, glute, tally.toString())
-        assertEquals(3, quad, tally.toString())
-        assertFalse(tally.values.any { it == 1 }, "halved tally: $tally")
+        assertEquals(3.0, glute, tally.toString())
+        assertEquals(3.0, quad, tally.toString())
+        assertTrue((glute ?: 0.0) > 1.5, "primary glute must not be halved: $tally")
+    }
+
+    @Test
+    fun fractionalSetCountingCreditsIndirectAsHalf() {
+        val week = listOf(PlannedSession(listOf(planned("bench-press", 4))))
+        val tally = hardSetsByMuscle(week, catalog)
+        assertEquals(4.0, tally["chest_mid"], tally.toString())
+        assertEquals(2.0, tally["triceps"], tally.toString())
+        assertEquals(2.0, tally["delt_front"], tally.toString())
+        assertEquals(2.0, tally["chest_upper"], tally.toString())
+        assertFalse("serratus" in tally, tally.toString())
+        assertEquals(1.0, setCredit(1.0))
+        assertEquals(1.0, setCredit(0.75))
+        assertEquals(0.5, setCredit(0.74))
+        assertEquals(0.5, setCredit(0.30))
+        assertEquals(0.0, setCredit(0.29))
+        assertEquals(0.0, setCredit(0.2))
     }
 
     @Test
@@ -144,11 +161,11 @@ internal fun assertSpeakable(message: String) {
     assertFalse(message.contains('_'), "snake_case in message: $message")
     assertFalse(Regex("""\b[a-z]+(?:\.[a-z0-9-]+)+""").containsMatchIn(message), "rule id in message: $message")
     val covered = Regex(
-        """\d+(?:\s+to\s+\d+)?\s+(?:hard sets|sets|seconds|reps|rep window|times|time|training days|training day)""",
+        """\d+(?:\.\d+)?(?:\s+to\s+\d+(?:\.\d+)?)?\s+(?:hard sets|sets|seconds|reps|rep window|times|time|training days|training day)""",
         RegexOption.IGNORE_CASE,
     )
     val coveredSpans = covered.findAll(message).flatMap { it.range.toList() }.toSet()
-    Regex("""\d+""").findAll(message).forEach { m ->
+    Regex("""\d+(?:\.\d+)?""").findAll(message).forEach { m ->
         assertTrue(
             m.range.any { it in coveredSpans },
             "number '${m.value}' has no unit in: $message",

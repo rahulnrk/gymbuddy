@@ -40,9 +40,13 @@ Does not surface as its own screen. A later generator (contract 16 templates) an
 
 Pure functions in `com.gymbuddy.domain.programming`. No clock, no randomness, no file IO, no SQL, no Android. Inputs are `Goal`, `TrainingAge`, catalog `Exercise`, `PlannedSession` / week, and `UserContext` (programming-time; not the frozen `UserStateContext` snapshot).
 
-`weeklyHardSets` returns a `Landmark` (a range, never a point invented for convenience). Hypertrophy, intermediate: 10–20 hard sets per muscle per week (`PUBLISHED GUIDELINE`, Coach & AI Programming Guide §4.3). Beginners grow on less — a strictly lower range, marked `MVP HEURISTIC` because the guide gives no beginner number.
+`weeklyHardSets` returns a `Landmark` (a range, never a point invented for convenience). Hypertrophy, intermediate: 10–20 hard sets per muscle per week (`PUBLISHED GUIDELINE`, Currier et al. 2026 ACSM Position Stand; Baz-Valle 2022; Schoenfeld 2017). Beginners: 4–10 (`PUBLISHED GUIDELINE`, low confidence — Behm 2023; Peterson 2005; Uğurlu 2024). Fat-loss volume copies hypertrophy (`PUBLISHED GUIDELINE`, Roth 2022). Fat-loss reps and rest inherit hypertrophy (`PUBLISHED GUIDELINE`, Carlson 2022) — load does not drive fat loss.
 
-Unilateral: one logged set counts as one set per side. It is not halved.
+**Fractional set counting** (Pelland et al. 2025; Hamaïde 2025; Joachim 2025): contribution ≥ 0.75 credits 1.0 sets, 0.30–0.75 credits 0.5, below 0.30 credits 0. The 0.5 indirect weight is `PUBLISHED GUIDELINE`; the 0.75 / 0.30 band edges are `MVP HEURISTIC`. Unilateral: one logged set counts as one set per side. It is not halved.
+
+**Effort.** Most work at RIR 2–4 for every training age (`PUBLISHED GUIDELINE`, ACSM 2026 / Guide §4.3). There is no beginner RIR band — novices estimate RIR as well as trained lifters (Bermúdez Droguett 2025; Zourdos 2019; Lovegrove 2022). `reportedEffortConfidence`: trust a spoken RIR only when it is ≤ 3 and the set is ≤ 12 reps; otherwise low confidence and it must not drive a load change on its own (`PUBLISHED GUIDELINE`, Zourdos 2019 — direction published, cutoffs ours). Chronological older adults would be low-confidence regardless (Gómez-Redondo 2025); the app has no older-adult input today.
+
+**Rest.** Strength rest depends on training age: untrained 60–120 s (Grgic 2017); trained compounds 180–300 s; trained isolation 120–180 s (Senna 2016). Hypertrophy rest 90–180 s (Singer 2024).
 
 ### Voice behavior
 
@@ -77,6 +81,8 @@ Evidence is `:domain` Kotlin tests, not event goldens — this PR emits no worko
 7. `deloadDue` fires by week 8 with no signals, and earlier with poor signals (from week 4).
 8. `validateWeek` flags a push-only week for pattern imbalance.
 9. A contraindicated exercise for a declared condition produces `BLOCK`.
-10. Unilateral sets count per side in the volume tally (not halved).
+10. Unilateral sets count per side in the volume tally (not halved). Indirect muscle contribution credits 0.5 sets, not 0 or 1.
 11. Every `Violation.message` is plain language: no rule ids, no snake_case, no numbers without units.
 12. The validator returns violations and never returns a modified plan — input is unchanged.
+13. Beginner effort is RIR 2–4, same as trained. A reported RIR ≥ 4 or a set > 12 reps is low confidence.
+14. Fat-loss reps and rest equal hypertrophy. Strength rest for beginners is 60–120 seconds.

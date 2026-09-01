@@ -15,24 +15,24 @@ fun weeklyHardSets(goal: Goal, age: TrainingAge): Landmark {
             TrainingAge.BEGINNER -> landmark(
                 ProgrammingConstants.HYPERTROPHY_BEGINNER_HARD_SETS_MIN,
                 ProgrammingConstants.HYPERTROPHY_BEGINNER_HARD_SETS_MAX,
-                ProgrammingProvenance.HEURISTIC,
+                ProgrammingProvenance.BEHM_PETERSON,
             )
             TrainingAge.INTERMEDIATE, TrainingAge.ADVANCED -> landmark(
                 ProgrammingConstants.HYPERTROPHY_INTERMEDIATE_HARD_SETS_MIN,
                 ProgrammingConstants.HYPERTROPHY_INTERMEDIATE_HARD_SETS_MAX,
-                ProgrammingProvenance.GUIDE_43,
+                ProgrammingProvenance.ACSM_BAZ_SCHOENFELD,
             )
         }
         Goal.STRENGTH -> when (age) {
             TrainingAge.BEGINNER -> landmark(
                 ProgrammingConstants.STRENGTH_BEGINNER_HARD_SETS_MIN,
                 ProgrammingConstants.STRENGTH_BEGINNER_HARD_SETS_MAX,
-                ProgrammingProvenance.HEURISTIC,
+                ProgrammingProvenance.RHEA_PETERSON,
             )
             TrainingAge.INTERMEDIATE, TrainingAge.ADVANCED -> landmark(
                 ProgrammingConstants.STRENGTH_HARD_SETS_MIN,
                 ProgrammingConstants.STRENGTH_HARD_SETS_MAX,
-                ProgrammingProvenance.HEURISTIC,
+                ProgrammingProvenance.ACSM_RALSTON,
             )
         }
         Goal.ENDURANCE -> landmark(
@@ -42,7 +42,7 @@ fun weeklyHardSets(goal: Goal, age: TrainingAge): Landmark {
         )
         Goal.FAT_LOSS -> {
             val hypert = weeklyHardSets(Goal.HYPERTROPHY, age)
-            Landmark(hypert.min, hypert.max, ProgrammingProvenance.HEURISTIC)
+            Landmark(hypert.min, hypert.max, ProgrammingProvenance.ROTH_2022)
         }
         Goal.GENERAL_FITNESS -> landmark(
             ProgrammingConstants.GENERAL_FITNESS_HARD_SETS_MIN,
@@ -52,22 +52,31 @@ fun weeklyHardSets(goal: Goal, age: TrainingAge): Landmark {
     }
 }
 
-fun effort(@Suppress("UNUSED_PARAMETER") goal: Goal, age: TrainingAge): Effort {
-    // [goal] is part of the signature so a later source can split by adaptation.
-    // Guide §4.3 states most work at RIR 2–4, not a per-goal split.
-    return if (age == TrainingAge.BEGINNER) {
-        Effort(
-            ProgrammingConstants.BEGINNER_RIR_MIN,
-            ProgrammingConstants.BEGINNER_RIR_MAX,
-            ProgrammingProvenance.HEURISTIC,
-        )
-    } else {
-        Effort(
-            ProgrammingConstants.MOST_WORK_RIR_MIN,
-            ProgrammingConstants.MOST_WORK_RIR_MAX,
-            ProgrammingProvenance.GUIDE_43,
-        )
-    }
+fun effort(
+    @Suppress("UNUSED_PARAMETER") goal: Goal,
+    @Suppress("UNUSED_PARAMETER") age: TrainingAge,
+): Effort {
+    // Training age does not change the target. Novices estimate RIR as well as
+    // trained lifters (Bermúdez Droguett 2025; Zourdos 2019). Chronological age
+    // would, but the app has no older-adult input today.
+    return Effort(
+        ProgrammingConstants.MOST_WORK_RIR_MIN,
+        ProgrammingConstants.MOST_WORK_RIR_MAX,
+        ProgrammingProvenance.ACSM_2026,
+    )
+}
+
+/**
+ * Trust a spoken RIR only when it is close to failure and the set is not long.
+ * Low-confidence reports must not drive a load change on their own.
+ */
+fun reportedEffortConfidence(reportedRir: Int, repsInSet: Int): EffortReport {
+    val trusted = reportedRir <= ProgrammingConstants.RIR_TRUST_MAX &&
+        repsInSet <= ProgrammingConstants.RIR_TRUST_REPS_MAX
+    return EffortReport(
+        confidence = if (trusted) EffortConfidence.TRUST else EffortConfidence.LOW,
+        provenance = ProgrammingProvenance.ZOURDOS_2019,
+    )
 }
 
 fun repRange(goal: Goal): IntRange2 = when (goal) {
@@ -86,11 +95,10 @@ fun repRange(goal: Goal): IntRange2 = when (goal) {
         ProgrammingConstants.ENDURANCE_REPS_MAX,
         ProgrammingProvenance.NASM_OPT_42,
     )
-    Goal.FAT_LOSS -> range(
-        ProgrammingConstants.FAT_LOSS_REPS_MIN,
-        ProgrammingConstants.FAT_LOSS_REPS_MAX,
-        ProgrammingProvenance.HEURISTIC,
-    )
+    Goal.FAT_LOSS -> {
+        val hypert = repRange(Goal.HYPERTROPHY)
+        IntRange2(hypert.min, hypert.max, ProgrammingProvenance.CARLSON_2022)
+    }
     Goal.GENERAL_FITNESS -> range(
         ProgrammingConstants.GENERAL_FITNESS_REPS_MIN,
         ProgrammingConstants.GENERAL_FITNESS_REPS_MAX,
@@ -98,35 +106,45 @@ fun repRange(goal: Goal): IntRange2 = when (goal) {
     )
 }
 
-fun restSeconds(goal: Goal, kind: ExerciseKind): IntRange2 {
+fun restSeconds(
+    goal: Goal,
+    kind: ExerciseKind,
+    age: TrainingAge = TrainingAge.INTERMEDIATE,
+): IntRange2 {
+    if (goal == Goal.STRENGTH && age == TrainingAge.BEGINNER) {
+        return range(
+            ProgrammingConstants.STRENGTH_REST_SEC_BEGINNER_MIN,
+            ProgrammingConstants.STRENGTH_REST_SEC_BEGINNER_MAX,
+            ProgrammingProvenance.GRGIC_2017,
+        )
+    }
     if (goal == Goal.STRENGTH && kind == ExerciseKind.ISOLATION) {
         return range(
             ProgrammingConstants.STRENGTH_ISOLATION_REST_SEC_MIN,
             ProgrammingConstants.STRENGTH_ISOLATION_REST_SEC_MAX,
-            ProgrammingProvenance.HEURISTIC,
+            ProgrammingProvenance.SENNA_2016,
         )
     }
     return when (goal) {
         Goal.STRENGTH -> range(
             ProgrammingConstants.STRENGTH_REST_SEC_MIN,
             ProgrammingConstants.STRENGTH_REST_SEC_MAX,
-            ProgrammingProvenance.GUIDE_43,
+            ProgrammingProvenance.SENNA_2016,
         )
         Goal.HYPERTROPHY -> range(
             ProgrammingConstants.HYPERTROPHY_REST_SEC_MIN,
             ProgrammingConstants.HYPERTROPHY_REST_SEC_MAX,
-            ProgrammingProvenance.GUIDE_43,
+            ProgrammingProvenance.SINGER_2024,
         )
         Goal.ENDURANCE -> range(
             ProgrammingConstants.ENDURANCE_REST_SEC_MIN,
             ProgrammingConstants.ENDURANCE_REST_SEC_MAX,
             ProgrammingProvenance.GUIDE_43,
         )
-        Goal.FAT_LOSS -> range(
-            ProgrammingConstants.FAT_LOSS_REST_SEC_MIN,
-            ProgrammingConstants.FAT_LOSS_REST_SEC_MAX,
-            ProgrammingProvenance.HEURISTIC,
-        )
+        Goal.FAT_LOSS -> {
+            val hypert = restSeconds(Goal.HYPERTROPHY, kind, age)
+            IntRange2(hypert.min, hypert.max, ProgrammingProvenance.CARLSON_2022)
+        }
         Goal.GENERAL_FITNESS -> range(
             ProgrammingConstants.GENERAL_FITNESS_REST_SEC_MIN,
             ProgrammingConstants.GENERAL_FITNESS_REST_SEC_MAX,
@@ -247,7 +265,9 @@ fun nextSession(history: List<SetPerformance>, target: Prescription): Progressio
     }
     val tooHard = history.any { perf ->
         val rir = perf.rir
-        rir != null && rir < target.effort.rirMin
+        rir != null &&
+            rir < target.effort.rirMin &&
+            reportedEffortConfidence(rir, perf.reps).confidence == EffortConfidence.TRUST
     }
     if (tooHard) return ProgressionDecision.Hold
 
@@ -306,6 +326,17 @@ fun cardioPlacement(
             provenance = ProgrammingProvenance.GUIDE_43,
         )
     }
+}
+
+/**
+ * Fractional set credit for one logged hard set toward one muscle.
+ * >= 0.75 → 1.0; 0.30–0.75 → 0.5; below 0.30 → 0.
+ */
+fun setCredit(contribution: Double): Double = when {
+    contribution >= ProgrammingConstants.FRACTIONAL_SET_PRIMARY_MIN -> 1.0
+    contribution >= ProgrammingConstants.FRACTIONAL_SET_INDIRECT_MIN ->
+        ProgrammingConstants.FRACTIONAL_SET_INDIRECT_WEIGHT
+    else -> 0.0
 }
 
 internal fun landmark(min: Int, max: Int, provenance: Provenance): Landmark =

@@ -28,6 +28,11 @@ enum class Severity {
     BLOCK,
 }
 
+enum class EffortConfidence {
+    TRUST,
+    LOW,
+}
+
 enum class PatternGroup {
     PUSH,
     PULL,
@@ -115,6 +120,11 @@ data class SessionSummary(
 data class CardioAdvice(
     val avoidHardIntervals: Boolean,
     val message: String,
+    val provenance: Provenance,
+)
+
+data class EffortReport(
+    val confidence: EffortConfidence,
     val provenance: Provenance,
 )
 

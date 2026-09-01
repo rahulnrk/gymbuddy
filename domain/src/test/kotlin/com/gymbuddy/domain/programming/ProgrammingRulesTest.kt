@@ -25,10 +25,13 @@ class ProgrammingRulesTest {
             val reps = repRange(goal)
             assertCompleteProvenance(reps.provenance)
             ExerciseKind.entries.forEach { kind ->
-                assertCompleteProvenance(restSeconds(goal, kind).provenance)
+                TrainingAge.entries.forEach { age ->
+                    assertCompleteProvenance(restSeconds(goal, kind, age).provenance)
+                }
             }
         }
         assertCompleteProvenance(deloadCutPercent().provenance)
+        assertCompleteProvenance(reportedEffortConfidence(2, 8).provenance)
         val bench = catalog.bySlug("bench-press")!!
         assertCompleteProvenance(effectiveRestSeconds(bench, Goal.HYPERTROPHY).provenance)
         assertCompleteProvenance(effectiveRepRange(bench, Goal.HYPERTROPHY).provenance)
@@ -56,7 +59,7 @@ class ProgrammingRulesTest {
         assertEquals(bench.defaultRestSec, effectiveBenchRest.max)
         assertNotEquals(goalRest, effectiveBenchRest)
 
-        val strengthRest = restSeconds(Goal.STRENGTH, ExerciseKind.ISOLATION)
+        val strengthRest = restSeconds(Goal.STRENGTH, ExerciseKind.ISOLATION, TrainingAge.INTERMEDIATE)
         val effectiveFlyRest = effectiveRestSeconds(fly, Goal.STRENGTH)
         assertEquals(fly.defaultRestSec, effectiveFlyRest.min)
         assertTrue(effectiveFlyRest.min !in strengthRest.min..strengthRest.max || effectiveFlyRest.min == effectiveFlyRest.max)
@@ -177,6 +180,85 @@ class ProgrammingRulesTest {
         assertTrue(bad.any { it.rule == "order.freshness" })
         val good = validateOrder(listOf(bench, fly, plank))
         assertTrue(good.none { it.rule == "order.freshness" })
+    }
+
+    @Test
+    fun beginnerEffortMatchesTrainedAndDoesNotUseASeparateRirBand() {
+        val beginner = effort(Goal.STRENGTH, TrainingAge.BEGINNER)
+        val trained = effort(Goal.STRENGTH, TrainingAge.INTERMEDIATE)
+        assertEquals(ProgrammingConstants.MOST_WORK_RIR_MIN, beginner.rirMin)
+        assertEquals(ProgrammingConstants.MOST_WORK_RIR_MAX, beginner.rirMax)
+        assertEquals(beginner.rirMin, trained.rirMin)
+        assertEquals(beginner.rirMax, trained.rirMax)
+    }
+
+    @Test
+    fun reportedEffortConfidenceTrustsCloseRirOnShortSetsOnly() {
+        assertEquals(EffortConfidence.TRUST, reportedEffortConfidence(2, 8).confidence)
+        assertEquals(EffortConfidence.TRUST, reportedEffortConfidence(3, 12).confidence)
+        assertEquals(EffortConfidence.LOW, reportedEffortConfidence(4, 8).confidence)
+        assertEquals(EffortConfidence.LOW, reportedEffortConfidence(2, 13).confidence)
+        assertEquals(EffortConfidence.LOW, reportedEffortConfidence(5, 20).confidence)
+    }
+
+    @Test
+    fun lowConfidenceRirDoesNotDriveLoadChangeOnItsOwn() {
+        val longTarget = Prescription(
+            reps = range(6, 20, ProgrammingProvenance.NASM_OPT_42),
+            sets = 2,
+            effort = Effort(2, 4, ProgrammingProvenance.ACSM_2026),
+            loadStepKg = 5.0,
+        )
+        val longClaimedFailure = listOf(
+            SetPerformance(reps = 15, rir = 0),
+            SetPerformance(reps = 14, rir = 0),
+        )
+        val fromLongSet = nextSession(longClaimedFailure, longTarget)
+        assertIs<ProgressionDecision.AddReps>(fromLongSet)
+
+        val shortTarget = Prescription(
+            reps = range(6, 12, ProgrammingProvenance.NASM_OPT_42),
+            sets = 2,
+            effort = Effort(2, 4, ProgrammingProvenance.ACSM_2026),
+            loadStepKg = 5.0,
+        )
+        val easyRirNotFilled = listOf(
+            SetPerformance(reps = 8, rir = 5),
+            SetPerformance(reps = 8, rir = 4),
+        )
+        val fromEasyRir = nextSession(easyRirNotFilled, shortTarget)
+        assertIs<ProgressionDecision.AddReps>(fromEasyRir)
+        assertFalse(fromEasyRir is ProgressionDecision.AddLoadKg)
+    }
+
+    @Test
+    fun fatLossInheritsHypertrophyRepsAndRest() {
+        val hypertReps = repRange(Goal.HYPERTROPHY)
+        val fatReps = repRange(Goal.FAT_LOSS)
+        assertEquals(hypertReps.min, fatReps.min)
+        assertEquals(hypertReps.max, fatReps.max)
+        val hypertRest = restSeconds(Goal.HYPERTROPHY, ExerciseKind.COMPOUND, TrainingAge.INTERMEDIATE)
+        val fatRest = restSeconds(Goal.FAT_LOSS, ExerciseKind.COMPOUND, TrainingAge.INTERMEDIATE)
+        assertEquals(hypertRest.min, fatRest.min)
+        assertEquals(hypertRest.max, fatRest.max)
+        assertEquals(ProgrammingConstants.HYPERTROPHY_REST_SEC_MIN, fatRest.min)
+        assertEquals(ProgrammingConstants.HYPERTROPHY_REST_SEC_MAX, fatRest.max)
+    }
+
+    @Test
+    fun strengthRestDependsOnTrainingAgeAndKind() {
+        val beginner = restSeconds(Goal.STRENGTH, ExerciseKind.COMPOUND, TrainingAge.BEGINNER)
+        assertEquals(ProgrammingConstants.STRENGTH_REST_SEC_BEGINNER_MIN, beginner.min)
+        assertEquals(ProgrammingConstants.STRENGTH_REST_SEC_BEGINNER_MAX, beginner.max)
+        val isolation = restSeconds(Goal.STRENGTH, ExerciseKind.ISOLATION, TrainingAge.INTERMEDIATE)
+        assertEquals(ProgrammingConstants.STRENGTH_ISOLATION_REST_SEC_MIN, isolation.min)
+        assertEquals(ProgrammingConstants.STRENGTH_ISOLATION_REST_SEC_MAX, isolation.max)
+        val compound = restSeconds(Goal.STRENGTH, ExerciseKind.COMPOUND, TrainingAge.INTERMEDIATE)
+        assertEquals(ProgrammingConstants.STRENGTH_REST_SEC_MIN, compound.min)
+        assertEquals(ProgrammingConstants.STRENGTH_REST_SEC_MAX, compound.max)
+        val beginnerIsolation = restSeconds(Goal.STRENGTH, ExerciseKind.ISOLATION, TrainingAge.BEGINNER)
+        assertEquals(beginner.min, beginnerIsolation.min)
+        assertEquals(beginner.max, beginnerIsolation.max)
     }
 
     @Test

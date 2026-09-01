@@ -208,81 +208,81 @@ safety requirement by accident, or defends a guess as if it were evidence.
 
 Package `com.gymbuddy.domain.programming`. Every `const val` in that package is named below. These are ranges the validator checks against; they are not a plan generator. Catalog `defaultRestSec` / `repWindow` win over the goal defaults when an exercise is known.
 
-Review date for this block: `REVIEWED = 2026-09-01`.
+Review date for this block: `REVIEWED = 2026-09-01`. Sourced replacements: `docs/research/programming-numbers-2026-09-01.md`. Citations below are the named papers, not that folder.
 
 ### Volume — weekly hard sets per muscle
 
-A hard set is a working set taken close enough to failure to drive adaptation. Warm-up and ramp sets do not count. Unilateral: one logged set = one set per side, not halved.
+A hard set is a working set taken close enough to failure to drive adaptation. Warm-up and ramp sets do not count. Unilateral: one logged set = one set per side, not halved. Counting is **fractional** (see `FRACTIONAL_SET_*`).
 
 ### `HYPERTROPHY_INTERMEDIATE_HARD_SETS_MIN = 10` / `HYPERTROPHY_INTERMEDIATE_HARD_SETS_MAX = 20`
 
 - **Where:** `weeklyHardSets(HYPERTROPHY, INTERMEDIATE|ADVANCED)`
 - **Purpose:** Landmark weekly hard-set volume per muscle for hypertrophy.
-- **Source:** `PUBLISHED GUIDELINE` — Coach & AI Programming Guide §4.3: “About 10–20 hard sets per muscle per week for intermediates”. Advanced is not given a separate number; we reuse this range rather than invent a higher one.
-- **Status:** Range, as published. Not a point value.
+- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand: “higher weekly volume (~10 sets per muscle group)”. Baz-Valle et al. (2022) J Hum Kinet: 12–20 weekly sets optimum for trained young men. Schoenfeld et al. (2017) J Sports Sci: graded dose–response. Advanced is not given a separate number; we reuse this range.
 - **Configurable:** No.
 
-### `HYPERTROPHY_BEGINNER_HARD_SETS_MIN = 6` / `HYPERTROPHY_BEGINNER_HARD_SETS_MAX = 12`
+### `HYPERTROPHY_BEGINNER_HARD_SETS_MIN = 4` / `HYPERTROPHY_BEGINNER_HARD_SETS_MAX = 10`
 
 - **Where:** `weeklyHardSets(HYPERTROPHY, BEGINNER)`
-- **Purpose:** Beginners grow on less than intermediates. Strictly below the 10–20 range (min and max both lower).
-- **Source:** `MVP HEURISTIC` — Guide §4.3 says “beginners grow on less” and gives no number.
-- **Status:** Overlaps the bottom of intermediate (10–12). That overlap is honest; the guide does not claim a disjoint band.
+- **Purpose:** Beginner hypertrophy volume. Strictly below intermediate (min and max both lower).
+- **Source:** `PUBLISHED GUIDELINE` (low confidence) — Behm et al. (2023) Sports Med: beginners gain with <3 sets per multi-joint exercise, one session/week, first 12 weeks. Peterson et al. (2005) J Strength Cond Res: untrained optimum ~4 sets/muscle group. Uğurlu et al. (2024) Medicine: in untrained women moderate volume beat both low and high. Rhea/Peterson “4 sets” does not state per-session vs per-week; both readings sit inside 4–10.
 - **Configurable:** No.
 
-### `STRENGTH_BEGINNER_HARD_SETS_MIN = 4` / `STRENGTH_BEGINNER_HARD_SETS_MAX = 8`
+### `STRENGTH_BEGINNER_HARD_SETS_MIN = 3` / `STRENGTH_BEGINNER_HARD_SETS_MAX = 8`
 
 - **Where:** `weeklyHardSets(STRENGTH, BEGINNER)`
 - **Purpose:** Strength-goal weekly hard sets for beginners.
-- **Source:** `MVP HEURISTIC` — research folder silent on strength-goal set counts.
+- **Source:** `PUBLISHED GUIDELINE` (low confidence) — Rhea et al. (2003) Med Sci Sports Exerc (140 studies): untrained maximal gains at 60% 1RM, 3 d/wk, ~4 sets per muscle group. Peterson et al. (2005) confirms.
 - **Configurable:** No.
 
-### `STRENGTH_HARD_SETS_MIN = 6` / `STRENGTH_HARD_SETS_MAX = 12`
+### `STRENGTH_HARD_SETS_MIN = 4` / `STRENGTH_HARD_SETS_MAX = 10`
 
 - **Where:** `weeklyHardSets(STRENGTH, INTERMEDIATE|ADVANCED)`
 - **Purpose:** Strength-goal weekly hard sets.
-- **Source:** `MVP HEURISTIC` — research folder silent on strength-goal set counts.
+- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand: 2–3 sets per exercise at ≥80% 1RM, all major muscle groups ≥2×/week. Ralston et al. (2017) Sports Med: medium/high weekly sets beat low.
 - **Configurable:** No.
 
 ### `ENDURANCE_HARD_SETS_MIN = 8` / `ENDURANCE_HARD_SETS_MAX = 16`
 
 - **Where:** `weeklyHardSets(ENDURANCE, *)`
 - **Purpose:** Endurance-goal weekly hard sets.
-- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Source:** `MVP HEURISTIC` — named papers silent. ACSM 2026 gives frequency, not an endurance set landmark.
 - **Configurable:** No.
 
 ### `GENERAL_FITNESS_HARD_SETS_MIN = 8` / `GENERAL_FITNESS_HARD_SETS_MAX = 16`
 
 - **Where:** `weeklyHardSets(GENERAL_FITNESS, *)`
 - **Purpose:** General-fitness weekly hard sets.
-- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Source:** `MVP HEURISTIC` — named papers silent.
 - **Configurable:** No.
 
-Fat-loss volume copies the hypertrophy landmark for the same training age and is tagged `MVP HEURISTIC` (research folder silent on a fat-loss set count; “fat loss while keeping muscle” is the nearest published job).
+Fat-loss volume copies the hypertrophy landmark for the same training age. **Source:** `PUBLISHED GUIDELINE` — Roth et al. (2022) Scand J Med Sci Sports: high vs moderate sets made no difference to lean-mass preservation in a deficit; ≥10 weekly sets per muscle associated with little-to-no lean mass loss.
 
 ### Effort (reps in reserve)
 
 ### `MOST_WORK_RIR_MIN = 2` / `MOST_WORK_RIR_MAX = 4`
 
-- **Where:** `effort(*, INTERMEDIATE|ADVANCED)`
+- **Where:** `effort(*, *)` — every training age.
 - **Purpose:** Target effort for most working sets. RPE 6–8.
-- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Most work at RPE 6–8 (2–4 reps in reserve). True 1RMs are rare and expensive.” Applied across goals; the guide does not split RIR by goal.
+- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand; Guide §4.3. Training age does not change the target (Bermúdez Droguett et al. 2025; Zourdos et al. 2019; Lovegrove et al. 2022).
 - **Configurable:** No.
 
-### `BEGINNER_RIR_MIN = 3` / `BEGINNER_RIR_MAX = 5`
+`BEGINNER_RIR` was deleted. Novices estimate RIR as well as trained lifters; a separate easier band contradicted the evidence.
 
-- **Where:** `effort(*, BEGINNER)`
-- **Purpose:** Extra reserve while the pattern is still being learned.
-- **Source:** `MVP HEURISTIC` — research folder silent on a beginner RIR split.
+### `RIR_TRUST_MAX = 3` / `RIR_TRUST_REPS_MAX = 12`
+
+- **Where:** `reportedEffortConfidence`
+- **Purpose:** Trust a spoken RIR only when it is ≤ 3 and the set is ≤ 12 reps. Otherwise low confidence — do not drive a load change off the report alone.
+- **Source:** `PUBLISHED GUIDELINE` — Zourdos et al. (2019) J Strength Cond Res: error was 2.05 reps at 1 RIR, 3.65 at 3 RIR, 5.15 at 5 RIR; longer sets made estimates worse. Direction and magnitude published; the exact cutoffs are ours.
 - **Configurable:** No.
 
 ### Reps
 
-### `STRENGTH_REPS_MIN = 3` / `STRENGTH_REPS_MAX = 6`
+### `STRENGTH_REPS_MIN = 4` / `STRENGTH_REPS_MAX = 8`
 
 - **Where:** `repRange(STRENGTH)`
 - **Purpose:** Strength-goal rep window.
-- **Source:** `PUBLISHED GUIDELINE` — NASM OPT §4.2 Maximal Strength is 1–5; Guide §4.3 says true 1RMs are rare. Taken as **3–6** so the default is heavy work without programming a 1RM. Documented disagreement; 3–6 is the resolution.
+- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand anchors strength at ≥80% 1RM, roughly an 8RM load. 4–8 sits on that guideline; 3–6 implied ~85–93% 1RM, heavier than is wise with no spotter.
 - **Configurable:** No. Catalog `repWindow` wins per exercise.
 
 ### `HYPERTROPHY_REPS_MIN = 6` / `HYPERTROPHY_REPS_MAX = 12`
@@ -299,34 +299,36 @@ Fat-loss volume copies the hypertrophy landmark for the same training age and is
 - **Source:** `PUBLISHED GUIDELINE` — NASM OPT §4.2 Stabilization Endurance 12–20.
 - **Configurable:** No. Catalog wins.
 
-### `FAT_LOSS_REPS_MIN = 8` / `FAT_LOSS_REPS_MAX = 15`
-
-- **Where:** `repRange(FAT_LOSS)`
-- **Purpose:** Fat-loss-goal rep window.
-- **Source:** `MVP HEURISTIC` — research folder silent.
-- **Configurable:** No. Catalog wins.
+Fat-loss reps inherit hypertrophy (`HYPERTROPHY_REPS_*`). **Source:** `PUBLISHED GUIDELINE` — Carlson et al. (2022) Res Q Exerc Sport: heavy (~80% 1RM) and light (~60% 1RM) load produced statistically equivalent fat loss. A separate fat-loss rep range implies a distinction the evidence does not support. `FAT_LOSS_REPS` was deleted.
 
 ### `GENERAL_FITNESS_REPS_MIN = 8` / `GENERAL_FITNESS_REPS_MAX = 15`
 
 - **Where:** `repRange(GENERAL_FITNESS)`
 - **Purpose:** General-fitness rep window.
-- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Source:** `MVP HEURISTIC` — ACSM 2026 gives no rep range for general health, only frequency.
 - **Configurable:** No. Catalog wins.
 
 ### Rest (seconds)
 
 ### `STRENGTH_REST_SEC_MIN = 180` / `STRENGTH_REST_SEC_MAX = 300`
 
-- **Where:** `restSeconds(STRENGTH, COMPOUND)`
-- **Purpose:** Rest between heavy strength sets.
-- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Strength 3–5 min”.
+- **Where:** `restSeconds(STRENGTH, COMPOUND, INTERMEDIATE|ADVANCED)`
+- **Purpose:** Rest between heavy strength sets for trained lifters.
+- **Source:** `PUBLISHED GUIDELINE` — Senna et al. (2016) J Strength Cond Res: 3–5 min needed for bench press at 3RM. Schoenfeld et al. (2016) J Strength Cond Res: 3 min beat 1 min for strength and hypertrophy in trained men.
 - **Configurable:** No. Catalog `defaultRestSec` wins.
 
-### `HYPERTROPHY_REST_SEC_MIN = 60` / `HYPERTROPHY_REST_SEC_MAX = 180`
+### `STRENGTH_REST_SEC_BEGINNER_MIN = 60` / `STRENGTH_REST_SEC_BEGINNER_MAX = 120`
+
+- **Where:** `restSeconds(STRENGTH, *, BEGINNER)`
+- **Purpose:** Strength rest for untrained. Training age, not goal alone.
+- **Source:** `PUBLISHED GUIDELINE` — Grgic et al. (2017) Sports Med (23 studies): >2 min needed to maximise strength in resistance-trained individuals; 60–120 s is sufficient for untrained.
+- **Configurable:** No. Catalog wins.
+
+### `HYPERTROPHY_REST_SEC_MIN = 90` / `HYPERTROPHY_REST_SEC_MAX = 180`
 
 - **Where:** `restSeconds(HYPERTROPHY, *)`
-- **Purpose:** Rest between hypertrophy sets.
-- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “hypertrophy 1–3 min”.
+- **Purpose:** Rest between hypertrophy sets. Floor raised from 60 s to 90 s.
+- **Source:** `PUBLISHED GUIDELINE` — Singer et al. (2024) Front Sports Act Living (Bayesian MA, 9 studies): small hypertrophic benefit to resting >60 s, no appreciable further benefit beyond 90 s.
 - **Configurable:** No. Catalog wins.
 
 ### `ENDURANCE_REST_SEC_MIN = 30` / `ENDURANCE_REST_SEC_MAX = 90`
@@ -336,25 +338,20 @@ Fat-loss volume copies the hypertrophy landmark for the same training age and is
 - **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “metabolic work 30–90 s”.
 - **Configurable:** No. Catalog wins.
 
-### `STRENGTH_ISOLATION_REST_SEC_MIN = 60` / `STRENGTH_ISOLATION_REST_SEC_MAX = 180`
+### `STRENGTH_ISOLATION_REST_SEC_MIN = 120` / `STRENGTH_ISOLATION_REST_SEC_MAX = 180`
 
-- **Where:** `restSeconds(STRENGTH, ISOLATION)`
-- **Purpose:** Isolation rest on a strength goal. The published 3–5 min is for heavy compound work.
-- **Source:** `MVP HEURISTIC` — research folder silent on isolation rest under a strength goal.
+- **Where:** `restSeconds(STRENGTH, ISOLATION, INTERMEDIATE|ADVANCED)`
+- **Purpose:** Isolation rest on a strength goal for trained lifters. Beginners use `STRENGTH_REST_SEC_BEGINNER_*` instead.
+- **Source:** `PUBLISHED GUIDELINE` — Senna et al. (2016): for the single-joint machine chest fly, 2 min was sufficient; the multi-joint bench press needed 3–5.
 - **Configurable:** No. Catalog wins.
 
-### `FAT_LOSS_REST_SEC_MIN = 30` / `FAT_LOSS_REST_SEC_MAX = 90`
-
-- **Where:** `restSeconds(FAT_LOSS, *)`
-- **Purpose:** Treat fat-loss rest as metabolic.
-- **Source:** `MVP HEURISTIC` — research folder silent.
-- **Configurable:** No. Catalog wins.
+Fat-loss rest inherits hypertrophy (`HYPERTROPHY_REST_SEC_*`, 90–180 s). **Source:** `PUBLISHED GUIDELINE` — Carlson et al. (2022): fat loss is not a distinct loading prescription. `FAT_LOSS_REST_SEC` was deleted. Treating fat-loss rest as metabolic circuit work was a guess.
 
 ### `GENERAL_FITNESS_REST_SEC_MIN = 60` / `GENERAL_FITNESS_REST_SEC_MAX = 180`
 
 - **Where:** `restSeconds(GENERAL_FITNESS, *)`
-- **Purpose:** General-fitness rest, hypertrophy-like.
-- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Purpose:** General-fitness rest.
+- **Source:** `MVP HEURISTIC` — named papers silent.
 - **Configurable:** No. Catalog wins.
 
 ### Frequency
@@ -414,13 +411,22 @@ These numbers are sort keys, not published seconds or sets. They exist so `order
 - **Source:** `MVP HEURISTIC` — Guide / NSCA “core and isolation last”; no numeric penalty.
 - **Configurable:** No.
 
-### Volume tally
+### Volume tally — fractional counting
 
-### `PRIMARY_MUSCLE_CONTRIBUTION_MIN = 0.5`
+`PRIMARY_MUSCLE_CONTRIBUTION_MIN` (threshold: ≥0.5 → 1 set, else 0) was deleted. Pelland et al. (2025) compared total (1.0), fractional (0.5), and direct (0) counting of indirect sets across 67 studies / 2,058 participants; evidence strongest for fractional. Hamaïde et al. (2025) and Joachim et al. (2025) found the same.
 
-- **Where:** `hardSetsByMuscle` / `musclesTrained`
-- **Purpose:** A hard set counts toward a muscle when that muscle's catalog contribution is at least 0.5. Stops serratus 0.2 on bench from eating a full hard set, still counts triceps 0.65.
-- **Source:** `MVP HEURISTIC` — research folder silent on a contribution cutoff. Catalog has weights, not a primary flag.
+### `FRACTIONAL_SET_INDIRECT_WEIGHT = 0.5`
+
+- **Where:** `setCredit` / `hardSetsByMuscle`
+- **Purpose:** Indirect sets credit 0.5, not 1.0 or 0.
+- **Source:** `PUBLISHED GUIDELINE` — Pelland et al. (2025) Sports Med; Hamaïde et al. (2025); Joachim et al. (2025).
+- **Configurable:** No.
+
+### `FRACTIONAL_SET_PRIMARY_MIN = 0.75` / `FRACTIONAL_SET_INDIRECT_MIN = 0.30`
+
+- **Where:** `setCredit`
+- **Purpose:** Map our 0–1 contribution weights onto direct / indirect / ignore. ≥0.75 → 1.0; 0.30–0.75 → 0.5; <0.30 → 0.
+- **Source:** `MVP HEURISTIC` — the papers classify direct/indirect by judgement, not a numeric cutoff. We need one because the catalog is weighted.
 - **Configurable:** No.
 
 ---
@@ -431,8 +437,8 @@ These numbers are sort keys, not published seconds or sets. They exist so `order
 |---|---|
 | `CONTRACTUAL` (spec-asserted, unmeasured) | 12 |
 | `SAFETY REQUIREMENT` (subset of above) | 4 |
-| `PUBLISHED GUIDELINE` (programming rules, ranges) | 12 landmarks (volume 10–20, RIR 2–4, reps 3–6 / 6–12 / 12–20, rest 180–300 / 60–180 / 30–90, frequency 2–3, deload 4–8 weeks and 40–60% cut) |
-| `MVP HEURISTIC` (programming rules, research silent) | beginner volume, strength/endurance/fat-loss/general volume, beginner RIR, fat-loss/general reps, isolation/fat-loss/general rest, order ranks, primary-muscle cutoff 0.5 |
+| `PUBLISHED GUIDELINE` (programming rules, ranges) | hypertrophy 10–20 and beginner 4–10; strength 4–10 and beginner 3–8; fat-loss copies hypertrophy (Roth 2022); RIR 2–4 everyone; RIR trust ≤3 and ≤12 reps; reps 4–8 / 6–12 / 12–20; rest 180–300 trained compound, 120–180 trained isolation, 60–120 untrained, hypertrophy 90–180; fractional indirect weight 0.5; frequency 2–3; deload 4–8 weeks and 40–60% cut |
+| `MVP HEURISTIC` (programming rules, papers silent) | endurance/general-fitness volume, general-fitness reps and rest, order ranks, fractional band edges 0.75 / 0.30 |
 | `UNKNOWN — REQUIRES VALIDATION` | 3 (`restTargetSec=90`, `Recommend` rule, `Recommend` 2.5 kg step) |
 | `TEMPORARY TEST VALUE` | 4 |
 | `MEASURED` | **0** |
