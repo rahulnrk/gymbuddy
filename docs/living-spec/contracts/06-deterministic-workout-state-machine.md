@@ -30,7 +30,7 @@ Cannot skip `SESSION_INITIALIZED` / `WORKOUT_STARTED`. `WORKOUT_STARTED` is vali
 
 ### Structured event
 
-Consumes catalog events including `EXERCISE_SKIPPED` and `PLANNED_SETS_CHANGED`. Emits follow-on: `EXERCISE_STARTED`, `SET_STARTED` (required for `SET_ACTIVE`), `REST_STARTED` (not between catch-up members), `REST_ENDED` `{ reason: timer|user|logged_through }`, `WORKOUT_COMPLETED` when remaining work is zero after last `SET_COMPLETED` or skip of the last exercise.
+Consumes catalog events including `EXERCISE_SKIPPED`, `EXERCISE_DEFERRED` (legal from `EXERCISE_ACTIVE` / `READY_FOR_EXERCISE` / `RESTING` / `EXERCISE_COMPLETE`; illegal from `SET_ACTIVE`), and `PLANNED_SETS_CHANGED`. Emits follow-on: `EXERCISE_STARTED`, `SET_STARTED` (required for `SET_ACTIVE`), `REST_STARTED` (not between catch-up members), `REST_ENDED` `{ reason: timer|user|logged_through }`, `WORKOUT_COMPLETED` when remaining work is zero after last `SET_COMPLETED` or skip of the last exercise.
 
 ### Database change
 

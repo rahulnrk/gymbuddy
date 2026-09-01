@@ -253,17 +253,27 @@ fun orderScore(exercise: Exercise): Int {
     return skill + fatigue + kindBonus - corePenalty
 }
 
+/**
+ * Session class for order warnings: compound work, then isolation, then core.
+ * Adjacent compounds of different skill are picker noise, not a coaching fail.
+ */
+fun orderClass(exercise: Exercise): Int = when {
+    patternGroup(exercise.pattern) == PatternGroup.CORE -> 0
+    exercise.exerciseKind() == ExerciseKind.ISOLATION -> 1
+    else -> 2
+}
+
 fun validateOrder(session: List<Exercise>): List<Violation> {
     val out = mutableListOf<Violation>()
     for (i in 0 until session.size - 1) {
         val current = session[i]
         val next = session[i + 1]
-        if (orderScore(next) > orderScore(current)) {
+        if (orderClass(next) > orderClass(current)) {
             out += Violation(
                 rule = "order.freshness",
                 severity = Severity.WARN,
                 message = "${next.name} is up before ${current.name}. " +
-                    "The heavy, high-skill work belongs while you're fresh.",
+                    "Main lifts belong before isolation, and isolation before core.",
                 provenance = ProgrammingProvenance.NSCA_ORDER,
             )
         }

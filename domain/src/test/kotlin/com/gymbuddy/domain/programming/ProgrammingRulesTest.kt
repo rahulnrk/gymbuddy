@@ -182,6 +182,15 @@ class ProgrammingRulesTest {
         assertTrue(bad.any { it.rule == "order.freshness" })
         val good = validateOrder(listOf(bench, fly, plank))
         assertTrue(good.none { it.rule == "order.freshness" })
+
+        val gm = catalog.bySlug("dumbbell-good-morning")!!
+        val chin = catalog.bySlug("chin-up")!!
+        assertTrue(orderClass(chin) == orderClass(gm))
+        assertTrue(validateOrder(listOf(gm, chin)).none { it.rule == "order.freshness" })
+
+        val calf = catalog.bySlug("calf-raise")!!
+        assertTrue(orderClass(calf) > orderClass(plank))
+        assertTrue(validateOrder(listOf(plank, calf)).any { it.rule == "order.freshness" })
     }
 
     @Test

@@ -396,7 +396,7 @@ Fat-loss rest inherits hypertrophy (`HYPERTROPHY_REST_SEC_*`, 90–180 s). **Sou
 
 ### Ordering ranks (relative only)
 
-These numbers are sort keys, not published seconds or sets. They exist so `orderScore` can be a total order. Changing them does not change the coaching claim (“compound and high-skill work first”).
+These numbers are sort keys, not published seconds or sets. They exist so `orderScore` can be a total order for “where this would sit if we sorted.” `validateOrder` does **not** use that total order. It warns only on class inversion (compound after isolation, or work after core). Consecutive `orderScore` inversion fired on nearly every generated week (chin-up after a moderate hinge, split squat after goblet, Nordic after a good morning) and was too crude to be useful. Changing the ranks does not change the coaching claim (“compound before isolation before core”).
 
 ### `ORDER_SKILL_HIGH = 300` / `ORDER_SKILL_MODERATE = 200` / `ORDER_SKILL_LOW = 100`
 
@@ -487,7 +487,7 @@ Red-flag count is 10. That is the screen, not a tunable threshold.
 
 ## Exercise picker (contract 31)
 
-Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot; it does not invent weekly volume.
+Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot; it does not invent weekly volume. Score ties break toward lower `consequenceOfFailure`, then lower `skillDemand`, **only among the same implement class** (freeweight / machine / cable / bodyweight). A machine and a dumbbell press are not equivalent. Across classes, slug. The picker has no progression: it will not move a beginner from push-ups to dumbbells over time.
 
 ### `WEIGHT_GOAL_FIT = 2.0`
 
@@ -510,17 +510,130 @@ Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot;
 - **Source:** `MVP HEURISTIC`.
 - **Configurable:** No.
 
-### `WEIGHT_FRESHNESS = 3.0`
+### `WEIGHT_FRESHNESS = 1.0`
 
 - **Where:** `rank` / `freshness`
-- **Purpose:** Strong penalty when a primary muscle is fatigued. Largest weight on purpose — freshness should beat preference.
+- **Purpose:** Penalty when a primary muscle is fatigued. Was 3.0. Same-pattern candidates usually share primaries, so a uniform hit does not reorder them — ranking cannot answer “don't squat today.” `SlotReadiness.allCandidatesFatigued` is that signal. The weight still earns its keep when primaries differ: back squat lists glute ≥ 0.75, goblet does not, so glute fatigue drops back squat below goblet. Close-grip bench cannot be the example — it is pattern `triceps`, so it never shares a horizontal-push slot with bench.
+- **Worked example:** squat slot targeting quads, full gym, glute = 1.0. Fresh order has back squat above goblet (tie-break). Fatigued glutes: goblet ranks above back squat.
 - **Source:** `MVP HEURISTIC`.
 - **Configurable:** No.
 
-### `WEIGHT_VARIETY = 1.5`
+### `FATIGUE_COOKED = 0.7` / `FATIGUE_MILD = 0.35`
+
+- **Where:** `slotReadiness`, `adjustForToday`
+- **Purpose:** Cooked = every survivor's primary is ≥ 0.7, or the slot's worst target is. Mild = ≥ 0.35 and is **not** a reason to fuss (`AsPlanned`).
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `DEFER_CAP = 2`
+
+- **Where:** `WorkoutEngine.acceptDeferral`
+- **Purpose:** A movement may be deferred twice. The third accept on that same movement becomes `EXERCISE_SKIPPED` with the deferred reason. Two later movements is a full shuffle for a 4–6 movement session; a third “still busy” means the kit never freed.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WAIT_VS_REST` (wait seconds ≤ this movement's rest seconds)
+
+- **Where:** `respondToUnavailable`
+- **Purpose:** If the wait is no longer than the rest already prescribed, staying costs nothing. Rest comes from `prescribedRestSec` else catalog `defaultRestSec`. Wait is `expectedWaitMinutes * 60`.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `SECONDS_PER_WORKING_SET = 90`
+
+- **Where:** `estimateMinutes`
+- **Purpose:** Seconds of lifting **plus** walking to the station, loading plates and getting set, for one working set. Added to the rest midpoint. 40s was only the concentric+eccentric and produced 33-minute "hour" sessions.
+- **Source:** `MVP HEURISTIC` — ~30–45s of lifting, ~45s of setup/loading. Still ignores a lost plate and a queue.
+- **Configurable:** No.
+
+### `WARMUP_PULSE_MIN` / `WARMUP_DRILL_MIN` / `WARMUP_RAMP_SETS` (removed)
+
+- **Where:** were `warmupSeconds` in `Estimate.kt`
+- **Purpose:** Placeholder minutes for a warm-up that did not exist. Replaced by `planWarmup` and `WarmupPlan.estimatedMinutes`.
+- **Source:** retired. See `WARMUP_CAP_MIN` and friends.
+- **Configurable:** No.
+
+### `PULSE_MIN_SEC = 180` / `PULSE_MAX_SEC = 300`
+
+- **Where:** `planWarmup` / pulse drills' `durationSec`
+- **Purpose:** Pulse raise lasts 3 to 5 minutes.
+- **Source:** `PUBLISHED GUIDELINE` — Coach & AI Programming Guide §4.3; NSCA performance preparation.
+- **Configurable:** No.
+
+### `DRILL_COUNT_MIN = 3` / `DRILL_COUNT_MAX = 6`
+
+- **Where:** `planWarmup`
+- **Purpose:** Mobility, activation and rehearsal together. Cap 6. The min is a target; the 12-minute cap may cut below it.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3.
+- **Configurable:** No.
+
+### `RAMP_SETS_MIN = 1` / `RAMP_SETS_MAX = 3` / `RAMP_SETS = 2`
+
+- **Where:** `planWarmup` / `RampSet`
+- **Purpose:** Specific warm-up sets on the first primary lift. Two is inside 1 to 3. Effort is relative ("about half your working weight"), never a kilogram.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3 / NSCA. The relative wording is `CONTRACTUAL` (no invented loads).
+- **Configurable:** No.
+
+### `RAMP_SET_SEC = 45`
+
+- **Where:** `warmupMinutes`
+- **Purpose:** Clock time for one ramp set. Shorter than a working set because the load is not the work.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WARMUP_CAP_MIN = 12`
+
+- **Where:** `planWarmup`
+- **Purpose:** If the plan would exceed about 12 minutes, cut drills, not the pulse.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3.
+- **Configurable:** No.
+
+### `STRETCH_COUNT = 3`
+
+- **Where:** `suggestStretches`
+- **Purpose:** Two or three post-session static stretches, not a routine.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `DURATION_TOLERANCE_MIN = 15`
+
+- **Where:** `clampToTime` / `withinDurationWindow`
+- **Purpose:** Keep estimated duration within typical session length ± 15 minutes.
+- **Source:** `CONTRACTUAL` — `contracts/16` step 3.
+- **Configurable:** No.
+
+### `DEFAULT_DURATION_MIN = 60` / `DEFAULT_DAYS_PER_WEEK = 3`
+
+- **Where:** `buildWeek` / `chooseTemplate`
+- **Purpose:** Defaults when intake did not record them. Intake requires both before `Ready`; the defaults exist so `buildWeek` is total.
+- **Source:** `CONTRACTUAL` for 60 (contract 16 “default 60 if unset”); `MVP HEURISTIC` for 3 days.
+- **Configurable:** No.
+
+### `MIN_EXERCISES_PER_DAY = 2` / `MIN_SETS = 1`
+
+- **Where:** `buildWeek` / `clampToTime`
+- **Purpose:** Fewer than two remaining exercises is `CannotBuild`, not a thin plan. Sets never drop below 1.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### Templates (full-body-3d-beginner, full-body-3d, upper-lower-4d, ppl-6d)
+
+- **Where:** `knowledge/templates/`
+- **Purpose:** The only source of slot layout. Balanced by pattern. Boring on purpose. Beginner full body is one lower pattern per day (squat / hinge / lunge), core last. Empty slots try `PatternSiblings.MAP` once before dropping.
+- **Source:** split idea from the Programming Guide; slot lists and sibling map `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `MINUTES_PER_SLOT = 12` / `EXTRA_RIR_WHEN_COOKED = 1`
+
+- **Where:** `adjustForToday`
+- **Purpose:** Clock-based `ShortenSession` keeps `minutesAvailable / 12` movements (at least one) and drops from the end. Cooked work adds one extra rep in reserve; spoken as “leave a couple more reps in the tank,” not as a field name.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WEIGHT_VARIETY = 2.0`
 
 - **Where:** `rank` / `variety`
-- **Purpose:** Penalise a lift that appears in `recentSlugs`. Most recent is the largest penalty. Not a random number.
+- **Purpose:** Penalise a lift that appears in `recentSlugs`. Full 2.0 for any hit. Was 1.5 divided by `(index + 1)`, which made Monday's pick a rounding error by Thursday, so Upper B copied Upper A. 1.5 also tied the goal-mismatch gap (2.0 vs 0.5), so slug re-picked the same dumbbell press. 2.0 lets an unused alternative win. `buildWeek` prepends each day's kept slugs before ranking the next day.
 - **Source:** `MVP HEURISTIC`.
 - **Configurable:** No.
 
@@ -538,10 +651,10 @@ Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot;
 - **Source:** `MVP HEURISTIC`.
 - **Configurable:** No.
 
-### `SESSION_SETS_PRIMARY_BEGINNER = 2` / `SESSION_SETS_PRIMARY = 3` / `SESSION_SETS_SECONDARY = 3` / `SESSION_SETS_ACCESSORY = 2` / `SESSION_SETS_ISOLATION = 2` / `SESSION_SETS_CORE = 2`
+### `SESSION_SETS_PRIMARY_BEGINNER = 2` / `SESSION_SETS_PRIMARY = 3` / `SESSION_SETS_SECONDARY_BEGINNER = 2` / `SESSION_SETS_SECONDARY = 3` / `SESSION_SETS_ACCESSORY = 2` / `SESSION_SETS_ISOLATION = 2` / `SESSION_SETS_CORE = 2`
 
 - **Where:** `dose` / `sessionSets`
-- **Purpose:** Per-slot set count. Weekly hard-set landmarks stay with the validator.
+- **Purpose:** Per-slot set count. Invariant: PRIMARY ≥ SECONDARY at the same training age. Beginner secondary was 3 while primary was 2; that is inverted. Weekly hard-set landmarks stay with the validator.
 - **Source:** `MVP HEURISTIC` — contract 16 says beginners get fewer sets via the template column; this is the picker-side analogue, not a measured dose.
 - **Configurable:** No.
 

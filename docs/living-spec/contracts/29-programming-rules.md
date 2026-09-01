@@ -27,7 +27,7 @@ Double progression is the default: fill the rep range at the target effort, then
 | Severity | Meaning |
 |---|---|
 | `INFO` | Coach-worthy observation. Volume on the light side; frequency below 2–3. |
-| `WARN` | The plan fights the landmarks (volume high, push-only week, order, rest/reps unjustified). |
+| `WARN` | The plan fights the landmarks (volume high, push-only week, order class inversion, rest/reps unjustified). |
 | `BLOCK` | Safety only. A contraindicated exercise is present for a declared condition. |
 
 The validator **reports**; it does not rewrite a plan. Automatic programme mutation is forbidden by `AGENTS.md`.
@@ -51,6 +51,8 @@ Pure functions in `com.gymbuddy.domain.programming`. No clock, no randomness, no
 This catch-listing rule must be **re-examined when the catalog grows past 61**. A future lift could be high-consequence, not droppable, and list no catch, and the current predicate would fail to floor it.
 
 **Rest.** Strength rest depends on training age: untrained 60–120 s (Grgic 2017); trained compounds 180–300 s; trained isolation 120–180 s (Senna 2016). Hypertrophy rest 90–180 s (Singer 2024).
+
+**Order.** `order.freshness` warns only when the next lift is a higher class than the current one: compound (2) > isolation (1) > core (0). A chin-up after a moderate hinge is two compounds and is silent. Fly then bench still WARNs. Core last is still a fail if a calf raise follows a plank. `orderScore` remains a total-order helper; it is not the WARN trigger.
 
 ### Voice behavior
 

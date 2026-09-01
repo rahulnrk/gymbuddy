@@ -14,7 +14,13 @@ PR 14a ships the 12 hand-written substitute lists from the prototype as `substit
 
 ### User behavior
 
-“That machine is occupied.” AI: “Let’s swap that cable fly for dumbbell fly today.” (product §30). Suggests based on target muscle, movement pattern, goal, available equipment, history, preference. User accepts or rejects.
+**Behaviour change (contract 32).** Substitution is the **fourth** response to occupied equipment, not the first. The documented reflex used to be: occupied machine → offer a swap, and wait only when nothing is available to swap to. That is backwards. A trainer glances, asks how long, waits if that is rest, works in, or does the next movement first. They substitute after that.
+
+The ladder, in order, is in `respondToUnavailable` (contract 32): `AskHowLong` when the wait is unknown → `Wait` when the wait is no longer than this movement's rest → `WorkIn` or `Defer` for protected roles (`PRIMARY` / `SECONDARY` / `CORE`) → `Substitute` (this contract) → `Skip`. Isolation and accessory substitute without the work-in / defer ceremony.
+
+The swap itself is unchanged: one primary alternative, user accepts, `SUBSTITUTION_APPLIED` only.
+
+“That machine is occupied.” AI, first: “How long do they look?” If they then accept a swap: “Let’s use dumbbell fly instead so we keep the same kind of work.” Suggests based on target muscle, movement pattern, goal, available equipment, history, preference. User accepts or rejects.
 
 ### System state
 

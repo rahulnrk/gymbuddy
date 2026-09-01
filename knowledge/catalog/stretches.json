@@ -1,0 +1,871 @@
+[
+  {
+    "slug": "seated-neck-side-bend",
+    "name": "Seated Neck Side Bend",
+    "type": "static",
+    "targetMuscles": [
+      "neck"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit tall. Drop one ear toward the shoulder. The opposite hand can rest on the head with no pull, just weight. Breathe. Switch. Do not crank.",
+    "intensityGuidance": "A five-out-of-ten stretch. Tension, not pain.",
+    "contraindications": [],
+    "id": "db7afade-ed9e-5035-b555-dcbc49821e9c",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "upper-trap-stretch",
+    "name": "Upper Trap Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "trap_upper"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit on one hand. Tilt the head away and a little forward, as if looking into a shirt pocket. The sitting hand keeps that shoulder down. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. The shoulder stays heavy.",
+    "contraindications": [],
+    "id": "04b21705-2526-5176-a5ab-cbdf5d412aa7",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "doorway-pec-stretch",
+    "name": "Doorway Pec Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "chest_mid",
+      "chest_upper"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "door-frame",
+        "none"
+      ]
+    ],
+    "howTo": "Forearm on a door frame, elbow at about shoulder height. Step through until the chest opens. Ribs down. The neck stays long. Switch arms.",
+    "intensityGuidance": "A five-out-of-ten stretch. Tension, not pain.",
+    "contraindications": [
+      "shoulder-impingement",
+      "recent-shoulder-surgery"
+    ],
+    "id": "146d48a3-0724-5c06-9244-951112ce199a",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "high-doorway-pec-stretch",
+    "name": "High Doorway Pec Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "chest_upper"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "door-frame"
+      ]
+    ],
+    "howTo": "Same doorway, but the elbow sits higher than the shoulder. Step through a smaller amount. You should feel the upper chest more than the front of the shoulder.",
+    "intensityGuidance": "A five-out-of-ten stretch. Back off a pinch in the shoulder.",
+    "contraindications": [
+      "shoulder-impingement",
+      "recent-shoulder-surgery"
+    ],
+    "id": "4ac6561c-9b89-5375-8d73-1fd6722de9d4",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "wall-biceps-stretch",
+    "name": "Wall Biceps Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "biceps"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand side-on to a wall. Place the palm on the wall, fingers down, arm straight. Turn the chest away until the biceps lengthens. Keep the elbow soft, not locked.",
+    "intensityGuidance": "A five-out-of-ten stretch. No elbow zap.",
+    "contraindications": [
+      "elbow-tendinopathy"
+    ],
+    "id": "023506aa-8c17-5dd6-b47a-2fe0654e9c8d",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "overhead-triceps-stretch",
+    "name": "Overhead Triceps Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "triceps"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Reach one arm overhead and bend the elbow so the hand finds the spine. The other hand can guide the elbow back, lightly. Ribs stay down. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Do not yank the elbow.",
+    "contraindications": [
+      "shoulder-impingement"
+    ],
+    "id": "f82f0b39-b31e-5fd0-815f-8ca2c6a850a5",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "wrist-flexor-stretch",
+    "name": "Wrist Flexor Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "forearm"
+    ],
+    "timing": "post-session",
+    "holdSec": 20,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Arm straight, palm up. Use the other hand to ease the palm toward the floor so the fingers point down. You should feel the inner forearm. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Ease off a nerve tingle.",
+    "contraindications": [
+      "wrist-pain",
+      "elbow-tendinopathy"
+    ],
+    "id": "41dbc885-e4f7-52ec-a2f1-122e80e1a25a",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "wrist-extensor-stretch",
+    "name": "Wrist Extensor Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "forearm"
+    ],
+    "timing": "post-session",
+    "holdSec": 20,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Arm straight, palm down. Ease the back of the hand toward you so the fingers point down. Outer forearm should speak. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. No burning at the elbow.",
+    "contraindications": [
+      "wrist-pain",
+      "elbow-tendinopathy"
+    ],
+    "id": "8c24af39-5fba-53a3-b764-e5d7f440b0d6",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "standing-side-bend",
+    "name": "Standing Side Bend",
+    "type": "static",
+    "targetMuscles": [
+      "oblique"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Feet under the hips. Reach one arm up and lean away. Both sit bones stay heavy. Breathe into the long side. Do not twist to fake range.",
+    "intensityGuidance": "A five-out-of-ten stretch. Length, not a crunch.",
+    "contraindications": [],
+    "id": "b7ce2856-1cb4-5ced-bcc4-f75253b979e2",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "childs-pose-lat",
+    "name": "Child's Pose Lat Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "lat"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Kneel and sit the hips toward the heels. Walk both hands forward, then walk them to one side so that side of the back lengthens. Breathe into the ribs. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Soft neck.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "e02faf7b-24de-5d6f-83df-1e6ef3398a22",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "hanging-lat-stretch",
+    "name": "Hanging Lat Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "lat"
+    ],
+    "timing": "post-session",
+    "holdSec": 20,
+    "repeats": 2,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "pull-up-bar"
+      ]
+    ],
+    "howTo": "Hang from a bar with both hands. Let the shoulder blades rise toward the ears. Feet can stay on a box. Breathe. Come down before the grip fails.",
+    "intensityGuidance": "A five-out-of-ten stretch. This is a hang, not a pull-up.",
+    "contraindications": [
+      "shoulder-impingement",
+      "recent-shoulder-surgery"
+    ],
+    "id": "ea662e30-6e1d-509f-afdd-dc2f64c3dbbd",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "knees-to-chest",
+    "name": "Knees to Chest",
+    "type": "static",
+    "targetMuscles": [
+      "back_lower"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back. Draw both knees toward the chest and hold the shins. The tailbone can tuck a little. Breathe into the low back. Stop if this is the wrong kind of back feeling.",
+    "intensityGuidance": "A five-out-of-ten stretch. Comfort, not a yank.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "cfae57b6-4875-5a60-9862-ab1900fb6701",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "figure-four-glute",
+    "name": "Figure-Four Glute Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "glute"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back. Cross an ankle over the opposite knee. Draw that thigh toward you. The hip opens; the head stays down. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. You should feel the back of the hip, not the knee.",
+    "contraindications": [
+      "recent-knee-surgery"
+    ],
+    "id": "38037247-f0e0-5a5f-b7b6-b72098b080c8",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "pigeon-prep",
+    "name": "Pigeon Prep",
+    "type": "static",
+    "targetMuscles": [
+      "glute"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "From all fours, bring one shin across in front of you. The back leg reaches long. Square the hips as best you can and fold forward only as far as the front hip allows. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Support with your hands. No grinding in the knee.",
+    "contraindications": [
+      "recent-knee-surgery",
+      "anterior-knee-pain"
+    ],
+    "id": "ffd59036-6c7c-5f57-8a46-ac886333dc70",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "standing-quad-stretch",
+    "name": "Standing Quad Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "quad"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand. Hold a wall. Catch one ankle and bring the heel toward the glute. Knees stay close. Tuck the pelvis slightly so the front of the hip lengthens too. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Do not yank the foot.",
+    "contraindications": [
+      "anterior-knee-pain",
+      "recent-knee-surgery"
+    ],
+    "id": "2c714069-f7ce-5a52-a1e9-31bfe6fe627d",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "couch-stretch",
+    "name": "Couch Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "quad"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "bench-flat",
+        "none"
+      ]
+    ],
+    "howTo": "Back knee close to a wall or bench, shin up. Front foot plants. Stay tall. The stretch is the front of the back hip and thigh. Hands can rest on the front knee.",
+    "intensityGuidance": "A five-out-of-ten stretch. Come out if the knee complains.",
+    "contraindications": [
+      "anterior-knee-pain",
+      "recent-knee-surgery"
+    ],
+    "id": "302f5710-738d-57c4-9d53-9d752f3bb5c6",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "supine-hamstring",
+    "name": "Supine Hamstring Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "hamstring"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back. One leg long on the floor. Raise the other and hold behind the thigh, not the knee. Ease the foot toward the ceiling with a soft knee. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. A nerve zing means you went too far.",
+    "contraindications": [],
+    "id": "b97bc3b6-7dc8-5cd6-bfab-3eeed1db24f3",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "standing-hamstring-hinge",
+    "name": "Standing Hamstring Hinge",
+    "type": "static",
+    "targetMuscles": [
+      "hamstring"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "One heel forward, toes up. Hinge at the hips with a long spine until the back of that thigh speaks. Hands can rest on the front thigh. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Round-backed toe touches do not count.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "fef11e1b-1074-5a20-a370-7389f00dc2d7",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "butterfly-stretch",
+    "name": "Butterfly Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "adductor"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit. Soles of the feet together. Let the knees drop. Hold the feet, not the knees. Sit tall. Bounce is not the point; a quiet hold is.",
+    "intensityGuidance": "A five-out-of-ten stretch. Do not press the knees down.",
+    "contraindications": [],
+    "id": "85812b52-e929-552a-8926-906f896f9423",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "side-lunge-adductor",
+    "name": "Side-Lunge Adductor Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "adductor"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Wide stance. Shift toward one side, that knee bends, the other leg stays long with the toes up. Hands on the floor or the bent thigh. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. The long inner thigh, not a groin yank.",
+    "contraindications": [
+      "anterior-knee-pain"
+    ],
+    "id": "f3e4e213-8a3d-5d81-a418-43c9503cf767",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "wall-gastroc-stretch",
+    "name": "Wall Calf Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "calf"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Hands on a wall. Back leg straight, heel down, toes forward. Lean until the upper calf speaks. The back knee stays unlocked but not bent. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Heel stays heavy.",
+    "contraindications": [],
+    "id": "b5146b65-657c-504f-afe4-001c771f4f8a",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "bent-knee-soleus",
+    "name": "Bent-Knee Soleus Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "calf"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Same wall stance as the calf stretch, then bend the back knee while the heel stays down. You should feel lower, nearer the Achilles. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. If the heel lifts, you went too far.",
+    "contraindications": [],
+    "id": "3f0dc198-022b-574b-ada2-51454918321b",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "behind-back-opener",
+    "name": "Behind-Back Chest Opener",
+    "type": "static",
+    "targetMuscles": [
+      "delt_front",
+      "chest_mid"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand. Clasp the hands behind you, or hold a towel. Draw the shoulders back and lift the hands a little. Chest up, ribs not flared. Breathe.",
+    "intensityGuidance": "A five-out-of-ten stretch. Stop if the front of the shoulder pinches.",
+    "contraindications": [
+      "shoulder-impingement",
+      "recent-shoulder-surgery"
+    ],
+    "id": "0011411a-91b7-5141-a2d5-f3ef17fe364e",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "half-kneeling-hip-flexor",
+    "name": "Half-Kneeling Hip Flexor Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "quad"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Half-kneeling. Tuck the pelvis under so the back hip opens before you lunge forward. Hands on the front thigh. The stretch is the front of the back hip. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Tucking first matters more than lunging deep.",
+    "contraindications": [
+      "anterior-knee-pain",
+      "recent-knee-surgery"
+    ],
+    "id": "10ce40c4-b40f-5e1b-a63a-c5fafdd68449",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "supine-twist",
+    "name": "Supine Twist",
+    "type": "static",
+    "targetMuscles": [
+      "oblique",
+      "back_lower"
+    ],
+    "timing": "post-session",
+    "holdSec": 30,
+    "repeats": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back. Knees bent. Drop both knees to one side. Arms open. The opposite shoulder tries to stay heavy. Breathe. Switch.",
+    "intensityGuidance": "A five-out-of-ten stretch. Do not force the knees to the floor.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "bd26ea82-0234-5dd2-adad-32ef877817a1",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "neck-flexion-stretch",
+    "name": "Neck Flexion Stretch",
+    "type": "static",
+    "targetMuscles": [
+      "neck"
+    ],
+    "timing": "post-session",
+    "holdSec": 20,
+    "repeats": 2,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit tall. Tuck the chin and nod as if holding a peach under it. Hands can rest on the back of the head with no extra pull. Come up slow.",
+    "intensityGuidance": "A five-out-of-ten stretch. No dizziness, no forcing.",
+    "contraindications": [],
+    "id": "5830beca-8e78-56d9-a8fd-cdd6190add26",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "leg-swings",
+    "name": "Leg Swings",
+    "type": "dynamic",
+    "targetMuscles": [
+      "hamstring",
+      "quad",
+      "glute"
+    ],
+    "timing": "warmup",
+    "holdSec": 0,
+    "repeats": 10,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Hold a wall. Swing one leg forward and back from the hip. The torso stays quiet. Then swing the same leg across the body. Switch. These are swings, not kicks.",
+    "intensityGuidance": "Easy swings. Range you control, not a martial-arts warm-up.",
+    "contraindications": [],
+    "id": "825f7a27-fa33-5ba2-b367-36986b39f2b9",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "walking-inchworm",
+    "name": "Walking Inchworm",
+    "type": "dynamic",
+    "targetMuscles": [
+      "hamstring",
+      "abs_upper",
+      "calf"
+    ],
+    "timing": "warmup",
+    "holdSec": 0,
+    "repeats": 4,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Hinge, put the hands on the floor, and walk them out to a plank. Then walk the feet toward the hands with soft knees. Stand. Repeat. Keep the hips from piking hard.",
+    "intensityGuidance": "Easy. A walk-out, not a hamstring torture test.",
+    "contraindications": [
+      "flexion-intolerant-back",
+      "wrist-pain"
+    ],
+    "id": "2750cf00-c39a-5e5f-8c0a-1c2f4ebfa39f",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "arm-crossovers",
+    "name": "Arm Crossovers",
+    "type": "dynamic",
+    "targetMuscles": [
+      "chest_mid",
+      "delt_rear"
+    ],
+    "timing": "warmup",
+    "holdSec": 0,
+    "repeats": 10,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand tall. Swing the arms across the chest and then open them wide. Let the shoulder blades wrap and spread. The neck stays quiet.",
+    "intensityGuidance": "Easy. Warmth across the chest and upper back.",
+    "contraindications": [],
+    "id": "4314920f-8978-5576-924f-2de744ceeee0",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "contract-relax-hamstring",
+    "name": "Contract-Relax Hamstring",
+    "type": "pnf",
+    "targetMuscles": [
+      "hamstring"
+    ],
+    "timing": "post-session",
+    "holdSec": 10,
+    "repeats": 3,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back, one leg raised, holding behind the thigh. Push the heel into your hands for a slow count, then relax and ease the leg a little higher. That is one cycle. Switch.",
+    "intensityGuidance": "A light push, then a five-out-of-ten stretch. This is not a fight.",
+    "contraindications": [],
+    "id": "e8e8af13-5dca-5aa2-80fb-32a531f19767",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 and stretching timing rule; this stretch is judgement",
+      "reviewed": "2026-09-01"
+    }
+  }
+]

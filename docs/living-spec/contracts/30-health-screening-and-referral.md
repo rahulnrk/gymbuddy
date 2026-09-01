@@ -79,7 +79,7 @@ Evidence is `:domain` Kotlin tests, not event goldens — this PR emits no worko
 3. Skipping every screening question is not `Ready`.
 4. `Ready` unreachable while any `REQUIRED_TO_SUGGEST` field is absent.
 5. Missing SHAPING never blocks `Ready`.
-6. `BODYWEIGHT_ONLY` matches the bodyweight-capable subset of the 61.
+6. `BODYWEIGHT_ONLY` matches the bodyweight-capable subset (tier `none`, including a sturdy table and a door frame).
 7. `alsoHave` adds, `doNotHave` removes, `doNotHave` wins on conflict.
 8. Declared condition reaches the validator `BLOCK`.
 9. Sharp pain on a movement is a SAFETY `BLOCK` for that movement.

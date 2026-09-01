@@ -61,6 +61,17 @@ data class ScoredExercise(
     val reasons: List<Reason>,
 )
 
+data class SlotReadiness(
+    val allCandidatesFatigued: Boolean,
+    val worstTargetFatigue: Double,
+    val explanation: String,
+)
+
+data class RankedSlot(
+    val ranked: List<ScoredExercise>,
+    val readiness: SlotReadiness,
+)
+
 /**
  * Per-slot dose. Not [com.gymbuddy.domain.programming.Prescription]
  * (that one is progression). Weekly volume is the validator's job.

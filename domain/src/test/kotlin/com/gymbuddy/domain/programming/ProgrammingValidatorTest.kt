@@ -164,7 +164,7 @@ class ProgrammingValidatorTest {
         listOf("fun generatePlan", "fun generateWorkout", "fun buildWorkout", "fun createPlan", "fun suggestWorkout").forEach { bad ->
             assertFalse(bad in body, "programming package contains $bad")
         }
-        assertEquals(61, catalog.exercises.size)
+        assertEquals(77, catalog.exercises.size)
     }
 
     private fun planned(

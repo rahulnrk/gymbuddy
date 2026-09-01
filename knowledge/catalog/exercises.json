@@ -5,6 +5,11 @@
     "name": "Bench Press",
     "kind": "compound",
     "pattern": "horizontal push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -156,6 +161,11 @@
     "name": "Incline Dumbbell Press",
     "kind": "compound",
     "pattern": "incline push",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -283,6 +293,11 @@
     "name": "Overhead Press",
     "kind": "compound",
     "pattern": "vertical push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -434,6 +449,11 @@
     "name": "Cable Fly",
     "kind": "isolation",
     "pattern": "chest isolation",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -551,6 +571,11 @@
     "name": "Lateral Raise",
     "kind": "isolation",
     "pattern": "delt isolation",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -674,6 +699,11 @@
     "name": "Triceps Pushdown",
     "kind": "isolation",
     "pattern": "triceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -800,6 +830,11 @@
     "name": "Barbell Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -944,6 +979,11 @@
     "name": "Lat Pulldown",
     "kind": "compound",
     "pattern": "vertical pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "lat-pulldown-station",
@@ -1060,6 +1100,11 @@
     "name": "Pull-up",
     "kind": "compound",
     "pattern": "vertical pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "pull-up-bar"
@@ -1185,6 +1230,11 @@
     "name": "Seated Cable Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "seated-row-station",
@@ -1301,6 +1351,11 @@
     "name": "Face Pull",
     "kind": "isolation",
     "pattern": "rear delt",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -1410,6 +1465,11 @@
     "name": "Barbell Curl",
     "kind": "isolation",
     "pattern": "biceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell",
@@ -1540,6 +1600,11 @@
     "name": "Dumbbell Curl",
     "kind": "isolation",
     "pattern": "biceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -1657,6 +1722,11 @@
     "name": "Back Squat",
     "kind": "compound",
     "pattern": "squat",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -1787,7 +1857,7 @@
         "reviewed": "2026-09-01"
       }
     },
-    "romNote": "Bar on the upper back. Unrack and rerack in the rack \u2014 do not walk it out of an empty room.",
+    "romNote": "Bar on the upper back. Unrack and rerack in the rack — do not walk it out of an empty room.",
     "muscleOverrides": {
       "quad": 1,
       "glute": 0.8,
@@ -1807,6 +1877,11 @@
     "name": "Front Squat",
     "kind": "compound",
     "pattern": "squat",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -1930,6 +2005,11 @@
     "name": "Deadlift",
     "kind": "compound",
     "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell",
@@ -2072,6 +2152,11 @@
     "name": "Romanian Deadlift",
     "kind": "compound",
     "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -2221,6 +2306,11 @@
     "name": "Leg Press",
     "kind": "compound",
     "pattern": "squat",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "leg-press-machine"
@@ -2340,6 +2430,11 @@
     "name": "Bulgarian Split Squat",
     "kind": "compound",
     "pattern": "lunge",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -2473,6 +2568,11 @@
     "name": "Walking Lunge",
     "kind": "compound",
     "pattern": "lunge",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -2597,6 +2697,11 @@
     "name": "Leg Extension",
     "kind": "isolation",
     "pattern": "quads",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "leg-extension-machine"
@@ -2713,6 +2818,11 @@
     "name": "Leg Curl",
     "kind": "isolation",
     "pattern": "hamstrings",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "leg-curl-machine"
@@ -2826,6 +2936,11 @@
     "name": "Hip Thrust",
     "kind": "compound",
     "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -2947,6 +3062,11 @@
     "name": "Calf Raise",
     "kind": "isolation",
     "pattern": "calves",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "calf-raise-machine"
@@ -3055,6 +3175,11 @@
     "name": "Plank",
     "kind": "isolation",
     "pattern": "core",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS"
+    ],
     "requiredEquipment": [
       [
         "none"
@@ -3163,6 +3288,11 @@
     "name": "Hanging Leg Raise",
     "kind": "isolation",
     "pattern": "core",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "pull-up-bar"
@@ -3274,6 +3404,12 @@
     "name": "Push-up",
     "kind": "compound",
     "pattern": "horizontal push",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "ENDURANCE"
+    ],
     "requiredEquipment": [
       [
         "none"
@@ -3401,6 +3537,11 @@
     "name": "Goblet Squat",
     "kind": "compound",
     "pattern": "squat",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -3516,6 +3657,11 @@
     "name": "Dumbbell Bench Press",
     "kind": "compound",
     "pattern": "horizontal push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -3629,6 +3775,11 @@
     "name": "Incline Bench Press",
     "kind": "compound",
     "pattern": "incline push",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -3766,6 +3917,11 @@
     "name": "Decline Bench Press",
     "kind": "compound",
     "pattern": "decline push",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -3895,6 +4051,11 @@
     "name": "Close Grip Bench Press",
     "kind": "compound",
     "pattern": "triceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -4012,6 +4173,11 @@
     "name": "Machine Chest Press",
     "kind": "compound",
     "pattern": "horizontal push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "chest-press-machine"
@@ -4116,6 +4282,11 @@
     "name": "Dumbbell Fly",
     "kind": "isolation",
     "pattern": "chest isolation",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -4244,6 +4415,11 @@
     "name": "Dip",
     "kind": "compound",
     "pattern": "vertical push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dip-bars"
@@ -4368,6 +4544,11 @@
     "name": "Arnold Press",
     "kind": "compound",
     "pattern": "vertical push",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -4478,6 +4659,11 @@
     "name": "Front Raise",
     "kind": "isolation",
     "pattern": "delt isolation",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -4585,6 +4771,11 @@
     "name": "Rear Delt Fly",
     "kind": "isolation",
     "pattern": "rear delt",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -4693,6 +4884,11 @@
     "name": "Skullcrusher",
     "kind": "isolation",
     "pattern": "triceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell",
@@ -4820,6 +5016,11 @@
     "name": "Overhead Triceps Extension",
     "kind": "isolation",
     "pattern": "triceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -4933,6 +5134,11 @@
     "name": "Chin-up",
     "kind": "compound",
     "pattern": "vertical pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "pull-up-bar"
@@ -5049,6 +5255,11 @@
     "name": "Assisted Pull-up",
     "kind": "compound",
     "pattern": "vertical pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "assisted-pullup-machine"
@@ -5147,6 +5358,11 @@
     "name": "T-Bar Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -5261,6 +5477,11 @@
     "name": "Pendlay Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -5373,6 +5594,11 @@
     "name": "Single Arm Dumbbell Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -5488,6 +5714,11 @@
     "name": "Straight Arm Pulldown",
     "kind": "isolation",
     "pattern": "lats",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -5586,6 +5817,11 @@
     "name": "Shrug",
     "kind": "isolation",
     "pattern": "traps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell",
@@ -5693,6 +5929,11 @@
     "name": "Hammer Curl",
     "kind": "isolation",
     "pattern": "biceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -5800,6 +6041,11 @@
     "name": "Preacher Curl",
     "kind": "isolation",
     "pattern": "biceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell",
@@ -5910,6 +6156,11 @@
     "name": "Cable Curl",
     "kind": "isolation",
     "pattern": "biceps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -6016,6 +6267,11 @@
     "name": "Hack Squat",
     "kind": "compound",
     "pattern": "squat",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "hack-squat-machine"
@@ -6137,6 +6393,11 @@
     "name": "Step Up",
     "kind": "compound",
     "pattern": "lunge",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -6250,6 +6511,11 @@
     "name": "Good Morning",
     "kind": "compound",
     "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "barbell"
@@ -6371,6 +6637,11 @@
     "name": "Back Extension",
     "kind": "isolation",
     "pattern": "lower back",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "hyperextension-bench"
@@ -6489,6 +6760,11 @@
     "name": "Nordic Curl",
     "kind": "isolation",
     "pattern": "hamstrings",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS"
+    ],
     "requiredEquipment": [
       [
         "none"
@@ -6589,6 +6865,11 @@
     "name": "Seated Calf Raise",
     "kind": "isolation",
     "pattern": "calves",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "calf-raise-machine"
@@ -6685,6 +6966,11 @@
     "name": "Kettlebell Swing",
     "kind": "compound",
     "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "kettlebell"
@@ -6813,6 +7099,11 @@
     "name": "Cable Crunch",
     "kind": "isolation",
     "pattern": "core",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "cable-station"
@@ -6926,6 +7217,11 @@
     "name": "Ab Wheel",
     "kind": "isolation",
     "pattern": "core",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "ab-wheel"
@@ -7043,6 +7339,11 @@
     "name": "Farmer Carry",
     "kind": "compound",
     "pattern": "carry",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
     "requiredEquipment": [
       [
         "dumbbell",
@@ -7157,6 +7458,11 @@
     "name": "Chest Supported Row",
     "kind": "compound",
     "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
     "requiredEquipment": [
       [
         "dumbbell"
@@ -7252,5 +7558,1102 @@
       "lat": 0.7,
       "biceps": 0.4
     }
+  },
+  {
+    "slug": "bodyweight-squat",
+    "id": "80d96a6f-c0ff-5233-86a5-22656fdb5290",
+    "name": "Bodyweight Squat",
+    "kind": "compound",
+    "pattern": "squat",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "ENDURANCE"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "air squat",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "bw squat",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "bodyweight squat",
+      "tts": "Bodyweight Squat"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "goblet-squat",
+      "reverse-lunge"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Sit back and down. Knees track over toes. Stand up without folding the chest.",
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.7,
+      "adductor": 0.3
+    }
+  },
+  {
+    "slug": "glute-bridge",
+    "id": "6e8adc3b-34e6-5f03-a68d-58fe0c5fefe3",
+    "name": "Glute Bridge",
+    "kind": "compound",
+    "pattern": "hinge",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "ENDURANCE"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "hip bridge",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "shoulder bridge",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "glute bridge",
+      "tts": "Glute Bridge"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "hip-thrust",
+      "dumbbell-romanian-deadlift"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Ribs down. Drive through the heels until the hips lock. Do not arch the low back.",
+    "muscleOverrides": {
+      "glute": 1,
+      "hamstring": 0.6,
+      "back_lower": 0.3
+    }
+  },
+  {
+    "slug": "reverse-lunge",
+    "id": "32e39e37-0724-58ef-bbcf-74ccab057025",
+    "name": "Reverse Lunge",
+    "kind": "compound",
+    "pattern": "lunge",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "ENDURANCE"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.1,
+    "unilateral": true,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "backward lunge",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "reverse lunge",
+      "tts": "Reverse Lunge"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "walking-lunge",
+      "bulgarian-split-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Step back, back knee toward the floor. Front heel stays down.",
+    "muscleOverrides": {
+      "glute": 1,
+      "quad": 0.85,
+      "hamstring": 0.35
+    }
+  },
+  {
+    "slug": "inverted-row",
+    "id": "9f2dd101-a8ea-5c2f-961c-b30d93eb0ecc",
+    "name": "Inverted Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "sturdy-table"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 5,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "table row",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "bodyweight row",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "australian pull-up",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "inverted row",
+      "tts": "Inverted Row"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "towel-row",
+      "single-arm-dumbbell-row"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Lie under a sturdy table. Pull the chest to the edge. Body stays a straight line.",
+    "muscleOverrides": {
+      "trap_mid": 1,
+      "lat": 0.7,
+      "biceps": 0.5,
+      "delt_rear": 0.5
+    }
+  },
+  {
+    "slug": "towel-row",
+    "id": "d3c8776a-2a94-5c9a-8c78-424719f39c95",
+    "name": "Towel Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "door-frame"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "doorway row",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "towel row",
+      "tts": "Towel Row"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "inverted-row",
+      "single-arm-dumbbell-row"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Anchor a towel in a closed door. Lean back and row. Do not yank the door.",
+    "muscleOverrides": {
+      "trap_mid": 0.9,
+      "lat": 0.7,
+      "biceps": 0.6,
+      "delt_rear": 0.4
+    }
+  },
+  {
+    "slug": "pike-push-up",
+    "id": "19c5c5dd-ceec-5c1d-9393-9babad99492b",
+    "name": "Pike Push-up",
+    "kind": "compound",
+    "pattern": "vertical push",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "ENDURANCE"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.05,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 5,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "pike press",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "piked push-up",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "pike push-up",
+      "tts": "Pike Push-up"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "arnold-press",
+      "overhead-press"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Hips high, head toward the floor between the hands. Press back to the pike.",
+    "muscleOverrides": {
+      "delt_front": 1,
+      "delt_side": 0.6,
+      "triceps": 0.6
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "standing-calf-raise",
+    "id": "d0176d8a-cb9e-563d-84a8-b15f4023a405",
+    "name": "Standing Calf Raise",
+    "kind": "isolation",
+    "pattern": "calves",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 45,
+    "repWindow": {
+      "min": 10,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "bodyweight calf raise",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "calf raise",
+      "tts": "Standing Calf Raise"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "calf-raise",
+      "seated-calf-raise"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Rise onto the big toe. Pause. Lower slowly. Hold a wall if you wobble.",
+    "muscleOverrides": {
+      "calf": 1
+    }
+  },
+  {
+    "slug": "dumbbell-romanian-deadlift",
+    "id": "e89bcaca-9aed-5385-b4fa-86c69368d818",
+    "name": "Dumbbell Romanian Deadlift",
+    "kind": "compound",
+    "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.2,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "db rdl",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "dumbbell rdl",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell rdl",
+      "tts": "Dumbbell Romanian Deadlift"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "romanian-deadlift",
+      "single-leg-rdl",
+      "glute-bridge"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Soft knees. Push the hips back. Dumbbells stay close to the legs. Spine long.",
+    "muscleOverrides": {
+      "hamstring": 1,
+      "glute": 0.9,
+      "back_lower": 0.5
+    }
+  },
+  {
+    "slug": "single-leg-rdl",
+    "id": "4caeba47-1590-5179-b496-a07fd654caa3",
+    "name": "Single-leg Romanian Deadlift",
+    "kind": "compound",
+    "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.15,
+    "unilateral": true,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "sl rdl",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "one leg rdl",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "single-leg rdl",
+      "tts": "Single-leg Romanian Deadlift"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "dumbbell-romanian-deadlift",
+      "romanian-deadlift"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Stand on one leg. Hinge. Hips stay square. A light touch-down is fine.",
+    "muscleOverrides": {
+      "hamstring": 1,
+      "glute": 0.9,
+      "back_lower": 0.4
+    }
+  },
+  {
+    "slug": "dumbbell-good-morning",
+    "id": "cf1b84bf-c009-51d9-ac3e-a4aba08b3396",
+    "name": "Dumbbell Good Morning",
+    "kind": "compound",
+    "pattern": "hinge",
+    "bestFitGoals": [
+      "STRENGTH",
+      "HYPERTROPHY",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 8,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "db good morning",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell good morning",
+      "tts": "Dumbbell Good Morning"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "good-morning",
+      "dumbbell-romanian-deadlift"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Dumbbells at the shoulders. Hinge. Soft knees. Do not round.",
+    "muscleOverrides": {
+      "hamstring": 0.9,
+      "glute": 0.8,
+      "back_lower": 1
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "suitcase-carry",
+    "id": "ce7a87a4-ee20-540d-a189-266a616dffa8",
+    "name": "Suitcase Carry",
+    "kind": "compound",
+    "pattern": "carry",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.05,
+    "unilateral": true,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 4,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "one arm farmer carry",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "suitcase carry",
+      "tts": "Suitcase Carry"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "farmer-carry"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Walk with a weight in one hand. Ribs stacked. Do not lean into it.",
+    "muscleOverrides": {
+      "forearm": 1,
+      "oblique": 0.9,
+      "trap_upper": 0.6,
+      "glute": 0.3
+    }
+  },
+  {
+    "slug": "decline-dumbbell-press",
+    "id": "dc428146-e1ee-5aec-be73-0bfda97bb7bb",
+    "name": "Decline Dumbbell Press",
+    "kind": "compound",
+    "pattern": "decline push",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "GENERAL_FITNESS",
+      "STRENGTH"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-decline"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "decline db press",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "decline dumbbell press",
+      "tts": "Decline Dumbbell Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "decline-bench-press",
+      "dumbbell-bench-press"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Slight decline. Press up and in. Do not bounce off the chest.",
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "chest_upper": 0.2,
+      "triceps": 0.55,
+      "delt_front": 0.35
+    }
+  },
+  {
+    "slug": "dumbbell-pullover",
+    "id": "a46ae06f-c789-5e67-aef4-595f74596b2b",
+    "name": "Dumbbell Pullover",
+    "kind": "isolation",
+    "pattern": "lats",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-flat"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.05,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "db pullover",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell pullover",
+      "tts": "Dumbbell Pullover"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "straight-arm-pulldown"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Lie on a bench. Lower the weight behind the head with soft elbows. Pull back over the chest.",
+    "muscleOverrides": {
+      "lat": 1,
+      "chest_mid": 0.4,
+      "triceps": 0.3
+    }
+  },
+  {
+    "slug": "superman",
+    "id": "2298e34a-a310-54b8-8362-44945794059d",
+    "name": "Superman",
+    "kind": "isolation",
+    "pattern": "lower back",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 45,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "prone back extension",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "superman",
+      "tts": "Superman"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "back-extension"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Lie face down. Lift chest and legs together. Short range. Neck long.",
+    "muscleOverrides": {
+      "back_lower": 1,
+      "glute": 0.5,
+      "hamstring": 0.3
+    }
+  },
+  {
+    "slug": "wall-sit",
+    "id": "893af7a7-18ef-56d6-adfb-ad59a21283b7",
+    "name": "Wall Sit",
+    "kind": "isolation",
+    "pattern": "quads",
+    "bestFitGoals": [
+      "GENERAL_FITNESS",
+      "HYPERTROPHY",
+      "FAT_LOSS"
+    ],
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 45,
+    "repWindow": {
+      "min": 6,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "wall squat hold",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "wall sit",
+      "tts": "Wall Sit"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "leg-extension",
+      "bodyweight-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Back on the wall, knees about a right angle. Heels down. Breathe.",
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.3
+    }
+  },
+  {
+    "slug": "upright-row",
+    "id": "d613e0d4-958a-56cc-93db-54f82865311c",
+    "name": "Upright Row",
+    "kind": "isolation",
+    "pattern": "traps",
+    "bestFitGoals": [
+      "HYPERTROPHY",
+      "FAT_LOSS",
+      "GENERAL_FITNESS"
+    ],
+    "requiredEquipment": [
+      [
+        "barbell",
+        "dumbbell",
+        "ez-bar"
+      ]
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "upright rows",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "upright row",
+      "tts": "Upright Row"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "shrug",
+      "lateral-raise"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "pr-fix-what-the-week-showed",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr-fix-what-the-week-showed",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Elbows lead. Stop at the chest. Do not yank behind the neck.",
+    "muscleOverrides": {
+      "trap_upper": 1,
+      "delt_side": 0.7,
+      "biceps": 0.3
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
   }
 ]

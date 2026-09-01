@@ -139,8 +139,11 @@ class CatalogTest {
     }
 
     @Test
-    fun prototypeCountIsFrozen() {
-        assertEquals(61, catalog.exercises.size)
+    fun catalogGrewPastThePrototypeSet() {
+        assertEquals(77, catalog.exercises.size)
+        catalog.exercises.forEach { ex ->
+            assertTrue(ex.bestFitGoals.isNotEmpty(), ex.slug)
+        }
     }
 
     @Test

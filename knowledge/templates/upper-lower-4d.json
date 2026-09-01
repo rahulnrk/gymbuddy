@@ -1,0 +1,59 @@
+{
+  "id": "upper-lower-4d",
+  "name": "Upper / Lower, 4 days",
+  "goals": ["STRENGTH", "HYPERTROPHY", "GENERAL_FITNESS", "FAT_LOSS"],
+  "trainingAges": ["INTERMEDIATE", "ADVANCED"],
+  "daysPerWeek": 4,
+  "days": [
+    {
+      "name": "Upper A",
+      "slots": [
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "triceps", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Lower A",
+      "slots": [
+        { "pattern": "squat", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lunge", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Upper B",
+      "slots": [
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "rear delt", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Lower B",
+      "slots": [
+        { "pattern": "hinge", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "hamstrings", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    }
+  ],
+  "provenanceDefault": {
+    "confidence": "moderate",
+    "basis": "consensus",
+    "source": "Coach & AI Programming Guide — upper/lower; squat day and hinge day split; volume kept inside strength 4–10; slots MVP HEURISTIC",
+    "reviewed": "2026-09-01"
+  },
+  "provenance": {
+    "priority": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — cut accessories, then core, then secondary; never a main lift",
+      "reviewed": "2026-09-01"
+    }
+  }
+}

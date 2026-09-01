@@ -2,6 +2,8 @@ package com.gymbuddy.domain.programming
 
 import com.gymbuddy.domain.catalog.Exercise
 import com.gymbuddy.domain.catalog.Provenance
+import com.gymbuddy.domain.picker.Slot
+import com.gymbuddy.domain.picker.SlotRole
 
 enum class Goal {
     STRENGTH,
@@ -146,6 +148,8 @@ data class UserContext(
     val equipment: List<String> = emptyList(),
     val trainsWithPartner: Boolean? = null,
     val sharpPainSlugs: Set<String> = emptySet(),
+    val daysPerWeek: Int? = null,
+    val typicalDurationMin: Int? = null,
 )
 
 data class PlannedExercise(
@@ -154,6 +158,16 @@ data class PlannedExercise(
     val prescribedRepMin: Int? = null,
     val prescribedRepMax: Int? = null,
     val prescribedRestSec: Int? = null,
+    val slot: Slot? = null,
+)
+
+fun PlannedExercise.effectiveSlot(): Slot = slot ?: Slot(
+    pattern = exercise.pattern,
+    role = when {
+        exercise.pattern == "core" -> SlotRole.CORE
+        exercise.kind == "isolation" -> SlotRole.ISOLATION
+        else -> SlotRole.PRIMARY
+    },
 )
 
 data class PlannedSession(

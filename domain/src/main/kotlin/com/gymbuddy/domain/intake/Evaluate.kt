@@ -40,6 +40,8 @@ fun evaluate(intake: Intake, vocab: EquipmentVocab): IntakeResult {
             equipment = equipmentIds,
             trainsWithPartner = intake.trainsWithPartner,
             sharpPainSlugs = sharpSlugs,
+            daysPerWeek = intake.daysPerWeek,
+            typicalDurationMin = intake.typicalSessionMinutes,
         ),
     )
 }

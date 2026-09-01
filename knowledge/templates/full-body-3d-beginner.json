@@ -1,0 +1,56 @@
+{
+  "id": "full-body-3d-beginner",
+  "name": "Full Body, 3 days",
+  "goals": ["HYPERTROPHY", "GENERAL_FITNESS", "FAT_LOSS", "STRENGTH"],
+  "trainingAges": ["BEGINNER"],
+  "daysPerWeek": 3,
+  "days": [
+    {
+      "name": "Day A",
+      "slots": [
+        { "pattern": "squat", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "biceps", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Day B",
+      "slots": [
+        { "pattern": "hinge", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "triceps", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Day C",
+      "slots": [
+        { "pattern": "lunge", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "rear delt", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    }
+  ],
+  "provenanceDefault": {
+    "confidence": "moderate",
+    "basis": "consensus",
+    "source": "Coach & AI Programming Guide — full-body three days for novices; one lower pattern per day (squat / hinge / lunge); hinge never after a squat; volume kept inside the beginner 3–8 / 4–10 landmarks; slots MVP HEURISTIC",
+    "reviewed": "2026-09-01"
+  },
+  "provenance": {
+    "priority": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — cut accessories, then core, then secondary; never a main lift",
+      "reviewed": "2026-09-01"
+    }
+  }
+}

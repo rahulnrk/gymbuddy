@@ -7,14 +7,74 @@ import com.gymbuddy.domain.programming.TrainingAge
 import com.gymbuddy.domain.programming.setCredit
 
 /**
- * Rank survivors for one slot. Same inputs, same order. Ties break on slug.
- * Never returns a session.
+ * Rank survivors for one slot. Same inputs, same order. Score ties break
+ * toward lower consequenceOfFailure, then lower skillDemand, only when both
+ * lifts share an implement class. Across classes, slug. Never returns a session.
  */
-fun rank(slot: Slot, catalog: Catalog, ctx: PickContext): List<ScoredExercise> {
+fun rank(slot: Slot, catalog: Catalog, ctx: PickContext): List<ScoredExercise> =
+    rankSlot(slot, catalog, ctx).ranked
+
+fun rankSlot(slot: Slot, catalog: Catalog, ctx: PickContext): RankedSlot {
     val set = candidates(slot, catalog, ctx)
-    return set.survivors
+    val ranked = set.survivors
         .map { score(it, slot, catalog, ctx, set.keptDespiteDislike) }
-        .sortedWith(compareByDescending<ScoredExercise> { it.score }.thenBy { it.exercise.slug })
+        .sortedWith(scoredComparator)
+    return RankedSlot(ranked, slotReadiness(slot, catalog, ctx, set.survivors))
+}
+
+internal val scoredComparator = Comparator<ScoredExercise> { a, b ->
+    val byScore = b.score.compareTo(a.score)
+    if (byScore != 0) return@Comparator byScore
+    if (implementClass(a.exercise) == implementClass(b.exercise)) {
+        val byCof = demandRank(a.exercise.consequenceOfFailure)
+            .compareTo(demandRank(b.exercise.consequenceOfFailure))
+        if (byCof != 0) return@Comparator byCof
+        val bySkill = demandRank(a.exercise.skillDemand)
+            .compareTo(demandRank(b.exercise.skillDemand))
+        if (bySkill != 0) return@Comparator bySkill
+    }
+    a.exercise.slug.compareTo(b.exercise.slug)
+}
+
+internal fun demandRank(level: String): Int = when (level) {
+    "low" -> 0
+    "moderate" -> 1
+    "high" -> 2
+    else -> 1
+}
+
+fun slotReadiness(
+    slot: Slot,
+    catalog: Catalog,
+    ctx: PickContext,
+    survivors: List<Exercise> = candidates(slot, catalog, ctx).survivors,
+): SlotReadiness {
+    val worstByExercise = survivors.map { worstPrimaryFatigue(it, catalog, ctx.fatigue) }
+    val worstTarget = slot.targetMuscles.maxOfOrNull { ctx.fatigue[it] ?: 0.0 }
+        ?: worstByExercise.maxOrNull()
+        ?: 0.0
+    val allCooked = survivors.isNotEmpty() &&
+        worstByExercise.all { it >= PickerConstants.FATIGUE_COOKED }
+    val muscleName = slot.targetMuscles.firstOrNull()
+        ?.let { catalog.muscles[it]?.name?.lowercase() }
+        ?: survivors.firstOrNull()?.let { ex ->
+            catalog.musclesFor(ex).maxByOrNull { it.value }?.key
+                ?.let { catalog.muscles[it]?.name?.lowercase() }
+        }
+        ?: "those muscles"
+    val explanation = if (allCooked) {
+        "Everything left for this loads your $muscleName, and they're still cooked."
+    } else if (worstTarget >= PickerConstants.FATIGUE_MILD) {
+        "Your $muscleName still carry some fatigue, which is normal training."
+    } else {
+        "This exercise looks fresh enough to do as planned."
+    }
+    return SlotReadiness(allCooked, worstTarget, explanation)
+}
+
+internal fun worstPrimaryFatigue(exercise: Exercise, catalog: Catalog, fatigue: Map<String, Double>): Double {
+    val primaries = catalog.musclesFor(exercise).filter { setCredit(it.value) >= 1.0 }
+    return primaries.maxOfOrNull { (id, _) -> fatigue[id] ?: 0.0 } ?: 0.0
 }
 
 internal fun score(
@@ -47,22 +107,13 @@ internal fun score(
 }
 
 private fun goalFit(exercise: Exercise, goal: Goal): Reason {
-    val compound = exercise.kind == "compound"
-    val delta = when (goal) {
-        Goal.STRENGTH -> if (compound) PickerConstants.WEIGHT_GOAL_FIT else 0.0
-        Goal.HYPERTROPHY, Goal.FAT_LOSS -> PickerConstants.WEIGHT_GOAL_FIT * 0.5
-        Goal.ENDURANCE -> if (compound) PickerConstants.WEIGHT_GOAL_FIT * 0.5 else PickerConstants.WEIGHT_GOAL_FIT
-        Goal.GENERAL_FITNESS -> PickerConstants.WEIGHT_GOAL_FIT * 0.5
-    }
-    val explanation = when {
-        goal == Goal.STRENGTH && compound ->
-            "This is a compound lift, which is the kind of work that builds strength."
-        goal == Goal.STRENGTH ->
-            "This is an isolation lift, so it is extra work rather than the main strength work."
-        goal == Goal.ENDURANCE && !compound ->
-            "This is lighter isolation work, which fits an endurance day."
-        else ->
-            "This is a reasonable match for the goal you picked."
+    val listed = exercise.bestFitGoals
+    val matches = listed.isEmpty() || goal.name in listed
+    val delta = if (matches) PickerConstants.WEIGHT_GOAL_FIT else PickerConstants.WEIGHT_GOAL_FIT * 0.25
+    val explanation = if (matches) {
+        "This is the kind of work that matches the goal you picked."
+    } else {
+        "This still works, but it is not the main kind of work for the goal you picked."
     }
     return Reason("goal fit", delta, explanation)
 }
@@ -118,11 +169,13 @@ private fun freshness(exercise: Exercise, catalog: Catalog, fatigue: Map<String,
 
 private fun variety(exercise: Exercise, recentSlugs: List<String>): Reason {
     val index = recentSlugs.indexOf(exercise.slug)
-    val delta = if (index < 0) 0.0 else -PickerConstants.WEIGHT_VARIETY / (index + 1.0)
+    // Full penalty for any hit. Dividing by index made Monday's pick a
+    // rounding error by Thursday, so Upper B copied Upper A.
+    val delta = if (index < 0) 0.0 else -PickerConstants.WEIGHT_VARIETY
     val explanation = when (index) {
         -1 -> "You have not done this one lately."
         0 -> "You did this last time, so I would rather pick something else."
-        else -> "You did this recently, so I would give it a little rest."
+        else -> "You already did this one, so I would rather pick something else."
     }
     return Reason("variety", delta, explanation)
 }

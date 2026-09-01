@@ -11,6 +11,7 @@
     "name",
     "kind",
     "pattern",
+    "bestFitGoals",
     "requiredEquipment",
     "optionalEquipment",
     "skillDemand",
@@ -33,6 +34,14 @@
     "name": { "type": "string", "minLength": 1 },
     "kind": { "type": "string", "enum": ["compound", "isolation"] },
     "pattern": { "type": "string", "minLength": 1 },
+    "bestFitGoals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["STRENGTH", "HYPERTROPHY", "ENDURANCE", "GENERAL_FITNESS", "FAT_LOSS"]
+      }
+    },
     "requiredEquipment": {
       "description": "AND of slots. A slot is satisfied if the user has any one token in it.",
       "type": "array",

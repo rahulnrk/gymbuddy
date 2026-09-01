@@ -1,0 +1,59 @@
+{
+  "id": "full-body-3d",
+  "name": "Full Body, 3 days",
+  "goals": ["HYPERTROPHY", "GENERAL_FITNESS", "FAT_LOSS"],
+  "trainingAges": ["INTERMEDIATE", "ADVANCED"],
+  "daysPerWeek": 3,
+  "days": [
+    {
+      "name": "Day A",
+      "slots": [
+        { "pattern": "squat", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lunge", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "biceps", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Day B",
+      "slots": [
+        { "pattern": "hinge", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "horizontal pull", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "triceps", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "rear delt", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Day C",
+      "slots": [
+        { "pattern": "squat", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lunge", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "chest isolation", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    }
+  ],
+  "provenanceDefault": {
+    "confidence": "moderate",
+    "basis": "consensus",
+    "source": "Coach & AI Programming Guide — repeatable full body; hinge on its own day; slots MVP HEURISTIC",
+    "reviewed": "2026-09-01"
+  },
+  "provenance": {
+    "priority": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — cut accessories, then core, then secondary; never a main lift",
+      "reviewed": "2026-09-01"
+    }
+  }
+}

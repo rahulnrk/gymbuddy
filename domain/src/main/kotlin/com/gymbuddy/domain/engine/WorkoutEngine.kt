@@ -6,6 +6,7 @@ import com.gymbuddy.domain.EventSource
 import com.gymbuddy.domain.LoggingMode
 import com.gymbuddy.domain.SetId
 import com.gymbuddy.domain.WorkoutSessionState
+import com.gymbuddy.domain.adapt.AdaptConstants
 import com.gymbuddy.domain.events.WorkoutEvent
 import com.gymbuddy.domain.persist.AppendAck
 import com.gymbuddy.domain.persist.EventLog
@@ -229,15 +230,16 @@ class WorkoutEngine(
         val catchUp = facts.filterIsInstance<ValidatedFact.SetCompleted>()
             .let { it.size >= 2 || it.any { f -> f.loggingMode == LoggingMode.CATCH_UP } }
         val completedFacts = facts.filterIsInstance<ValidatedFact.SetCompleted>()
+        val livePlan = s.plan ?: plan
         if (catchUp && completedFacts.isNotEmpty()) {
             val batch = completedFacts.first().batchId ?: newId()
             completedFacts.forEachIndexed { _, fact ->
                 val evs = emitSetCompleted(s, userId, fact, catchUp = true, batchId = batch, source = source)
                     ?: return reject("cannot complete set from ${s.phase}")
                 evs.forEach { e ->
-                    when (val r = WorkoutProjector.apply(s.copy(plan = plan), e)) {
+                    when (val r = WorkoutProjector.apply(withLivePlan(s, livePlan), e)) {
                         is ApplyResult.Ok -> {
-                            s = r.snapshot.copy(plan = plan)
+                            s = r.snapshot
                             out += e
                         }
                         is ApplyResult.Duplicate -> {}
@@ -245,18 +247,18 @@ class WorkoutEngine(
                     }
                 }
             }
-            s = maybeRestAfter(s, plan, userId, out)
+            s = maybeRestAfter(s, livePlan, userId, out)
             if (s.phase == WorkoutSessionState.EXERCISE_COMPLETE) {
-                s = maybeNextOrComplete(s, plan, userId, out)
+                s = maybeNextOrComplete(s, livePlan, userId, out)
             }
-            return appendAll(sessionId, plan, out)
+            return appendAll(sessionId, livePlan, out)
         }
         for (fact in facts) {
             val piece = eventsForFact(s, userId, fact, source) ?: return reject("cannot apply $fact from ${s.phase}")
             for (e in piece) {
-                when (val r = WorkoutProjector.apply(s.copy(plan = plan), e)) {
+                when (val r = WorkoutProjector.apply(withLivePlan(s, livePlan), e)) {
                     is ApplyResult.Ok -> {
-                        s = r.snapshot.copy(plan = plan)
+                        s = r.snapshot
                         out += e
                     }
                     is ApplyResult.Duplicate -> {}
@@ -265,15 +267,85 @@ class WorkoutEngine(
             }
         }
         if (facts.any { it is ValidatedFact.SetCompleted }) {
-            s = maybeRestAfter(s, plan, userId, out)
+            s = maybeRestAfter(s, livePlan, userId, out)
             if (s.phase == WorkoutSessionState.EXERCISE_COMPLETE) {
-                s = maybeNextOrComplete(s, plan, userId, out)
+                s = maybeNextOrComplete(s, livePlan, userId, out)
             }
         }
         if (out.any { it.type == CommittedEventType.EXERCISE_SKIPPED }) {
-            s = maybeNextOrComplete(s, plan, userId, out)
+            s = maybeNextOrComplete(s, livePlan, userId, out)
         }
-        return appendAll(sessionId, plan, out)
+        return appendAll(sessionId, livePlan, out)
+    }
+
+    /**
+     * User accepted a deferral proposal. Refused mid-set. The N+1th deferral
+     * of the same slot becomes EXERCISE_SKIPPED, reason retained.
+     */
+    fun acceptDeferral(sessionId: String, plan: WorkoutPlan, reason: String): EngineResult {
+        val s = snapshot(sessionId, plan)
+        if (s.phase == WorkoutSessionState.SET_ACTIVE) {
+            return reject("set in progress")
+        }
+        val livePlan = s.plan ?: plan
+        val cur = s.currentExercise ?: return reject("no current exercise")
+        val userId = s.userId ?: return reject("no user")
+        if (cur.deferralCount >= AdaptConstants.DEFER_CAP) {
+            val skip = EventFactory.event(
+                CommittedEventType.EXERCISE_SKIPPED, userId, sessionId,
+                EventFactory.payload(
+                    "workoutExerciseId" to cur.workoutExerciseId,
+                    "reason" to (cur.deferralReason ?: reason),
+                ),
+                EventSource.SYSTEM, now(),
+            )
+            val first = commit(sessionId, livePlan, listOf(skip))
+            if (first !is EngineResult.Committed) return first
+            val follow = mutableListOf<WorkoutEvent>()
+            maybeNextOrComplete(first.snapshot, first.snapshot.plan ?: livePlan, userId, follow)
+            if (follow.isEmpty()) return first
+            val rest = appendAll(sessionId, first.snapshot.plan ?: livePlan, follow)
+            return if (rest is EngineResult.Committed) {
+                EngineResult.Committed(first.events + rest.events, rest.snapshot)
+            } else first
+        }
+        val hasLater = livePlan.exercises.indices.any { i ->
+            i > s.currentExerciseIndex && !livePlan.exercises[i].skipped
+        }
+        if (!hasLater) return reject("nothing later to do first")
+        val ev = EventFactory.event(
+            CommittedEventType.EXERCISE_DEFERRED, userId, sessionId,
+            EventFactory.payload(
+                "workoutExerciseId" to cur.workoutExerciseId,
+                "exerciseId" to cur.exerciseId,
+                "fromPosition" to s.currentExerciseIndex,
+                "reason" to reason,
+            ),
+            EventSource.SYSTEM, now(),
+        )
+        val committed = commit(sessionId, livePlan, listOf(ev))
+        if (committed !is EngineResult.Committed) return committed
+        val after = committed.snapshot
+        val nxt = after.currentExercise ?: return committed
+        if (after.phase != WorkoutSessionState.READY_FOR_EXERCISE &&
+            after.phase != WorkoutSessionState.EXERCISE_COMPLETE
+        ) {
+            return committed
+        }
+        val start = EventFactory.event(
+            CommittedEventType.EXERCISE_STARTED, userId, sessionId,
+            EventFactory.payload(
+                "workoutExerciseId" to nxt.workoutExerciseId,
+                "exerciseId" to nxt.exerciseId,
+                "plannedSets" to nxt.plannedSets,
+                "restTargetSec" to nxt.restTargetSec,
+            ),
+            EventSource.SYSTEM, now(),
+        )
+        val second = commit(sessionId, after.plan ?: livePlan, listOf(start))
+        return if (second is EngineResult.Committed) {
+            EngineResult.Committed(committed.events + second.events, second.snapshot)
+        } else committed
     }
 
     fun tryCommitEvent(sessionId: String, plan: WorkoutPlan, event: WorkoutEvent): EngineResult {
@@ -443,8 +515,9 @@ class WorkoutEngine(
         out: MutableList<WorkoutEvent>,
     ): WorkoutSessionSnapshot {
         if (s.phase != WorkoutSessionState.EXERCISE_COMPLETE) return s
-        val nextIdx = plan.exercises.indices.firstOrNull { i ->
-            i > s.currentExerciseIndex && !plan.exercises[i].skipped
+        val livePlan = s.plan ?: plan
+        val nextIdx = livePlan.exercises.indices.firstOrNull { i ->
+            i > s.currentExerciseIndex && !livePlan.exercises[i].skipped
         }
         val ev = if (nextIdx == null) {
             EventFactory.event(
@@ -453,7 +526,7 @@ class WorkoutEngine(
                 EventSource.SYSTEM, now(),
             )
         } else {
-            val n = plan.exercises[nextIdx]
+            val n = livePlan.exercises[nextIdx]
             EventFactory.event(
                 CommittedEventType.EXERCISE_STARTED, userId, s.sessionId,
                 EventFactory.payload(
@@ -465,10 +538,10 @@ class WorkoutEngine(
                 EventSource.SYSTEM, now(),
             )
         }
-        return when (val r = WorkoutProjector.apply(s.copy(plan = plan), ev)) {
+        return when (val r = WorkoutProjector.apply(withLivePlan(s, livePlan), ev)) {
             is ApplyResult.Ok -> {
                 out += ev
-                r.snapshot.copy(plan = plan)
+                r.snapshot
             }
             else -> s
         }
@@ -492,10 +565,10 @@ class WorkoutEngine(
             ),
             EventSource.SYSTEM, now(),
         )
-        return when (val r = WorkoutProjector.apply(s.copy(plan = plan), rest)) {
+        return when (val r = WorkoutProjector.apply(withLivePlan(s, s.plan ?: plan), rest)) {
             is ApplyResult.Ok -> {
                 out += rest
-                r.snapshot.copy(plan = plan)
+                r.snapshot
             }
             else -> s
         }
@@ -570,6 +643,9 @@ class WorkoutEngine(
 
     private fun withPlan(state: WorkoutSessionSnapshot, plan: WorkoutPlan?): WorkoutSessionSnapshot =
         if (state.plan == null && plan != null) state.copy(plan = plan) else state
+
+    private fun withLivePlan(state: WorkoutSessionSnapshot, plan: WorkoutPlan): WorkoutSessionSnapshot =
+        if (state.plan == null) state.copy(plan = plan) else state
 
     private fun reject(reason: String) = EngineResult.Rejected(reason)
 

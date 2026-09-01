@@ -22,6 +22,7 @@ JSON Schema draft 2020-12. `schemaVersion` is integer **1**.
 | `v1/user-feedback.schema.json` | USER_FEEDBACK |
 | `v1/user-note.schema.json` | USER_NOTE_CREATED |
 | `v1/safety-concern.schema.json` | SAFETY_CONCERN |
+| `v1/exercise-deferred.schema.json` | EXERCISE_DEFERRED (additive, schemaVersion stays 1) |
 
 Aliases `candidate-event.schema.json` and `committed-event.schema.json` at this directory root copy v1.
 

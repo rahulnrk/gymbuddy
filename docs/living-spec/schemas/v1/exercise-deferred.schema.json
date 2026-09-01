@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gymbuddy://schemas/v1/exercise-deferred.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "sessionId",
+    "userId",
+    "occurredAt",
+    "recordedAt",
+    "source",
+    "schemaVersion",
+    "type",
+    "payload"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "sessionId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recordedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "enum": [
+        "voice",
+        "manual",
+        "imported",
+        "ai-generated",
+        "system"
+      ]
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "transcriptId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "sttFinalHash": {
+      "type": "string",
+      "minLength": 8
+    },
+    "batchId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "const": "EXERCISE_DEFERRED"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workoutExerciseId",
+        "exerciseId",
+        "fromPosition",
+        "reason"
+      ],
+      "properties": {
+        "workoutExerciseId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "exerciseId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fromPosition": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

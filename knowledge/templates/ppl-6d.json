@@ -1,0 +1,83 @@
+{
+  "id": "ppl-6d",
+  "name": "Push / Pull / Legs, 6 days",
+  "goals": ["HYPERTROPHY", "FAT_LOSS"],
+  "trainingAges": ["INTERMEDIATE", "ADVANCED"],
+  "daysPerWeek": 6,
+  "days": [
+    {
+      "name": "Push A",
+      "slots": [
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "incline push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "chest isolation", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "triceps", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Pull A",
+      "slots": [
+        { "pattern": "vertical pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lats", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "rear delt", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "biceps", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Legs A",
+      "slots": [
+        { "pattern": "squat", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lunge", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "quads", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    },
+    {
+      "name": "Push B",
+      "slots": [
+        { "pattern": "horizontal push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "vertical push", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "incline push", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "delt isolation", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "triceps", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Pull B",
+      "slots": [
+        { "pattern": "vertical pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "horizontal pull", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lats", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "rear delt", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "biceps", "role": "ACCESSORY", "priority": 4 }
+      ]
+    },
+    {
+      "name": "Legs B",
+      "slots": [
+        { "pattern": "hinge", "role": "PRIMARY", "priority": 1 },
+        { "pattern": "lunge", "role": "SECONDARY", "priority": 2 },
+        { "pattern": "hamstrings", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "calves", "role": "ACCESSORY", "priority": 4 },
+        { "pattern": "core", "role": "CORE", "priority": 3 }
+      ]
+    }
+  ],
+  "provenanceDefault": {
+    "confidence": "moderate",
+    "basis": "consensus",
+    "source": "Coach & AI Programming Guide — PPL; squat day and hinge day split; slots MVP HEURISTIC",
+    "reviewed": "2026-09-01"
+  },
+  "provenance": {
+    "priority": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — cut accessories, then core, then secondary; never a main lift",
+      "reviewed": "2026-09-01"
+    }
+  }
+}

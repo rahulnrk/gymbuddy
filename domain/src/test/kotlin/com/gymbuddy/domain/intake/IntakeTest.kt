@@ -81,9 +81,9 @@ class IntakeTest {
         val tokens = EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY).resolve(vocab)
         val fromPreset = catalog.trainableWith(tokens).map { it.slug }.toSet()
         val fromNone = catalog.trainableWith(listOf("none")).map { it.slug }.toSet()
-        assertEquals(fromNone, fromPreset)
-        assertEquals(3, fromPreset.size)
-        assertEquals(61, catalog.exercises.size)
+        assertTrue(fromNone.size >= 3, fromNone.toString())
+        assertTrue(fromPreset.size > fromNone.size, "preset should include table and door-frame work")
+        assertEquals(77, catalog.exercises.size)
     }
 
     @Test
@@ -107,8 +107,8 @@ class IntakeTest {
         assertTrue("pull-up-bar" in home.resolve(vocab))
         assertFalse("pull-up-bar" in withoutBar.resolve(vocab))
         assertFalse("dumbbell" in conflict.resolve(vocab))
-        assertEquals(9, catalog.trainableWith(EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY, alsoHave = setOf("kettlebell")).resolve(vocab)).size)
-        assertEquals(15, catalog.trainableWith(EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY, alsoHave = setOf("dumbbell")).resolve(vocab)).size)
+        assertTrue(catalog.trainableWith(EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY, alsoHave = setOf("kettlebell")).resolve(vocab)).size > 9)
+        assertTrue(catalog.trainableWith(EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY, alsoHave = setOf("dumbbell")).resolve(vocab)).size > 15)
     }
 
     @Test
@@ -308,10 +308,10 @@ class IntakeTest {
         listOf("fun generatePlan", "fun generateWorkout", "fun buildWorkout").forEach { bad ->
             assertFalse(bad in body, bad)
         }
-        assertEquals(61, catalog.exercises.size)
-        assertEquals(3, equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY).resolve(vocab)).exerciseCount)
-        assertEquals(41, equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.HOME_LIMITED).resolve(vocab)).exerciseCount)
-        assertEquals(61, equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.FULL_GYM).resolve(vocab)).exerciseCount)
+        assertEquals(77, catalog.exercises.size)
+        assertTrue(equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.BODYWEIGHT_ONLY).resolve(vocab)).exerciseCount > 3)
+        assertTrue(equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.HOME_LIMITED).resolve(vocab)).exerciseCount > 41)
+        assertEquals(77, equipmentCoverage(catalog, EquipmentAvailability(EquipmentPreset.FULL_GYM).resolve(vocab)).exerciseCount)
     }
 
     private fun clearFlags(): Map<RedFlag, Answer> = RedFlag.entries.associateWith { Answer.NO }

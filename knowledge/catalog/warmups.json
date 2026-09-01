@@ -1,0 +1,990 @@
+[
+  {
+    "slug": "brisk-walk",
+    "name": "Brisk Walk",
+    "method": "pulse",
+    "targetPatterns": [],
+    "targetMuscles": [
+      "calf",
+      "quad",
+      "glute"
+    ],
+    "durationSec": 240,
+    "reps": 0,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Walk as if you are late for a bus you can still catch. Arms swing. Breathe through your nose if you can. Stop if you cannot talk in a full sentence.",
+    "commonErrors": "Shuffling. This is a walk with purpose, not a wander to the water fountain.",
+    "effortGuidance": "Easy. You should be warmer, not tired.",
+    "contraindications": [],
+    "id": "688a12f5-b309-5966-b937-4e1712551951",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "easy-cycle",
+    "name": "Easy Cycle",
+    "method": "pulse",
+    "targetPatterns": [],
+    "targetMuscles": [
+      "quad",
+      "calf",
+      "hamstring"
+    ],
+    "durationSec": 240,
+    "reps": 0,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "exercise-bike"
+      ]
+    ],
+    "howTo": "Sit tall on the bike. Light resistance. Cadence you could hold while chatting. Knees track over the feet. Unclip or stop if the hips rock.",
+    "commonErrors": "Mashing a heavy gear. This is temperature, not a threshold effort.",
+    "effortGuidance": "Easy. A conversation pace.",
+    "contraindications": [],
+    "id": "e9a893e3-8594-50bd-9f08-caff14146ee2",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "easy-row",
+    "name": "Easy Row",
+    "method": "pulse",
+    "targetPatterns": [
+      "hinge",
+      "horizontal pull"
+    ],
+    "targetMuscles": [
+      "lat",
+      "hamstring",
+      "quad"
+    ],
+    "durationSec": 240,
+    "reps": 0,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "rower"
+      ]
+    ],
+    "howTo": "Legs, then hips, then arms. Reverse to come forward. The chain stays level. Stroke rate slow enough that the catch is quiet.",
+    "commonErrors": "Yanking with the arms first. The legs start the stroke.",
+    "effortGuidance": "Easy. Smooth and quiet, not a piece.",
+    "contraindications": [],
+    "id": "8d75ba10-4d82-51ca-ae5c-8e5e2a2670d1",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "skip-rope",
+    "name": "Skip Rope",
+    "method": "pulse",
+    "targetPatterns": [
+      "calves"
+    ],
+    "targetMuscles": [
+      "calf",
+      "tibialis"
+    ],
+    "durationSec": 180,
+    "reps": 0,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "jump-rope"
+      ]
+    ],
+    "howTo": "Soft knees. Turn the rope with the wrists, not the shoulders. Bounce an inch off the floor. If you trip, reset and keep it easy.",
+    "commonErrors": "Donkey kicks and high elbows. Small bounces.",
+    "effortGuidance": "Easy to moderate. Stop before you puff.",
+    "contraindications": [],
+    "id": "67bdf84a-35c2-528b-9b19-1a36ada1c49c",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "ankle-rocks",
+    "name": "Ankle Rocks",
+    "method": "mobility",
+    "targetPatterns": [
+      "squat",
+      "lunge"
+    ],
+    "targetMuscles": [
+      "calf",
+      "tibialis"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Half-kneeling. The front foot is flat. Drive that knee forward over the toes without lifting the heel. The hip stays over the back knee. Switch sides.",
+    "commonErrors": "The heel pops. Shorten the range until the heel stays down.",
+    "effortGuidance": "Easy. A stretch-pressure at the ankle, not a grind.",
+    "contraindications": [],
+    "id": "4c76d289-dbe4-5209-a87d-9dd3f83f69b6",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "worlds-greatest-stretch",
+    "name": "World's Greatest Stretch",
+    "method": "mobility",
+    "targetPatterns": [
+      "lunge",
+      "hinge",
+      "squat"
+    ],
+    "targetMuscles": [
+      "glute",
+      "hamstring",
+      "quad",
+      "oblique"
+    ],
+    "durationSec": 60,
+    "reps": 5,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Long lunge. Front foot flat, back knee off the floor. Put the same-side hand on the floor inside the front foot. Rotate that elbow to the ceiling and follow it with your eyes. Drop the elbow toward the instep, then stand out of it.",
+    "commonErrors": "The front heel lifts and the back hip dumps. Keep the front heel heavy.",
+    "effortGuidance": "Easy to moderate. This should not fatigue you.",
+    "contraindications": [],
+    "id": "e0fa1d30-30e6-5736-8064-1aafb4e28e10",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "ninety-ninety-hip-switch",
+    "name": "90/90 Hip Switch",
+    "method": "mobility",
+    "targetPatterns": [
+      "squat",
+      "lunge",
+      "hinge"
+    ],
+    "targetMuscles": [
+      "glute",
+      "abductor",
+      "adductor"
+    ],
+    "durationSec": 50,
+    "reps": 6,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit. Front shin and back shin both at right angles. Tall spine. Flip both legs to the other side without using your hands if you can. Pause when both shins settle.",
+    "commonErrors": "Collapsing through the low back to get the legs over. Stay tall even if the range is small.",
+    "effortGuidance": "Easy. The hips rotate; the spine does not flop.",
+    "contraindications": [],
+    "id": "f75fd87a-ecb9-596c-aee6-52b71efdb435",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "open-book-rotation",
+    "name": "Open Book",
+    "method": "mobility",
+    "targetPatterns": [
+      "horizontal push",
+      "horizontal pull",
+      "vertical push"
+    ],
+    "targetMuscles": [
+      "chest_mid",
+      "oblique",
+      "back_lower"
+    ],
+    "durationSec": 50,
+    "reps": 6,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Lie on your side, knees bent, arms stacked in front of you. The top arm draws an arc across the floor until the chest faces the ceiling. Let the head follow. The knees stay glued.",
+    "commonErrors": "The knees open with the arm. Pin them with the other hand if they wander.",
+    "effortGuidance": "Easy. Breathe into the ribs as they open.",
+    "contraindications": [],
+    "id": "9c847c41-ec70-519e-b961-7ffe01692163",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "cat-camel",
+    "name": "Cat-Camel",
+    "method": "mobility",
+    "targetPatterns": [
+      "hinge",
+      "core",
+      "horizontal pull"
+    ],
+    "targetMuscles": [
+      "back_lower",
+      "abs_upper"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Hands under shoulders, knees under hips. Round the back and drop the head. Then let the belly sink and look forward without cranking the neck. Move segment by segment, not as a slam.",
+    "commonErrors": "Only bending at the neck and the low back. Try to move the mid-back too.",
+    "effortGuidance": "Easy. A morning stretch, not a loaded extension.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "bb411507-d444-50be-b164-5f166767d62f",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "scapular-wall-slide",
+    "name": "Scapular Wall Slide",
+    "method": "mobility",
+    "targetPatterns": [
+      "vertical push",
+      "vertical pull",
+      "horizontal pull"
+    ],
+    "targetMuscles": [
+      "trap_mid",
+      "serratus",
+      "delt_rear"
+    ],
+    "durationSec": 45,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Back to a wall. Ribs down. Forearms on the wall in a goal-post. Slide the arms up without the low back peeling off. If the wrists leave the wall, stop there and come down.",
+    "commonErrors": "Arching to get height. Height you cannot own does not count.",
+    "effortGuidance": "Easy. You should feel the mid-back, not the upper neck.",
+    "contraindications": [],
+    "id": "1e5c632c-19b6-5e1e-8606-32c54429ca84",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "arm-circles",
+    "name": "Arm Circles",
+    "method": "mobility",
+    "targetPatterns": [
+      "vertical push",
+      "horizontal push",
+      "delt isolation"
+    ],
+    "targetMuscles": [
+      "delt_side",
+      "delt_front",
+      "chest_upper"
+    ],
+    "durationSec": 30,
+    "reps": 10,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand tall. Draw small circles with both arms, then reverse. The circles grow only if the ribs stay down and the neck stays long. Finish with a few backward circles.",
+    "commonErrors": "Shrugging into the ears. Drop the shoulders before you go bigger.",
+    "effortGuidance": "Easy. Warmth in the shoulders, not a burn.",
+    "contraindications": [],
+    "id": "e2d64ec9-3d64-5ca1-990a-834a0ac8f267",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "wrist-rocks",
+    "name": "Wrist Rocks",
+    "method": "mobility",
+    "targetPatterns": [
+      "horizontal push",
+      "vertical push",
+      "core"
+    ],
+    "targetMuscles": [
+      "forearm"
+    ],
+    "durationSec": 30,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On all fours. Fingers forward, rock gently so the wrists open. Turn the fingers out, then back toward your knees, and rock again. Keep the elbows soft.",
+    "commonErrors": "Dumping all your weight onto locked elbows. Lighten up.",
+    "effortGuidance": "Easy. Stop well before a pinch.",
+    "contraindications": [
+      "wrist-pain"
+    ],
+    "id": "08019e86-eb5b-53cc-9626-92140261a2f2",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "side-lying-clamshell",
+    "name": "Side-Lying Clamshell",
+    "method": "activation",
+    "targetPatterns": [
+      "squat",
+      "lunge",
+      "hinge"
+    ],
+    "targetMuscles": [
+      "abductor",
+      "glute"
+    ],
+    "durationSec": 45,
+    "reps": 10,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Lie on your side, knees bent, heels together. Open the top knee without rolling the pelvis back. Pause. Lower without a thud. The waist stays long.",
+    "commonErrors": "Rotating the whole pelvis to fake range. Small knee-open is the point.",
+    "effortGuidance": "Easy. You should feel the side of the hip, not the back.",
+    "contraindications": [],
+    "id": "d2e2e3d7-ed4d-5b54-bd38-116d96dd8d76",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "prone-y-raise",
+    "name": "Prone Y Raise",
+    "method": "activation",
+    "targetPatterns": [
+      "horizontal pull",
+      "vertical pull",
+      "rear delt"
+    ],
+    "targetMuscles": [
+      "trap_mid",
+      "delt_rear"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Lie face down, forehead on a towel. Arms in a Y, thumbs up. Lift the arms a few inches without looking up. Squeeze the mid-back. Lower quietly.",
+    "commonErrors": "Yank the head off the floor. The neck stays long and heavy.",
+    "effortGuidance": "Easy. A short range is enough.",
+    "contraindications": [],
+    "id": "2121e95d-84d6-5742-b66f-153bbf5ddf40",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "serratus-wall-slide",
+    "name": "Serratus Wall Slide",
+    "method": "activation",
+    "targetPatterns": [
+      "horizontal push",
+      "vertical push",
+      "incline push"
+    ],
+    "targetMuscles": [
+      "serratus",
+      "trap_mid"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Forearms on the wall, a little lean. Push the wall away so the shoulder blades wrap around the ribs, then slide the arms up. The low back stays quiet.",
+    "commonErrors": "Shrugging first. Think wrap, then slide.",
+    "effortGuidance": "Easy. A reach around the ribs, not a neck exercise.",
+    "contraindications": [],
+    "id": "8b2dfc9f-f2a8-55a8-b847-9492b4027ae7",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "chin-tuck",
+    "name": "Chin Tuck",
+    "method": "activation",
+    "targetPatterns": [
+      "vertical pull",
+      "vertical push"
+    ],
+    "targetMuscles": [
+      "neck"
+    ],
+    "durationSec": 30,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Sit or stand tall. Glide the head straight back as if making a double chin. The eyes stay level. Hold a breath, then ease forward. Do not look down.",
+    "commonErrors": "Nodding. This is a slide, not a yes.",
+    "effortGuidance": "Easy. You should feel the front of the neck working a little.",
+    "contraindications": [],
+    "id": "052ee6ff-bf17-56aa-947f-fe21212c7498",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "band-external-rotation",
+    "name": "Band External Rotation",
+    "method": "activation",
+    "targetPatterns": [
+      "horizontal pull",
+      "vertical pull",
+      "rear delt"
+    ],
+    "targetMuscles": [
+      "delt_rear"
+    ],
+    "durationSec": 40,
+    "reps": 10,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "resistance-band"
+      ]
+    ],
+    "howTo": "Elbow glued to your side, bent to a right angle. Rotate the fist out against a light band. The elbow never leaves the ribs. Switch sides.",
+    "commonErrors": "The elbow drifts forward. Pin a towel in the armpit if it helps.",
+    "effortGuidance": "Easy. Light band. This is a wake-up, not a finisher.",
+    "contraindications": [
+      "shoulder-impingement"
+    ],
+    "id": "82c016be-7510-5387-8e2c-c78f8d841f7e",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "floor-w-raise",
+    "name": "Floor W Raise",
+    "method": "activation",
+    "targetPatterns": [
+      "horizontal pull",
+      "rear delt"
+    ],
+    "targetMuscles": [
+      "delt_rear",
+      "trap_mid"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Lie face down. Elbows bent so the arms make a W. Lift the elbows and hands together, squeeze between the shoulder blades, lower. Thumbs point up.",
+    "commonErrors": "Flaring the elbows to the ears. Keep the W shape.",
+    "effortGuidance": "Easy. No band needed; the floor is enough.",
+    "contraindications": [],
+    "id": "ef3a153f-1268-5f61-be6c-09dec505de29",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "bodyweight-squat-rehearsal",
+    "name": "Bodyweight Squat Rehearsal",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "squat",
+      "quads"
+    ],
+    "targetMuscles": [
+      "quad",
+      "glute"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Feet about shoulder width. Sit the hips down and a little back. Knees track over the feet. Stand by pushing the floor. Pause at the bottom if it feels sloppy.",
+    "commonErrors": "The chest collapsing and the heels lifting. Slow down.",
+    "effortGuidance": "Easy. This is the pattern, not a set.",
+    "contraindications": [
+      "anterior-knee-pain",
+      "recent-knee-surgery"
+    ],
+    "id": "0b993b42-09ea-5f67-8fb7-7681ef04b64f",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "hip-hinge-pattern",
+    "name": "Hip Hinge Pattern",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "hinge",
+      "hamstrings",
+      "lower back"
+    ],
+    "targetMuscles": [
+      "hamstring",
+      "glute",
+      "back_lower"
+    ],
+    "durationSec": 40,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Soft knees. Push the hips back until you feel the hamstrings. The spine stays long. A broomstick or your hands on the hips can cue that the back does not round. Stand by squeezing the glutes.",
+    "commonErrors": "Squatting instead of hinging. The knees barely travel; the hips do.",
+    "effortGuidance": "Easy. Unloaded. Feel the back of the legs, not the neck.",
+    "contraindications": [
+      "flexion-intolerant-back"
+    ],
+    "id": "a41d4d80-f856-50d5-9441-ef5955100320",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "walkout-lunge",
+    "name": "Walkout Lunge",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "lunge"
+    ],
+    "targetMuscles": [
+      "quad",
+      "glute",
+      "abductor"
+    ],
+    "durationSec": 45,
+    "reps": 6,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Step forward into a long lunge. Front heel heavy, back knee toward the floor. Push back to stand. Alternate. The pelvis stays square.",
+    "commonErrors": "A tiny step and a crash. Own the landing.",
+    "effortGuidance": "Easy. Slow enough to correct a wobbly knee.",
+    "contraindications": [
+      "anterior-knee-pain",
+      "recent-knee-surgery"
+    ],
+    "id": "dd2c487a-29da-5ef4-bb31-fc381089d0b6",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "scapular-push-up",
+    "name": "Scapular Push-up",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "horizontal push",
+      "incline push",
+      "decline push",
+      "chest isolation"
+    ],
+    "targetMuscles": [
+      "serratus",
+      "chest_mid"
+    ],
+    "durationSec": 35,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Plank on hands. Elbows stay straight. Let the chest sink so the shoulder blades come together, then push the floor away to spread them. The hips stay still.",
+    "commonErrors": "Bending the elbows into a real push-up. Arms stay long.",
+    "effortGuidance": "Easy. A shoulder-blade push-up, not a set of press-ups.",
+    "contraindications": [
+      "wrist-pain"
+    ],
+    "id": "5c226702-c064-54c5-9f36-5e4ba1b1afb6",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "band-pull-apart",
+    "name": "Band Pull-Apart",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "horizontal pull",
+      "rear delt",
+      "traps"
+    ],
+    "targetMuscles": [
+      "delt_rear",
+      "trap_mid"
+    ],
+    "durationSec": 35,
+    "reps": 10,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "resistance-band"
+      ]
+    ],
+    "howTo": "Hold a light band at chest height. Pull it apart until it touches the chest. Shoulder blades slide together. Return slow. Ribs stay down.",
+    "commonErrors": "Bending the elbows and shrugging. Long arms, quiet neck.",
+    "effortGuidance": "Easy. The band should not be a fight.",
+    "contraindications": [],
+    "id": "a706bc29-6673-5ff1-8c98-adbf3b586c8d",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "doorway-lat-reach",
+    "name": "Doorway Lat Reach",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "vertical pull",
+      "lats"
+    ],
+    "targetMuscles": [
+      "lat"
+    ],
+    "durationSec": 40,
+    "reps": 6,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand in a doorway. Reach one arm high on the frame. Sit the hips back slightly and let the side of the torso lengthen. Breathe. Switch. This is a reach, not a hang.",
+    "commonErrors": "Craning the neck under the arm. Keep the head in line.",
+    "effortGuidance": "Easy. You are reminding the lats they have length.",
+    "contraindications": [],
+    "id": "bb2fc6ad-4cba-58a4-8836-09f7167173a5",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "overhead-press-pattern",
+    "name": "Overhead Press Pattern",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "vertical push",
+      "delt isolation"
+    ],
+    "targetMuscles": [
+      "delt_front",
+      "delt_side"
+    ],
+    "durationSec": 35,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Fists at the shoulders. Press the arms overhead without flaring the ribs. Finish with biceps by the ears if you can. Lower to the shoulders. Empty hands.",
+    "commonErrors": "Leaning back to get the arms up. Shorten the range and keep the ribs down.",
+    "effortGuidance": "Easy. Unloaded rehearsal of the press.",
+    "contraindications": [
+      "shoulder-impingement",
+      "recent-shoulder-surgery"
+    ],
+    "id": "dd1f549d-13ba-5ca1-a19e-a81fa1094aa8",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "dead-bug",
+    "name": "Dead Bug",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "core"
+    ],
+    "targetMuscles": [
+      "abs_upper",
+      "abs_lower"
+    ],
+    "durationSec": 45,
+    "reps": 6,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "On your back, arms up, knees over hips. Lower the opposite arm and leg toward the floor without the low back peeling up. Return. Alternate. Exhale as you reach.",
+    "commonErrors": "The back arches as the leg lowers. Reduce the range until the back stays heavy.",
+    "effortGuidance": "Easy. Bracing, not a sit-up.",
+    "contraindications": [],
+    "id": "4e8b1847-6f56-514e-961e-2b4854a860ca",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "calf-raise-rehearsal",
+    "name": "Calf Raise Rehearsal",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "calves"
+    ],
+    "targetMuscles": [
+      "calf"
+    ],
+    "durationSec": 30,
+    "reps": 10,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Stand. Rise onto the balls of the feet, pause, lower until the heels kiss the floor. Hold a wall if you sway. Both legs together.",
+    "commonErrors": "Bouncing. Pause at the top so the calves actually work.",
+    "effortGuidance": "Easy. A reminder, not a burnout.",
+    "contraindications": [],
+    "id": "fe0ff4f1-e087-540b-b185-6b8e6add3a39",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "suitcase-hold",
+    "name": "Suitcase Hold",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "carry"
+    ],
+    "targetMuscles": [
+      "forearm",
+      "oblique",
+      "trap_upper"
+    ],
+    "durationSec": 40,
+    "reps": 2,
+    "perSide": true,
+    "requiredEquipment": [
+      [
+        "dumbbell",
+        "kettlebell",
+        "none"
+      ]
+    ],
+    "howTo": "Stand as if holding a bag in one hand. If you have a dumbbell or kettlebell, hold it at your side. If not, imagine the bag and still stack the ribs over the pelvis. Do not lean away. Switch sides.",
+    "commonErrors": "Hiking the loaded shoulder. Both shoulders stay level.",
+    "effortGuidance": "Easy. A short hold, not a walk across the gym.",
+    "contraindications": [],
+    "id": "3e9fd953-0043-5f21-9aae-010c5f17ce6b",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "empty-curl-pattern",
+    "name": "Empty Curl Pattern",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "biceps"
+    ],
+    "targetMuscles": [
+      "biceps"
+    ],
+    "durationSec": 30,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Fists by the thighs, palms forward. Curl as if holding dumbbells. Elbows stay by the ribs. Lower slower than you lift. No torso swing.",
+    "commonErrors": "Throwing the elbows forward. The upper arm stays still.",
+    "effortGuidance": "Easy. Groove the path before you pick up metal.",
+    "contraindications": [],
+    "id": "de09cd84-b977-58c7-ac03-32e86fb6bfe7",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  },
+  {
+    "slug": "empty-extension-pattern",
+    "name": "Empty Extension Pattern",
+    "method": "rehearsal",
+    "targetPatterns": [
+      "triceps"
+    ],
+    "targetMuscles": [
+      "triceps"
+    ],
+    "durationSec": 30,
+    "reps": 8,
+    "perSide": false,
+    "requiredEquipment": [
+      [
+        "none"
+      ]
+    ],
+    "howTo": "Hinge a little. Upper arms glued to the sides. Straighten the elbows as if kicking a cable back. Squeeze, then let the elbows bend. Shoulders stay quiet.",
+    "commonErrors": "Swinging the whole arm from the shoulder. This is an elbow motion.",
+    "effortGuidance": "Easy. Unloaded path for the triceps work.",
+    "contraindications": [],
+    "id": "d2aabda7-ac35-55fc-87be-6f5c0a1db5fe",
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "judgement",
+      "source": "Coach & AI Programming Guide \u00a74.3 \u2014 five-stage warm-up; this drill is judgement",
+      "reviewed": "2026-09-01"
+    }
+  }
+]

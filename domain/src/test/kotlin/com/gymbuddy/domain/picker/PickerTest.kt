@@ -88,14 +88,59 @@ class PickerTest {
     }
 
     @Test
-    fun tiesBreakAlphabeticallyBySlug() {
+    fun tiesBreakTowardLowerConsequenceThenSkillThenSlugAmongEquivalents() {
+        val gm = catalog.bySlug("dumbbell-good-morning")!!
+        val rdl = catalog.bySlug("romanian-deadlift")!!
+        assertEquals("freeweight", implementClass(gm))
+        assertEquals("freeweight", implementClass(rdl))
+        assertTrue(demandRank(gm.consequenceOfFailure) < demandRank(rdl.consequenceOfFailure))
+        val tied = listOf(
+            ScoredExercise(rdl, 10.0, emptyList()),
+            ScoredExercise(gm, 10.0, emptyList()),
+        ).sortedWith(scoredComparator)
+        assertEquals("dumbbell-good-morning", tied[0].exercise.slug)
+
+        val db = catalog.bySlug("dumbbell-bench-press")!!
+        val machine = catalog.bySlug("machine-chest-press")!!
+        val pushUp = catalog.bySlug("push-up")!!
+        assertEquals("freeweight", implementClass(db))
+        assertEquals("machine", implementClass(machine))
+        assertEquals("bodyweight", implementClass(pushUp))
+        val presses = listOf(
+            ScoredExercise(machine, 10.0, emptyList()),
+            ScoredExercise(pushUp, 10.0, emptyList()),
+            ScoredExercise(db, 10.0, emptyList()),
+        ).sortedWith(scoredComparator)
+        assertEquals("dumbbell-bench-press", presses[0].exercise.slug)
+
         val ranked = rank(squat, catalog, fullGym())
         ranked.zipWithNext { a, b ->
-            assertTrue(
-                a.score > b.score || (a.score == b.score && a.exercise.slug < b.exercise.slug),
-                "${a.exercise.slug} ${a.score} then ${b.exercise.slug} ${b.score}",
+            val cmp = scoredComparator.compare(a, b)
+            assertTrue(cmp <= 0, "${a.exercise.slug} ${a.score} then ${b.exercise.slug} ${b.score}")
+        }
+    }
+
+    @Test
+    fun beginnerHingePrefersDumbbellGoodMorningOnScoreNotSlug() {
+        val ctx = PickContext(
+            user = UserContext(Goal.HYPERTROPHY, TrainingAge.BEGINNER),
+            equipment = catalog.equipment.keys,
+        )
+        val ranked = rank(Slot("hinge", SlotRole.PRIMARY), catalog, ctx)
+        val gm = ranked.first { it.exercise.slug == "dumbbell-good-morning" }
+        val rdl = ranked.first { it.exercise.slug == "romanian-deadlift" }
+        assertTrue(
+            gm.score > rdl.score,
+            "RDL ${rdl.score} vs GM ${gm.score}; slug must not be why GM wins",
+        )
+        println("===== hinge rank beginner full gym =====")
+        ranked.take(8).forEach {
+            println(
+                "${it.exercise.slug} score=${it.score} " +
+                    "cof=${it.exercise.consequenceOfFailure} skill=${it.exercise.skillDemand}",
             )
         }
+        assertEquals("dumbbell-good-morning", ranked.first().exercise.slug)
     }
 
     @Test
@@ -118,6 +163,22 @@ class PickerTest {
     }
 
     @Test
+    fun gluteFatigueRanksGobletAboveBackSquat() {
+        // close-grip bench is pattern "triceps", so it never shares a horizontal-push
+        // slot with bench. Freshness still changes order when primaries differ:
+        // back squat lists glute as a primary; goblet does not.
+        val slot = Slot("squat", SlotRole.PRIMARY, setOf("quad"))
+        val gym = fullGym()
+        val fresh = rank(slot, catalog, gym).map { it.exercise.slug }
+        val tired = rank(slot, catalog, gym.copy(fatigue = mapOf("glute" to 1.0))).map { it.exercise.slug }
+        assertTrue("back-squat" in fresh && "goblet-squat" in fresh, fresh.toString())
+        assertTrue("back-squat" in tired && "goblet-squat" in tired, tired.toString())
+        assertTrue(fresh != tired, "fresh $fresh tired $tired")
+        assertTrue(fresh.indexOf("back-squat") < tired.indexOf("back-squat"), "fresh $fresh tired $tired")
+        assertTrue(tired.indexOf("goblet-squat") < tired.indexOf("back-squat"), tired.toString())
+    }
+
+    @Test
     fun dislikeYieldsWhenAlternativesExistAndIsKeptWhenAlone() {
         val withAlts = fullGym().copy(dislikes = setOf("back-squat"))
         val set = candidates(squat, catalog, withAlts)
@@ -125,7 +186,11 @@ class PickerTest {
         assertTrue(set.exclusions.any { it.exclusion is Exclusion.Disliked && it.exercise.slug == "back-squat" })
         assertTrue(set.keptDespiteDislike.isEmpty())
 
-        val onlyGoblet = beginnerHome.copy(dislikes = setOf("goblet-squat"))
+        val onlyGoblet = PickContext(
+            user = UserContext(Goal.HYPERTROPHY, TrainingAge.BEGINNER),
+            equipment = setOf("kettlebell"),
+            dislikes = setOf("goblet-squat"),
+        )
         val kept = candidates(squat, catalog, onlyGoblet)
         assertTrue("goblet-squat" in kept.survivors.map { it.slug }, kept.survivors.map { it.slug }.toString())
         assertTrue("goblet-squat" in kept.keptDespiteDislike)
@@ -179,7 +244,29 @@ class PickerTest {
         assertFalse("kotlin.random" in src.lowercase())
         assertFalse("System.currentTimeMillis" in src)
         assertFalse("Clock" in src)
-        assertEquals(61, catalog.exercises.size)
+        assertEquals(77, catalog.exercises.size)
+    }
+
+    @Test
+    fun primaryNeverFewerSetsThanSecondary() {
+        TrainingAge.entries.forEach { age ->
+            val primary = sessionSets(SlotRole.PRIMARY, age)
+            val secondary = sessionSets(SlotRole.SECONDARY, age)
+            assertTrue(primary >= secondary, "$age primary $primary secondary $secondary")
+        }
+    }
+
+    @Test
+    fun collapsedGoalCatalogIntersectionUsesCatalogWindow() {
+        val overhead = catalog.bySlug("overhead-triceps-extension")!!
+        val ctx = PickContext(
+            user = UserContext(Goal.STRENGTH, TrainingAge.INTERMEDIATE),
+            equipment = catalog.equipment.keys,
+        )
+        val d = dose(overhead, Slot("triceps", SlotRole.ISOLATION), ctx)
+        assertTrue(d.repRange.min < d.repRange.max, d.repRange.toString())
+        assertEquals(overhead.repWindow.min, d.repRange.min)
+        assertEquals(overhead.repWindow.max, d.repRange.max)
     }
 
     private fun fullGym(): PickContext = PickContext(

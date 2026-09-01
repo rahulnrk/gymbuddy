@@ -10,7 +10,7 @@ source: docs/living-spec/TECHNICAL_SPEC.md
 **Status:** specified  
 **Core-loop role:** Supporting knowledge. Names, aliases, muscles, substitutions, and STT vocabulary so the kernel can resolve “incline” and show a glanceable demo if the user looks.
 
-PR 14a freezes the catalog **shape** on the existing prototype set (61 exercises in `knowledge/catalog/exercises.json`). Growth to ≥80 is PR 14b. Status stays `specified` until that bar.
+PR 14a froze the catalog **shape** on 61 prototype exercises. This PR grew the catalog by outcome (bodyweight week, dumbbell hinge, singleton patterns, `bestFitGoals` on every entry). Headcount ≥80 remains a PR 14b bar; status stays `specified` until that bar. Shape is unchanged except the additive `bestFitGoals` field.
 
 ### Catalog schema (PR 14a)
 

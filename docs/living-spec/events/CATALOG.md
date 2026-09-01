@@ -157,11 +157,25 @@ The LLM emits **CandidateEvent** only. The engine emits **WorkoutEvent**.
 - **Version:** 1
 - **Purpose:** Skip current movement. fold() must restore.
 - **Required payload:** workoutExerciseId
-- **Source:** system after validated COMMAND skip (confidence ≥ 0.7) or confirmed question
+- **Optional:** reason (plain language; required when skip is the deferral cap)
+- **Source:** system after validated COMMAND skip (confidence ≥ 0.7), confirmed question, or the N+1th `EXERCISE_DEFERRED` on the same movement
 - **Validation:** active session; not already complete/skipped
 - **Transition:** → EXERCISE_COMPLETE. Does not invent completed sets.
-- **Persistence:** workout_exercises.skipped_at
+- **Persistence:** workout_exercises.skipped_at; reason retained
 - **LLM:** COMMAND candidate only; never committed truth directly
+
+## EXERCISE_DEFERRED
+
+- **Version:** 1 (additive; `schemaVersion` stays 1)
+- **Purpose:** Do this movement later in the same session. The missing “the rack is busy — we'll come back” event. Not a skip.
+- **Required payload:** workoutExerciseId, exerciseId, fromPosition, reason
+- **Source:** system after the user **accepts** a deferral proposal. Never automatic.
+- **Validation:** legal from `EXERCISE_ACTIVE`, `READY_FOR_EXERCISE`, `RESTING`, `EXERCISE_COMPLETE`. **Illegal from `SET_ACTIVE`.** After `DEFER_CAP` (2) deferrals of the same movement, emit `EXERCISE_SKIPPED` with the same reason instead.
+- **Transition:** → `READY_FOR_EXERCISE`. Projector moves the movement to after the next one and increments `deferralCount`. Engine then `EXERCISE_STARTED` the movement now first.
+- **History:** deferred-then-completed is completed. Deferred-and-never-done is skipped, reason retained. Do **not** log skip-plus-readd.
+- **Persistence:** event_log append; snapshot plan order
+- **LLM:** forbidden as committed truth
+- **Schema:** `docs/living-spec/schemas/v1/exercise-deferred.schema.json`
 
 ## PLANNED_SETS_CHANGED
 
@@ -258,4 +272,4 @@ The LLM emits **CandidateEvent** only. The engine emits **WorkoutEvent**.
 
 ## Events the LLM may never emit as committed truth
 
-WORKOUT_COMPLETED without user/engine · SET_COMPLETED with invented skipping setNumber · EXERCISE_SKIPPED / PLANNED_SETS_CHANGED without validated COMMAND · historical last-week numbers as events · SESSION_* · SET_STARTED · REST_* · SAFETY_CONCERN (safety layer owns it).
+WORKOUT_COMPLETED without user/engine · SET_COMPLETED with invented skipping setNumber · EXERCISE_SKIPPED / PLANNED_SETS_CHANGED without validated COMMAND · EXERCISE_DEFERRED (engine after accept only) · historical last-week numbers as events · SESSION_* · SET_STARTED · REST_* · SAFETY_CONCERN (safety layer owns it).

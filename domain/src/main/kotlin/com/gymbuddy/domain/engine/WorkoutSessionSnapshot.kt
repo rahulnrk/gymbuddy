@@ -11,8 +11,31 @@ data class PlannedExercise(
     val plannedSets: Int,
     val restTargetSec: Int = 90,
     val skipped: Boolean = false,
+    val skippedReason: String? = null,
+    val deferralCount: Int = 0,
+    val deferralReason: String? = null,
     val substitutedFromExerciseId: String? = null,
 )
+
+enum class ExerciseOutcome {
+    COMPLETED,
+    SKIPPED,
+    DEFERRED,
+    PENDING,
+}
+
+fun exerciseOutcome(snapshot: WorkoutSessionSnapshot, workoutExerciseId: String): ExerciseOutcome {
+    val ex = snapshot.plan?.exercises?.firstOrNull { it.workoutExerciseId == workoutExerciseId }
+        ?: return ExerciseOutcome.PENDING
+    val done = snapshot.completedSets.any { it.workoutExerciseId == workoutExerciseId && !it.deleted }
+    if (done && !ex.skipped) return ExerciseOutcome.COMPLETED
+    if (ex.skipped) return ExerciseOutcome.SKIPPED
+    if (snapshot.phase == WorkoutSessionState.WORKOUT_COMPLETE && ex.deferralCount > 0) {
+        return ExerciseOutcome.SKIPPED
+    }
+    if (ex.deferralCount > 0) return ExerciseOutcome.DEFERRED
+    return ExerciseOutcome.PENDING
+}
 
 data class WorkoutPlan(
     val workoutId: String,

@@ -73,6 +73,15 @@ class EventLogEquivalenceTest {
     }
 
     @Test
+    fun deferralRoundTrip() {
+        assertEquivalent { engine ->
+            val p = PersistTestSupport.start(engine)
+            val r = engine.acceptDeferral(PersistTestSupport.session, p, "the rack is busy")
+            check(r is com.gymbuddy.domain.engine.EngineResult.Committed) { r.toString() }
+        }
+    }
+
+    @Test
     fun occupancyClarifyWritesNothing() {
         assertEquivalent { engine ->
             val p = PersistTestSupport.start(engine)

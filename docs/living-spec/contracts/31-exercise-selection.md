@@ -24,13 +24,19 @@ Every exclusion is returned on `CandidateSet`, so contract 19 can say "no altern
 
 ### Scoring
 
-`rank()` scores survivors only. Factors: goal fit, target muscle coverage (fractional credits), skill match (penalty, not exclusion), freshness (fatigue on primary muscles), variety (position in `recentSlugs`), preference (accepted substitutions), role fit. Weights are `MVP HEURISTIC` in `DECISIONS_AND_THRESHOLDS.md`. Ties break on slug, alphabetically. Same inputs, same order. No randomness, no clock.
+`rank()` scores survivors only. Factors: goal fit (`bestFitGoals` on the exercise, not a compound/isolation proxy), target muscle coverage (fractional credits), skill match (penalty, not exclusion), freshness (fatigue on primary muscles), variety (a hit in `recentSlugs` takes the full `WEIGHT_VARIETY` penalty — no 1/(index+1) decay), preference (accepted substitutions), role fit. Weights are `MVP HEURISTIC` in `DECISIONS_AND_THRESHOLDS.md`.
+
+Score ties: if both lifts share an **implement class** (freeweight, machine, cable, bodyweight), break toward lower `consequenceOfFailure`, then lower `skillDemand`, then slug. A machine and a free weight are not equivalent — they train different things — so consequence must not pick Machine Chest Press over a dumbbell press. Across classes, slug is the remaining deterministic breaker. Same inputs, same order. No randomness, no clock.
+
+**Known gap — no progression.** The picker has no concept of moving someone along a lift family over time. A beginner who can only push-up today will still be offered push-ups next month; nothing promotes them to dumbbells, then a barbell. Recency can swap among catalog survivors this week. It does not graduate a movement. That is a real product hole. It is not this PR.
+
+`rank()` still returns `List<ScoredExercise>`. `rankSlot()` returns `RankedSlot` with `SlotReadiness`: when every survivor's primary is cooked, ranking inside the slot is the wrong question — contract 32 proposes an adjustment instead.
 
 Every `ScoredExercise` carries `Reason`s in coach language. "Why this exercise?" is answerable from the return value.
 
 ### Dose
 
-`dose()` is per slot, not weekly. Precedence: rules-layer goal range → catalog `repWindow` / `defaultRestSec` (catalog rest is a **point**, so rest collapses to one number) → `STRENGTH_UNSPOTTED_REP_FLOOR` when the lift lists a catch and the user has neither catch nor partner. Each narrowing appends a plain-language `cappedBy` reason.
+`dose()` is per slot, not weekly. Precedence: rules-layer goal range → catalog `repWindow` / `defaultRestSec` (catalog rest is a **point**, so rest collapses to one number) → `STRENGTH_UNSPOTTED_REP_FLOOR` when the lift lists a catch and the user has neither catch nor partner. If the goal∩catalog intersection would collapse to a single rep, use the catalog window. `PRIMARY` sets are never fewer than `SECONDARY` sets at the same training age. Each narrowing appends a plain-language `cappedBy` reason.
 
 ### User behavior
 
@@ -69,7 +75,7 @@ Evidence is `:domain` Kotlin tests, not event goldens.
 3. Preference cannot promote an excluded exercise (by construction).
 4. Kettlebell squat slot → goblet squat, not back squat.
 5. Same inputs, same order, 100 runs.
-6. Ties break on slug.
+6. Ties break toward lower consequenceOfFailure, then lower skillDemand, only among the same implement class; across classes, slug. A machine does not beat a dumbbell press on consequence.
 7. Every score has a speakable reason.
 8. Fatigued primary drops below the fresh equivalent.
 9. Dislike excluded when alternatives exist; kept when it is the only survivor.

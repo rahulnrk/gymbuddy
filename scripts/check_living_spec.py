@@ -63,6 +63,9 @@ REQUIRED_CONTRACTS = [
     "29-programming-rules.md",
     "30-health-screening-and-referral.md",
     "31-exercise-selection.md",
+    "32-in-session-adaptation.md",
+    "33-programme-templates.md",
+    "34-warmup-and-mobility.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -84,6 +87,7 @@ REQUIRED_SCHEMAS = [
     "user-feedback.schema.json",
     "user-note.schema.json",
     "safety-concern.schema.json",
+    "exercise-deferred.schema.json",
 ]
 
 REQUIRED_PR1_GOLDENS = [
@@ -266,6 +270,19 @@ def main() -> None:
         ):
             if stage.lower() not in text.lower():
                 errors.append(f"{name} missing stage '{stage}'")
+
+    knowledge_paths = [
+        "knowledge/schema/warmup.schema.json",
+        "knowledge/schema/stretch.schema.json",
+        "knowledge/catalog/warmups.json",
+        "knowledge/catalog/stretches.json",
+    ]
+    for rel in knowledge_paths:
+        path = ROOT / rel
+        if not path.is_file():
+            errors.append(f"missing {rel}")
+        else:
+            json.loads(path.read_text(encoding="utf-8"))
 
     for name in REQUIRED_SCHEMAS:
         path = SCHEMAS / name
@@ -695,8 +712,10 @@ def main() -> None:
     catalog_path = knowledge / "catalog" / "exercises.json"
     if catalog_path.is_file():
         catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-        if not isinstance(catalog, list) or len(catalog) != 61:
-            errors.append(f"knowledge/catalog/exercises.json must hold 61 prototype exercises, got {len(catalog) if isinstance(catalog, list) else type(catalog)}")
+        if not isinstance(catalog, list) or len(catalog) < 61:
+            errors.append(f"knowledge/catalog/exercises.json must hold at least the 61 prototype exercises, got {len(catalog) if isinstance(catalog, list) else type(catalog)}")
+        if isinstance(catalog, list) and any(not row.get("bestFitGoals") for row in catalog if isinstance(row, dict)):
+            errors.append("every catalog exercise must have bestFitGoals")
         if any("load" in row for row in catalog if isinstance(row, dict)):
             errors.append("catalog must not contain a load field")
         if "\"load\"" in catalog_path.read_text(encoding="utf-8"):
@@ -704,6 +723,48 @@ def main() -> None:
     schema_text = (knowledge / "schema" / "exercise.schema.json").read_text(encoding="utf-8") if (knowledge / "schema" / "exercise.schema.json").is_file() else ""
     if schema_text and "additionalProperties" not in schema_text:
         errors.append("exercise.schema.json must set additionalProperties")
+    template_schema = knowledge / "schema" / "template.schema.json"
+    if not template_schema.is_file():
+        errors.append("missing knowledge/schema/template.schema.json")
+    elif "additionalProperties" not in template_schema.read_text(encoding="utf-8"):
+        errors.append("template.schema.json must set additionalProperties")
+    templates_dir = knowledge / "templates"
+    required_templates = [
+        "full-body-3d-beginner.json",
+        "full-body-3d.json",
+        "upper-lower-4d.json",
+        "ppl-6d.json",
+    ]
+    if not templates_dir.is_dir():
+        errors.append("missing knowledge/templates/")
+    else:
+        for name in required_templates:
+            path = templates_dir / name
+            if not path.is_file():
+                errors.append(f"missing knowledge/templates/{name}")
+                continue
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as e:
+                errors.append(f"malformed template {name}: {e}")
+                continue
+            if data.get("id") != path.stem:
+                errors.append(f"{name} id {data.get('id')!r} must match filename stem")
+            if data.get("daysPerWeek") != len(data.get("days") or []):
+                errors.append(f"{name} daysPerWeek must equal days length")
+        try:
+            from jsonschema import Draft202012Validator
+            if template_schema.is_file():
+                tschema = json.loads(template_schema.read_text(encoding="utf-8"))
+                tvalidator = Draft202012Validator(tschema)
+                for name in required_templates:
+                    path = templates_dir / name
+                    if path.is_file():
+                        data = json.loads(path.read_text(encoding="utf-8"))
+                        for err in tvalidator.iter_errors(data):
+                            errors.append(f"{name} schema: {err.message}")
+        except ImportError:
+            pass
     catalog_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "catalog"
     if not catalog_kt.is_dir():
         errors.append("missing domain catalog package")

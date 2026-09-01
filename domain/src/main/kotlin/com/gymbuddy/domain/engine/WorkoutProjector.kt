@@ -46,7 +46,9 @@ object WorkoutProjector {
             (event.type == CommittedEventType.SET_DELETED && state.phase != WorkoutSessionState.IDLE) ||
             (event.type == CommittedEventType.WEIGHT_CHANGED && state.phase != WorkoutSessionState.IDLE) ||
             (event.type == CommittedEventType.PLANNED_SETS_CHANGED && state.phase != WorkoutSessionState.IDLE) ||
-            (event.type == CommittedEventType.SUBSTITUTION_APPLIED && state.phase != WorkoutSessionState.IDLE)
+            (event.type == CommittedEventType.SUBSTITUTION_APPLIED && state.phase != WorkoutSessionState.IDLE) ||
+            (event.type == CommittedEventType.EXERCISE_DEFERRED && state.phase != WorkoutSessionState.IDLE &&
+                state.phase != WorkoutSessionState.SET_ACTIVE)
         if (!legal) return ApplyResult.Rejected("illegal ${state.phase} + ${event.type}")
         val nextPhase = phaseAfter(state, event)
         val payloadState = applyPayload(state, event)
@@ -200,13 +202,37 @@ object WorkoutProjector {
             }
             CommittedEventType.EXERCISE_SKIPPED -> {
                 val we = p.str("workoutExerciseId") ?: state.currentExercise?.workoutExerciseId
+                val reason = p.str("reason")
                 val plan = state.plan ?: return state
                 state.copy(
                     plan = plan.copy(
                         exercises = plan.exercises.map {
-                            if (it.workoutExerciseId == we) it.copy(skipped = true) else it
+                            if (it.workoutExerciseId == we) {
+                                it.copy(skipped = true, skippedReason = reason ?: it.deferralReason)
+                            } else it
                         },
                     ),
+                    rest = null,
+                )
+            }
+            CommittedEventType.EXERCISE_DEFERRED -> {
+                val we = p.str("workoutExerciseId") ?: state.currentExercise?.workoutExerciseId
+                val reason = p.str("reason")
+                val plan = state.plan ?: return state
+                val exercises = plan.exercises.toMutableList()
+                val idx = exercises.indexOfFirst { it.workoutExerciseId == we }
+                    .takeIf { it >= 0 } ?: state.currentExerciseIndex
+                if (idx !in exercises.indices) return state
+                val item = exercises.removeAt(idx)
+                val updated = item.copy(
+                    deferralCount = item.deferralCount + 1,
+                    deferralReason = reason ?: item.deferralReason,
+                )
+                val insertAt = (idx + 1).coerceAtMost(exercises.size)
+                exercises.add(insertAt, updated)
+                state.copy(
+                    plan = plan.copy(exercises = exercises),
+                    currentExerciseIndex = idx.coerceAtMost(exercises.lastIndex).coerceAtLeast(0),
                     rest = null,
                 )
             }

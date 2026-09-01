@@ -47,22 +47,31 @@ fun dose(exercise: Exercise, slot: Slot, ctx: PickContext): Prescription {
     )
 }
 
-internal fun sessionSets(role: SlotRole, age: TrainingAge): Int = when (role) {
-    SlotRole.PRIMARY -> if (age == TrainingAge.BEGINNER) {
+internal fun sessionSets(role: SlotRole, age: TrainingAge): Int {
+    val primary = if (age == TrainingAge.BEGINNER) {
         PickerConstants.SESSION_SETS_PRIMARY_BEGINNER
     } else {
         PickerConstants.SESSION_SETS_PRIMARY
     }
-    SlotRole.SECONDARY -> PickerConstants.SESSION_SETS_SECONDARY
-    SlotRole.ACCESSORY -> PickerConstants.SESSION_SETS_ACCESSORY
-    SlotRole.ISOLATION -> PickerConstants.SESSION_SETS_ISOLATION
-    SlotRole.CORE -> PickerConstants.SESSION_SETS_CORE
+    val secondary = if (age == TrainingAge.BEGINNER) {
+        PickerConstants.SESSION_SETS_SECONDARY_BEGINNER
+    } else {
+        PickerConstants.SESSION_SETS_SECONDARY
+    }
+    check(primary >= secondary) { "PRIMARY sets must never be fewer than SECONDARY sets" }
+    return when (role) {
+        SlotRole.PRIMARY -> primary
+        SlotRole.SECONDARY -> secondary
+        SlotRole.ACCESSORY -> PickerConstants.SESSION_SETS_ACCESSORY
+        SlotRole.ISOLATION -> PickerConstants.SESSION_SETS_ISOLATION
+        SlotRole.CORE -> PickerConstants.SESSION_SETS_CORE
+    }
 }
 
 private fun intersect(goal: IntRange2, catalog: IntRange2): IntRange2 {
     val min = maxOf(goal.min, catalog.min)
     val max = minOf(goal.max, catalog.max)
-    return if (min <= max) {
+    return if (min < max) {
         IntRange2(min, max, catalog.provenance)
     } else {
         catalog

@@ -66,6 +66,7 @@ data class Exercise(
     val name: String,
     val kind: String,
     val pattern: String,
+    val bestFitGoals: List<String> = emptyList(),
     val requiredEquipment: List<List<String>>,
     val optionalEquipment: List<String> = emptyList(),
     val skillDemand: String,
