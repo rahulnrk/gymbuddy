@@ -485,6 +485,13 @@ Same review date as the programming block. Intake provenance rows use it.
 
 Red-flag count is 10. That is the screen, not a tunable threshold.
 
+### `RECENCY_QUESTION` / `RECENCY_URGENCY`
+
+- **Where:** `ReferralCopy.RECENCY_QUESTION`, `ReferralCopy.RECENCY_URGENCY`
+- **Purpose:** Follow-up on acute-symptom flags. Urgency line is added only when the user answers YES to recency. UNKNOWN is not YES. No emergency number in domain copy.
+- **Source:** `SAFETY REQUIREMENT` — conservative; the app does not judge severity. Recency is the user's statement.
+- **Configurable:** No. The question text is product copy, not a 7-day science constant.
+
 ---
 
 ★ = convertible to `MEASURED` by the Voice Evidence MVP.

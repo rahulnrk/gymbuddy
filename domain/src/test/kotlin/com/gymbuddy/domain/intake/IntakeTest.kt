@@ -22,6 +22,7 @@ class IntakeTest {
         val intake = readyBase().copy(
             healthScreen = clearScreen().copy(
                 flags = clearFlags() + (RedFlag.CHEST_PAIN to Answer.YES),
+                recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO),
             ),
         )
         val result = evaluate(intake, vocab)
@@ -187,6 +188,7 @@ class IntakeTest {
     fun clearanceRequiresExplicitDateAndIsNeverInferred() {
         val flagged = clearScreen().copy(
             flags = clearFlags() + (RedFlag.CHEST_PAIN to Answer.YES),
+            recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO),
         )
         assertIs<ScreenOutcome.ReferBeforeTraining>(screen(flagged))
         val still = evaluate(readyBase().copy(healthScreen = flagged), vocab)
@@ -196,6 +198,12 @@ class IntakeTest {
         val after = screen(cleared)
         assertFalse(after is ScreenOutcome.ReferBeforeTraining)
         assertTrue(after is ScreenOutcome.Clear || after is ScreenOutcome.ProceedWithCaution)
+        val ack = ReferralCopy.clearanceAcknowledgement("2026-09-01")
+        assertTrue("report" in ack.lowercase())
+        assertTrue("medical record" in ack.lowercase())
+        assertFalse(
+            ReferralCopy.forFlag(RedFlag.CHEST_PAIN).contains("medical record", ignoreCase = true),
+        )
         val inferred = flagged.copy(clearance = null)
         assertIs<ScreenOutcome.ReferBeforeTraining>(screen(inferred))
     }
@@ -204,15 +212,20 @@ class IntakeTest {
     fun referralMessagesContainNoConditionNames() {
         val names = catalog.conditions.values.map { it.name }
         RedFlag.entries.forEach { flag ->
-            val text = ReferralCopy.forFlag(flag)
-            names.forEach { name ->
-                assertFalse(
-                    text.contains(name, ignoreCase = true),
-                    "referral for $flag contains condition name '$name': $text",
-                )
+            listOf(false, true).forEach { recent ->
+                val text = ReferralCopy.forFlag(flag, recent)
+                names.forEach { name ->
+                    assertFalse(
+                        text.contains(name, ignoreCase = true),
+                        "referral for $flag recent=$recent contains condition name '$name': $text",
+                    )
+                }
             }
         }
-        val combined = ReferralCopy.forFlags(RedFlag.entries)
+        val combined = ReferralCopy.forFlags(
+            RedFlag.entries,
+            ACUTE_SYMPTOM_FLAGS.associateWith { Answer.YES },
+        )
         names.forEach { name ->
             assertFalse(combined.contains(name, ignoreCase = true), "combined referral contains '$name'")
         }
@@ -224,8 +237,50 @@ class IntakeTest {
             flags = clearFlags() +
                 (RedFlag.CHEST_PAIN to Answer.YES) +
                 (RedFlag.DIZZINESS_OR_FAINTING to Answer.UNKNOWN),
+            recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO),
         )
         assertIs<ScreenOutcome.ReferBeforeTraining>(screen(mixed))
+    }
+
+    @Test
+    fun everyAcuteSymptomFlagHasARecencyQuestion() {
+        assertEquals(6, ACUTE_SYMPTOM_FLAGS.size)
+        ACUTE_SYMPTOM_FLAGS.forEach { flag ->
+            val q = RECENCY_QUESTIONS[flag]
+            assertTrue(q != null, "$flag has no recency question id")
+            assertEquals(ReferralCopy.RECENCY_QUESTION, ReferralCopy.recencyQuestion(flag))
+            val unanswered = unansweredScreenQuestions(
+                clearScreen().copy(flags = clearFlags() + (flag to Answer.YES)),
+            )
+            assertTrue(q in unanswered, "$flag YES must ask recency; unanswered=$unanswered")
+            assertIs<ScreenOutcome.Incomplete>(
+                screen(clearScreen().copy(flags = clearFlags() + (flag to Answer.YES))),
+            )
+        }
+        RedFlag.entries.filter { it !in ACUTE_SYMPTOM_FLAGS }.forEach { flag ->
+            assertFalse(flag in RECENCY_QUESTIONS, "$flag should not have a recency follow-up")
+        }
+    }
+
+    @Test
+    fun recencyYesAddsUrgencyNoDoesNotAndUnknownIsNotYes() {
+        val recent = ReferralCopy.forFlag(RedFlag.CHEST_PAIN, happeningNowOrThisWeek = true)
+        assertTrue(ReferralCopy.RECENCY_URGENCY in recent)
+        assertFalse("911" in recent)
+        assertFalse("999" in recent)
+        val notRecent = ReferralCopy.forFlag(RedFlag.CHEST_PAIN, happeningNowOrThisWeek = false)
+        assertFalse(ReferralCopy.RECENCY_URGENCY in notRecent)
+        val skippedRecency = clearScreen().copy(
+            flags = clearFlags() + (RedFlag.CHEST_PAIN to Answer.YES),
+            recency = mapOf(RedFlag.CHEST_PAIN to Answer.UNKNOWN),
+        )
+        assertIs<ScreenOutcome.Incomplete>(screen(skippedRecency))
+        val answeredNo = skippedRecency.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO))
+        val referred = assertIs<ScreenOutcome.ReferBeforeTraining>(screen(answeredNo))
+        assertFalse(ReferralCopy.RECENCY_URGENCY in referred.message)
+        val answeredYes = skippedRecency.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.YES))
+        val urgent = assertIs<ScreenOutcome.ReferBeforeTraining>(screen(answeredYes))
+        assertTrue(ReferralCopy.RECENCY_URGENCY in urgent.message)
     }
 
     @Test

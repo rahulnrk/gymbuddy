@@ -7,7 +7,10 @@ fun screen(health: HealthScreen?): ScreenOutcome {
     if (health != null) {
         val live = liveRedFlags(health)
         if (live.isNotEmpty()) {
-            return ScreenOutcome.ReferBeforeTraining(live, ReferralCopy.forFlags(live))
+            return ScreenOutcome.ReferBeforeTraining(
+                live,
+                ReferralCopy.forFlags(live, health.recency),
+            )
         }
     }
     val unanswered = unansweredScreenQuestions(health)
@@ -25,6 +28,10 @@ fun unansweredScreenQuestions(health: HealthScreen?): List<QuestionId> {
     RedFlag.entries.forEach { flag ->
         val a = health.flags[flag] ?: Answer.UNKNOWN
         if (a == Answer.UNKNOWN) out += FLAG_QUESTIONS.getValue(flag)
+        if (a == Answer.YES && flag in ACUTE_SYMPTOM_FLAGS) {
+            val recency = health.recency[flag] ?: Answer.UNKNOWN
+            if (recency == Answer.UNKNOWN) out += RECENCY_QUESTIONS.getValue(flag)
+        }
     }
     if (health.hasListedCondition == Answer.UNKNOWN) out += QuestionId.DECLARED_CONDITIONS
     if (health.hasListedCondition == Answer.YES && health.conditions.isEmpty()) {
@@ -38,7 +45,13 @@ fun unansweredScreenQuestions(health: HealthScreen?): List<QuestionId> {
 fun liveRedFlags(health: HealthScreen): List<RedFlag> {
     val cleared = health.clearance?.flagsCleared ?: emptySet()
     return RedFlag.entries.filter { flag ->
-        health.flags[flag] == Answer.YES && flag !in cleared
+        if (health.flags[flag] != Answer.YES || flag in cleared) return@filter false
+        if (flag in ACUTE_SYMPTOM_FLAGS) {
+            val recency = health.recency[flag] ?: Answer.UNKNOWN
+            recency != Answer.UNKNOWN
+        } else {
+            true
+        }
     }
 }
 
@@ -72,7 +85,8 @@ fun declareCondition(reportedText: String, vocabIds: Set<String>, vocabNames: Ma
 internal fun QuestionId.isScreenQuestion(): Boolean =
     this == QuestionId.DECLARED_CONDITIONS ||
         this == QuestionId.PAIN ||
-        this in FLAG_QUESTIONS.values
+        this in FLAG_QUESTIONS.values ||
+        this in RECENCY_QUESTIONS.values
 
 internal fun QuestionId.tierForAsk(): Tier = when (this) {
     QuestionId.GOAL,
@@ -93,8 +107,7 @@ private fun cautionNotes(health: HealthScreen): List<String> {
     val notes = mutableListOf<String>()
     val clearance = health.clearance
     if (clearance != null && clearance.flagsCleared.isNotEmpty()) {
-        notes += "You told us a clinician said you are clear to exercise on " +
-            "${clearance.userReportedDate}. We recorded that as your report."
+        notes += ReferralCopy.clearanceAcknowledgement(clearance.userReportedDate)
     }
     health.painReports.forEach { pain ->
         when (pain.character) {

@@ -19,8 +19,10 @@ Each answer is `YES | NO | UNKNOWN`. There is no boolean skip.
 ### Referral rule
 
 - Any red flag `YES` that is not covered by an explicit dated user-reported clearance → `ReferBeforeTraining`. No plan-shaped output (`IntakeResult.Ready` is unreachable).
-- Refer outranks missing required fields.
-- `ReferBeforeTraining.message` is calm, specific about the next step, free of diagnosis, and must not contain a `conditions.json` name.
+- Refer outranks missing required fields, **except** an unanswered recency follow-up on an acute-symptom flag. That follow-up is asked first so urgency can come from the user's stated recency, not from the app judging severity.
+- Acute-symptom flags (`CHEST_PAIN`, `BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION`, `DIZZINESS_OR_FAINTING`, `PALPITATIONS_OR_IRREGULAR_HEARTBEAT`, `RADIATING_NUMBNESS_OR_WEAKNESS`, `NEW_UNEXPLAINED_SWELLING_OR_PAIN`) each have the recency question: “Is this happening now, or has it happened in the last week?” Skip is `UNKNOWN`, not yes. Only `YES` adds: “If you are feeling this right now, or it came on recently, please don't wait for a routine appointment - get seen today.” No emergency number in domain copy.
+- Referral copy states the app's limit (a plan from this app has to wait), not a refusal to help.
+- `ReferBeforeTraining.message` is calm, specific about the next step, free of diagnosis, and must not contain a `conditions.json` name. The “report, not a medical record” line belongs on clearance, not on referral.
 
 ### Unknown is not No
 
@@ -34,7 +36,7 @@ The app records the user's words. It does not name a condition they did not decl
 
 ### Clearance is user-reported
 
-A referral is not permanent. The only writer is `recordClearance(screen, date, flags)` with a `YYYY-MM-DD` date. Evaluate never invents clearance. Profile (contract 15) treats clearing a referral as a deliberate user action.
+A referral is not permanent. The only writer is `recordClearance(screen, date, flags)` with a `YYYY-MM-DD` date. Evaluate never invents clearance. Profile (contract 15) treats clearing a referral as a deliberate user action. The acknowledgement is: the date is stored as the user's report, not a medical record. That sentence is not in the referral messages.
 
 ### User behavior
 

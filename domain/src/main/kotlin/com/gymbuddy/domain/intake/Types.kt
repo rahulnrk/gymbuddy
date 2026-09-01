@@ -60,6 +60,12 @@ enum class QuestionId {
     FLAG_PREGNANCY_COMPLICATION,
     FLAG_UNCONTROLLED_CONDITION,
     FLAG_NEW_SWELLING_OR_PAIN,
+    RECENCY_CHEST_PAIN,
+    RECENCY_BREATHLESSNESS,
+    RECENCY_DIZZINESS,
+    RECENCY_PALPITATIONS,
+    RECENCY_RADIATING_NUMBNESS,
+    RECENCY_NEW_SWELLING_OR_PAIN,
     DECLARED_CONDITIONS,
     PAIN,
     TRAINS_WITH_PARTNER,
@@ -127,6 +133,7 @@ data class ClinicalClearance(
 
 data class HealthScreen(
     val flags: Map<RedFlag, Answer> = emptyMap(),
+    val recency: Map<RedFlag, Answer> = emptyMap(),
     val hasListedCondition: Answer = Answer.UNKNOWN,
     val conditions: List<DeclaredCondition> = emptyList(),
     val hasPain: Answer = Answer.UNKNOWN,
@@ -168,15 +175,21 @@ internal val ASK_ORDER: List<QuestionId> = listOf(
     QuestionId.SESSION_MINUTES,
     QuestionId.EQUIPMENT_PRESET,
     QuestionId.FLAG_CHEST_PAIN,
+    QuestionId.RECENCY_CHEST_PAIN,
     QuestionId.FLAG_BREATHLESSNESS,
+    QuestionId.RECENCY_BREATHLESSNESS,
     QuestionId.FLAG_DIZZINESS,
+    QuestionId.RECENCY_DIZZINESS,
     QuestionId.FLAG_PALPITATIONS,
+    QuestionId.RECENCY_PALPITATIONS,
     QuestionId.FLAG_RECENT_SURGERY,
     QuestionId.FLAG_NIGHT_PAIN,
     QuestionId.FLAG_RADIATING_NUMBNESS,
+    QuestionId.RECENCY_RADIATING_NUMBNESS,
     QuestionId.FLAG_PREGNANCY_COMPLICATION,
     QuestionId.FLAG_UNCONTROLLED_CONDITION,
     QuestionId.FLAG_NEW_SWELLING_OR_PAIN,
+    QuestionId.RECENCY_NEW_SWELLING_OR_PAIN,
     QuestionId.DECLARED_CONDITIONS,
     QuestionId.PAIN,
 )
@@ -192,4 +205,23 @@ internal val FLAG_QUESTIONS: Map<RedFlag, QuestionId> = mapOf(
     RedFlag.PREGNANCY_COMPLICATION to QuestionId.FLAG_PREGNANCY_COMPLICATION,
     RedFlag.UNCONTROLLED_DIAGNOSED_CONDITION to QuestionId.FLAG_UNCONTROLLED_CONDITION,
     RedFlag.NEW_UNEXPLAINED_SWELLING_OR_PAIN to QuestionId.FLAG_NEW_SWELLING_OR_PAIN,
+)
+
+/** Acute symptoms get a recency follow-up. Urgency is the user's stated recency. */
+val ACUTE_SYMPTOM_FLAGS: Set<RedFlag> = setOf(
+    RedFlag.CHEST_PAIN,
+    RedFlag.BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION,
+    RedFlag.DIZZINESS_OR_FAINTING,
+    RedFlag.PALPITATIONS_OR_IRREGULAR_HEARTBEAT,
+    RedFlag.RADIATING_NUMBNESS_OR_WEAKNESS,
+    RedFlag.NEW_UNEXPLAINED_SWELLING_OR_PAIN,
+)
+
+val RECENCY_QUESTIONS: Map<RedFlag, QuestionId> = mapOf(
+    RedFlag.CHEST_PAIN to QuestionId.RECENCY_CHEST_PAIN,
+    RedFlag.BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION to QuestionId.RECENCY_BREATHLESSNESS,
+    RedFlag.DIZZINESS_OR_FAINTING to QuestionId.RECENCY_DIZZINESS,
+    RedFlag.PALPITATIONS_OR_IRREGULAR_HEARTBEAT to QuestionId.RECENCY_PALPITATIONS,
+    RedFlag.RADIATING_NUMBNESS_OR_WEAKNESS to QuestionId.RECENCY_RADIATING_NUMBNESS,
+    RedFlag.NEW_UNEXPLAINED_SWELLING_OR_PAIN to QuestionId.RECENCY_NEW_SWELLING_OR_PAIN,
 )
