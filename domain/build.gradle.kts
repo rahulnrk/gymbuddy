@@ -22,5 +22,6 @@ kotlin {
     sourceSets.test {
         resources.srcDir(rootProject.projectDir.resolve("tests/golden"))
         resources.srcDir(rootProject.projectDir.resolve("docs/living-spec/schemas"))
+        resources.srcDir(rootProject.projectDir.resolve("knowledge"))
     }
 }

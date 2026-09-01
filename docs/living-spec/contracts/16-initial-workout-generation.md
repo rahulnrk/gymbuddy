@@ -28,7 +28,7 @@ Same `workouts` / `workout_exercises` model regardless of origin (`ai-generated`
 4. LLM **may** swap a slot from the catalog with the same `movement_pattern` + muscle + equipment. It must not add unknown names.
 5. User edits through Feature 17.
 
-**Minimum catalog (Q9 still open for source/license):** 80 in-repo exercises covering squat/hinge/horizontal-push/horizontal-pull/vertical-push/vertical-pull/lunge/core, each with ≥1 dumbbell or bodyweight substitute. Templates live in-repo (`knowledge/templates/*.json`).
+**Minimum catalog (Q9 partial):** PR 14a authors the in-repo catalog from `voice-workout-os-source/` (61 exercises). ≥80 + templates are PR 14b. `docs/research/` is reference only.
 
 ### Voice behavior
 

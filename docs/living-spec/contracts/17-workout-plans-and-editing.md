@@ -10,6 +10,8 @@ source: docs/living-spec/TECHNICAL_SPEC.md
 **Status:** implementing  
 **Core-loop role:** Supporting. Lets the user (and later the adapter) change what Gym Mode will run. AI plan is a recommendation, not a lock (product §29).
 
+Templates (`knowledge/templates/*.json`) are PR 14b. Named goldens already exist, so the living-spec gate keeps this `implementing` rather than rolling it back to `specified`.
+
 ### User behavior
 
 Edit order, sets, rep range, weight, rest, exercise, workout name, training days. During gym: voice “skip this,” “swap,” “add one more set” goes through events, not a hidden second editor.

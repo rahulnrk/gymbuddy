@@ -10,6 +10,8 @@ source: docs/living-spec/TECHNICAL_SPEC.md
 **Status:** implementing  
 **Core-loop role:** Keeps the loop going when the plan collides with reality (occupied machine, missing equipment) without the user operating a catalog.
 
+PR 14a ships the 12 hand-written substitute lists from the prototype as `substitutes` slugs. The substitution **rule** (muscle + pattern + equipment + `trainableWith`) is PR 14b. Named goldens already exist, so the living-spec gate keeps this `implementing` rather than rolling it back to `specified`.
+
 ### User behavior
 
 “That machine is occupied.” AI: “Let’s swap that cable fly for dumbbell fly today.” (product §30). Suggests based on target muscle, movement pattern, goal, available equipment, history, preference. User accepts or rejects.

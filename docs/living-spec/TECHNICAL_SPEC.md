@@ -2761,7 +2761,7 @@ Same `workouts` / `workout_exercises` model regardless of origin (`ai-generated`
 4. LLM **may** swap a slot from the catalog with the same `movement_pattern` + muscle + equipment. It must not add unknown names.
 5. User edits through Feature 17.
 
-**Minimum catalog (Q9 still open for source/license):** 80 in-repo exercises covering squat/hinge/horizontal-push/horizontal-pull/vertical-push/vertical-pull/lunge/core, each with ≥1 dumbbell or bodyweight substitute. Templates live in-repo (`knowledge/templates/*.json`).
+**Minimum catalog (Q9 partial):** PR 14a authors the in-repo catalog from `voice-workout-os-source/` (61 exercises, frozen schema). ≥80 + templates and a full Q9 close are PR 14b. `docs/research/` is reference only.
 
 ### Voice behavior
 
@@ -3343,7 +3343,7 @@ Product questions already answered in `PRODUCT.md` are **not** reopened. Stack d
 | Q6 | On-device vs server STT/LLM? | **Resolved** 2026-08-20 | **Cloud STT/LLM allowed.** HUD number-pad fallback when offline. Voice logging offline **only if** an on-device adapter is added later. **Do not require on-device STT in MVP.** |
 | Q7 | Local database engine? | **Resolved** 2026-08-20 | **SQLite.** OS-idiomatic wrapper: **Room on Android.** SQL shape already specified. |
 | Q8 | Auth providers? | Open | Auth itself is required; vendors not settled. |
-| Q9 | Exercise catalog extra license? | Open | **Size settled:** ≥80 in-repo exercises + templates. Extra content source/license unset. |
+| Q9 | Exercise catalog extra license? | **Partial** 2026-09-01 | Catalog authored in-repo from `voice-workout-os-source/` (PR 14a: 61 prototype exercises on the frozen schema). `docs/research/` is consulted reference; **no rows copied** from it. Size ≥80 + templates and a full Q9 close are PR 14b. |
 | Q10 | Transcript TTL default? | Open | Not indefinite raw audio (settled); exact TTL unset. |
 | Q11 | Backup `/sync/*` in MVP? | **Resolved** 2026-08-20 | **Skip in MVP.** PR 22 skippable / **out of MVP**. Single-device local DB is session truth. |
 

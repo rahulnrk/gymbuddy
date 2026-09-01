@@ -20,6 +20,12 @@ Guidance: “Chest was trained hard yesterday. Another heavy chest session may n
 
 `recovery_records.load_band` from volume, frequency, recent training, user feedback, RPE/RIR. Sleep inputs **future**, not MVP.
 
+PR 14a records the recovery inputs that already live in the prototype:
+
+- `damageMultiplier` on each catalog exercise. Values come from `DAMAGE_BY_EXERCISE` (re-keyed onto slugs) else `DAMAGE_BY_PATTERN` else `1.0` (`voice-workout-os-source/src/17-recovery.js`).
+- Muscle contribution: **`muscleOverrides` if present, otherwise the pattern map** in `knowledge/vocab/patterns.json`. Do not pre-compute a flattened per-exercise map into JSON.
+- Region ids are the 24 keys in `knowledge/vocab/muscles.json` (verbatim from `12-muscles.js`, including `neck.group = upper`).
+
 ### Voice behavior
 
 Gym/planning Q&A may use the same bands. Never speak a recovery percentage. Not in Gym Mode as a map the user must look at.

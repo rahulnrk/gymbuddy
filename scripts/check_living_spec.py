@@ -678,6 +678,43 @@ def main() -> None:
                 if line.strip().startswith("import android.") or line.strip().startswith("import java.sql"):
                     errors.append(f"domain forbidden import in {p.relative_to(ROOT)}: {line.strip()}")
 
+    knowledge = ROOT / "knowledge"
+    for rel in (
+        "vocab/muscles.json",
+        "vocab/patterns.json",
+        "vocab/equipment.json",
+        "vocab/conditions.json",
+        "schema/exercise.schema.json",
+        "catalog/exercises.json",
+    ):
+        if not (knowledge / rel).is_file():
+            errors.append(f"missing knowledge/{rel}")
+    catalog_path = knowledge / "catalog" / "exercises.json"
+    if catalog_path.is_file():
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        if not isinstance(catalog, list) or len(catalog) != 61:
+            errors.append(f"knowledge/catalog/exercises.json must hold 61 prototype exercises, got {len(catalog) if isinstance(catalog, list) else type(catalog)}")
+        if any("load" in row for row in catalog if isinstance(row, dict)):
+            errors.append("catalog must not contain a load field")
+        if "\"load\"" in catalog_path.read_text(encoding="utf-8"):
+            errors.append("catalog JSON still contains a load key")
+    schema_text = (knowledge / "schema" / "exercise.schema.json").read_text(encoding="utf-8") if (knowledge / "schema" / "exercise.schema.json").is_file() else ""
+    if schema_text and "additionalProperties" not in schema_text:
+        errors.append("exercise.schema.json must set additionalProperties")
+    catalog_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "catalog"
+    if not catalog_kt.is_dir():
+        errors.append("missing domain catalog package")
+    else:
+        cat_text = "\n".join(p.read_text(encoding="utf-8") for p in catalog_kt.glob("*.kt"))
+        if "class Catalog" not in cat_text:
+            errors.append("Catalog type missing")
+        if "fun resolveSpoken" not in cat_text:
+            errors.append("resolveSpoken missing")
+        if "java.io.File" in cat_text:
+            errors.append("catalog parser must not do file IO")
+        if "research" in cat_text:
+            errors.append("catalog must not reference docs/research")
+
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")
     print(f"  invalid: {pr1_stats['invalid']}")
