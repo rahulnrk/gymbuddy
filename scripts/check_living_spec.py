@@ -61,6 +61,7 @@ REQUIRED_CONTRACTS = [
     "27-music-coexistence-audio-focus.md",
     "28-gym-mode-qa.md",
     "29-programming-rules.md",
+    "30-health-screening-and-referral.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -737,6 +738,26 @@ def main() -> None:
             for name in const_re.findall(p.read_text(encoding="utf-8")):
                 if name not in decisions_text:
                     errors.append(f"programming constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
+
+    intake_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "intake"
+    if not intake_kt.is_dir():
+        errors.append("missing domain intake package")
+    else:
+        intake_text = "\n".join(p.read_text(encoding="utf-8") for p in intake_kt.glob("*.kt"))
+        for req in ("fun evaluate", "fun screen", "fun recordClearance", "enum class Answer"):
+            if req not in intake_text:
+                errors.append(f"intake package missing {req}")
+        if "UNKNOWN" not in intake_text:
+            errors.append("intake must model UNKNOWN as a value")
+        for bad in ("fun generatePlan", "fun generateWorkout", "fun buildWorkout"):
+            if bad in intake_text:
+                errors.append("intake package must not generate workouts")
+        decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
+        const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
+        for p in intake_kt.glob("*.kt"):
+            for name in const_re.findall(p.read_text(encoding="utf-8")):
+                if name not in decisions_text:
+                    errors.append(f"intake constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
 
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")

@@ -12,7 +12,9 @@ source: docs/living-spec/TECHNICAL_SPEC.md
 
 ### User behavior
 
-View/edit profile fields, units, language, equipment, goals, body-map variant, review/edit/delete preferences and notes (Features 23). Export/delete data. **No notification prefs UI** (notifications are out of MVP).
+View/edit profile fields, units, language, equipment **preset** (with also-have / do-not-have), goals, body-map variant, declared conditions, pain reports, whether they train with a partner, review/edit/delete preferences and notes (Features 23). Export/delete data. **No notification prefs UI** (notifications are out of MVP).
+
+Clearing a referral (contract 30) is a deliberate user action with a date. It is never inferred from a skipped question, a later session, or a clean-looking screen.
 
 ### System state
 

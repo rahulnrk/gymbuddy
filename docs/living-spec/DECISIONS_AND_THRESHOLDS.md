@@ -233,7 +233,7 @@ A hard set is a working set taken close enough to failure to drive adaptation. W
 
 - **Where:** `weeklyHardSets(STRENGTH, BEGINNER)`
 - **Purpose:** Strength-goal weekly hard sets for beginners.
-- **Source:** `PUBLISHED GUIDELINE` (low confidence) — Rhea et al. (2003) Med Sci Sports Exerc (140 studies): untrained maximal gains at 60% 1RM, 3 d/wk, ~4 sets per muscle group. Peterson et al. (2005) confirms.
+- **Source:** `GUIDELINE-DERIVED` — Rhea et al. (2003) Med Sci Sports Exerc (140 studies): untrained maximal gains at 60% 1RM, 3 d/wk, ~4 sets per muscle group. Peterson et al. (2005) confirms the ~4. **What the papers state:** a low dose around 4. They do not state per-session vs per-week. **What is ours:** 3–8.
 - **Configurable:** No.
 
 ### `STRENGTH_HARD_SETS_MIN = 4` / `STRENGTH_HARD_SETS_MAX = 10`
@@ -285,6 +285,13 @@ Fat-loss volume copies the hypertrophy landmark for the same training age. **Sou
 - **Purpose:** Strength-goal rep window. 5 sits nearer ACSM's ≥80% 1RM (~8RM) anchor than 4 did.
 - **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand: strength at ≥80% 1RM, roughly an 8RM load.
 - **Configurable:** No. Catalog `repWindow` wins per exercise, then [STRENGTH_UNSPOTTED_REP_FLOOR](#strength_unspotted_rep_floor--6) may raise the min.
+
+### `PAIN_MOVEMENT`
+
+- **Where:** `validatePainMovements` / `IntakeProvenance.PAIN_MOVEMENT`
+- **Purpose:** Sharp or radiating pain on a named movement is a SAFETY `BLOCK` for that movement. Dull ache is caution only. The app does not name the pain.
+- **Source:** `SAFETY REQUIREMENT` — user report; stop and modify; do not diagnose.
+- **Configurable:** No.
 
 ### `STRENGTH_UNSPOTTED_REP_FLOOR = 6`
 
@@ -446,13 +453,39 @@ These numbers are sort keys, not published seconds or sets. They exist so `order
 | `CONTRACTUAL` (spec-asserted, unmeasured) | 12 |
 | `SAFETY REQUIREMENT` (subset of above) | 4 |
 | `PUBLISHED GUIDELINE` (programming rules, ranges) | hypertrophy 10–20; strength beginner 3–8; fat-loss volume copies hypertrophy (Roth 2022); fat-loss *reps* inherit hypertrophy (Carlson 2022, load); RIR 2–4 everyone; reps 5–8 / 6–12 / 12–20; rest 180–300 trained compound, 120–180 trained isolation, 60–120 untrained, hypertrophy 90–180; fractional indirect weight 0.5; frequency 2–3; deload 4–8 weeks and 40–60% cut |
-| `GUIDELINE-DERIVED` | beginner hypertrophy 4–10 (Behm/Peterson state a low dose works); strength 4–10 (ACSM states ~4–6; 10 is ours); RIR trust ≤3 and ≤12 reps (Zourdos states error grows; cutoffs are ours) |
+| `GUIDELINE-DERIVED` | beginner hypertrophy 4–10 (Behm/Peterson state a low dose works); strength beginner 3–8 (Rhea/Peterson ~4, session vs week unstated); strength 4–10 (ACSM states ~4–6; 10 is ours); RIR trust ≤3 and ≤12 reps (Zourdos states error grows; cutoffs are ours) |
 | `PRODUCT DECISION` (programming) | fat-loss rest inherits hypertrophy (Carlson is about load, not rest) |
 | `SAFETY REQUIREMENT` (programming) | `STRENGTH_UNSPOTTED_REP_FLOOR = 6` |
 | `MVP HEURISTIC` (programming rules, papers silent) | endurance/general-fitness volume, general-fitness reps and rest, order ranks, fractional band edges 0.75 / 0.30 |
 | `UNKNOWN — REQUIRES VALIDATION` | 3 (`restTargetSec=90`, `Recommend` rule, `Recommend` 2.5 kg step) |
 | `TEMPORARY TEST VALUE` | 4 |
 | `MEASURED` | **0** |
+
+## Intake and screening (contract 30)
+
+Unknown is not No. Every screening answer is `YES | NO | UNKNOWN`. Skip never becomes a clean bill.
+
+### `DAYS_PER_WEEK_MIN = 1` / `DAYS_PER_WEEK_MAX = 7`
+
+- **Where:** `missingRequirements` / `IntakeConstants`
+- **Purpose:** A week has 1–7 days. Outside that range is treated as unanswered, not as a plan.
+- **Source:** `CONTRACTUAL` — calendar. Not a training-science landmark.
+- **Configurable:** No.
+
+### `CLEARANCE_DATE_PATTERN = YYYY-MM-DD`
+
+- **Where:** `recordClearance` / `IntakeConstants.CLEARANCE_DATE_PATTERN`
+- **Purpose:** Clearance after referral requires an explicit user-reported date. Evaluate never writes this.
+- **Source:** `SAFETY REQUIREMENT` — clearance is the user's report, not a medical fact.
+- **Configurable:** No.
+
+### `REVIEWED = 2026-09-01` (intake)
+
+Same review date as the programming block. Intake provenance rows use it.
+
+Red-flag count is 10. That is the screen, not a tunable threshold.
+
+---
 
 ★ = convertible to `MEASURED` by the Voice Evidence MVP.
 

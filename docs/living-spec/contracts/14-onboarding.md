@@ -10,9 +10,11 @@ source: docs/living-spec/TECHNICAL_SPEC.md
 **Status:** specified  
 **Core-loop role:** Secondary. Feeds **user context** (goals, equipment, language, units, body-map visualization only) so the first generated workout and Gym Mode greeting are useful. Short and progressive (product §4). Do not overwhelm.
 
+A completed health screen (contract 30) is **required** before a first plan. The screen is visual and silent, not voice. Intake is three tiers: `REQUIRED_TO_SUGGEST` (including that completed screen), `SAFETY` (red flags, declared conditions, pain), `SHAPING` (recovery, dislikes, whether they train with a partner). Skip is unknown, not no.
+
 ### User behavior
 
-Account + name; age, sex, height, weight, units, experience; goals (muscle gain, strength, fat loss, general fitness, conditioning, recomposition; multiples later); days/week, duration, preferred time, style; equipment list (barbell, dumbbells, bench, squat rack, Smith, cables, machines, leg press, pull-up bar, kettlebells, bands, cardio, full gym); body visualization male/female **map only**; language primary + optional additional + auto detect.
+Account + name; age, sex, height, weight, units, experience; goals (muscle gain, strength, fat loss, general fitness, conditioning, recomposition; multiples later); days/week, duration, preferred time, style; equipment **preset** (full gym / home limited / bodyweight) with also-have / do-not-have adjustments, not 38 checkboxes; body visualization male/female **map only**; language primary + optional additional + auto detect; health screen (contract 30) one question at a time.
 
 ### System state
 
@@ -20,7 +22,7 @@ Profile incomplete flags. Equipment becomes constraints for generation/substitut
 
 ### Voice behavior
 
-**Silent / not in Gym Mode.** Onboarding is visual. No IVR onboarding.
+**Silent / not in Gym Mode.** Onboarding is visual. No IVR onboarding. The health screen is not a Gym Mode conversation.
 
 ### Structured event
 
