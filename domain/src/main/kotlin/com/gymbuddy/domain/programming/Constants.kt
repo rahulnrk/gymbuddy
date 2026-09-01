@@ -28,8 +28,9 @@ object ProgrammingConstants {
     const val RIR_TRUST_MAX = 3
     const val RIR_TRUST_REPS_MAX = 12
 
-    const val STRENGTH_REPS_MIN = 4
+    const val STRENGTH_REPS_MIN = 5
     const val STRENGTH_REPS_MAX = 8
+    const val STRENGTH_UNSPOTTED_REP_FLOOR = 6
     const val HYPERTROPHY_REPS_MIN = 6
     const val HYPERTROPHY_REPS_MAX = 12
     const val ENDURANCE_REPS_MIN = 12
@@ -70,6 +71,9 @@ object ProgrammingConstants {
     const val FRACTIONAL_SET_PRIMARY_MIN = 0.75
     const val FRACTIONAL_SET_INDIRECT_MIN = 0.30
     const val FRACTIONAL_SET_INDIRECT_WEIGHT = 0.5
+
+    /** Vocab ids that can catch a missed barbell. No person-spotter id exists. */
+    val CATCH_EQUIPMENT_IDS: Set<String> = setOf("squat-rack", "power-rack", "smith-machine")
 }
 
 internal object ProgrammingProvenance {
@@ -93,14 +97,14 @@ internal object ProgrammingProvenance {
     )
     val BEHM_PETERSON = Provenance(
         confidence = "low",
-        basis = "consensus",
-        source = "Behm et al. (2023) Sports Med; Peterson et al. (2005) J Strength Cond Res; Uğurlu et al. (2024) Medicine.",
+        basis = "judgement",
+        source = "GUIDELINE-DERIVED — Behm et al. (2023) is a minimalist floor (<3 sets/session, 1×/week); Peterson (2005) ~4 sets/muscle, session vs week unstated. 4–10 is ours.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val ACSM_RALSTON = Provenance(
-        confidence = "moderate",
-        basis = "consensus",
-        source = "Currier et al. (2026) ACSM Position Stand; Ralston et al. (2017) Sports Med.",
+        confidence = "low",
+        basis = "judgement",
+        source = "GUIDELINE-DERIVED — Currier et al. (2026) ACSM: 2–3 sets × ≥2 days ≈ 4–6 weekly. Ralston (2017) medium/high beat low. The 10 is ours.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val RHEA_PETERSON = Provenance(
@@ -124,13 +128,25 @@ internal object ProgrammingProvenance {
     val STRENGTH_REPS = Provenance(
         confidence = "moderate",
         basis = "consensus",
-        source = "Currier et al. (2026) ACSM Position Stand: strength at ≥80% 1RM (~8RM). Taken as 4–8.",
+        source = "Currier et al. (2026) ACSM Position Stand: strength at ≥80% 1RM (~8RM). Taken as 5–8.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val CARLSON_2022 = Provenance(
         confidence = "moderate",
         basis = "consensus",
-        source = "Carlson et al. (2022). Training load during dietary intervention and fat loss. Res Q Exerc Sport.",
+        source = "Carlson et al. (2022). Training load during dietary intervention and fat loss. Res Q Exerc Sport. About load, not rest.",
+        reviewed = ProgrammingConstants.REVIEWED,
+    )
+    val PRODUCT_FAT_LOSS_REST = Provenance(
+        confidence = "moderate",
+        basis = "judgement",
+        source = "PRODUCT DECISION — fat-loss rest inherits hypertrophy. Carlson et al. (2022) is about load, not rest.",
+        reviewed = ProgrammingConstants.REVIEWED,
+    )
+    val UNSPOTTED_REP_FLOOR = Provenance(
+        confidence = "high",
+        basis = "judgement",
+        source = "SAFETY REQUIREMENT — high consequenceOfFailure without a rack/cage/smith: floor at 6 reps.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val SENNA_2016 = Provenance(
@@ -159,8 +175,8 @@ internal object ProgrammingProvenance {
     )
     val ZOURDOS_2019 = Provenance(
         confidence = "moderate",
-        basis = "consensus",
-        source = "Zourdos et al. (2019). Proximity to failure and reps per set drive RIR accuracy. J Strength Cond Res.",
+        basis = "judgement",
+        source = "GUIDELINE-DERIVED — Zourdos et al. (2019): error grows with RIR and set length (2.05 at 1 RIR, 5.15 at 5 RIR). Cutoffs ≤3 RIR and ≤12 reps are ours.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val NSCA_ORDER = Provenance(

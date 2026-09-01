@@ -106,6 +106,17 @@ private fun validatePrescriptions(
         }
         val repMin = planned.prescribedRepMin
         val repMax = planned.prescribedRepMax
+        val floor = unspottedRepFloor(ex, user.equipment)
+        if (floor != null && ((repMin != null && repMin < floor) || (repMax != null && repMax < floor))) {
+            val shown = repMin ?: repMax!!
+            out += Violation(
+                rule = "reps.unspotted-floor",
+                severity = Severity.WARN,
+                message = "$shown reps on ${ex.name} is a miss a rack would catch. " +
+                    "Without a rack I'd keep it at $floor reps or more.",
+                provenance = ProgrammingProvenance.UNSPOTTED_REP_FLOOR,
+            )
+        }
         if (repMin != null && repMax != null) {
             val catalogWindow = ex.repWindow
             val matchesCatalog = repMin == catalogWindow.min && repMax == catalogWindow.max

@@ -25,6 +25,7 @@ class ProgrammingProvenanceGateTest {
     fun publishedGuidelineClassExists() {
         val text = decisionsFile().readText()
         assertTrue("PUBLISHED GUIDELINE" in text)
+        assertTrue("GUIDELINE-DERIVED" in text)
     }
 
     private fun decisionsFile(): File {

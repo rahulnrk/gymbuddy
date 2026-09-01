@@ -16,7 +16,8 @@ safety requirement by accident, or defends a guess as if it were evidence.
 | `PLATFORM CONSTRAINT` | Imposed by OS/hardware/physics. |
 | `PRODUCT DECISION` | A deliberate product-feel choice. |
 | `MEASURED` | Derived from real data. **Nothing currently qualifies.** |
-| `PUBLISHED GUIDELINE` | Stated in a named professional guideline or curriculum (ACSM, NSCA, NASM, ACE). Cite the source. Ranges, not point values. Sits above `MVP HEURISTIC` and below `MEASURED`. Nothing in the programming-rules PR is `MEASURED`. |
+| `PUBLISHED GUIDELINE` | Stated in a named professional guideline or curriculum (ACSM, NSCA, NASM, ACE). Cite the source. Ranges, not point values. Sits above `GUIDELINE-DERIVED`. Nothing in the programming-rules PR is `MEASURED`. |
+| `GUIDELINE-DERIVED` | The direction is stated in a named guideline or study; the specific numbers are ours. Cite the source and say what it actually states. Sits above `MVP HEURISTIC` and below `PUBLISHED GUIDELINE`. |
 | `MVP HEURISTIC` | Chosen to make the MVP work; expected to change. |
 | `TEMPORARY TEST VALUE` | Exists only for deterministic fakes/tests. Not product behaviour. |
 | `UNKNOWN — REQUIRES VALIDATION` | In code, not justified anywhere. |
@@ -225,7 +226,7 @@ A hard set is a working set taken close enough to failure to drive adaptation. W
 
 - **Where:** `weeklyHardSets(HYPERTROPHY, BEGINNER)`
 - **Purpose:** Beginner hypertrophy volume. Strictly below intermediate (min and max both lower).
-- **Source:** `PUBLISHED GUIDELINE` (low confidence) — Behm et al. (2023) Sports Med: beginners gain with <3 sets per multi-joint exercise, one session/week, first 12 weeks. Peterson et al. (2005) J Strength Cond Res: untrained optimum ~4 sets/muscle group. Uğurlu et al. (2024) Medicine: in untrained women moderate volume beat both low and high. Rhea/Peterson “4 sets” does not state per-session vs per-week; both readings sit inside 4–10.
+- **Source:** `GUIDELINE-DERIVED` — Behm et al. (2023) Sports Med is a *minimalist* review: beginners still gain with &lt;3 sets per multi-joint exercise, one session/week. That is a “still works” floor, not a 4–10 weekly landmark. Peterson et al. (2005): untrained optimum ~4 sets/muscle group, session vs week unstated. Uğurlu et al. (2024): moderate beat both low and high in untrained women. **What the papers state:** a low dose works. **What is ours:** 4–10.
 - **Configurable:** No.
 
 ### `STRENGTH_BEGINNER_HARD_SETS_MIN = 3` / `STRENGTH_BEGINNER_HARD_SETS_MAX = 8`
@@ -239,7 +240,7 @@ A hard set is a working set taken close enough to failure to drive adaptation. W
 
 - **Where:** `weeklyHardSets(STRENGTH, INTERMEDIATE|ADVANCED)`
 - **Purpose:** Strength-goal weekly hard sets.
-- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand: 2–3 sets per exercise at ≥80% 1RM, all major muscle groups ≥2×/week. Ralston et al. (2017) Sports Med: medium/high weekly sets beat low.
+- **Source:** `GUIDELINE-DERIVED` — Currier et al. (2026) ACSM Position Stand: 2–3 sets per exercise at ≥80% 1RM, all major groups ≥2×/week. **What ACSM states:** about 4–6 weekly sets. Ralston et al. (2017) Sports Med: medium/high weekly sets beat low, no 10. **What is ours:** the 10.
 - **Configurable:** No.
 
 ### `ENDURANCE_HARD_SETS_MIN = 8` / `ENDURANCE_HARD_SETS_MAX = 16`
@@ -273,17 +274,24 @@ Fat-loss volume copies the hypertrophy landmark for the same training age. **Sou
 
 - **Where:** `reportedEffortConfidence`
 - **Purpose:** Trust a spoken RIR only when it is ≤ 3 and the set is ≤ 12 reps. Otherwise low confidence — do not drive a load change off the report alone.
-- **Source:** `PUBLISHED GUIDELINE` — Zourdos et al. (2019) J Strength Cond Res: error was 2.05 reps at 1 RIR, 3.65 at 3 RIR, 5.15 at 5 RIR; longer sets made estimates worse. Direction and magnitude published; the exact cutoffs are ours.
+- **Source:** `GUIDELINE-DERIVED` — Zourdos et al. (2019) J Strength Cond Res: error was 2.05 reps at 1 RIR, 3.65 at 3 RIR, 5.15 at 5 RIR; longer sets made estimates worse. **What the paper states:** accuracy collapses as RIR and set length rise. **What is ours:** the cutoffs 3 and 12.
 - **Configurable:** No.
 
 ### Reps
 
-### `STRENGTH_REPS_MIN = 4` / `STRENGTH_REPS_MAX = 8`
+### `STRENGTH_REPS_MIN = 5` / `STRENGTH_REPS_MAX = 8`
 
 - **Where:** `repRange(STRENGTH)`
-- **Purpose:** Strength-goal rep window.
-- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand anchors strength at ≥80% 1RM, roughly an 8RM load. 4–8 sits on that guideline; 3–6 implied ~85–93% 1RM, heavier than is wise with no spotter.
-- **Configurable:** No. Catalog `repWindow` wins per exercise.
+- **Purpose:** Strength-goal rep window. 5 sits nearer ACSM's ≥80% 1RM (~8RM) anchor than 4 did.
+- **Source:** `PUBLISHED GUIDELINE` — Currier et al. (2026) ACSM Position Stand: strength at ≥80% 1RM, roughly an 8RM load.
+- **Configurable:** No. Catalog `repWindow` wins per exercise, then [STRENGTH_UNSPOTTED_REP_FLOOR](#strength_unspotted_rep_floor--6) may raise the min.
+
+### `STRENGTH_UNSPOTTED_REP_FLOOR = 6`
+
+- **Where:** `unspottedRepFloor` / `effectiveRepRange` / `validatePrescriptions`
+- **Purpose:** Prescribing below 6 reps on a high-`consequenceOfFailure` lift that lists a rack/cage/Smith requires that catch in the user's equipment. Otherwise the rule returns a floor of 6. The validator **reports**; it does not rewrite the plan.
+- **Source:** `SAFETY REQUIREMENT` — conservative product policy on top of the 5–8 strength window. Equipment vocab has no person-spotter id; catch implements are `squat-rack`, `power-rack`, `smith-machine`. A deadlift miss is a drop, so the floor does not apply to lifts that never list a catch.
+- **Configurable:** No.
 
 ### `HYPERTROPHY_REPS_MIN = 6` / `HYPERTROPHY_REPS_MAX = 12`
 
@@ -345,7 +353,7 @@ Fat-loss reps inherit hypertrophy (`HYPERTROPHY_REPS_*`). **Source:** `PUBLISHED
 - **Source:** `PUBLISHED GUIDELINE` — Senna et al. (2016): for the single-joint machine chest fly, 2 min was sufficient; the multi-joint bench press needed 3–5.
 - **Configurable:** No. Catalog wins.
 
-Fat-loss rest inherits hypertrophy (`HYPERTROPHY_REST_SEC_*`, 90–180 s). **Source:** `PUBLISHED GUIDELINE` — Carlson et al. (2022): fat loss is not a distinct loading prescription. `FAT_LOSS_REST_SEC` was deleted. Treating fat-loss rest as metabolic circuit work was a guess.
+Fat-loss rest inherits hypertrophy (`HYPERTROPHY_REST_SEC_*`, 90–180 s). **Source:** `PRODUCT DECISION` — Carlson et al. (2022) is about *load*, not rest. Inheriting hypertrophy rest is a product choice so fat-loss is not treated as a metabolic circuit. `FAT_LOSS_REST_SEC` was deleted. Fat-loss *reps* still inherit hypertrophy as `PUBLISHED GUIDELINE` (Carlson).
 
 ### `GENERAL_FITNESS_REST_SEC_MIN = 60` / `GENERAL_FITNESS_REST_SEC_MAX = 180`
 
@@ -437,7 +445,10 @@ These numbers are sort keys, not published seconds or sets. They exist so `order
 |---|---|
 | `CONTRACTUAL` (spec-asserted, unmeasured) | 12 |
 | `SAFETY REQUIREMENT` (subset of above) | 4 |
-| `PUBLISHED GUIDELINE` (programming rules, ranges) | hypertrophy 10–20 and beginner 4–10; strength 4–10 and beginner 3–8; fat-loss copies hypertrophy (Roth 2022); RIR 2–4 everyone; RIR trust ≤3 and ≤12 reps; reps 4–8 / 6–12 / 12–20; rest 180–300 trained compound, 120–180 trained isolation, 60–120 untrained, hypertrophy 90–180; fractional indirect weight 0.5; frequency 2–3; deload 4–8 weeks and 40–60% cut |
+| `PUBLISHED GUIDELINE` (programming rules, ranges) | hypertrophy 10–20; strength beginner 3–8; fat-loss volume copies hypertrophy (Roth 2022); fat-loss *reps* inherit hypertrophy (Carlson 2022, load); RIR 2–4 everyone; reps 5–8 / 6–12 / 12–20; rest 180–300 trained compound, 120–180 trained isolation, 60–120 untrained, hypertrophy 90–180; fractional indirect weight 0.5; frequency 2–3; deload 4–8 weeks and 40–60% cut |
+| `GUIDELINE-DERIVED` | beginner hypertrophy 4–10 (Behm/Peterson state a low dose works); strength 4–10 (ACSM states ~4–6; 10 is ours); RIR trust ≤3 and ≤12 reps (Zourdos states error grows; cutoffs are ours) |
+| `PRODUCT DECISION` (programming) | fat-loss rest inherits hypertrophy (Carlson is about load, not rest) |
+| `SAFETY REQUIREMENT` (programming) | `STRENGTH_UNSPOTTED_REP_FLOOR = 6` |
 | `MVP HEURISTIC` (programming rules, papers silent) | endurance/general-fitness volume, general-fitness reps and rest, order ranks, fractional band edges 0.75 / 0.30 |
 | `UNKNOWN — REQUIRES VALIDATION` | 3 (`restTargetSec=90`, `Recommend` rule, `Recommend` 2.5 kg step) |
 | `TEMPORARY TEST VALUE` | 4 |

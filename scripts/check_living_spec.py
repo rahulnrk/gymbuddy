@@ -730,6 +730,8 @@ def main() -> None:
         decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
         if "PUBLISHED GUIDELINE" not in decisions_text:
             errors.append("DECISIONS_AND_THRESHOLDS.md missing PUBLISHED GUIDELINE class")
+        if "GUIDELINE-DERIVED" not in decisions_text:
+            errors.append("DECISIONS_AND_THRESHOLDS.md missing GUIDELINE-DERIVED class")
         const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
         for p in programming_kt.glob("*.kt"):
             for name in const_re.findall(p.read_text(encoding="utf-8")):

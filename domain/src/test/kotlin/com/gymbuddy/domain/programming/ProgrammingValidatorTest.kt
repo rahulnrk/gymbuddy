@@ -113,7 +113,7 @@ class ProgrammingValidatorTest {
         )
         val hits = validateSession(
             PlannedSession(listOf(bench)),
-            UserContext(Goal.ENDURANCE, TrainingAge.INTERMEDIATE),
+            UserContext(Goal.ENDURANCE, TrainingAge.INTERMEDIATE, equipment = listOf("squat-rack")),
             catalog,
         )
         assertTrue(hits.none { it.rule == "rest.out-of-range" }, hits.toString())
@@ -130,6 +130,31 @@ class ProgrammingValidatorTest {
         )
         val hits = validateWeek(week, intermediateHypertrophy, catalog)
         assertTrue(hits.none { it.rule.startsWith("pattern.imbalance") }, hits.toString())
+    }
+
+    @Test
+    fun unspottedBelowFloorIsWarnAndDoesNotMutate() {
+        val bench = planned("bench-press", 3, prescribedRepMin = 5, prescribedRepMax = 5)
+        val original = PlannedSession(listOf(bench))
+        val before = original.copy(exercises = original.exercises.toList())
+        val hits = validateSession(original, intermediateHypertrophy, catalog)
+        val floorHits = hits.filter { it.rule == "reps.unspotted-floor" }
+        assertTrue(floorHits.any { it.severity == Severity.WARN }, hits.toString())
+        floorHits.forEach { assertSpeakable(it.message) }
+        assertEquals(before, original)
+        val withRack = validateSession(
+            original,
+            intermediateHypertrophy.copy(equipment = listOf("squat-rack")),
+            catalog,
+        )
+        assertTrue(withRack.none { it.rule == "reps.unspotted-floor" }, withRack.toString())
+        val deadlift = planned("deadlift", 3, prescribedRepMin = 3, prescribedRepMax = 5)
+        val hingeHits = validateSession(
+            PlannedSession(listOf(deadlift)),
+            intermediateHypertrophy,
+            catalog,
+        )
+        assertTrue(hingeHits.none { it.rule == "reps.unspotted-floor" }, hingeHits.toString())
     }
 
     @Test

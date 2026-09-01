@@ -143,7 +143,7 @@ fun restSeconds(
         )
         Goal.FAT_LOSS -> {
             val hypert = restSeconds(Goal.HYPERTROPHY, kind, age)
-            IntRange2(hypert.min, hypert.max, ProgrammingProvenance.CARLSON_2022)
+            IntRange2(hypert.min, hypert.max, ProgrammingProvenance.PRODUCT_FAT_LOSS_REST)
         }
         Goal.GENERAL_FITNESS -> range(
             ProgrammingConstants.GENERAL_FITNESS_REST_SEC_MIN,
@@ -165,13 +165,43 @@ fun effectiveRestSeconds(exercise: Exercise, @Suppress("UNUSED_PARAMETER") goal:
     )
 }
 
-/** Catalog `repWindow` wins over [repRange] when an exercise is known. */
-fun effectiveRepRange(exercise: Exercise, @Suppress("UNUSED_PARAMETER") goal: Goal): IntRange2 {
-    return IntRange2(
+/**
+ * Catalog `repWindow` wins over [repRange] when an exercise is known.
+ * A high-consequence lift that is caught by a rack is then floored at
+ * [ProgrammingConstants.STRENGTH_UNSPOTTED_REP_FLOOR] unless the user has
+ * a rack, cage, or Smith. The validator reports; this cap is the rule a
+ * later template engine should ask, not a silent rewrite.
+ */
+fun effectiveRepRange(
+    exercise: Exercise,
+    @Suppress("UNUSED_PARAMETER") goal: Goal,
+    equipmentIds: Collection<String> = emptyList(),
+): IntRange2 {
+    val catalogRange = IntRange2(
         exercise.repWindow.min,
         exercise.repWindow.max,
         catalogFieldProvenance(exercise, "repWindow"),
     )
+    val floor = unspottedRepFloor(exercise, equipmentIds) ?: return catalogRange
+    if (catalogRange.min >= floor) return catalogRange
+    val max = maxOf(catalogRange.max, floor)
+    return IntRange2(floor, max, ProgrammingProvenance.UNSPOTTED_REP_FLOOR)
+}
+
+fun hasCatchForFailure(equipmentIds: Collection<String>): Boolean =
+    equipmentIds.any { it in ProgrammingConstants.CATCH_EQUIPMENT_IDS }
+
+/**
+ * Floor of 6 reps when a miss needs a catch and the user has none.
+ * Only lifts that list a rack/cage/Smith in required or optional gear —
+ * a deadlift miss is a drop, not a crush.
+ */
+fun unspottedRepFloor(exercise: Exercise, equipmentIds: Collection<String>): Int? {
+    if (exercise.consequenceOfFailure != "high") return null
+    val listed = exercise.requiredEquipment.flatten() + exercise.optionalEquipment
+    if (listed.none { it in ProgrammingConstants.CATCH_EQUIPMENT_IDS }) return null
+    if (hasCatchForFailure(equipmentIds)) return null
+    return ProgrammingConstants.STRENGTH_UNSPOTTED_REP_FLOOR
 }
 
 fun weeklyFrequency(

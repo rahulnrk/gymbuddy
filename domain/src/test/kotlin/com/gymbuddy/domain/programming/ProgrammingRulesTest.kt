@@ -66,10 +66,12 @@ class ProgrammingRulesTest {
         assertEquals(fly.defaultRestSec, effectiveFlyRest.max)
 
         val goalReps = repRange(Goal.STRENGTH)
-        val effectiveBenchReps = effectiveRepRange(bench, Goal.STRENGTH)
-        assertEquals(bench.repWindow.min, effectiveBenchReps.min)
-        assertEquals(bench.repWindow.max, effectiveBenchReps.max)
-        assertNotEquals(goalReps.min, effectiveBenchReps.min)
+        val spotted = effectiveRepRange(bench, Goal.STRENGTH, listOf("squat-rack"))
+        assertEquals(bench.repWindow.min, spotted.min)
+        assertEquals(bench.repWindow.max, spotted.max)
+        assertNotEquals(goalReps.max, spotted.max)
+        val unspotted = effectiveRepRange(bench, Goal.STRENGTH)
+        assertEquals(ProgrammingConstants.STRENGTH_UNSPOTTED_REP_FLOOR, unspotted.min)
     }
 
     @Test
@@ -259,6 +261,20 @@ class ProgrammingRulesTest {
         val beginnerIsolation = restSeconds(Goal.STRENGTH, ExerciseKind.ISOLATION, TrainingAge.BEGINNER)
         assertEquals(beginner.min, beginnerIsolation.min)
         assertEquals(beginner.max, beginnerIsolation.max)
+    }
+
+    @Test
+    fun unspottedHighConsequenceFloorsAtSixUnlessRackPresent() {
+        val bench = catalog.bySlug("bench-press")!!
+        val deadlift = catalog.bySlug("deadlift")!!
+        assertEquals(6, unspottedRepFloor(bench, emptyList()))
+        assertEquals(null, unspottedRepFloor(bench, listOf("squat-rack")))
+        assertEquals(null, unspottedRepFloor(bench, listOf("power-rack")))
+        assertEquals(null, unspottedRepFloor(deadlift, emptyList()))
+        assertEquals(5, repRange(Goal.STRENGTH).min)
+        assertEquals(8, repRange(Goal.STRENGTH).max)
+        assertEquals(6, effectiveRepRange(bench, Goal.STRENGTH, emptyList()).min)
+        assertEquals(5, effectiveRepRange(bench, Goal.STRENGTH, listOf("smith-machine")).min)
     }
 
     @Test

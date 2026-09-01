@@ -143,6 +143,7 @@ data class UserContext(
     val goal: Goal,
     val trainingAge: TrainingAge,
     val conditions: List<String> = emptyList(),
+    val equipment: List<String> = emptyList(),
 )
 
 data class PlannedExercise(
