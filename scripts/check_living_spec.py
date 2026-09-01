@@ -62,6 +62,7 @@ REQUIRED_CONTRACTS = [
     "28-gym-mode-qa.md",
     "29-programming-rules.md",
     "30-health-screening-and-referral.md",
+    "31-exercise-selection.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -758,6 +759,26 @@ def main() -> None:
             for name in const_re.findall(p.read_text(encoding="utf-8")):
                 if name not in decisions_text:
                     errors.append(f"intake constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
+
+    picker_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "picker"
+    if not picker_kt.is_dir():
+        errors.append("missing domain picker package")
+    else:
+        picker_text = "\n".join(p.read_text(encoding="utf-8") for p in picker_kt.glob("*.kt"))
+        for req in ("fun candidates", "fun rank", "fun dose"):
+            if req not in picker_text:
+                errors.append(f"picker package missing {req}")
+        for bad in ("fun generatePlan", "fun generateWorkout", "fun buildWorkout", "PlannedSession"):
+            if bad in picker_text:
+                errors.append("picker package must not generate workouts")
+        if "Random" in picker_text or "currentTimeMillis" in picker_text:
+            errors.append("picker must be deterministic (no Random, no clock)")
+        decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
+        const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
+        for p in picker_kt.glob("*.kt"):
+            for name in const_re.findall(p.read_text(encoding="utf-8")):
+                if name not in decisions_text:
+                    errors.append(f"picker constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
 
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")

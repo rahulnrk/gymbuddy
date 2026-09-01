@@ -24,6 +24,8 @@ Current `workout_exercise`, user equipment, dislikes. Preserve training objectiv
 
 Propose one primary alternative, not a list of ten. Wait for acceptance unless user already named the swap (“do dumbbell fly”). Barge-in. If safety discomfort, substitute more conservatively (reduce load / machine to dumbbell only if appropriate) without diagnosing.
 
+The substitution engine consumes `rank()` from contract 31 and takes the **top** result. The picker returning a full ranking does not violate “one primary alternative”; that is a caller-side rule. Empty `CandidateSet.exclusions` is how the app says “no alternative given your equipment” without inventing a machine.
+
 ### Structured event
 
 Candidates until accept (`SUBSTITUTION_PROPOSE` only). On accept: **`SUBSTITUTION_APPLIED` only**. Do **not** emit `EXERCISE_CHANGED` (KD28; Planning Mode editor only). Do not log a set for the old exercise.
