@@ -60,6 +60,7 @@ REQUIRED_CONTRACTS = [
     "26-dashboard-todays-workout.md",
     "27-music-coexistence-audio-focus.md",
     "28-gym-mode-qa.md",
+    "29-programming-rules.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -714,6 +715,26 @@ def main() -> None:
             errors.append("catalog parser must not do file IO")
         if "research" in cat_text:
             errors.append("catalog must not reference docs/research")
+
+    programming_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "programming"
+    if not programming_kt.is_dir():
+        errors.append("missing domain programming package")
+    else:
+        prog_text = "\n".join(p.read_text(encoding="utf-8") for p in programming_kt.glob("*.kt"))
+        for req in ("fun weeklyHardSets", "fun validateSession", "fun validateWeek", "fun nextSession"):
+            if req not in prog_text:
+                errors.append(f"programming package missing {req}")
+        for bad in ("fun generatePlan", "fun generateWorkout", "fun buildWorkout", "fun createPlan"):
+            if bad in prog_text:
+                errors.append("programming package must not generate workouts")
+        decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
+        if "PUBLISHED GUIDELINE" not in decisions_text:
+            errors.append("DECISIONS_AND_THRESHOLDS.md missing PUBLISHED GUIDELINE class")
+        const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
+        for p in programming_kt.glob("*.kt"):
+            for name in const_re.findall(p.read_text(encoding="utf-8")):
+                if name not in decisions_text:
+                    errors.append(f"programming constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
 
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")

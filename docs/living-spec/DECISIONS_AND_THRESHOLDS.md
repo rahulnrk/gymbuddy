@@ -16,6 +16,7 @@ safety requirement by accident, or defends a guess as if it were evidence.
 | `PLATFORM CONSTRAINT` | Imposed by OS/hardware/physics. |
 | `PRODUCT DECISION` | A deliberate product-feel choice. |
 | `MEASURED` | Derived from real data. **Nothing currently qualifies.** |
+| `PUBLISHED GUIDELINE` | Stated in a named professional guideline or curriculum (ACSM, NSCA, NASM, ACE). Cite the source. Ranges, not point values. Sits above `MVP HEURISTIC` and below `MEASURED`. Nothing in the programming-rules PR is `MEASURED`. |
 | `MVP HEURISTIC` | Chosen to make the MVP work; expected to change. |
 | `TEMPORARY TEST VALUE` | Exists only for deterministic fakes/tests. Not product behaviour. |
 | `UNKNOWN — REQUIRES VALIDATION` | In code, not justified anywhere. |
@@ -203,12 +204,235 @@ safety requirement by accident, or defends a guess as if it were evidence.
 
 ---
 
+## Programming rules (contract 29)
+
+Package `com.gymbuddy.domain.programming`. Every `const val` in that package is named below. These are ranges the validator checks against; they are not a plan generator. Catalog `defaultRestSec` / `repWindow` win over the goal defaults when an exercise is known.
+
+Review date for this block: `REVIEWED = 2026-09-01`.
+
+### Volume — weekly hard sets per muscle
+
+A hard set is a working set taken close enough to failure to drive adaptation. Warm-up and ramp sets do not count. Unilateral: one logged set = one set per side, not halved.
+
+### `HYPERTROPHY_INTERMEDIATE_HARD_SETS_MIN = 10` / `HYPERTROPHY_INTERMEDIATE_HARD_SETS_MAX = 20`
+
+- **Where:** `weeklyHardSets(HYPERTROPHY, INTERMEDIATE|ADVANCED)`
+- **Purpose:** Landmark weekly hard-set volume per muscle for hypertrophy.
+- **Source:** `PUBLISHED GUIDELINE` — Coach & AI Programming Guide §4.3: “About 10–20 hard sets per muscle per week for intermediates”. Advanced is not given a separate number; we reuse this range rather than invent a higher one.
+- **Status:** Range, as published. Not a point value.
+- **Configurable:** No.
+
+### `HYPERTROPHY_BEGINNER_HARD_SETS_MIN = 6` / `HYPERTROPHY_BEGINNER_HARD_SETS_MAX = 12`
+
+- **Where:** `weeklyHardSets(HYPERTROPHY, BEGINNER)`
+- **Purpose:** Beginners grow on less than intermediates. Strictly below the 10–20 range (min and max both lower).
+- **Source:** `MVP HEURISTIC` — Guide §4.3 says “beginners grow on less” and gives no number.
+- **Status:** Overlaps the bottom of intermediate (10–12). That overlap is honest; the guide does not claim a disjoint band.
+- **Configurable:** No.
+
+### `STRENGTH_BEGINNER_HARD_SETS_MIN = 4` / `STRENGTH_BEGINNER_HARD_SETS_MAX = 8`
+
+- **Where:** `weeklyHardSets(STRENGTH, BEGINNER)`
+- **Purpose:** Strength-goal weekly hard sets for beginners.
+- **Source:** `MVP HEURISTIC` — research folder silent on strength-goal set counts.
+- **Configurable:** No.
+
+### `STRENGTH_HARD_SETS_MIN = 6` / `STRENGTH_HARD_SETS_MAX = 12`
+
+- **Where:** `weeklyHardSets(STRENGTH, INTERMEDIATE|ADVANCED)`
+- **Purpose:** Strength-goal weekly hard sets.
+- **Source:** `MVP HEURISTIC` — research folder silent on strength-goal set counts.
+- **Configurable:** No.
+
+### `ENDURANCE_HARD_SETS_MIN = 8` / `ENDURANCE_HARD_SETS_MAX = 16`
+
+- **Where:** `weeklyHardSets(ENDURANCE, *)`
+- **Purpose:** Endurance-goal weekly hard sets.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No.
+
+### `GENERAL_FITNESS_HARD_SETS_MIN = 8` / `GENERAL_FITNESS_HARD_SETS_MAX = 16`
+
+- **Where:** `weeklyHardSets(GENERAL_FITNESS, *)`
+- **Purpose:** General-fitness weekly hard sets.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No.
+
+Fat-loss volume copies the hypertrophy landmark for the same training age and is tagged `MVP HEURISTIC` (research folder silent on a fat-loss set count; “fat loss while keeping muscle” is the nearest published job).
+
+### Effort (reps in reserve)
+
+### `MOST_WORK_RIR_MIN = 2` / `MOST_WORK_RIR_MAX = 4`
+
+- **Where:** `effort(*, INTERMEDIATE|ADVANCED)`
+- **Purpose:** Target effort for most working sets. RPE 6–8.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Most work at RPE 6–8 (2–4 reps in reserve). True 1RMs are rare and expensive.” Applied across goals; the guide does not split RIR by goal.
+- **Configurable:** No.
+
+### `BEGINNER_RIR_MIN = 3` / `BEGINNER_RIR_MAX = 5`
+
+- **Where:** `effort(*, BEGINNER)`
+- **Purpose:** Extra reserve while the pattern is still being learned.
+- **Source:** `MVP HEURISTIC` — research folder silent on a beginner RIR split.
+- **Configurable:** No.
+
+### Reps
+
+### `STRENGTH_REPS_MIN = 3` / `STRENGTH_REPS_MAX = 6`
+
+- **Where:** `repRange(STRENGTH)`
+- **Purpose:** Strength-goal rep window.
+- **Source:** `PUBLISHED GUIDELINE` — NASM OPT §4.2 Maximal Strength is 1–5; Guide §4.3 says true 1RMs are rare. Taken as **3–6** so the default is heavy work without programming a 1RM. Documented disagreement; 3–6 is the resolution.
+- **Configurable:** No. Catalog `repWindow` wins per exercise.
+
+### `HYPERTROPHY_REPS_MIN = 6` / `HYPERTROPHY_REPS_MAX = 12`
+
+- **Where:** `repRange(HYPERTROPHY)`
+- **Purpose:** Hypertrophy-goal rep window.
+- **Source:** `PUBLISHED GUIDELINE` — NASM OPT §4.2 Hypertrophy / muscular development 6–12.
+- **Configurable:** No. Catalog wins.
+
+### `ENDURANCE_REPS_MIN = 12` / `ENDURANCE_REPS_MAX = 20`
+
+- **Where:** `repRange(ENDURANCE)`
+- **Purpose:** Endurance-goal rep window.
+- **Source:** `PUBLISHED GUIDELINE` — NASM OPT §4.2 Stabilization Endurance 12–20.
+- **Configurable:** No. Catalog wins.
+
+### `FAT_LOSS_REPS_MIN = 8` / `FAT_LOSS_REPS_MAX = 15`
+
+- **Where:** `repRange(FAT_LOSS)`
+- **Purpose:** Fat-loss-goal rep window.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No. Catalog wins.
+
+### `GENERAL_FITNESS_REPS_MIN = 8` / `GENERAL_FITNESS_REPS_MAX = 15`
+
+- **Where:** `repRange(GENERAL_FITNESS)`
+- **Purpose:** General-fitness rep window.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No. Catalog wins.
+
+### Rest (seconds)
+
+### `STRENGTH_REST_SEC_MIN = 180` / `STRENGTH_REST_SEC_MAX = 300`
+
+- **Where:** `restSeconds(STRENGTH, COMPOUND)`
+- **Purpose:** Rest between heavy strength sets.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Strength 3–5 min”.
+- **Configurable:** No. Catalog `defaultRestSec` wins.
+
+### `HYPERTROPHY_REST_SEC_MIN = 60` / `HYPERTROPHY_REST_SEC_MAX = 180`
+
+- **Where:** `restSeconds(HYPERTROPHY, *)`
+- **Purpose:** Rest between hypertrophy sets.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “hypertrophy 1–3 min”.
+- **Configurable:** No. Catalog wins.
+
+### `ENDURANCE_REST_SEC_MIN = 30` / `ENDURANCE_REST_SEC_MAX = 90`
+
+- **Where:** `restSeconds(ENDURANCE, *)`
+- **Purpose:** Rest between metabolic / endurance sets.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “metabolic work 30–90 s”.
+- **Configurable:** No. Catalog wins.
+
+### `STRENGTH_ISOLATION_REST_SEC_MIN = 60` / `STRENGTH_ISOLATION_REST_SEC_MAX = 180`
+
+- **Where:** `restSeconds(STRENGTH, ISOLATION)`
+- **Purpose:** Isolation rest on a strength goal. The published 3–5 min is for heavy compound work.
+- **Source:** `MVP HEURISTIC` — research folder silent on isolation rest under a strength goal.
+- **Configurable:** No. Catalog wins.
+
+### `FAT_LOSS_REST_SEC_MIN = 30` / `FAT_LOSS_REST_SEC_MAX = 90`
+
+- **Where:** `restSeconds(FAT_LOSS, *)`
+- **Purpose:** Treat fat-loss rest as metabolic.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No. Catalog wins.
+
+### `GENERAL_FITNESS_REST_SEC_MIN = 60` / `GENERAL_FITNESS_REST_SEC_MAX = 180`
+
+- **Where:** `restSeconds(GENERAL_FITNESS, *)`
+- **Purpose:** General-fitness rest, hypertrophy-like.
+- **Source:** `MVP HEURISTIC` — research folder silent.
+- **Configurable:** No. Catalog wins.
+
+### Frequency
+
+### `WEEKLY_FREQUENCY_MIN = 2` / `WEEKLY_FREQUENCY_MAX = 3`
+
+- **Where:** `weeklyFrequency(*, *)`
+- **Purpose:** Times per week a muscle or pattern should appear.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Each muscle / pattern 2–3 times per week beats one heroic session for most humans.” Same range for every goal and training age; the guide does not split.
+- **Configurable:** No.
+
+### Deload
+
+### `DELOAD_EARLIEST_WEEK = 4` / `DELOAD_LATEST_WEEK = 8`
+
+- **Where:** `deloadDue`
+- **Purpose:** Calendar trigger. Always due at week 8 with no signals. From week 4, any observed poor sleep / pain / motivation also fires. Null signals are unobserved, not “fine”.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “Every 4–8 weeks, or when sleep/pain/motivation fall over”.
+- **Configurable:** No.
+
+### `DELOAD_CUT_PERCENT_MIN = 40` / `DELOAD_CUT_PERCENT_MAX = 60`
+
+- **Where:** `deloadCutPercent`
+- **Purpose:** A deload cuts volume ~40–60%, not intensity to zero. Remaining volume is therefore also ~40–60%.
+- **Source:** `PUBLISHED GUIDELINE` — Guide §4.3: “cut volume ~40–60%”.
+- **Configurable:** No.
+
+### Ordering ranks (relative only)
+
+These numbers are sort keys, not published seconds or sets. They exist so `orderScore` can be a total order. Changing them does not change the coaching claim (“compound and high-skill work first”).
+
+### `ORDER_SKILL_HIGH = 300` / `ORDER_SKILL_MODERATE = 200` / `ORDER_SKILL_LOW = 100`
+
+- **Where:** `orderScore`
+- **Purpose:** Rank catalog `skillDemand`.
+- **Source:** `MVP HEURISTIC` — NSCA/ACE say high-skill work goes first; they do not publish a numeric score.
+- **Configurable:** No.
+
+### `ORDER_FATIGUE_HIGH = 30` / `ORDER_FATIGUE_MODERATE = 20` / `ORDER_FATIGUE_LOW = 10`
+
+- **Where:** `orderScore`
+- **Purpose:** Rank catalog `fatigueCost` below skill.
+- **Source:** `MVP HEURISTIC` — same as skill ranks.
+- **Configurable:** No.
+
+### `ORDER_COMPOUND_BONUS = 3`
+
+- **Where:** `orderScore`
+- **Purpose:** Tie-break compound before isolation at equal skill and fatigue.
+- **Source:** `MVP HEURISTIC` — Guide §4 / NSCA “compound before isolation”; no numeric bonus.
+- **Configurable:** No.
+
+### `ORDER_CORE_PENALTY = 50`
+
+- **Where:** `orderScore`
+- **Purpose:** Core last.
+- **Source:** `MVP HEURISTIC` — Guide / NSCA “core and isolation last”; no numeric penalty.
+- **Configurable:** No.
+
+### Volume tally
+
+### `PRIMARY_MUSCLE_CONTRIBUTION_MIN = 0.5`
+
+- **Where:** `hardSetsByMuscle` / `musclesTrained`
+- **Purpose:** A hard set counts toward a muscle when that muscle's catalog contribution is at least 0.5. Stops serratus 0.2 on bench from eating a full hard set, still counts triceps 0.65.
+- **Source:** `MVP HEURISTIC` — research folder silent on a contribution cutoff. Catalog has weights, not a primary flag.
+- **Configurable:** No.
+
+---
+
 ## Summary
 
 | Class | Count |
 |---|---|
 | `CONTRACTUAL` (spec-asserted, unmeasured) | 12 |
 | `SAFETY REQUIREMENT` (subset of above) | 4 |
+| `PUBLISHED GUIDELINE` (programming rules, ranges) | 12 landmarks (volume 10–20, RIR 2–4, reps 3–6 / 6–12 / 12–20, rest 180–300 / 60–180 / 30–90, frequency 2–3, deload 4–8 weeks and 40–60% cut) |
+| `MVP HEURISTIC` (programming rules, research silent) | beginner volume, strength/endurance/fat-loss/general volume, beginner RIR, fat-loss/general reps, isolation/fat-loss/general rest, order ranks, primary-muscle cutoff 0.5 |
 | `UNKNOWN — REQUIRES VALIDATION` | 3 (`restTargetSec=90`, `Recommend` rule, `Recommend` 2.5 kg step) |
 | `TEMPORARY TEST VALUE` | 4 |
 | `MEASURED` | **0** |
