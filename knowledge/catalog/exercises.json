@@ -1,0 +1,7069 @@
+[
+  {
+    "slug": "bench-press",
+    "id": "3d3f7200-5c48-5274-8f63-763a7d095f6d",
+    "name": "Bench Press",
+    "kind": "compound",
+    "pattern": "horizontal push",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "bench-flat"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "bench",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "flat bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "barbell bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "bb bench",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "bench",
+      "tts": "Bench Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "dumbbell-bench-press",
+      "push-up",
+      "incline-dumbbell-press"
+    ],
+    "legacyIds": [
+      "44444444-4444-4444-8444-444444444444"
+    ],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Bar to the chest; wrists stacked. A rack is optional only if someone can hand the bar off.",
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "chest_upper": 0.5,
+      "delt_front": 0.6,
+      "triceps": 0.65,
+      "serratus": 0.2
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "incline-dumbbell-press",
+    "id": "855ff14d-c008-56aa-b458-686f3d7f2f37",
+    "name": "Incline Dumbbell Press",
+    "kind": "compound",
+    "pattern": "incline push",
+    "requiredEquipment": [
+      "dumbbell",
+      "bench-adjustable"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "incline db bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "incline dumbbell bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "incline dumbbell press",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "incline dumbbells",
+      "tts": "Incline Dumbbell Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_upper": 1,
+      "chest_mid": 0.4,
+      "delt_front": 0.8,
+      "triceps": 0.45
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "overhead-press",
+    "id": "7202cf48-4f2b-596a-84b6-88deebb4e493",
+    "name": "Overhead Press",
+    "kind": "compound",
+    "pattern": "vertical push",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 4,
+      "max": 10
+    },
+    "aliases": [
+      {
+        "text": "ohp",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "military press",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "standing press",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "shoulder press",
+        "locale": "*",
+        "confidence": 0.7
+      },
+      {
+        "text": "press",
+        "locale": "*",
+        "confidence": 0.55
+      }
+    ],
+    "spoken": {
+      "short": "OHP",
+      "tts": "Overhead Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "incline-dumbbell-press",
+      "lateral-raise"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Bar travels over the mid-foot. Do not press from behind the neck.",
+    "muscleOverrides": {
+      "delt_front": 1,
+      "delt_side": 0.7,
+      "triceps": 0.6,
+      "trap_upper": 0.4,
+      "abs_upper": 0.3,
+      "back_lower": 0.2
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "cable-fly",
+    "id": "02b17299-bf26-5ffe-bb6c-ae7d3db3162e",
+    "name": "Cable Fly",
+    "kind": "isolation",
+    "pattern": "chest isolation",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "cable fly",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "cable flye",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "pec fly",
+        "locale": "*",
+        "confidence": 0.75
+      }
+    ],
+    "spoken": {
+      "short": "cable fly",
+      "tts": "Cable Fly"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "incline-dumbbell-press",
+      "push-up"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "chest_upper": 0.4,
+      "delt_front": 0.25
+    }
+  },
+  {
+    "slug": "lateral-raise",
+    "id": "6a31597d-66af-5b4f-a82a-eaeceabf2de1",
+    "name": "Lateral Raise",
+    "kind": "isolation",
+    "pattern": "delt isolation",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "lat raise",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "side raise",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "side lateral",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "laterals",
+      "tts": "Lateral Raise"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "delt_side": 1,
+      "trap_upper": 0.25
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "triceps-pushdown",
+    "id": "a9e69afc-527f-55d2-99c4-b2c8f3463582",
+    "name": "Triceps Pushdown",
+    "kind": "isolation",
+    "pattern": "triceps",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "tricep pushdown",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "pushdown",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "pressdown",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "rope pushdown",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "pushdowns",
+      "tts": "Triceps Pushdown"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "triceps": 1
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "barbell-row",
+    "id": "bb17459d-de99-5cef-9072-cf894fe0a988",
+    "name": "Barbell Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "bb row",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "bent over row",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "bent-over row",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "bent row",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "barbell row",
+      "tts": "Barbell Row"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "chest-supported-row",
+      "seated-cable-row"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Torso angle stays set. The bar comes to the hip, not the floor, unless this is a Pendlay.",
+    "muscleOverrides": {
+      "trap_mid": 1,
+      "lat": 0.85,
+      "delt_rear": 0.6,
+      "biceps": 0.5,
+      "back_lower": 0.5,
+      "forearm": 0.4
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "lat-pulldown",
+    "id": "5712e8e9-a9c0-5345-8874-ee59822fa664",
+    "name": "Lat Pulldown",
+    "kind": "compound",
+    "pattern": "vertical pull",
+    "requiredEquipment": [
+      "lat-pulldown-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.05,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "lat pull down",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "lat pull",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "pulldown",
+        "locale": "*",
+        "confidence": 0.75
+      }
+    ],
+    "spoken": {
+      "short": "lat pulldown",
+      "tts": "Lat Pulldown"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 1,
+      "biceps": 0.55,
+      "trap_mid": 0.45,
+      "delt_rear": 0.25
+    }
+  },
+  {
+    "slug": "pull-up",
+    "id": "0118ed62-ded0-5393-88d8-961c3efd8ba2",
+    "name": "Pull-up",
+    "kind": "compound",
+    "pattern": "vertical pull",
+    "requiredEquipment": [
+      "pull-up-bar"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 3,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "pullup",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "pull up",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "pull ups",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "pullups",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "pull-ups",
+      "tts": "Pull-up"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "lat-pulldown",
+      "seated-cable-row"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 1,
+      "biceps": 0.6,
+      "trap_mid": 0.5,
+      "delt_rear": 0.3,
+      "forearm": 0.4,
+      "abs_upper": 0.3
+    }
+  },
+  {
+    "slug": "seated-cable-row",
+    "id": "f6e20cc2-fe30-5216-9d9e-f62e67fb7c5a",
+    "name": "Seated Cable Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "seated-row-station"
+    ],
+    "optionalEquipment": [
+      "cable-station"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "cable row",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "seated row",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "row",
+        "locale": "*",
+        "confidence": 0.55
+      }
+    ],
+    "spoken": {
+      "short": "cable row",
+      "tts": "Seated Cable Row"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "trap_mid": 1,
+      "lat": 0.8,
+      "delt_rear": 0.5,
+      "biceps": 0.45
+    }
+  },
+  {
+    "slug": "face-pull",
+    "id": "95d16ab1-fb9e-5e4a-8653-d054119a2536",
+    "name": "Face Pull",
+    "kind": "isolation",
+    "pattern": "rear delt",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 10,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "facepull",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "face pulls",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "face pulls",
+      "tts": "Face Pull"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "delt_rear": 1,
+      "trap_mid": 0.7,
+      "trap_upper": 0.3
+    }
+  },
+  {
+    "slug": "barbell-curl",
+    "id": "62a6d209-7ea8-58cd-972c-cb80e4453175",
+    "name": "Barbell Curl",
+    "kind": "isolation",
+    "pattern": "biceps",
+    "requiredEquipment": [
+      "barbell"
+    ],
+    "optionalEquipment": [
+      "ez-bar"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "curl",
+        "locale": "*",
+        "confidence": 0.65
+      },
+      {
+        "text": "curls",
+        "locale": "*",
+        "confidence": 0.65
+      },
+      {
+        "text": "bicep curl",
+        "locale": "*",
+        "confidence": 0.7
+      },
+      {
+        "text": "ez curl",
+        "locale": "*",
+        "confidence": 0.75
+      }
+    ],
+    "spoken": {
+      "short": "barbell curls",
+      "tts": "Barbell Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "dumbbell-curl"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "biceps": 1,
+      "forearm": 0.5
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "dumbbell-curl",
+    "id": "c3ff57be-41ad-5d77-9f83-6472c3b7c51a",
+    "name": "Dumbbell Curl",
+    "kind": "isolation",
+    "pattern": "biceps",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "db curl",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "dumbbell curls",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell curls",
+      "tts": "Dumbbell Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "biceps": 1,
+      "forearm": 0.45
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "back-squat",
+    "id": "36d57af1-8747-59c3-a38f-dddd80753ad4",
+    "name": "Back Squat",
+    "kind": "compound",
+    "pattern": "squat",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "squat-rack"
+    ],
+    "optionalEquipment": [
+      "power-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.2,
+    "unilateral": false,
+    "defaultRestSec": 210,
+    "repWindow": {
+      "min": 3,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "squat",
+        "locale": "*",
+        "confidence": 0.75
+      },
+      {
+        "text": "squats",
+        "locale": "*",
+        "confidence": 0.75
+      },
+      {
+        "text": "bb squat",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "barbell squat",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "squat",
+      "tts": "Back Squat"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "leg-press",
+      "front-squat",
+      "goblet-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Bar on the upper back. Unrack and rerack in the rack \u2014 do not walk it out of an empty room.",
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.8,
+      "adductor": 0.45,
+      "back_lower": 0.45,
+      "hamstring": 0.35,
+      "abs_upper": 0.25
+    },
+    "contraindications": [
+      "flexion-intolerant-back",
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "front-squat",
+    "id": "e231e7a6-abc4-58b1-9bfb-1f5a6da19131",
+    "name": "Front Squat",
+    "kind": "compound",
+    "pattern": "squat",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "squat-rack"
+    ],
+    "optionalEquipment": [
+      "power-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 3,
+      "max": 10
+    },
+    "aliases": [
+      {
+        "text": "front squats",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "front squat",
+      "tts": "Front Squat"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.6,
+      "abs_upper": 0.45,
+      "back_lower": 0.4,
+      "adductor": 0.35
+    },
+    "contraindications": [
+      "wrist-pain",
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "deadlift",
+    "id": "429485b0-a827-5077-aac4-9bf995e228aa",
+    "name": "Deadlift",
+    "kind": "compound",
+    "pattern": "hinge",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.3,
+    "unilateral": false,
+    "defaultRestSec": 240,
+    "repWindow": {
+      "min": 3,
+      "max": 8
+    },
+    "aliases": [
+      {
+        "text": "deads",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "dl",
+        "locale": "*",
+        "confidence": 0.8
+      },
+      {
+        "text": "conventional deadlift",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "deadlift",
+      "tts": "Deadlift"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "romanian-deadlift",
+      "hip-thrust",
+      "leg-curl"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "The bar stays over mid-foot. The floor is the range, not a bounce.",
+    "muscleOverrides": {
+      "hamstring": 1,
+      "glute": 1,
+      "back_lower": 1,
+      "trap_upper": 0.55,
+      "forearm": 0.65,
+      "lat": 0.5,
+      "quad": 0.45
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "romanian-deadlift",
+    "id": "66174728-d7e1-5441-b0a8-1fdf9be4e61d",
+    "name": "Romanian Deadlift",
+    "kind": "compound",
+    "pattern": "hinge",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.35,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 5,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "rdl",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "rdls",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "romanian",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "stiff leg deadlift",
+        "locale": "*",
+        "confidence": 0.7
+      },
+      {
+        "text": "sldl",
+        "locale": "*",
+        "confidence": 0.75
+      }
+    ],
+    "spoken": {
+      "short": "RDLs",
+      "tts": "Romanian Deadlift"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "leg-curl",
+      "hip-thrust"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Full range is hip travel, not floor contact. Stop where the lower back would round.",
+    "muscleOverrides": {
+      "hamstring": 1,
+      "glute": 0.8,
+      "back_lower": 0.7,
+      "forearm": 0.4
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "leg-press",
+    "id": "14df2912-2822-5055-bba3-cfc75a622005",
+    "name": "Leg Press",
+    "kind": "compound",
+    "pattern": "squat",
+    "requiredEquipment": [
+      "leg-press-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 20
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "leg press",
+      "tts": "Leg Press"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [
+      "goblet-squat",
+      "back-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Do not let the lumbar round at the bottom. The sled can fold the hips under the load.",
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.65,
+      "adductor": 0.35,
+      "hamstring": 0.25
+    },
+    "contraindications": [
+      "flexion-intolerant-back",
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "bulgarian-split-squat",
+    "id": "d41f74e1-9674-5d2a-a796-1115182a0a22",
+    "name": "Bulgarian Split Squat",
+    "kind": "compound",
+    "pattern": "lunge",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [
+      "bench-flat"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.3,
+    "unilateral": true,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "bss",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "bulgarians",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "split squat",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "Bulgarian split squats",
+      "tts": "Bulgarian Split Squat"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "leg-press",
+      "walking-lunge",
+      "goblet-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 1,
+      "adductor": 0.4,
+      "abductor": 0.4,
+      "hamstring": 0.35,
+      "calf": 0.25
+    },
+    "contraindications": [
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "walking-lunge",
+    "id": "625099a0-b4c5-5044-8bc6-6fbb4515a3bd",
+    "name": "Walking Lunge",
+    "kind": "compound",
+    "pattern": "lunge",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.25,
+    "unilateral": true,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 14
+    },
+    "aliases": [
+      {
+        "text": "lunges",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "lunge",
+        "locale": "*",
+        "confidence": 0.8
+      }
+    ],
+    "spoken": {
+      "short": "lunges",
+      "tts": "Walking Lunge"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [
+      "leg-press",
+      "bulgarian-split-squat"
+    ],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "glute": 1,
+      "quad": 0.85,
+      "hamstring": 0.45,
+      "adductor": 0.35,
+      "calf": 0.3
+    },
+    "contraindications": [
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "leg-extension",
+    "id": "3c1d4d4c-036a-515f-9d52-99866a3e7eb4",
+    "name": "Leg Extension",
+    "kind": "isolation",
+    "pattern": "quads",
+    "requiredEquipment": [
+      "leg-extension-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "leg ext",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "quad extension",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "leg extensions",
+      "tts": "Leg Extension"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "quad": 1
+    },
+    "contraindications": [
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "leg-curl",
+    "id": "7dc1f47b-6130-5c52-9e38-c52dfeac2fc5",
+    "name": "Leg Curl",
+    "kind": "isolation",
+    "pattern": "hamstrings",
+    "requiredEquipment": [
+      "leg-curl-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.25,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "hamstring curl",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "lying leg curl",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "seated leg curl",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "leg curls",
+      "tts": "Leg Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "hamstring": 1,
+      "calf": 0.25
+    }
+  },
+  {
+    "slug": "hip-thrust",
+    "id": "be3237f1-1458-500b-8051-2a2a293bce91",
+    "name": "Hip Thrust",
+    "kind": "compound",
+    "pattern": "hinge",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "bench-flat"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.3,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "thrusts",
+        "locale": "*",
+        "confidence": 0.7
+      },
+      {
+        "text": "glute bridge",
+        "locale": "*",
+        "confidence": 0.7
+      },
+      {
+        "text": "hip thrusts",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "hip thrusts",
+      "tts": "Hip Thrust"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "glute": 1,
+      "hamstring": 0.55,
+      "quad": 0.2,
+      "abs_lower": 0.2
+    }
+  },
+  {
+    "slug": "calf-raise",
+    "id": "ca517b2f-b7ca-51bb-b930-1f4c65e28a33",
+    "name": "Calf Raise",
+    "kind": "isolation",
+    "pattern": "calves",
+    "requiredEquipment": [
+      "calf-raise-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "standing calf raise",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "calf",
+        "locale": "*",
+        "confidence": 0.65
+      }
+    ],
+    "spoken": {
+      "short": "calf raises",
+      "tts": "Calf Raise"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "calf": 1,
+      "tibialis": 0.15
+    }
+  },
+  {
+    "slug": "plank",
+    "id": "1b431f65-a7d2-542b-a290-90ebc156de1f",
+    "name": "Plank",
+    "kind": "isolation",
+    "pattern": "core",
+    "requiredEquipment": [
+      "none"
+    ],
+    "optionalEquipment": [
+      "mat"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 1,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "planks",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "plank",
+      "tts": "Plank"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "abs_upper": 1,
+      "abs_lower": 0.8,
+      "oblique": 0.55,
+      "serratus": 0.35,
+      "delt_front": 0.25
+    }
+  },
+  {
+    "slug": "hanging-leg-raise",
+    "id": "221bfe7a-d729-5175-9385-4871b01460cf",
+    "name": "Hanging Leg Raise",
+    "kind": "isolation",
+    "pattern": "core",
+    "requiredEquipment": [
+      "pull-up-bar"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "leg raise",
+        "locale": "*",
+        "confidence": 0.75
+      },
+      {
+        "text": "hanging leg raises",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "hanging leg raises",
+      "tts": "Hanging Leg Raise"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "abs_lower": 1,
+      "abs_upper": 0.6,
+      "oblique": 0.4,
+      "forearm": 0.4,
+      "lat": 0.25
+    }
+  },
+  {
+    "slug": "push-up",
+    "id": "15f865a2-26bc-56eb-a036-6302add1b73e",
+    "name": "Push-up",
+    "kind": "compound",
+    "pattern": "horizontal push",
+    "requiredEquipment": [
+      "none"
+    ],
+    "optionalEquipment": [
+      "mat"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 5,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "pushup",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "push up",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "press up",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "push-ups",
+      "tts": "Push-up"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "delt_front": 0.55,
+      "triceps": 0.6,
+      "serratus": 0.35,
+      "abs_upper": 0.3
+    },
+    "contraindications": [
+      "wrist-pain"
+    ]
+  },
+  {
+    "slug": "goblet-squat",
+    "id": "c0239b60-6aad-5ccc-8ced-ee1dfd76d750",
+    "name": "Goblet Squat",
+    "kind": "compound",
+    "pattern": "squat",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [
+      "kettlebell"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "goblet",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "goblet squat",
+      "tts": "Goblet Squat"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "quad": 0.9,
+      "glute": 0.7,
+      "adductor": 0.4,
+      "abs_upper": 0.35
+    },
+    "contraindications": [
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "dumbbell-bench-press",
+    "id": "e32a6f03-271a-525d-8f26-593137f21a8b",
+    "name": "Dumbbell Bench Press",
+    "kind": "compound",
+    "pattern": "horizontal push",
+    "requiredEquipment": [
+      "dumbbell",
+      "bench-flat"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "db bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "dumbbell bench",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell bench",
+      "tts": "Dumbbell Bench Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "chest_upper": 0.45,
+      "delt_front": 0.6,
+      "triceps": 0.55
+    }
+  },
+  {
+    "slug": "incline-bench-press",
+    "id": "4890aa61-6726-5fa8-af6a-7e1d67f168e7",
+    "name": "Incline Bench Press",
+    "kind": "compound",
+    "pattern": "incline push",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "bench-adjustable"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "incline bench",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "inclined bench",
+        "locale": "*",
+        "confidence": 0.85
+      },
+      {
+        "text": "incline",
+        "locale": "*",
+        "confidence": 0.65
+      },
+      {
+        "text": "incline press",
+        "locale": "*",
+        "confidence": 0.75
+      }
+    ],
+    "spoken": {
+      "short": "incline bench",
+      "tts": "Incline Bench Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_upper": 1,
+      "chest_mid": 0.45,
+      "delt_front": 0.75,
+      "triceps": 0.5
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "decline-bench-press",
+    "id": "c6a3767c-176d-5e79-8957-c3edc19c7a84",
+    "name": "Decline Bench Press",
+    "kind": "compound",
+    "pattern": "decline push",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "bench-decline"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "decline bench",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "declined bench",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "decline",
+        "locale": "*",
+        "confidence": 0.65
+      }
+    ],
+    "spoken": {
+      "short": "decline bench",
+      "tts": "Decline Bench Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "The bar is over the face on a decline. Unrack with a spot or safeties.",
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "triceps": 0.55,
+      "delt_front": 0.3
+    }
+  },
+  {
+    "slug": "close-grip-bench-press",
+    "id": "80251fac-f01f-5938-91a3-5a935c7e068d",
+    "name": "Close Grip Bench Press",
+    "kind": "compound",
+    "pattern": "triceps",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "bench-flat"
+    ],
+    "optionalEquipment": [
+      "squat-rack"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "cgbp",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "close grip bench",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "close-grip bench",
+      "tts": "Close Grip Bench Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "triceps": 1,
+      "chest_mid": 0.7,
+      "delt_front": 0.45
+    }
+  },
+  {
+    "slug": "machine-chest-press",
+    "id": "025bb6e6-111c-53cd-8363-11463982542d",
+    "name": "Machine Chest Press",
+    "kind": "compound",
+    "pattern": "horizontal push",
+    "requiredEquipment": [
+      "chest-press-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "chest press",
+        "locale": "*",
+        "confidence": 0.7
+      }
+    ],
+    "spoken": {
+      "short": "machine chest press",
+      "tts": "Machine Chest Press"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "delt_front": 0.45,
+      "triceps": 0.5
+    }
+  },
+  {
+    "slug": "dumbbell-fly",
+    "id": "4dcb0d92-02ec-50ca-b92f-f0fd977ac0bb",
+    "name": "Dumbbell Fly",
+    "kind": "isolation",
+    "pattern": "chest isolation",
+    "requiredEquipment": [
+      "dumbbell",
+      "bench-flat"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.2,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "db fly",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "dumbbell flye",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "dumbbell fly",
+      "tts": "Dumbbell Fly"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Elbows stay soft. Do not turn this into a pullover at the bottom.",
+    "muscleOverrides": {
+      "chest_mid": 1,
+      "chest_upper": 0.35,
+      "delt_front": 0.3
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "dip",
+    "id": "f5b858c3-9a62-55bb-9aac-b590278ef880",
+    "name": "Dip",
+    "kind": "compound",
+    "pattern": "vertical push",
+    "requiredEquipment": [
+      "dip-bars"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 4,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "dips",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "tricep dip",
+        "locale": "*",
+        "confidence": 0.8
+      },
+      {
+        "text": "chest dip",
+        "locale": "*",
+        "confidence": 0.8
+      }
+    ],
+    "spoken": {
+      "short": "dips",
+      "tts": "Dip"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "chest_mid": 0.85,
+      "triceps": 1,
+      "delt_front": 0.5,
+      "serratus": 0.3
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "arnold-press",
+    "id": "57326717-e9aa-565a-b586-b040e45df69b",
+    "name": "Arnold Press",
+    "kind": "compound",
+    "pattern": "vertical push",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [
+      "bench-adjustable"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "Arnold press",
+      "tts": "Arnold Press"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "delt_front": 1,
+      "delt_side": 0.85,
+      "triceps": 0.5,
+      "trap_upper": 0.3
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "front-raise",
+    "id": "6280dc5c-b74f-5e65-84f8-940c3f431152",
+    "name": "Front Raise",
+    "kind": "isolation",
+    "pattern": "delt isolation",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "front raises",
+      "tts": "Front Raise"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "delt_front": 1,
+      "chest_upper": 0.25
+    },
+    "contraindications": [
+      "shoulder-impingement"
+    ]
+  },
+  {
+    "slug": "rear-delt-fly",
+    "id": "48d009c2-2a72-531f-abae-dabb780145bf",
+    "name": "Rear Delt Fly",
+    "kind": "isolation",
+    "pattern": "rear delt",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "rear delt",
+        "locale": "*",
+        "confidence": 0.75
+      },
+      {
+        "text": "reverse fly",
+        "locale": "*",
+        "confidence": 0.8
+      }
+    ],
+    "spoken": {
+      "short": "rear delt fly",
+      "tts": "Rear Delt Fly"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "delt_rear": 1,
+      "trap_mid": 0.55
+    }
+  },
+  {
+    "slug": "skullcrusher",
+    "id": "74a0501b-f236-50c6-b6a0-6ff0111142a0",
+    "name": "Skullcrusher",
+    "kind": "isolation",
+    "pattern": "triceps",
+    "requiredEquipment": [
+      "barbell",
+      "bench-flat"
+    ],
+    "optionalEquipment": [
+      "ez-bar"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "skull crusher",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "lying tricep extension",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "skullcrushers",
+      "tts": "Skullcrusher"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "The bar is over the face. A miss is a face hit.",
+    "muscleOverrides": {
+      "triceps": 1
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "overhead-triceps-extension",
+    "id": "89c285f3-1e11-5d6e-87f1-2f82186e7f7b",
+    "name": "Overhead Triceps Extension",
+    "kind": "isolation",
+    "pattern": "triceps",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "tricep extension",
+        "locale": "*",
+        "confidence": 0.7
+      }
+    ],
+    "spoken": {
+      "short": "overhead extensions",
+      "tts": "Overhead Triceps Extension"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "triceps": 1,
+      "delt_side": 0.15
+    },
+    "contraindications": [
+      "shoulder-impingement",
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "chin-up",
+    "id": "9cedde58-eef0-5c7e-b0a1-74eb948b7d08",
+    "name": "Chin-up",
+    "kind": "compound",
+    "pattern": "vertical pull",
+    "requiredEquipment": [
+      "pull-up-bar"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.05,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 3,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "chinup",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "chin up",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "chins",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "chin-ups",
+      "tts": "Chin-up"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 0.9,
+      "biceps": 1,
+      "trap_mid": 0.4,
+      "forearm": 0.45,
+      "abs_upper": 0.3
+    }
+  },
+  {
+    "slug": "assisted-pull-up",
+    "id": "f088ffb1-72fb-54e5-ab7e-e684526e7ac0",
+    "name": "Assisted Pull-up",
+    "kind": "compound",
+    "pattern": "vertical pull",
+    "requiredEquipment": [
+      "assisted-pullup-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.05,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "assisted pull-ups",
+      "tts": "Assisted Pull-up"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 1,
+      "biceps": 0.55,
+      "trap_mid": 0.45
+    }
+  },
+  {
+    "slug": "t-bar-row",
+    "id": "be2eb8d1-7094-5f08-985c-463f71151152",
+    "name": "T-Bar Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "landmine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "T-bar row",
+      "tts": "T-Bar Row"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 0.9,
+      "trap_mid": 1,
+      "biceps": 0.5,
+      "back_lower": 0.4
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "pendlay-row",
+    "id": "e185e1da-3dcf-51fe-9140-e760d0965bb0",
+    "name": "Pendlay Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 4,
+      "max": 10
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "Pendlay row",
+      "tts": "Pendlay Row"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "trap_mid": 1,
+      "lat": 0.85,
+      "delt_rear": 0.65,
+      "back_lower": 0.55,
+      "biceps": 0.45
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "single-arm-dumbbell-row",
+    "id": "442573ff-6a9c-53d5-9956-a17e8114aebe",
+    "name": "Single Arm Dumbbell Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "dumbbell",
+      "bench-flat"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": true,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "db row",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "one arm row",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "one-arm row",
+      "tts": "Single Arm Dumbbell Row"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 1,
+      "trap_mid": 0.7,
+      "biceps": 0.45,
+      "oblique": 0.3,
+      "forearm": 0.35
+    }
+  },
+  {
+    "slug": "straight-arm-pulldown",
+    "id": "0ee38896-0a78-5673-8d85-a3e383afbd30",
+    "name": "Straight Arm Pulldown",
+    "kind": "isolation",
+    "pattern": "lats",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "straight-arm pulldown",
+      "tts": "Straight Arm Pulldown"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "lat": 1,
+      "triceps": 0.3,
+      "abs_upper": 0.25
+    }
+  },
+  {
+    "slug": "shrug",
+    "id": "45768b4a-0a1d-5169-94c8-72133366d5da",
+    "name": "Shrug",
+    "kind": "isolation",
+    "pattern": "traps",
+    "requiredEquipment": [
+      "barbell",
+      "plate"
+    ],
+    "optionalEquipment": [
+      "dumbbell"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "shrugs",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "shrugs",
+      "tts": "Shrug"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "trap_upper": 1,
+      "forearm": 0.5,
+      "trap_mid": 0.35
+    }
+  },
+  {
+    "slug": "hammer-curl",
+    "id": "78873436-d9da-526c-a28b-a2b76b6cc59a",
+    "name": "Hammer Curl",
+    "kind": "isolation",
+    "pattern": "biceps",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "hammer curls",
+      "tts": "Hammer Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "biceps": 0.9,
+      "forearm": 1
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "preacher-curl",
+    "id": "e7eaf08b-7e12-5073-af4f-9c12ca0f6e64",
+    "name": "Preacher Curl",
+    "kind": "isolation",
+    "pattern": "biceps",
+    "requiredEquipment": [
+      "barbell",
+      "preacher-bench"
+    ],
+    "optionalEquipment": [
+      "ez-bar"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "preacher curls",
+      "tts": "Preacher Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "biceps": 1,
+      "forearm": 0.35
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "cable-curl",
+    "id": "5bdfce43-f26d-5c0e-a81f-0197fba042ce",
+    "name": "Cable Curl",
+    "kind": "isolation",
+    "pattern": "biceps",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "cable curls",
+      "tts": "Cable Curl"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "biceps": 1,
+      "forearm": 0.4
+    },
+    "contraindications": [
+      "elbow-tendinopathy"
+    ]
+  },
+  {
+    "slug": "hack-squat",
+    "id": "7f21b380-9014-5e7a-bf55-0bb9f7f18ef6",
+    "name": "Hack Squat",
+    "kind": "compound",
+    "pattern": "squat",
+    "requiredEquipment": [
+      "hack-squat-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.15,
+    "unilateral": false,
+    "defaultRestSec": 180,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "hacks",
+        "locale": "*",
+        "confidence": 0.8
+      }
+    ],
+    "spoken": {
+      "short": "hack squat",
+      "tts": "Hack Squat"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "The sled fixes the path. A collapsed knee or rounded low back still has nowhere to go.",
+    "muscleOverrides": {
+      "quad": 1,
+      "glute": 0.5,
+      "adductor": 0.3
+    },
+    "contraindications": [
+      "anterior-knee-pain",
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "step-up",
+    "id": "142d83e5-ed84-550b-8884-feed939d984d",
+    "name": "Step Up",
+    "kind": "compound",
+    "pattern": "lunge",
+    "requiredEquipment": [
+      "dumbbell",
+      "box"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.2,
+    "unilateral": true,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "step-ups",
+      "tts": "Step Up"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "glute": 1,
+      "quad": 0.85,
+      "calf": 0.3,
+      "abductor": 0.3
+    },
+    "contraindications": [
+      "anterior-knee-pain"
+    ]
+  },
+  {
+    "slug": "good-morning",
+    "id": "65350284-08a2-535a-a58e-b0d55d1a768b",
+    "name": "Good Morning",
+    "kind": "compound",
+    "pattern": "hinge",
+    "requiredEquipment": [
+      "barbell",
+      "plate",
+      "squat-rack"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "high",
+    "consequenceOfFailure": "high",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.3,
+    "unilateral": false,
+    "defaultRestSec": 150,
+    "repWindow": {
+      "min": 6,
+      "max": 12
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "good mornings",
+      "tts": "Good Morning"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "Bar on the back, hips go back. The low back does not become the hinge.",
+    "muscleOverrides": {
+      "hamstring": 0.9,
+      "back_lower": 1,
+      "glute": 0.6
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "back-extension",
+    "id": "71822cbe-3bd9-51f0-ba5b-9cc6d39e46e4",
+    "name": "Back Extension",
+    "kind": "isolation",
+    "pattern": "lower back",
+    "requiredEquipment": [
+      "hyperextension-bench"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.25,
+    "unilateral": false,
+    "defaultRestSec": 75,
+    "repWindow": {
+      "min": 8,
+      "max": 15
+    },
+    "aliases": [
+      {
+        "text": "hyperextension",
+        "locale": "*",
+        "confidence": 0.9
+      },
+      {
+        "text": "back ext",
+        "locale": "*",
+        "confidence": 0.85
+      }
+    ],
+    "spoken": {
+      "short": "back extensions",
+      "tts": "Back Extension"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "back_lower": 1,
+      "glute": 0.7,
+      "hamstring": 0.6
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "nordic-curl",
+    "id": "11113a97-3c56-501a-839b-9aa2b7e7113e",
+    "name": "Nordic Curl",
+    "kind": "isolation",
+    "pattern": "hamstrings",
+    "requiredEquipment": [
+      "none"
+    ],
+    "optionalEquipment": [
+      "mat"
+    ],
+    "skillDemand": "high",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "high",
+    "damageMultiplier": 1.5,
+    "unilateral": false,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 3,
+      "max": 8
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "Nordics",
+      "tts": "Nordic Curl"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "hamstring": 1,
+      "calf": 0.3,
+      "glute": 0.3
+    }
+  },
+  {
+    "slug": "seated-calf-raise",
+    "id": "f0d2ab52-3f36-53f1-9b2c-7b18982dab86",
+    "name": "Seated Calf Raise",
+    "kind": "isolation",
+    "pattern": "calves",
+    "requiredEquipment": [
+      "calf-raise-machine"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "seated calves",
+      "tts": "Seated Calf Raise"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "calf": 1
+    }
+  },
+  {
+    "slug": "kettlebell-swing",
+    "id": "fb53971b-271c-5b73-bd4c-b3637d275475",
+    "name": "Kettlebell Swing",
+    "kind": "compound",
+    "pattern": "hinge",
+    "requiredEquipment": [
+      "kettlebell"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.3,
+    "unilateral": false,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "kb swing",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "swings",
+        "locale": "*",
+        "confidence": 0.7
+      }
+    ],
+    "spoken": {
+      "short": "swings",
+      "tts": "Kettlebell Swing"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "romNote": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "romNote": "This is a hinge, not a squat. The bell floats; the arms do not lift it.",
+    "muscleOverrides": {
+      "glute": 1,
+      "hamstring": 0.85,
+      "back_lower": 0.6,
+      "forearm": 0.5,
+      "abs_upper": 0.35,
+      "trap_upper": 0.3
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "cable-crunch",
+    "id": "7ab3d35c-4e1a-56d2-9df0-1dbb30092cd7",
+    "name": "Cable Crunch",
+    "kind": "isolation",
+    "pattern": "core",
+    "requiredEquipment": [
+      "cable-station"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "low",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 8,
+      "max": 20
+    },
+    "aliases": [
+      {
+        "text": "crunches",
+        "locale": "*",
+        "confidence": 0.6
+      }
+    ],
+    "spoken": {
+      "short": "cable crunches",
+      "tts": "Cable Crunch"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "abs_upper": 1,
+      "abs_lower": 0.6,
+      "oblique": 0.35
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "ab-wheel",
+    "id": "b9ee6f81-56e9-574d-b276-1db1856a7dbf",
+    "name": "Ab Wheel",
+    "kind": "isolation",
+    "pattern": "core",
+    "requiredEquipment": [
+      "ab-wheel"
+    ],
+    "optionalEquipment": [
+      "mat"
+    ],
+    "skillDemand": "moderate",
+    "consequenceOfFailure": "moderate",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.25,
+    "unilateral": false,
+    "defaultRestSec": 60,
+    "repWindow": {
+      "min": 5,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "ab rollout",
+        "locale": "*",
+        "confidence": 0.9
+      }
+    ],
+    "spoken": {
+      "short": "ab wheel",
+      "tts": "Ab Wheel"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      },
+      "contraindications": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "abs_upper": 1,
+      "abs_lower": 0.9,
+      "oblique": 0.4,
+      "lat": 0.35,
+      "serratus": 0.4
+    },
+    "contraindications": [
+      "flexion-intolerant-back"
+    ]
+  },
+  {
+    "slug": "farmer-carry",
+    "id": "568394fb-77d2-591f-a773-6a864408b911",
+    "name": "Farmer Carry",
+    "kind": "compound",
+    "pattern": "carry",
+    "requiredEquipment": [
+      "dumbbell"
+    ],
+    "optionalEquipment": [
+      "farmer-handles",
+      "kettlebell"
+    ],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.1,
+    "unilateral": false,
+    "defaultRestSec": 90,
+    "repWindow": {
+      "min": 4,
+      "max": 12
+    },
+    "aliases": [
+      {
+        "text": "farmers walk",
+        "locale": "*",
+        "confidence": 0.95
+      },
+      {
+        "text": "farmers carry",
+        "locale": "*",
+        "confidence": 0.95
+      }
+    ],
+    "spoken": {
+      "short": "farmer carry",
+      "tts": "Farmer Carry"
+    },
+    "safeToSpeakMidSet": false,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "forearm": 1,
+      "trap_upper": 0.85,
+      "oblique": 0.6,
+      "glute": 0.35,
+      "abs_upper": 0.4,
+      "calf": 0.3
+    }
+  },
+  {
+    "slug": "chest-supported-row",
+    "id": "874ded33-b524-5984-a78d-3ac80dcbfdf3",
+    "name": "Chest Supported Row",
+    "kind": "compound",
+    "pattern": "horizontal pull",
+    "requiredEquipment": [
+      "dumbbell",
+      "bench-adjustable"
+    ],
+    "optionalEquipment": [],
+    "skillDemand": "low",
+    "consequenceOfFailure": "low",
+    "fatigueCost": "moderate",
+    "damageMultiplier": 1.0,
+    "unilateral": false,
+    "defaultRestSec": 120,
+    "repWindow": {
+      "min": 6,
+      "max": 15
+    },
+    "aliases": [],
+    "spoken": {
+      "short": "chest-supported row",
+      "tts": "Chest Supported Row"
+    },
+    "safeToSpeakMidSet": true,
+    "substitutes": [],
+    "legacyIds": [],
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "inherited",
+      "source": "vos-prototype",
+      "reviewed": "2026-09-01"
+    },
+    "provenance": {
+      "requiredEquipment": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "optionalEquipment": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "skillDemand": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "consequenceOfFailure": {
+        "confidence": "moderate",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "fatigueCost": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "repWindow": {
+        "confidence": "low",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "unilateral": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "safeToSpeakMidSet": {
+        "confidence": "high",
+        "basis": "judgement",
+        "source": "pr14a-audit",
+        "reviewed": "2026-09-01"
+      },
+      "damageMultiplier": {
+        "confidence": "moderate",
+        "basis": "inherited",
+        "source": "vos-17-recovery",
+        "reviewed": "2026-09-01"
+      }
+    },
+    "muscleOverrides": {
+      "trap_mid": 1,
+      "delt_rear": 0.7,
+      "lat": 0.7,
+      "biceps": 0.4
+    }
+  }
+]
