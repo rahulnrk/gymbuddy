@@ -30,7 +30,9 @@ class Catalog(
 
     fun trainableWith(equipmentIds: Collection<String>): List<Exercise> {
         val have = equipmentIds.toSet()
-        return exercises.filter { ex -> ex.requiredEquipment.all { it in have } }
+        return exercises.filter { ex ->
+            ex.requiredEquipment.all { slot -> slot.any { it in have } }
+        }
     }
 
     /**

@@ -6,9 +6,15 @@
     "kind": "compound",
     "pattern": "horizontal push",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "bench-flat"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -151,8 +157,12 @@
     "kind": "compound",
     "pattern": "incline push",
     "requiredEquipment": [
-      "dumbbell",
-      "bench-adjustable"
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-adjustable"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -274,8 +284,12 @@
     "kind": "compound",
     "pattern": "vertical push",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -421,7 +435,9 @@
     "kind": "isolation",
     "pattern": "chest isolation",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -536,7 +552,10 @@
     "kind": "isolation",
     "pattern": "delt isolation",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "plate"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -656,7 +675,9 @@
     "kind": "isolation",
     "pattern": "triceps",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -780,8 +801,12 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "high",
@@ -920,7 +945,10 @@
     "kind": "compound",
     "pattern": "vertical pull",
     "requiredEquipment": [
-      "lat-pulldown-station"
+      [
+        "lat-pulldown-station",
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -1033,7 +1061,9 @@
     "kind": "compound",
     "pattern": "vertical pull",
     "requiredEquipment": [
-      "pull-up-bar"
+      [
+        "pull-up-bar"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -1156,11 +1186,12 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "seated-row-station"
+      [
+        "seated-row-station",
+        "cable-station"
+      ]
     ],
-    "optionalEquipment": [
-      "cable-station"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "moderate",
     "consequenceOfFailure": "low",
     "fatigueCost": "moderate",
@@ -1271,7 +1302,9 @@
     "kind": "isolation",
     "pattern": "rear delt",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -1378,11 +1411,12 @@
     "kind": "isolation",
     "pattern": "biceps",
     "requiredEquipment": [
-      "barbell"
+      [
+        "barbell",
+        "ez-bar"
+      ]
     ],
-    "optionalEquipment": [
-      "ez-bar"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "low",
     "consequenceOfFailure": "low",
     "fatigueCost": "low",
@@ -1507,7 +1541,9 @@
     "kind": "isolation",
     "pattern": "biceps",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -1622,13 +1658,18 @@
     "kind": "compound",
     "pattern": "squat",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "squat-rack"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "squat-rack",
+        "power-rack"
+      ]
     ],
-    "optionalEquipment": [
-      "power-rack"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "high",
     "consequenceOfFailure": "high",
     "fatigueCost": "high",
@@ -1767,13 +1808,18 @@
     "kind": "compound",
     "pattern": "squat",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "squat-rack"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "squat-rack",
+        "power-rack"
+      ]
     ],
-    "optionalEquipment": [
-      "power-rack"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "high",
     "consequenceOfFailure": "high",
     "fatigueCost": "high",
@@ -1885,8 +1931,13 @@
     "kind": "compound",
     "pattern": "hinge",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell",
+        "trap-bar"
+      ],
+      [
+        "plate"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "high",
@@ -2022,8 +2073,12 @@
     "kind": "compound",
     "pattern": "hinge",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -2167,7 +2222,9 @@
     "kind": "compound",
     "pattern": "squat",
     "requiredEquipment": [
-      "leg-press-machine"
+      [
+        "leg-press-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -2284,7 +2341,10 @@
     "kind": "compound",
     "pattern": "lunge",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
     ],
     "optionalEquipment": [
       "bench-flat"
@@ -2414,7 +2474,10 @@
     "kind": "compound",
     "pattern": "lunge",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -2535,7 +2598,9 @@
     "kind": "isolation",
     "pattern": "quads",
     "requiredEquipment": [
-      "leg-extension-machine"
+      [
+        "leg-extension-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -2649,7 +2714,9 @@
     "kind": "isolation",
     "pattern": "hamstrings",
     "requiredEquipment": [
-      "leg-curl-machine"
+      [
+        "leg-curl-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -2760,9 +2827,15 @@
     "kind": "compound",
     "pattern": "hinge",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "bench-flat"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -2875,7 +2948,9 @@
     "kind": "isolation",
     "pattern": "calves",
     "requiredEquipment": [
-      "calf-raise-machine"
+      [
+        "calf-raise-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -2981,7 +3056,9 @@
     "kind": "isolation",
     "pattern": "core",
     "requiredEquipment": [
-      "none"
+      [
+        "none"
+      ]
     ],
     "optionalEquipment": [
       "mat"
@@ -3087,7 +3164,9 @@
     "kind": "isolation",
     "pattern": "core",
     "requiredEquipment": [
-      "pull-up-bar"
+      [
+        "pull-up-bar"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -3196,7 +3275,9 @@
     "kind": "compound",
     "pattern": "horizontal push",
     "requiredEquipment": [
-      "none"
+      [
+        "none"
+      ]
     ],
     "optionalEquipment": [
       "mat"
@@ -3321,11 +3402,12 @@
     "kind": "compound",
     "pattern": "squat",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
     ],
-    "optionalEquipment": [
-      "kettlebell"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "low",
     "consequenceOfFailure": "low",
     "fatigueCost": "moderate",
@@ -3435,8 +3517,12 @@
     "kind": "compound",
     "pattern": "horizontal push",
     "requiredEquipment": [
-      "dumbbell",
-      "bench-flat"
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -3544,9 +3630,15 @@
     "kind": "compound",
     "pattern": "incline push",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "bench-adjustable"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "bench-adjustable"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -3675,9 +3767,15 @@
     "kind": "compound",
     "pattern": "decline push",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "bench-decline"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "bench-decline"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -3798,9 +3896,15 @@
     "kind": "compound",
     "pattern": "triceps",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "bench-flat"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [
       "squat-rack"
@@ -3909,7 +4013,9 @@
     "kind": "compound",
     "pattern": "horizontal push",
     "requiredEquipment": [
-      "chest-press-machine"
+      [
+        "chest-press-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -4011,8 +4117,12 @@
     "kind": "isolation",
     "pattern": "chest isolation",
     "requiredEquipment": [
-      "dumbbell",
-      "bench-flat"
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -4135,7 +4245,9 @@
     "kind": "compound",
     "pattern": "vertical push",
     "requiredEquipment": [
-      "dip-bars"
+      [
+        "dip-bars"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -4257,7 +4369,9 @@
     "kind": "compound",
     "pattern": "vertical push",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell"
+      ]
     ],
     "optionalEquipment": [
       "bench-adjustable"
@@ -4365,7 +4479,10 @@
     "kind": "isolation",
     "pattern": "delt isolation",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "plate"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -4469,7 +4586,9 @@
     "kind": "isolation",
     "pattern": "rear delt",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -4575,12 +4694,15 @@
     "kind": "isolation",
     "pattern": "triceps",
     "requiredEquipment": [
-      "barbell",
-      "bench-flat"
+      [
+        "barbell",
+        "ez-bar"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
-    "optionalEquipment": [
-      "ez-bar"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "moderate",
     "consequenceOfFailure": "high",
     "fatigueCost": "low",
@@ -4699,7 +4821,9 @@
     "kind": "isolation",
     "pattern": "triceps",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -4810,7 +4934,9 @@
     "kind": "compound",
     "pattern": "vertical pull",
     "requiredEquipment": [
-      "pull-up-bar"
+      [
+        "pull-up-bar"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -4924,7 +5050,9 @@
     "kind": "compound",
     "pattern": "vertical pull",
     "requiredEquipment": [
-      "assisted-pullup-machine"
+      [
+        "assisted-pullup-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -5020,9 +5148,15 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "landmine"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "landmine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -5128,8 +5262,12 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "high",
@@ -5236,8 +5374,13 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "dumbbell",
-      "bench-flat"
+      [
+        "dumbbell",
+        "kettlebell"
+      ],
+      [
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -5346,7 +5489,9 @@
     "kind": "isolation",
     "pattern": "lats",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -5442,11 +5587,13 @@
     "kind": "isolation",
     "pattern": "traps",
     "requiredEquipment": [
-      "barbell",
-      "plate"
+      [
+        "barbell",
+        "dumbbell"
+      ]
     ],
     "optionalEquipment": [
-      "dumbbell"
+      "plate"
     ],
     "skillDemand": "low",
     "consequenceOfFailure": "low",
@@ -5547,7 +5694,10 @@
     "kind": "isolation",
     "pattern": "biceps",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "kettlebell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -5651,12 +5801,15 @@
     "kind": "isolation",
     "pattern": "biceps",
     "requiredEquipment": [
-      "barbell",
-      "preacher-bench"
+      [
+        "barbell",
+        "ez-bar"
+      ],
+      [
+        "preacher-bench"
+      ]
     ],
-    "optionalEquipment": [
-      "ez-bar"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "low",
     "consequenceOfFailure": "moderate",
     "fatigueCost": "low",
@@ -5758,7 +5911,9 @@
     "kind": "isolation",
     "pattern": "biceps",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -5862,7 +6017,9 @@
     "kind": "compound",
     "pattern": "squat",
     "requiredEquipment": [
-      "hack-squat-machine"
+      [
+        "hack-squat-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -5981,8 +6138,14 @@
     "kind": "compound",
     "pattern": "lunge",
     "requiredEquipment": [
-      "dumbbell",
-      "box"
+      [
+        "dumbbell",
+        "kettlebell"
+      ],
+      [
+        "box",
+        "bench-flat"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -6088,9 +6251,16 @@
     "kind": "compound",
     "pattern": "hinge",
     "requiredEquipment": [
-      "barbell",
-      "plate",
-      "squat-rack"
+      [
+        "barbell"
+      ],
+      [
+        "plate"
+      ],
+      [
+        "squat-rack",
+        "power-rack"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "high",
@@ -6202,7 +6372,9 @@
     "kind": "isolation",
     "pattern": "lower back",
     "requiredEquipment": [
-      "hyperextension-bench"
+      [
+        "hyperextension-bench"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -6318,7 +6490,9 @@
     "kind": "isolation",
     "pattern": "hamstrings",
     "requiredEquipment": [
-      "none"
+      [
+        "none"
+      ]
     ],
     "optionalEquipment": [
       "mat"
@@ -6416,7 +6590,9 @@
     "kind": "isolation",
     "pattern": "calves",
     "requiredEquipment": [
-      "calf-raise-machine"
+      [
+        "calf-raise-machine"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -6510,7 +6686,9 @@
     "kind": "compound",
     "pattern": "hinge",
     "requiredEquipment": [
-      "kettlebell"
+      [
+        "kettlebell"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "moderate",
@@ -6636,7 +6814,9 @@
     "kind": "isolation",
     "pattern": "core",
     "requiredEquipment": [
-      "cable-station"
+      [
+        "cable-station"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",
@@ -6747,7 +6927,9 @@
     "kind": "isolation",
     "pattern": "core",
     "requiredEquipment": [
-      "ab-wheel"
+      [
+        "ab-wheel"
+      ]
     ],
     "optionalEquipment": [
       "mat"
@@ -6862,12 +7044,13 @@
     "kind": "compound",
     "pattern": "carry",
     "requiredEquipment": [
-      "dumbbell"
+      [
+        "dumbbell",
+        "kettlebell",
+        "farmer-handles"
+      ]
     ],
-    "optionalEquipment": [
-      "farmer-handles",
-      "kettlebell"
-    ],
+    "optionalEquipment": [],
     "skillDemand": "low",
     "consequenceOfFailure": "low",
     "fatigueCost": "moderate",
@@ -6975,8 +7158,12 @@
     "kind": "compound",
     "pattern": "horizontal pull",
     "requiredEquipment": [
-      "dumbbell",
-      "bench-adjustable"
+      [
+        "dumbbell"
+      ],
+      [
+        "bench-adjustable"
+      ]
     ],
     "optionalEquipment": [],
     "skillDemand": "low",

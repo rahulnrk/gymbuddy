@@ -51,8 +51,15 @@ class CatalogTest {
     @Test
     fun everyEquipmentTokenExists() {
         catalog.exercises.forEach { ex ->
-            (ex.requiredEquipment + ex.optionalEquipment).forEach { id ->
-                assertNotNull(catalog.equipment[id], "${ex.slug} unknown equipment $id")
+            assertTrue(ex.requiredEquipment.isNotEmpty(), "${ex.slug} has no required slots")
+            ex.requiredEquipment.forEach { slot ->
+                assertTrue(slot.isNotEmpty(), "${ex.slug} has an empty slot")
+                slot.forEach { id ->
+                    assertNotNull(catalog.equipment[id], "${ex.slug} unknown required $id")
+                }
+            }
+            ex.optionalEquipment.forEach { id ->
+                assertNotNull(catalog.equipment[id], "${ex.slug} unknown optional $id")
             }
         }
     }
@@ -123,7 +130,7 @@ class CatalogTest {
         val hits = catalog.trainableWith(listOf("none"))
         assertTrue(hits.isNotEmpty())
         hits.forEach { ex ->
-            assertEquals(listOf("none"), ex.requiredEquipment, ex.slug)
+            assertEquals(listOf(listOf("none")), ex.requiredEquipment, ex.slug)
         }
         assertTrue(hits.any { it.slug == "plank" })
         assertTrue(hits.any { it.slug == "push-up" })
@@ -134,6 +141,17 @@ class CatalogTest {
     @Test
     fun prototypeCountIsFrozen() {
         assertEquals(61, catalog.exercises.size)
+    }
+
+    @Test
+    fun gobletSquatIsTrainableWithKettlebellOrDumbbell() {
+        val kb = catalog.trainableWith(listOf("kettlebell")).map { it.slug }
+        val db = catalog.trainableWith(listOf("dumbbell")).map { it.slug }
+        assertTrue("goblet-squat" in kb)
+        assertTrue("goblet-squat" in db)
+        assertTrue("farmer-carry" in kb)
+        assertTrue("farmer-carry" in db)
+        assertTrue("farmer-carry" in catalog.trainableWith(listOf("farmer-handles")).map { it.slug })
     }
 
     @Test

@@ -15,7 +15,7 @@ PR 14a freezes the catalog **shape** on the existing prototype set (61 exercises
 ### Catalog schema (PR 14a)
 
 - Identity: `slug` + `id = uuidv5(NAMESPACE, slug)` with `NAMESPACE = uuidv5(RFC4122 DNS, "catalog.gymbuddy.app")`.
-- Equipment is **not** a single `load` string. `requiredEquipment` / `optionalEquipment` are arrays of `knowledge/vocab/equipment.json` ids. Required is AND (the movement is impossible without every token). Optional makes it safer or better (a rack for a heavy barbell lift). `["none"]` means doable on a mat.
+- Equipment is **not** a single `load` string. `requiredEquipment` is a list of **slots**. Each slot is an array of acceptable alternatives (OR). Every slot must be satisfied (AND). `[["dumbbell", "kettlebell"]]` is goblet squat; `[["barbell"], ["plate"], ["bench-flat"]]` is bench press. `optionalEquipment` is only gear that makes a lift safer or better (a rack for a heavy barbell lift), never a substitute for a required tool. `[["none"]]` means doable on a mat.
 - Technique is two axes, not one flag: `skillDemand` (how hard to learn) and `consequenceOfFailure` (how bad a miss is under load). Both `low | moderate | high`. Only `consequenceOfFailure: high` earns “have a human watch this once.”
 - `provenanceDefault` applies to every field; `provenance` overrides per field. `basis` is `measured | consensus | judgement | inherited`. Most migrated fields are `inherited` from the prototype.
 - Aliases are `{text, locale, confidence}` objects. `resolveSpoken` returns a **ranked list**, not a single pick. When the top two are within `ASK_MARGIN` (0.1), the caller asks. This is what stops `'pec deck' → Cable Fly`.
