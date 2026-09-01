@@ -176,31 +176,41 @@ fun effectiveRepRange(
     exercise: Exercise,
     @Suppress("UNUSED_PARAMETER") goal: Goal,
     equipmentIds: Collection<String> = emptyList(),
+    trainsWithPartner: Boolean? = null,
 ): IntRange2 {
     val catalogRange = IntRange2(
         exercise.repWindow.min,
         exercise.repWindow.max,
         catalogFieldProvenance(exercise, "repWindow"),
     )
-    val floor = unspottedRepFloor(exercise, equipmentIds) ?: return catalogRange
+    val floor = unspottedRepFloor(exercise, equipmentIds, trainsWithPartner) ?: return catalogRange
     if (catalogRange.min >= floor) return catalogRange
     val max = maxOf(catalogRange.max, floor)
     return IntRange2(floor, max, ProgrammingProvenance.UNSPOTTED_REP_FLOOR)
 }
 
-fun hasCatchForFailure(equipmentIds: Collection<String>): Boolean =
-    equipmentIds.any { it in ProgrammingConstants.CATCH_EQUIPMENT_IDS }
+fun hasCatchForFailure(
+    equipmentIds: Collection<String>,
+    trainsWithPartner: Boolean? = null,
+): Boolean =
+    equipmentIds.any { it in ProgrammingConstants.CATCH_EQUIPMENT_IDS } ||
+        trainsWithPartner == true
 
 /**
  * Floor of 6 reps when a miss needs a catch and the user has none.
  * Only lifts that list a rack/cage/Smith in required or optional gear —
- * a deadlift miss is a drop, not a crush.
+ * a deadlift miss is a drop, not a crush. A human spotter is
+ * [trainsWithPartner]; null is not yes.
  */
-fun unspottedRepFloor(exercise: Exercise, equipmentIds: Collection<String>): Int? {
+fun unspottedRepFloor(
+    exercise: Exercise,
+    equipmentIds: Collection<String>,
+    trainsWithPartner: Boolean? = null,
+): Int? {
     if (exercise.consequenceOfFailure != "high") return null
     val listed = exercise.requiredEquipment.flatten() + exercise.optionalEquipment
     if (listed.none { it in ProgrammingConstants.CATCH_EQUIPMENT_IDS }) return null
-    if (hasCatchForFailure(equipmentIds)) return null
+    if (hasCatchForFailure(equipmentIds, trainsWithPartner)) return null
     return ProgrammingConstants.STRENGTH_UNSPOTTED_REP_FLOOR
 }
 

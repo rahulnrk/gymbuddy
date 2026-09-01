@@ -5,7 +5,8 @@ import com.gymbuddy.domain.catalog.Exercise
 
 /**
  * Reports rule violations on a proposed session or week. Never mutates the
- * plan. BLOCK is reserved for safety (contraindicated exercise present).
+ * plan. BLOCK is reserved for safety (contraindicated exercise, or sharp
+ * or radiating pain on a movement the user named).
  */
 fun validateSession(
     session: PlannedSession,
@@ -15,6 +16,7 @@ fun validateSession(
     val out = mutableListOf<Violation>()
     out += validateOrder(session.exercises.map { it.exercise })
     out += validateContraindications(session, user, catalog)
+    out += validatePainMovements(session, user)
     out += validatePrescriptions(session, user)
     return out
 }
@@ -57,6 +59,23 @@ fun hardSetsByMuscle(
 
 internal fun musclesTrained(exercise: Exercise, catalog: Catalog): List<String> =
     catalog.musclesFor(exercise).filter { setCredit(it.value) > 0.0 }.keys.toList()
+
+private fun validatePainMovements(
+    session: PlannedSession,
+    user: UserContext,
+): List<Violation> {
+    if (user.sharpPainSlugs.isEmpty()) return emptyList()
+    return session.exercises.mapNotNull { planned ->
+        if (planned.exercise.slug !in user.sharpPainSlugs) return@mapNotNull null
+        Violation(
+            rule = "safety.pain-movement",
+            severity = Severity.BLOCK,
+            message = "You said ${planned.exercise.name} hurts in a sharp or travelling way. " +
+                "I'd take it out of today's plan until that settles or a clinician says otherwise.",
+            provenance = ProgrammingProvenance.PAIN_MOVEMENT,
+        )
+    }
+}
 
 private fun validateContraindications(
     session: PlannedSession,
@@ -106,7 +125,7 @@ private fun validatePrescriptions(
         }
         val repMin = planned.prescribedRepMin
         val repMax = planned.prescribedRepMax
-        val floor = unspottedRepFloor(ex, user.equipment)
+        val floor = unspottedRepFloor(ex, user.equipment, user.trainsWithPartner)
         if (floor != null && ((repMin != null && repMin < floor) || (repMax != null && repMax < floor))) {
             val shown = repMin ?: repMax!!
             out += Violation(

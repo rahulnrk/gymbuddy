@@ -144,6 +144,8 @@ data class UserContext(
     val trainingAge: TrainingAge,
     val conditions: List<String> = emptyList(),
     val equipment: List<String> = emptyList(),
+    val trainsWithPartner: Boolean? = null,
+    val sharpPainSlugs: Set<String> = emptySet(),
 )
 
 data class PlannedExercise(
