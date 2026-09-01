@@ -46,7 +46,9 @@ Pure functions in `com.gymbuddy.domain.programming`. No clock, no randomness, no
 
 **Effort.** Most work at RIR 2–4 for every training age (`PUBLISHED GUIDELINE`, ACSM 2026 / Guide §4.3). There is no beginner RIR band — novices estimate RIR as well as trained lifters (Bermúdez Droguett 2025; Zourdos 2019; Lovegrove 2022). `reportedEffortConfidence`: trust a spoken RIR only when it is ≤ 3 and the set is ≤ 12 reps; otherwise low confidence and it must not drive a load change on its own (`GUIDELINE-DERIVED`, Zourdos 2019 — paper states error grows; cutoffs are ours). Chronological older adults would be low-confidence regardless (Gómez-Redondo 2025); the app has no older-adult input today.
 
-**Unspotted floor.** Strength default is 5–8 reps (`PUBLISHED GUIDELINE`, ACSM 2026 ≥80% 1RM). Prescribing below 6 reps on a high-`consequenceOfFailure` lift that lists a rack/cage/Smith requires that catch in the user's equipment; otherwise `effectiveRepRange` floors at 6. The validator warns; it does not rewrite the plan. Equipment vocab has no person-spotter. A deadlift miss is a drop, so the floor does not apply to lifts that never list a catch.
+**Unspotted floor.** Strength default is 5–8 reps (`PUBLISHED GUIDELINE`, ACSM 2026 ≥80% 1RM). Prescribing below 6 reps requires a catch in the user's equipment **only when the exercise lists a rack/cage/Smith** in required or optional gear. High `consequenceOfFailure` alone is not enough — a deadlift miss is a drop. A human spotter is not equipment; it lives on intake as `trainsWithPartner` (unknown is not yes). The validator warns; it does not rewrite the plan.
+
+This catch-listing rule must be **re-examined when the catalog grows past 61**. A future lift could be high-consequence, not droppable, and list no catch, and the current predicate would fail to floor it.
 
 **Rest.** Strength rest depends on training age: untrained 60–120 s (Grgic 2017); trained compounds 180–300 s; trained isolation 120–180 s (Senna 2016). Hypertrophy rest 90–180 s (Singer 2024).
 

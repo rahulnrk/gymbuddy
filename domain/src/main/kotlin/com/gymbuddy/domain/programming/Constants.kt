@@ -109,8 +109,8 @@ internal object ProgrammingProvenance {
     )
     val RHEA_PETERSON = Provenance(
         confidence = "low",
-        basis = "consensus",
-        source = "Rhea et al. (2003) Med Sci Sports Exerc; Peterson et al. (2005) J Strength Cond Res.",
+        basis = "judgement",
+        source = "GUIDELINE-DERIVED — Rhea et al. (2003) / Peterson et al. (2005): untrained ~4 sets/muscle; session vs week unstated. 3–8 is ours.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val ROTH_2022 = Provenance(
@@ -141,6 +141,12 @@ internal object ProgrammingProvenance {
         confidence = "moderate",
         basis = "judgement",
         source = "PRODUCT DECISION — fat-loss rest inherits hypertrophy. Carlson et al. (2022) is about load, not rest.",
+        reviewed = ProgrammingConstants.REVIEWED,
+    )
+    val PAIN_MOVEMENT = Provenance(
+        confidence = "high",
+        basis = "judgement",
+        source = "SAFETY REQUIREMENT — user-reported sharp or radiating pain on this movement. Stop and modify; do not diagnose.",
         reviewed = ProgrammingConstants.REVIEWED,
     )
     val UNSPOTTED_REP_FLOOR = Provenance(
