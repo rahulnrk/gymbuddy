@@ -1,0 +1,11 @@
+[
+  {"id": "flexion-intolerant-back", "name": "Flexion-intolerant back", "note": "Forward-bending under load may aggravate symptoms. Prefer supported or more upright options."},
+  {"id": "shoulder-impingement", "name": "Shoulder impingement", "note": "Overhead or end-range pressing may aggravate symptoms. Prefer supported or lower-angle work."},
+  {"id": "anterior-knee-pain", "name": "Anterior knee pain", "note": "Deep knee bend under load may aggravate the front of the knee. Prefer shorter range or hip-dominant work."},
+  {"id": "wrist-pain", "name": "Wrist pain", "note": "Extended-wrist front-rack or push-up positions may aggravate symptoms."},
+  {"id": "elbow-tendinopathy", "name": "Elbow tendinopathy", "note": "Repeated curling or extending against load may aggravate the elbow. Reduce volume or switch implements."},
+  {"id": "hypertension", "name": "Hypertension", "note": "Long breath-holds under heavy load raise blood pressure. Avoid coaching a Valsalva as the default."},
+  {"id": "pregnancy", "name": "Pregnancy", "note": "Supine loading, heavy Valsalva, and high-impact work need a clinician's plan. This catalog does not prescribe pregnancy training."},
+  {"id": "recent-shoulder-surgery", "name": "Recent shoulder surgery", "note": "Pressing and pulling need a clinician's clearance. Do not load the shoulder from the catalog alone."},
+  {"id": "recent-knee-surgery", "name": "Recent knee surgery", "note": "Squats, lunges and extensions need a clinician's clearance. Do not load the knee from the catalog alone."}
+]
