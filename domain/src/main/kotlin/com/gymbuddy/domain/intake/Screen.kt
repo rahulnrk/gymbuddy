@@ -28,9 +28,8 @@ fun unansweredScreenQuestions(health: HealthScreen?): List<QuestionId> {
     RedFlag.entries.forEach { flag ->
         val a = health.flags[flag] ?: Answer.UNKNOWN
         if (a == Answer.UNKNOWN) out += FLAG_QUESTIONS.getValue(flag)
-        if (a == Answer.YES && flag in ACUTE_SYMPTOM_FLAGS) {
-            val recency = health.recency[flag] ?: Answer.UNKNOWN
-            if (recency == Answer.UNKNOWN) out += RECENCY_QUESTIONS.getValue(flag)
+        if (a == Answer.YES && flag in ACUTE_SYMPTOM_FLAGS && flag !in health.recency) {
+            out += RECENCY_QUESTIONS.getValue(flag)
         }
     }
     if (health.hasListedCondition == Answer.UNKNOWN) out += QuestionId.DECLARED_CONDITIONS
@@ -47,8 +46,7 @@ fun liveRedFlags(health: HealthScreen): List<RedFlag> {
     return RedFlag.entries.filter { flag ->
         if (health.flags[flag] != Answer.YES || flag in cleared) return@filter false
         if (flag in ACUTE_SYMPTOM_FLAGS) {
-            val recency = health.recency[flag] ?: Answer.UNKNOWN
-            recency != Answer.UNKNOWN
+            flag in health.recency
         } else {
             true
         }

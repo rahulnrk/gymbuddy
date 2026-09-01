@@ -263,24 +263,29 @@ class IntakeTest {
     }
 
     @Test
-    fun recencyYesAddsUrgencyNoDoesNotAndUnknownIsNotYes() {
+    fun recencyUnknownProducesTheSameMessageAsYes() {
         val recent = ReferralCopy.forFlag(RedFlag.CHEST_PAIN, happeningNowOrThisWeek = true)
         assertTrue(ReferralCopy.RECENCY_URGENCY in recent)
         assertFalse("911" in recent)
         assertFalse("999" in recent)
         val notRecent = ReferralCopy.forFlag(RedFlag.CHEST_PAIN, happeningNowOrThisWeek = false)
         assertFalse(ReferralCopy.RECENCY_URGENCY in notRecent)
-        val skippedRecency = clearScreen().copy(
+        val skipped = clearScreen().copy(
             flags = clearFlags() + (RedFlag.CHEST_PAIN to Answer.YES),
             recency = mapOf(RedFlag.CHEST_PAIN to Answer.UNKNOWN),
         )
-        assertIs<ScreenOutcome.Incomplete>(screen(skippedRecency))
-        val answeredNo = skippedRecency.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO))
-        val referred = assertIs<ScreenOutcome.ReferBeforeTraining>(screen(answeredNo))
-        assertFalse(ReferralCopy.RECENCY_URGENCY in referred.message)
-        val answeredYes = skippedRecency.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.YES))
-        val urgent = assertIs<ScreenOutcome.ReferBeforeTraining>(screen(answeredYes))
-        assertTrue(ReferralCopy.RECENCY_URGENCY in urgent.message)
+        val fromUnknown = assertIs<ScreenOutcome.ReferBeforeTraining>(screen(skipped))
+        val fromYes = assertIs<ScreenOutcome.ReferBeforeTraining>(
+            screen(skipped.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.YES))),
+        )
+        assertEquals(fromYes.message, fromUnknown.message)
+        assertTrue(ReferralCopy.RECENCY_URGENCY in fromUnknown.message)
+        val fromNo = assertIs<ScreenOutcome.ReferBeforeTraining>(
+            screen(skipped.copy(recency = mapOf(RedFlag.CHEST_PAIN to Answer.NO))),
+        )
+        assertFalse(ReferralCopy.RECENCY_URGENCY in fromNo.message)
+        val unasked = clearScreen().copy(flags = clearFlags() + (RedFlag.CHEST_PAIN to Answer.YES))
+        assertIs<ScreenOutcome.Incomplete>(screen(unasked))
     }
 
     @Test

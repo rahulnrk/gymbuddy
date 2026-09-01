@@ -21,7 +21,7 @@ object ReferralCopy {
     fun forFlags(flags: List<RedFlag>, recency: Map<RedFlag, Answer> = emptyMap()): String {
         val unique = flags.distinct()
         val body = unique.joinToString("\n\n") { flag ->
-            forFlag(flag, recency[flag] == Answer.YES)
+            forFlag(flag, recency[flag] != Answer.NO)
         }
         return if (unique.size == 1) {
             body

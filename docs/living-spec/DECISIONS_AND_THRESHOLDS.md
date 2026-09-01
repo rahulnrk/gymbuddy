@@ -485,11 +485,71 @@ Same review date as the programming block. Intake provenance rows use it.
 
 Red-flag count is 10. That is the screen, not a tunable threshold.
 
+## Exercise picker (contract 31)
+
+Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot; it does not invent weekly volume.
+
+### `WEIGHT_GOAL_FIT = 2.0`
+
+- **Where:** `rank` / `goalFit`
+- **Purpose:** Reward a compound lift on a strength goal; smaller bump for hypertrophy / general.
+- **Source:** `MVP HEURISTIC` — catalog has no Best-Fit Goal field, so `kind` vs `Goal` is the proxy.
+- **Configurable:** No.
+
+### `WEIGHT_MUSCLE_COVERAGE = 2.0`
+
+- **Where:** `rank` / `muscleCoverage`
+- **Purpose:** Scale by fractional set-credit on the slot's target muscles.
+- **Source:** `MVP HEURISTIC` on the weight; the credits themselves are Pelland fractional counting.
+- **Configurable:** No.
+
+### `WEIGHT_SKILL_MISMATCH = 1.5`
+
+- **Where:** `rank` / `skillMatch`
+- **Purpose:** Penalise a high-skill lift for a beginner. Do not exclude.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WEIGHT_FRESHNESS = 3.0`
+
+- **Where:** `rank` / `freshness`
+- **Purpose:** Strong penalty when a primary muscle is fatigued. Largest weight on purpose — freshness should beat preference.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WEIGHT_VARIETY = 1.5`
+
+- **Where:** `rank` / `variety`
+- **Purpose:** Penalise a lift that appears in `recentSlugs`. Most recent is the largest penalty. Not a random number.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WEIGHT_PREFERENCE = 0.8`
+
+- **Where:** `rank` / `preference`
+- **Purpose:** Soft bump for a previously accepted substitution. Cannot override safety.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `WEIGHT_ROLE_FIT = 1.0`
+
+- **Where:** `rank` / `roleFit`
+- **Purpose:** Compound for PRIMARY, isolation for ISOLATION, core pattern for CORE.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `SESSION_SETS_PRIMARY_BEGINNER = 2` / `SESSION_SETS_PRIMARY = 3` / `SESSION_SETS_SECONDARY = 3` / `SESSION_SETS_ACCESSORY = 2` / `SESSION_SETS_ISOLATION = 2` / `SESSION_SETS_CORE = 2`
+
+- **Where:** `dose` / `sessionSets`
+- **Purpose:** Per-slot set count. Weekly hard-set landmarks stay with the validator.
+- **Source:** `MVP HEURISTIC` — contract 16 says beginners get fewer sets via the template column; this is the picker-side analogue, not a measured dose.
+- **Configurable:** No.
+
 ### `RECENCY_QUESTION` / `RECENCY_URGENCY`
 
 - **Where:** `ReferralCopy.RECENCY_QUESTION`, `ReferralCopy.RECENCY_URGENCY`
 - **Purpose:** Follow-up on acute-symptom flags. Urgency line is added only when the user answers YES to recency. UNKNOWN is not YES. No emergency number in domain copy.
-- **Source:** `SAFETY REQUIREMENT` — conservative; the app does not judge severity. Recency is the user's statement.
+- **Source:** `SAFETY REQUIREMENT` — conservative; the app does not judge severity. Recency is the user's statement. `UNKNOWN` skip includes the urgency line (same as `YES`); only `NO` omits it.
 - **Configurable:** No. The question text is product copy, not a 7-day science constant.
 
 ---
