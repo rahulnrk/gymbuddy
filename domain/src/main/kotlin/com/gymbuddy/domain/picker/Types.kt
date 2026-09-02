@@ -28,6 +28,7 @@ data class PickContext(
     val dislikes: Set<String> = emptySet(),
     val acceptedSubstitutions: Set<String> = emptySet(),
     val painReports: List<PainReport> = emptyList(),
+    val hasCardioHistory: Boolean = false,
 )
 
 sealed interface Exclusion {
