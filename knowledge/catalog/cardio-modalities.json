@@ -1,0 +1,218 @@
+[
+  {
+    "slug": "walking",
+    "id": "5181a17c-2033-559b-bf75-bf9d4efaf9f5",
+    "name": "Walking",
+    "requiredEquipment": [["none"]],
+    "impact": "low",
+    "primaryDemand": ["calf", "quad", "glute", "hamstring"],
+    "skillDemand": "low",
+    "setting": "either",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; demand list is not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "incline-walking",
+    "id": "09d91fff-5c07-5ed5-b782-9e1e4d31de8b",
+    "name": "Incline Walking",
+    "requiredEquipment": [["treadmill"]],
+    "impact": "low",
+    "primaryDemand": ["calf", "quad", "glute", "hamstring"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; demand list is not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "running",
+    "id": "d93fabb6-58a1-5569-bf21-518acbde3e68",
+    "name": "Running",
+    "requiredEquipment": [["none", "treadmill"]],
+    "impact": "high",
+    "primaryDemand": ["calf", "quad", "glute", "hamstring", "tibialis"],
+    "skillDemand": "moderate",
+    "setting": "either",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "pregnancy"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; impact is the safety field",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "cycling",
+    "id": "6cdf66eb-8171-5da9-bd84-d93b352f14b8",
+    "name": "Cycling",
+    "requiredEquipment": [["exercise-bike"]],
+    "impact": "low",
+    "primaryDemand": ["quad", "hamstring", "glute", "calf"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; demand list is not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "rowing",
+    "id": "a3efc035-c6e2-5faf-8190-98b0c483a4b2",
+    "name": "Rowing",
+    "requiredEquipment": [["rower"]],
+    "impact": "low",
+    "primaryDemand": ["lat", "biceps", "back_lower", "hamstring", "glute"],
+    "skillDemand": "moderate",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals"],
+    "contraindications": ["flexion-intolerant-back"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — no sprint rowing; lumbar flexion under fatigue",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "elliptical",
+    "id": "d6b17e9a-3618-5601-90a3-6e7887ec62c8",
+    "name": "Elliptical",
+    "requiredEquipment": [["elliptical"]],
+    "impact": "low",
+    "primaryDemand": ["quad", "glute", "calf"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; demand list is not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "stair-climber",
+    "id": "fce6e343-3bd3-5255-b751-9f25640ebc47",
+    "name": "Stair Climber",
+    "requiredEquipment": [["stair-climber"]],
+    "impact": "moderate",
+    "primaryDemand": ["glute", "quad", "calf"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo"],
+    "contraindications": ["anterior-knee-pain", "recent-knee-surgery"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — no intervals or sprints on a stair climber",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "skipping",
+    "id": "30fbfc25-3218-595a-8fc8-43b3ecbbd17e",
+    "name": "Skipping",
+    "requiredEquipment": [["jump-rope"]],
+    "impact": "high",
+    "primaryDemand": ["calf", "quad", "glute"],
+    "skillDemand": "moderate",
+    "setting": "either",
+    "suitableProtocolTypes": ["steady_state", "intervals", "sprint_intervals"],
+    "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "pregnancy"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — high impact; impact is the safety field",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "swimming",
+    "id": "c289c123-a729-54c4-b7df-e4c3e5fbc2a9",
+    "name": "Swimming",
+    "requiredEquipment": [["pool"]],
+    "impact": "low",
+    "primaryDemand": ["lat", "chest_mid", "delt_rear", "quad"],
+    "skillDemand": "high",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — no swim intervals; most users lack the skill",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "ski-erg",
+    "id": "eb7760cc-1b8e-5747-8ae9-1dd421069f0a",
+    "name": "Ski Erg",
+    "requiredEquipment": [["ski-erg"]],
+    "impact": "low",
+    "primaryDemand": ["lat", "abs_upper", "glute", "hamstring"],
+    "skillDemand": "moderate",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "contraindications": ["shoulder-impingement", "recent-shoulder-surgery"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — no sprint ski-erg; skill and shoulder load",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "air-bike",
+    "id": "bfb4aaa1-a5e7-5fae-bf8f-cc528fcd291c",
+    "name": "Air Bike",
+    "requiredEquipment": [["air-bike"]],
+    "impact": "low",
+    "primaryDemand": ["quad", "glute", "delt_front"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "contraindications": [],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — modality row; demand list is not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "sled-push",
+    "id": "8f4f1149-75d2-54df-a9d3-618e7b9ffc77",
+    "name": "Sled Push",
+    "requiredEquipment": [["sled"]],
+    "impact": "high",
+    "primaryDemand": ["glute", "quad", "calf", "hamstring"],
+    "skillDemand": "low",
+    "setting": "indoor",
+    "suitableProtocolTypes": ["intervals", "sprint_intervals"],
+    "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "flexion-intolerant-back"],
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — work bouts only; not a steady-state mode",
+      "reviewed": "2026-09-02"
+    }
+  }
+]

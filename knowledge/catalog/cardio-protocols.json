@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "easy-recovery",
+    "id": "9aa938b7-04a3-504c-ad0d-46c3b5d6a132",
+    "name": "Easy Recovery",
+    "type": "recovery",
+    "intensity": "easy",
+    "effortGuidance": "RPE 2 to 3. You can talk in full sentences without thinking about breath.",
+    "typicalSessionMin": [15, 30],
+    "suitableGoals": ["STRENGTH", "HYPERTROPHY", "ENDURANCE", "CARDIO_FITNESS", "FAT_LOSS", "GENERAL_FITNESS"],
+    "requiresAerobicBase": false,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — session shape; effort is talk-test only",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "easy-steady",
+    "id": "9f9524ed-12e5-5f9a-88fd-30125a77d76d",
+    "name": "Easy Steady",
+    "type": "steady_state",
+    "intensity": "easy",
+    "effortGuidance": "RPE 3 to 4. A conversation you could hold with a friend walking beside you.",
+    "typicalSessionMin": [20, 45],
+    "suitableGoals": ["STRENGTH", "HYPERTROPHY", "ENDURANCE", "CARDIO_FITNESS", "FAT_LOSS", "GENERAL_FITNESS"],
+    "requiresAerobicBase": false,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — session shape; effort is talk-test only",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "tempo",
+    "id": "19fe8f25-8379-503b-aca7-2265f6247435",
+    "name": "Tempo",
+    "type": "tempo",
+    "intensity": "moderate",
+    "effortGuidance": "RPE 6 to 7. You can speak a short phrase. A full sentence would make you pause.",
+    "typicalSessionMin": [15, 30],
+    "suitableGoals": ["ENDURANCE", "CARDIO_FITNESS", "FAT_LOSS", "GENERAL_FITNESS"],
+    "requiresAerobicBase": true,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — intervals are a spice after a base exists (Programming Guide)",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "threshold",
+    "id": "4edb2005-8e2a-53ce-9c81-f71d3562cf7b",
+    "name": "Threshold",
+    "type": "threshold",
+    "intensity": "hard",
+    "effortGuidance": "RPE 7 to 8. A few words at a time. You would not want to talk.",
+    "typicalSessionMin": [15, 25],
+    "suitableGoals": ["ENDURANCE", "CARDIO_FITNESS"],
+    "requiresAerobicBase": true,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — session shape; not a lactate measurement",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "long-intervals",
+    "id": "ac77ffea-65d1-59f0-845d-760ec64ee118",
+    "name": "Long Intervals",
+    "type": "intervals",
+    "intensity": "hard",
+    "effortGuidance": "RPE 7 to 8. You can speak a few words, not a sentence.",
+    "workSec": 180,
+    "recoverSec": 180,
+    "rounds": [4, 6],
+    "typicalSessionMin": [25, 40],
+    "suitableGoals": ["ENDURANCE", "CARDIO_FITNESS", "FAT_LOSS", "GENERAL_FITNESS"],
+    "requiresAerobicBase": true,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — work and recover lengths are a starting shape, not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "short-intervals",
+    "id": "97e815b5-7dd9-5c41-87f7-4944f9f1d5da",
+    "name": "Short Intervals",
+    "type": "intervals",
+    "intensity": "hard",
+    "effortGuidance": "RPE 8. A word or two. Then easy until you can talk again.",
+    "workSec": 60,
+    "recoverSec": 90,
+    "rounds": [6, 10],
+    "typicalSessionMin": [20, 30],
+    "suitableGoals": ["ENDURANCE", "CARDIO_FITNESS", "FAT_LOSS"],
+    "requiresAerobicBase": true,
+    "provenanceDefault": {
+      "confidence": "low",
+      "basis": "judgement",
+      "source": "MVP HEURISTIC — work and recover lengths are a starting shape, not measured",
+      "reviewed": "2026-09-02"
+    }
+  },
+  {
+    "slug": "sprint-intervals",
+    "id": "7d269268-5de3-530e-8dd0-84d6f8051aa0",
+    "name": "Sprint Intervals",
+    "type": "sprint_intervals",
+    "intensity": "hard",
+    "effortGuidance": "RPE 9 to 10. No talking on the work bout. Easy until breath is a conversation again.",
+    "workSec": 20,
+    "recoverSec": 100,
+    "rounds": [6, 10],
+    "typicalSessionMin": [15, 25],
+    "suitableGoals": ["ENDURANCE", "CARDIO_FITNESS"],
+    "requiresAerobicBase": true,
+    "provenanceDefault": {
+      "confidence": "moderate",
+      "basis": "consensus",
+      "source": "Coach & AI Programming Guide — intervals are a spice after a base exists. Never a beginner prescription.",
+      "reviewed": "2026-09-02"
+    }
+  }
+]

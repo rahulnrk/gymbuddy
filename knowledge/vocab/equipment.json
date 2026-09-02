@@ -422,5 +422,64 @@
       "skipping rope",
       "speed rope"
     ]
+  },
+  {
+    "id": "treadmill",
+    "name": "Treadmill",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "tread mill"
+    ]
+  },
+  {
+    "id": "elliptical",
+    "name": "Elliptical",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "cross trainer",
+      "elliptigo"
+    ]
+  },
+  {
+    "id": "stair-climber",
+    "name": "Stair climber",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "stairmaster",
+      "stepmill"
+    ]
+  },
+  {
+    "id": "ski-erg",
+    "name": "Ski erg",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "skierg",
+      "ski machine"
+    ]
+  },
+  {
+    "id": "air-bike",
+    "name": "Air bike",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "assault bike",
+      "fan bike"
+    ]
+  },
+  {
+    "id": "pool",
+    "name": "Pool",
+    "category": "cardio",
+    "tier": "commercial",
+    "aliases": [
+      "swimming pool",
+      "lap pool"
+    ]
   }
 ]
