@@ -120,6 +120,8 @@ data class PainReport(
     val movements: Set<String>,
     val character: PainCharacter,
     val since: String? = null,
+    /** 0–10 if they said a number. History only. Never a triage gate. */
+    val intensity: Int? = null,
 )
 
 /**

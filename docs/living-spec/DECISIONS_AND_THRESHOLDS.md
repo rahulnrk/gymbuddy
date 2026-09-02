@@ -779,6 +779,21 @@ Modalities and protocols are stored separately and composed. Protocol structures
 
 Review date for this block. Protocol work/recover lengths (`workSec`, `recoverSec`, `rounds`) live on the protocol rows and are `MVP HEURISTIC` — starting shapes, not measured intervals.
 
+## Pain triage (contract 37)
+
+Intensity is **not a gate**. There is no threshold where an 8 becomes "stop" and a 4 becomes "keep going". Character and location decide. The 0–10 number is stored for history.
+
+### `INTENSITY_MIN = 0` / `INTENSITY_MAX = 10`
+
+- **Where:** `recordIntensity` / `PainInterview.intensity` / `PainReport.intensity`
+- **Purpose:** Inclusive bounds for a spoken 0–10. Out of range is dropped from history. **Never read by `triage()`.**
+- **Source:** `CONTRACTUAL` — contract 37: record the number, never as a gate.
+- **Configurable:** No.
+
+### `REVIEWED = 2026-09-02` (pain)
+
+Review date for this block. No other numeric gate. The six questions and named outcomes are the route keys. Intensity is stored, never a gate.
+
 ---
 
 ★ = convertible to `MEASURED` by the Voice Evidence MVP.

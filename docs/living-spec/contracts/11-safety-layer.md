@@ -20,7 +20,7 @@ Expect conservative, non-diagnostic response. Not “that’s your rotator cuff 
 
 ### System state
 
-Runs on **raw transcript before extraction commit** and before any TTS. May `WORKOUT_PAUSED` on high/critical. Categories: `sharp_pain`, `injury`, `dizziness`, `faintness`, `chest_pain`, `severe_sob`, `dangerous_condition`, `discomfort_mild`. Severity: `low | medium | high | critical`. Action: `advise | pause | stop_recommend`.
+Runs on **raw transcript before extraction commit** and before any TTS. Structured in-session pain after we have a character and a location is contract 37. That layer does not triage on a 0–10 score. This layer still owns chest / faint / SOB keywords. May `WORKOUT_PAUSED` on high/critical. Categories: `sharp_pain`, `injury`, `dizziness`, `faintness`, `chest_pain`, `severe_sob`, `dangerous_condition`, `discomfort_mild`. Severity: `low | medium | high | critical`. Action: `advise | pause | stop_recommend`.
 
 **Keyword/pattern seeds (not exhaustive; classifier + these MUST fire even if LLM disagrees):**
 

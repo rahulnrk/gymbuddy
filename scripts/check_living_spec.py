@@ -68,6 +68,7 @@ REQUIRED_CONTRACTS = [
     "34-warmup-and-mobility.md",
     "35-voice-interaction.md",
     "36-cardio-and-conditioning.md",
+    "37-pain-triage.md",
 ]
 
 REQUIRED_SCHEMAS = [

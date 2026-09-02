@@ -48,7 +48,7 @@ Visual, short, one question at a time (`NeedMore.nextQuestion` is exactly one). 
 
 `evaluate` returns `Ready(UserContext)` | `NeedMore` | `Refer`. `Ready` is the programming `UserContext` (declared known condition ids, equipment tokens, optional partner, sharp/radiating movement slugs). It is not a workout.
 
-Declared vocab ids feed `validateSession` contraindication `BLOCK`. Sharp or radiating pain on a movement is `safety.pain-movement` `BLOCK`.
+Declared vocab ids feed `validateSession` contraindication `BLOCK`. Sharp or radiating pain on a movement is `safety.pain-movement` `BLOCK`. An optional 0–10 on `PainReport` is history only; in-session routing is contract 37 and does not read that number.
 
 ### Voice behavior
 
