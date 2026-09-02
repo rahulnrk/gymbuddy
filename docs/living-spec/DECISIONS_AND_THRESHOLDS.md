@@ -768,6 +768,13 @@ Modalities and protocols are stored separately and composed. Protocol structures
 - **Source:** `MVP HEURISTIC` on the cap. ACSM frequency is “most days”; 5 is ours.
 - **Configurable:** No.
 
+### `minWorkSec` / `maxWorkSec` (per modality)
+
+- **Where:** `CardioModality.minWorkSec` / `maxWorkSec`; `WorkBoutUnsustainable`
+- **Purpose:** A protocol is incompatible when its `workSec` sits outside this range. Sled push is 15–45 seconds. Three-minute sled efforts are not a thing people do.
+- **Source:** `MVP HEURISTIC` — bout lengths are coaching practice, not a measured dataset. Continuous protocols (no `workSec`) skip the check.
+- **Configurable:** No.
+
 ### `REVIEWED = 2026-09-02` (cardio)
 
 Review date for this block. Protocol work/recover lengths (`workSec`, `recoverSec`, `rounds`) live on the protocol rows and are `MVP HEURISTIC` — starting shapes, not measured intervals.

@@ -17,6 +17,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class CardioTest {
@@ -153,11 +154,10 @@ class CardioTest {
         val liftCardio = placed.filter { it.entries.isNotEmpty() }.mapNotNull { it.cardio }
         assertEquals(0.0, liftCardio.sumOf { acsmModerateEquivalentMinutes(it) })
         val credit = weekAcsmMinutes(placed)
-        assertTrue(credit >= 0.0)
-        assertTrue(
-            credit >= target.min || placed.count { it.cardio != null } >= CardioConstants.FREQUENCY_MAX,
-            "credit=$credit placed=${placed.size}",
-        )
+        assertEquals(0.0, credit)
+        assertEquals(ctx.user.daysPerWeek, placed.size)
+        assertTrue(placed.none { it.entries.isEmpty() })
+        assertTrue(placed.any { day -> day.notes.any { "You're at 0 of 150" in it } }, placed.flatMap { it.notes }.toString())
     }
 
     @Test
@@ -180,17 +180,45 @@ class CardioTest {
             buildWeek(templates.single { it.id == "full-body-3d" }, ctx, catalog, warmups = warmups, stretches = stretches),
         )
         val placed = placeOnWeek(built.week, Goal.STRENGTH, ctx, library, minutesPerLiftDay = 25)
-        val note = noRoomForIntervalsNote(3, addedSeparateDay = placed.any { it.entries.isEmpty() })
+        assertEquals(3, placed.size)
+        assertTrue(placed.none { it.entries.isEmpty() })
+        val note = noRoomForIntervalsNote(3, addedSeparateDay = false)
         assertTrue(
-            placed.filter { it.entries.isNotEmpty() }.all { day -> day.notes.any { it == note } },
+            placed.all { day -> day.notes.any { it == note } },
             placed.flatMap { it.notes }.toString(),
         )
-        placed.filter { it.entries.isEmpty() }.forEach { extra ->
-            val cardio = extra.cardio
-            assertNotNull(cardio, extra.day)
-            assertTrue(cardio.protocol.intensity != ProtocolIntensity.EASY, extra.day)
-        }
+        val shortfall = shortfallNote(0.0, 150, 3)
+        assertEquals("You're at 0 of 150. A fourth day would close it.", shortfall)
+        assertTrue(placed.all { day -> day.notes.any { it == shortfall } })
         println(speakWeek(placed))
+    }
+
+    @Test
+    fun workBoutRangeRemovesUnsustainablePairings() {
+        val ctx = gymIntermediate()
+        val sled = library.modality("sled-push")!!
+        assertEquals(15, sled.minWorkSec)
+        assertEquals(45, sled.maxWorkSec)
+        val long = library.protocol("long-intervals")!!
+        val short = library.protocol("short-intervals")!!
+        val sprint = library.protocol("sprint-intervals")!!
+        assertIs<CardioExclusion.WorkBoutUnsustainable>(incompatibility(sled, long, ctx))
+        assertIs<CardioExclusion.WorkBoutUnsustainable>(incompatibility(sled, short, ctx))
+        assertNull(incompatibility(sled, sprint, ctx))
+
+        val skip = library.modality("skipping")!!
+        assertIs<CardioExclusion.WorkBoutUnsustainable>(incompatibility(skip, long, ctx))
+
+        val ranked = rank(Goal.ENDURANCE, ctx, 30, library)
+        assertTrue(ranked.none { it.modality.slug == "sled-push" && it.protocol.slug == "long-intervals" })
+
+        val removed = filterPairs(library, ctx).exclusions
+            .filterIsInstance<CardioExclusion.WorkBoutUnsustainable>()
+            .map { "${it.modality.slug}/${it.protocol.slug}" }
+            .sorted()
+        println("WORK_BOUT_REMOVED: $removed")
+        assertTrue("sled-push/long-intervals" in removed)
+        assertTrue("sled-push/short-intervals" in removed)
     }
 
     @Test

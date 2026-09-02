@@ -18,6 +18,12 @@ fun incompatibility(
     if (p.type !in m.suitableProtocolTypes) {
         return CardioExclusion.ProtocolNotSuitable(m, p)
     }
+    val work = p.workSec
+    val minW = m.minWorkSec
+    val maxW = m.maxWorkSec
+    if (work != null && minW != null && maxW != null && work !in minW..maxW) {
+        return CardioExclusion.WorkBoutUnsustainable(m, p)
+    }
     val missing = unsatisfiedSlots(m.requiredEquipment, ctx.equipment)
     if (missing != null) {
         return CardioExclusion.MissingEquipment(m, p, missing)

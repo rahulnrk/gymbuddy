@@ -51,17 +51,22 @@ fun placeOnWeek(
             day.copy(cardio = pick)
         }
     }
-    val filled = fillAcsmGap(placed, goal, ctx, library, usedMod, usedProt)
-    val liftDays = filled.filter { it.entries.isNotEmpty() }
+    val notes = mutableListOf<String>()
+    val liftDays = placed.filter { it.entries.isNotEmpty() }
     val heavyDays = liftDays.count {
         cardioPlacement(sessionSummary(it), goal).avoidHardIntervals
     }
-    if (liftDays.isEmpty() || heavyDays != liftDays.size) return filled
-    val addedSeparate = filled.any { it.entries.isEmpty() && it.cardio != null }
-    val note = noRoomForIntervalsNote(liftDays.size, addedSeparate)
-    return filled.map { day ->
-        if (day.entries.isEmpty()) day else day.copy(notes = day.notes + note)
+    if (liftDays.isNotEmpty() && heavyDays == liftDays.size) {
+        notes += noRoomForIntervalsNote(liftDays.size, addedSeparateDay = false)
     }
+    val credit = weekAcsmMinutes(placed)
+    val target = weeklyCardioTarget(goal, ctx.user.trainingAge)
+    val daysUsed = ctx.user.daysPerWeek ?: placed.size
+    if (credit < target.min) {
+        notes += shortfallNote(credit, target.min, daysUsed)
+    }
+    if (notes.isEmpty()) return placed
+    return placed.map { day -> day.copy(notes = day.notes + notes) }
 }
 
 fun sessionSummary(session: PlannedSession): SessionSummary =
@@ -74,6 +79,23 @@ fun noRoomForIntervalsNote(liftDays: Int, addedSeparateDay: Boolean = false): St
     } else {
         "$base — a fourth day would let us add them."
     }
+}
+
+fun shortfallNote(credit: Double, targetMin: Int, daysUsed: Int): String {
+    val have = if (credit == credit.toInt().toDouble()) credit.toInt().toString() else credit.toString()
+    val next = ordinal(daysUsed + 1)
+    return "You're at $have of $targetMin. A $next day would close it."
+}
+
+internal fun ordinal(n: Int): String = when (n) {
+    1 -> "first"
+    2 -> "second"
+    3 -> "third"
+    4 -> "fourth"
+    5 -> "fifth"
+    6 -> "sixth"
+    7 -> "seventh"
+    else -> "$n-th"
 }
 
 /**
@@ -97,34 +119,4 @@ fun pickVaried(
         "A different machine than earlier this week.",
     )
     return if (usedModalities.isEmpty()) pick else pick.copy(why = pick.why + variety)
-}
-
-private fun fillAcsmGap(
-    week: List<PlannedSession>,
-    goal: Goal,
-    ctx: PickContext,
-    library: CardioLibrary,
-    usedMod: MutableList<String>,
-    usedProt: MutableList<String>,
-): List<PlannedSession> {
-    val target = weeklyCardioTarget(goal, ctx.user.trainingAge)
-    val extra = mutableListOf<PlannedSession>()
-    var n = 0
-    while (weekAcsmMinutes(week + extra) < target.min) {
-        val cardioCount = (week + extra).count { it.cardio != null }
-        if (cardioCount >= CardioConstants.FREQUENCY_MAX) break
-        val ranked = rank(goal, ctx, 30, library)
-        val countable = ranked.filter { it.protocol.intensity != ProtocolIntensity.EASY }
-        val pick = pickVaried(countable, usedMod, usedProt) ?: break
-        val filled = pick.copy(durationMin = pick.protocol.durationMax)
-        usedMod += filled.modality.slug
-        usedProt += filled.protocol.slug
-        n += 1
-        extra += PlannedSession(
-            day = "Cardio $n",
-            entries = emptyList(),
-            cardio = filled,
-        )
-    }
-    return week + extra
 }

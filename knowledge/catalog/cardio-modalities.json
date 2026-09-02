@@ -9,6 +9,8 @@
     "skillDemand": "low",
     "setting": "either",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "minWorkSec": 60,
+    "maxWorkSec": 300,
     "contraindications": [],
     "provenanceDefault": {
       "confidence": "low",
@@ -45,6 +47,8 @@
     "skillDemand": "moderate",
     "setting": "either",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "minWorkSec": 15,
+    "maxWorkSec": 300,
     "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "pregnancy"],
     "provenanceDefault": {
       "confidence": "low",
@@ -63,6 +67,8 @@
     "skillDemand": "low",
     "setting": "indoor",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "minWorkSec": 10,
+    "maxWorkSec": 300,
     "contraindications": [],
     "provenanceDefault": {
       "confidence": "low",
@@ -81,6 +87,8 @@
     "skillDemand": "moderate",
     "setting": "indoor",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals"],
+    "minWorkSec": 30,
+    "maxWorkSec": 180,
     "contraindications": ["flexion-intolerant-back"],
     "provenanceDefault": {
       "confidence": "low",
@@ -99,6 +107,8 @@
     "skillDemand": "low",
     "setting": "indoor",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "minWorkSec": 30,
+    "maxWorkSec": 180,
     "contraindications": [],
     "provenanceDefault": {
       "confidence": "low",
@@ -135,6 +145,8 @@
     "skillDemand": "moderate",
     "setting": "either",
     "suitableProtocolTypes": ["steady_state", "intervals", "sprint_intervals"],
+    "minWorkSec": 15,
+    "maxWorkSec": 60,
     "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "pregnancy"],
     "provenanceDefault": {
       "confidence": "low",
@@ -171,6 +183,8 @@
     "skillDemand": "moderate",
     "setting": "indoor",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "intervals"],
+    "minWorkSec": 30,
+    "maxWorkSec": 180,
     "contraindications": ["shoulder-impingement", "recent-shoulder-surgery"],
     "provenanceDefault": {
       "confidence": "low",
@@ -189,6 +203,8 @@
     "skillDemand": "low",
     "setting": "indoor",
     "suitableProtocolTypes": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"],
+    "minWorkSec": 10,
+    "maxWorkSec": 180,
     "contraindications": [],
     "provenanceDefault": {
       "confidence": "low",
@@ -207,6 +223,8 @@
     "skillDemand": "low",
     "setting": "indoor",
     "suitableProtocolTypes": ["intervals", "sprint_intervals"],
+    "minWorkSec": 15,
+    "maxWorkSec": 45,
     "contraindications": ["anterior-knee-pain", "recent-knee-surgery", "flexion-intolerant-back"],
     "provenanceDefault": {
       "confidence": "low",

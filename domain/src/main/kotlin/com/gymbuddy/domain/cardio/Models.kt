@@ -41,6 +41,8 @@ data class CardioModality(
     val skillDemand: String,
     val setting: String,
     val suitableProtocolTypes: List<ProtocolType>,
+    val minWorkSec: Int? = null,
+    val maxWorkSec: Int? = null,
     val contraindications: List<String> = emptyList(),
     val provenanceDefault: Provenance,
     val provenance: Map<String, Provenance> = emptyMap(),
@@ -122,6 +124,19 @@ sealed interface CardioExclusion {
     ) : CardioExclusion {
         override val explanation: String
             get() = "${modality.name} is ruled out by $condition."
+    }
+
+    data class WorkBoutUnsustainable(
+        override val modality: CardioModality,
+        override val protocol: CardioProtocol,
+    ) : CardioExclusion {
+        override val explanation: String
+            get() {
+                val work = protocol.workSec ?: 0
+                val minW = modality.minWorkSec ?: 0
+                val maxW = modality.maxWorkSec ?: 0
+                return "${protocol.name} asks for $work-second efforts. ${modality.name} is sustainable for $minW to $maxW seconds."
+            }
     }
 }
 

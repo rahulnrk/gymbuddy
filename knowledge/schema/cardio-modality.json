@@ -47,6 +47,8 @@
         "enum": ["recovery", "steady_state", "tempo", "threshold", "intervals", "sprint_intervals"]
       }
     },
+    "minWorkSec": { "type": "integer", "minimum": 5, "maximum": 600 },
+    "maxWorkSec": { "type": "integer", "minimum": 5, "maximum": 600 },
     "contraindications": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
