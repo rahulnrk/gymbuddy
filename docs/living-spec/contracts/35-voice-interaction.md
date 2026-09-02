@@ -51,7 +51,7 @@ Past the horizon the coach is silent and waits. It does not guess. A missed prom
 
 Every user utterance re-anchors the clock. So does any logged event.
 
-**Coach clock.** `proactiveUtterance` returns at most a rest-complete prompt, the single re-sync, or null. Null is the common case. Same discipline as `ShouldSpeak`. Rest-complete fires while `RESTING` and elapsed rest has reached the entry's published minimum. Safety speech during `SET_ACTIVE` stays `ShouldSpeak`; this clock returns null there.
+**Coach clock.** `proactiveUtterance` returns at most a rest-complete prompt, the single re-sync, or null. Null is the common case. Same discipline as `ShouldSpeak`. Rest-complete fires **once** while `RESTING` and elapsed rest has reached the entry's published minimum. Unanswered, it does not ask again. Safety speech during `SET_ACTIVE` stays `ShouldSpeak`; this clock returns null there.
 
 **Predictive rest.** Within-session only. `adjustForToday` handles between-session readiness. On a declining set, extend rest by 30 s. Never shorten below the goal's published minimum. Every adjustment carries a spoken reason with units.
 

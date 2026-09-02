@@ -157,6 +157,14 @@ class VoiceInteractionTest {
         assertIs<CoachAct.RestComplete>(restPrompt)
         assertPlainReason(restPrompt.reason)
         assertPlainReason(restPrompt.text)
+        assertNull(
+            proactiveUtterance(
+                live.markRestCompleteOffered(),
+                WorkoutSessionState.RESTING,
+                sessionWithRest(90),
+                restElapsedSec = 200,
+            ),
+        )
     }
 
     @Test

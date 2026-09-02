@@ -14,6 +14,7 @@ data class CoachClock(
     val lastAnchorMs: Long,
     val anchorKind: AnchorKind,
     val resyncOffered: Boolean = false,
+    val restCompleteOffered: Boolean = false,
 ) {
     val sinceAnchorMs: Long get() = workoutElapsedMs - lastAnchorMs
 
@@ -25,9 +26,12 @@ data class CoachClock(
             lastAnchorMs = atMs,
             anchorKind = kind,
             resyncOffered = false,
+            restCompleteOffered = false,
         )
 
     fun markResyncOffered(): CoachClock = copy(resyncOffered = true)
+
+    fun markRestCompleteOffered(): CoachClock = copy(restCompleteOffered = true)
 }
 
 sealed interface CoachAct {
@@ -76,6 +80,7 @@ fun proactiveUtterance(
         )
     }
     if (session != WorkoutSessionState.RESTING) return null
+    if (clock.restCompleteOffered) return null
     val restMin = plan.entries.firstOrNull()?.restSec?.min ?: return null
     if (restElapsedSec < restMin) return null
     return CoachAct.RestComplete(
