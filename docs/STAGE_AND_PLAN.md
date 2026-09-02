@@ -5,7 +5,7 @@ assessment, which was stale (it claimed PR 10 was not started and that there was
 no version control; both were false).
 
 Counts: 96 Kotlin sources in `:domain` / `:persist` / `:app`, 64 test files,
-64 goldens, 33 contracts, 39 commits, 77 exercises.
+64 goldens, 35 contracts, 39 commits, 77 exercises.
 
 ---
 
@@ -32,8 +32,10 @@ Five contracts, all `implemented`:
 | 31 exercise selection | Filter → score → rank for one slot, with reasons. Safety exclusions non-overridable. |
 | 32 in-session adaptation | Readiness, the busy-machine ladder, `EXERCISE_DEFERRED`. |
 | 33 programme templates | Template schema and the four splits. |
+| 34 warm-up and mobility | Pulse, drills, ramp sets, stretches. Familiarity on the plan. |
+| 35 voice interaction | Adaptive conversation window, coach clock, predictive rest. Policy only. |
 
-Packages: `programming`, `intake`, `picker`, `adapt`, `plan`, `catalog`.
+Packages: `programming`, `intake`, `picker`, `adapt`, `plan`, `catalog`, `warmup`.
 
 ### The knowledge base
 `knowledge/` holds 4 vocabularies (muscles, patterns, equipment, conditions),

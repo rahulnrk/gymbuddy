@@ -66,6 +66,7 @@ REQUIRED_CONTRACTS = [
     "32-in-session-adaptation.md",
     "33-programme-templates.md",
     "34-warmup-and-mobility.md",
+    "35-voice-interaction.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -840,6 +841,26 @@ def main() -> None:
             for name in const_re.findall(p.read_text(encoding="utf-8")):
                 if name not in decisions_text:
                     errors.append(f"picker constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
+
+    voice_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "voice"
+    if not voice_kt.is_dir():
+        errors.append("missing domain voice package")
+    else:
+        voice_text = "\n".join(p.read_text(encoding="utf-8") for p in voice_kt.glob("*.kt"))
+        for req in ("fun windowFor", "fun onSpeechDetected", "fun shouldDuck",
+                    "fun maySpeakProactively", "fun proactiveUtterance", "fun restAdjustment"):
+            if req not in voice_text:
+                errors.append(f"voice package missing {req}")
+        for bad in ("android.media", "AudioManager", "openai", "elevenlabs", "whisper"):
+            if bad in voice_text:
+                errors.append(f"voice package must not contain {bad}")
+        decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
+        const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
+        constants_file = voice_kt / "VoiceInteractionConstants.kt"
+        if constants_file.is_file():
+            for name in const_re.findall(constants_file.read_text(encoding="utf-8")):
+                if name not in decisions_text:
+                    errors.append(f"voice constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
 
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")

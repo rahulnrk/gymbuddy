@@ -665,6 +665,63 @@ Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot;
 - **Source:** `SAFETY REQUIREMENT` — conservative; the app does not judge severity. Recency is the user's statement. `UNKNOWN` skip includes the urgency line (same as `YES`); only `NO` omits it.
 - **Configurable:** No. The question text is product copy, not a 7-day science constant.
 
+## Voice interaction (contract 35)
+
+Policy only. No vendor, no audio implementation. The numbers are how long music stays ducked and how long the coach still trusts the last thing it heard.
+
+### `WINDOW_CLOSED_ANSWER_MS = 8000`
+
+- **Where:** `windowFor(CLOSED_ANSWER)`
+- **Purpose:** After a closed answer ("Yes, stay at eighty.") keep the window open long enough for "ok" / "wait", not long enough that music stays quiet for a whole extra breath. Upper end of the contract's 5–8 s range.
+- **Source:** `PRODUCT DECISION` — ducking is felt every rest. Forty seconds of quiet music after a closed answer is the failure mode.
+- **Configurable:** No.
+
+### `WINDOW_SHORT_QUESTION_MS = 10000`
+
+- **Where:** `windowFor(SHORT_QUESTION)`
+- **Purpose:** A direct question with a short answer ("How many?"). Upper end of 8–10 s.
+- **Source:** `PRODUCT DECISION`.
+- **Configurable:** No.
+
+### `WINDOW_OPEN_QUESTION_MS = 40000` / `WINDOW_USER_INITIATED_MS = 40000`
+
+- **Where:** `windowFor(OPEN_QUESTION)`, `windowFor(EntryPoint)`
+- **Purpose:** Open questions and unprompted user entry. Forty seconds is the ceiling from the prompt, not a default for every turn.
+- **Source:** `PRODUCT DECISION`. Same cap for wake word, earbud, and on-screen so the three ways in are equivalent.
+- **Configurable:** No.
+
+### `WINDOW_HARD_CAP_MS = 60000` / `WINDOW_SPEECH_EXTENSION_MS = 5000`
+
+- **Where:** `onSpeechDetected`
+- **Purpose:** If they are still talking, do not cut them off. Pad five seconds from last detected speech; never past 60 s. Music is ducked for the whole window.
+- **Source:** `PRODUCT DECISION`. Endpointing 800–1200 ms (contract 03) is a pause detector, not a turn cap. 60 s is a cost/feel ceiling, unmeasured.
+- **Configurable:** No.
+
+### `CONFIDENCE_HORIZON_MS = 300000`
+
+- **Where:** `maySpeakProactively`, `proactiveUtterance`
+- **Purpose:** After this long with no user utterance and no logged event, the coach no longer knows whether they are resting, mid-set, queuing, or gone. Equals `STRENGTH_REST_SEC_MAX` so a published strength rest can still get a rest-complete prompt. At 1×: one re-sync. At 2× and 5×: silence.
+- **Source:** `PRODUCT DECISION`. A missed prompt is a minor annoyance. Talking under a loaded bar is a safety failure.
+- **Configurable:** No.
+
+### `REST_DECAY_EXTENSION_SEC = 30`
+
+- **Where:** `restAdjustment`
+- **Purpose:** Last set dropped reps → add thirty seconds. The prompt's example. Never shortens below the goal's published rest minimum.
+- **Source:** `PRODUCT DECISION`. Senna/Grgic/Singer give rest *ranges*, not a within-session bump. The 30 is ours.
+- **Configurable:** No.
+
+### `BARGE_IN_CANCEL_P95_MS = 200`
+
+- **Where:** `VoiceInteractionConstants`; asserted in `VoiceTurnMachineTest` and `VoiceInteractionTest`
+- **Purpose:** The window layer must not add latency to barge-in cancel. Same budget as the existing voice/latency row.
+- **Source:** `SAFETY REQUIREMENT` — product §12; KD11. Unchanged.
+- **Configurable:** No.
+
+### `REVIEWED = 2026-09-02` (voice interaction)
+
+Review date for this block. Not a behaviour constant.
+
 ---
 
 ★ = convertible to `MEASURED` by the Voice Evidence MVP.
