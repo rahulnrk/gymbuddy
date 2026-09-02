@@ -1,6 +1,9 @@
 package com.gymbuddy.app
 
 import android.Manifest
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
@@ -25,8 +28,21 @@ import com.gymbuddy.app.hud.HudWriter
 import com.gymbuddy.app.hud.LifecycleAction
 import com.gymbuddy.app.persist.AndroidEventLog
 import com.gymbuddy.app.ui.AudioDiagnosticScreen
+import com.gymbuddy.app.ui.FirstSoundScreen
 import com.gymbuddy.app.ui.GymModeScreen
 import com.gymbuddy.app.ui.gymColors
+import com.gymbuddy.app.voice.AndroidClock
+import com.gymbuddy.app.voice.AudioFocusDucker
+import com.gymbuddy.app.voice.AudioTrackPlayback
+import com.gymbuddy.app.voice.ElevenLabsTts
+import com.gymbuddy.app.voice.FirstSoundSession
+import com.gymbuddy.app.voice.ListenStatus
+import com.gymbuddy.app.voice.OkHttpTtsTransport
+import com.gymbuddy.app.voice.ScribeListen
+import com.gymbuddy.app.voice.SpeakObserver
+import com.gymbuddy.app.voice.VoiceCredentialsFactory
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 import com.gymbuddy.domain.WorkoutSessionState
 import com.gymbuddy.domain.engine.EngineResult
 import com.gymbuddy.domain.engine.PlannedExercise
@@ -34,7 +50,9 @@ import com.gymbuddy.domain.engine.WorkoutEngine
 import com.gymbuddy.domain.engine.WorkoutPlan
 import com.gymbuddy.persist.PersistFixtures
 import java.time.Instant
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,8 +65,57 @@ class GymModeActivity : ComponentActivity() {
     private lateinit var probe: AudioProbe
     private lateinit var writer: HudWriter
     private val main = Handler(Looper.getMainLooper())
+    private var tts: ElevenLabsTts? = null
+    private var session: FirstSoundSession? = null
+    private var ducker: AudioFocusDucker? = null
 
-    private enum class Pane { GYM, AUDIO }
+    private enum class Pane { GYM, AUDIO, SPEAK }
+
+    private fun sessionOrCreate(): FirstSoundSession {
+        val existing = session
+        if (existing != null) return existing
+        val clock = AndroidClock()
+        val creds = VoiceCredentialsFactory.create(clock)
+        val duck = AudioFocusDucker(probe)
+        val io = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        val sttClient = OkHttpClient.Builder()
+            .pingInterval(20, TimeUnit.SECONDS)
+            .build()
+        val createdTts = ElevenLabsTts(
+            credentials = creds,
+            clock = clock,
+            transport = OkHttpTtsTransport(),
+            playback = AudioTrackPlayback(),
+            ducker = duck,
+            restoreOnFinish = false,
+        )
+        val created = FirstSoundSession(
+            tts = createdTts,
+            listen = ScribeListen(
+                credentials = creds,
+                clock = clock,
+                transport = OkHttpTtsTransport(sttClient),
+                scope = io,
+            ),
+            clock = clock,
+            ducker = duck,
+            scope = io,
+        )
+        ducker = duck
+        tts = createdTts
+        session = created
+        return created
+    }
+
+    private fun micPermissions(): Array<String> {
+        val needed = mutableListOf(Manifest.permission.RECORD_AUDIO)
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            needed += Manifest.permission.BLUETOOTH_CONNECT
+        }
+        return needed.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }.toTypedArray()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +167,7 @@ class GymModeActivity : ComponentActivity() {
             var error by remember { mutableStateOf<String?>(null) }
             var restLeft by remember { mutableStateOf(ui.restSec) }
             var audio by remember { mutableStateOf(audio0) }
+            var speakStatus by remember { mutableStateOf("Idle. Play music from another app first.") }
             val lifecycleFocus = remember { FocusRequester() }
             val padFocus = remember { FocusRequester() }
             val restFocus = remember { FocusRequester() }
@@ -177,6 +245,19 @@ class GymModeActivity : ComponentActivity() {
                         onWeightDelta = { delta ->
                             weight = (weight + delta).coerceAtLeast(2.5)
                         },
+                        onOpenSpeak = {
+                            val missing = micPermissions()
+                            if (missing.isNotEmpty()) {
+                                perm.launch(missing)
+                            } else {
+                                val loop = sessionOrCreate()
+                                loop.observer = SpeakObserver { line ->
+                                    main.post { speakStatus = appendStatus(speakStatus, line) }
+                                }
+                                loop.arm()
+                            }
+                            pane = Pane.SPEAK
+                        },
                         onOpenAudio = {
                             val needed = mutableListOf(Manifest.permission.RECORD_AUDIO)
                             if (android.os.Build.VERSION.SDK_INT >= 31) {
@@ -188,6 +269,49 @@ class GymModeActivity : ComponentActivity() {
                             if (missing.isNotEmpty()) perm.launch(missing.toTypedArray())
                             audio = probe.refresh()
                             pane = Pane.AUDIO
+                        },
+                    )
+                    Pane.SPEAK -> FirstSoundScreen(
+                        status = speakStatus,
+                        onSpeak = {
+                            try {
+                                val missing = micPermissions()
+                                if (missing.isNotEmpty()) {
+                                    perm.launch(missing)
+                                    speakStatus = ListenStatus.MIC_DENIED
+                                } else {
+                                    val loop = sessionOrCreate()
+                                    loop.observer = SpeakObserver { line ->
+                                        main.post {
+                                            speakStatus = appendStatus(speakStatus, line)
+                                        }
+                                    }
+                                    tts?.diagnostics?.audioRoute =
+                                        probe.refresh().output?.label ?: "unknown"
+                                    speakStatus = "Idle."
+                                    loop.speak()
+                                }
+                            } catch (_: Throwable) {
+                                speakStatus = "Failed: unexpected error."
+                            }
+                        },
+                        onCancel = {
+                            try {
+                                session?.cancel()
+                            } catch (_: Throwable) {
+                                speakStatus = "Failed: unexpected error."
+                            }
+                        },
+                        onCopy = {
+                            val text = tts?.diagnostics?.clipboardText()
+                                ?: "keyPresent: false\nlastError: none"
+                            val clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            clip.setPrimaryClip(ClipData.newPlainText("first-sound", text))
+                            speakStatus = appendStatus(speakStatus, "Copied.")
+                        },
+                        onBack = {
+                            session?.release()
+                            pane = Pane.GYM
                         },
                     )
                     Pane.AUDIO -> AudioDiagnosticScreen(
@@ -236,7 +360,14 @@ class GymModeActivity : ComponentActivity() {
     override fun onDestroy() {
         if (::writer.isInitialized) writer.shutdown()
         if (::probe.isInitialized) probe.release()
+        session?.release()
+        tts?.release()
         if (::log.isInitialized) log.close()
         super.onDestroy()
     }
+}
+
+private fun appendStatus(current: String, line: String): String {
+    val lines = (current.split('\n') + line).filter { it.isNotBlank() && it != "Idle." }
+    return lines.takeLast(12).joinToString("\n")
 }

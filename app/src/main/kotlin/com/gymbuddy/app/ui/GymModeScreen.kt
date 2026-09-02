@@ -51,6 +51,7 @@ fun GymModeScreen(
     onLogSet: () -> Unit,
     onWeightDelta: (Double) -> Unit,
     onOpenAudio: () -> Unit,
+    onOpenSpeak: () -> Unit,
 ) {
     val lifecycle = ui.controls.first { it.id == "lifecycle" }
     val pad = ui.controls.first { it.id == "numberPad" }
@@ -213,6 +214,14 @@ fun GymModeScreen(
                 .semantics { contentDescription = "Open audio diagnostic" },
         ) {
             Text("Audio diagnostic", color = Accent, fontSize = 16.sp)
+        }
+        TextButton(
+            onClick = onOpenSpeak,
+            modifier = Modifier
+                .defaultMinSize(minHeight = MinTap)
+                .semantics { contentDescription = "Open first sound" },
+        ) {
+            Text("First sound", color = Accent, fontSize = 16.sp)
         }
         Spacer(Modifier.height(24.dp))
     }

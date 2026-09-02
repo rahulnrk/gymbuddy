@@ -28,6 +28,7 @@ class ContextArchitectureTest {
             "SttProvider",
             "TtsProvider",
             "VadProvider",
+            "WakeWordProvider",
             "LlmProvider",
             "WorkoutEngine",
             "DefaultCandidateValidator",

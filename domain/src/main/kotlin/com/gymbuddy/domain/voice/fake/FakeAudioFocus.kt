@@ -15,11 +15,14 @@ class FakeAudioFocus(
     var lastReason: String? = null
         private set
     val log: MutableList<String> = mutableListOf()
+    var requestDuckCalls: Int = 0
+        private set
     private var seq = 0
     private var active: DuckHandle? = null
 
     override fun requestDuck(reason: String, intensity: String): DuckHandle {
         if (unavailable) throw VoiceError.AudioFocusUnavailable()
+        requestDuckCalls += 1
         lastReason = reason
         if (!duckSupported) {
             val h = DuckHandle(id = "focus-${++seq}", granted = false, mode = "none")

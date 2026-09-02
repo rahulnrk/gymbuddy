@@ -17,6 +17,7 @@ import com.gymbuddy.domain.engine.WorkoutSessionSnapshot
 import com.gymbuddy.domain.events.WorkoutEvent
 import com.gymbuddy.domain.safety.SafetyResult
 import com.gymbuddy.domain.voice.SttFinalHash
+import com.gymbuddy.domain.voice.fake.FakeClock
 import com.gymbuddy.domain.voice.VoiceTurnEvidence
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.booleanOrNull
@@ -77,9 +78,9 @@ class Pr9GoldenRunnerTest {
                     loop.start()
                     loop.seedWorkingWeight(50.0)
                     loop.handleTurn("Got 12.")
-                    loop.clock.advance(11_000)
+                    (loop.clock as FakeClock).advance(11_000)
                     loop.handleTurn("Got 12.")
-                    loop.clock.advance(11_000)
+                    (loop.clock as FakeClock).advance(11_000)
                     val t = loop.handleTurn("Got 11.")
                     assertTrue(t.recommendation != null, file.name)
                     val events = loop.log.sessionEvents(SessionId(loop.sessionId))
@@ -206,6 +207,7 @@ class Pr9GoldenRunnerTest {
             ),
             "11111111-1111-4111-8111-111111111111",
             "22222222-2222-4222-8222-222222222222",
+            clock = FakeClock(),
         )
     }
 }

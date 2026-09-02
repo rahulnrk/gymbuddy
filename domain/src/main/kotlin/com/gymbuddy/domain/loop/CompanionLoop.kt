@@ -27,10 +27,10 @@ import com.gymbuddy.domain.validation.DefaultCandidateValidator
 import com.gymbuddy.domain.validation.ValidatedFact
 import com.gymbuddy.domain.validation.ValidationDecision
 import com.gymbuddy.domain.validation.VoiceCommitRoute
-import com.gymbuddy.domain.voice.FakeClock
+import com.gymbuddy.domain.voice.Clock
 import com.gymbuddy.domain.voice.SttFinalHash
+import com.gymbuddy.domain.voice.TtsProvider
 import com.gymbuddy.domain.voice.VoiceTurnEvidence
-import com.gymbuddy.domain.voice.fake.FakeTts
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
@@ -56,8 +56,8 @@ class CompanionLoop(
     var history: HistoricalStore = HistoricalStore(),
     var profile: UserProfileStore = UserProfileStore(userId = userId),
     val now: () -> String = { "2026-08-20T16:00:00Z" },
-    val clock: FakeClock = FakeClock(),
-    val tts: FakeTts? = null,
+    val clock: Clock = object : Clock { override fun now(): Long = 0L },
+    val tts: TtsProvider? = null,
     val exerciseNames: Map<String, String> = emptyMap(),
     val workoutName: String = "",
 ) {

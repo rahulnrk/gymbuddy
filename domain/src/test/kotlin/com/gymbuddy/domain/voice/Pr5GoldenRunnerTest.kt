@@ -2,6 +2,7 @@ package com.gymbuddy.domain.voice
 
 import com.gymbuddy.domain.VoiceTurnState
 import com.gymbuddy.domain.voice.fake.FakeAudioFocus
+import com.gymbuddy.domain.voice.fake.FakeClock
 import com.gymbuddy.domain.voice.fake.FakeLid
 import com.gymbuddy.domain.voice.fake.FakeStt
 import com.gymbuddy.domain.voice.fake.FakeTts
@@ -39,11 +40,11 @@ class Pr5GoldenRunnerTest {
         val m = machine()
         m.start()
         m.speak("Your next set is")
-        m.clock.advance(30)
+        (m.clock as FakeClock).advance(30)
         m.onSpeechStart()
         assertTrue(m.lastBargeInLatencyMs!! < cap)
         assertTrue(expect["ttsMustCancel"]?.jsonPrimitive?.booleanOrNull != false)
-        assertTrue(m.tts.lastHandle!!.cancelled)
+        assertTrue((m.tts as FakeTts).lastHandle!!.cancelled)
         assertFalse(m.tts.speaking)
         assertEquals(VoiceTurnState.USER_SPEAKING, m.state)
     }
@@ -71,6 +72,7 @@ class Pr5GoldenRunnerTest {
         val transcript = data["input"]!!.jsonObject["transcript"]!!.jsonPrimitive.content
         val m = machine()
         m.start()
+        m.stt.startRecognition()
         m.onSpeechStart()
         val f = m.onFinal(transcript)
         val expect = data["expect"]!!.jsonObject
@@ -116,29 +118,30 @@ class Pr5GoldenRunnerTest {
             )
             m.start()
             m.speak("Cue the set")
+            val focus = m.focus as FakeAudioFocus
             if (expect["duckRequested"]?.jsonPrimitive?.booleanOrNull == true) {
-                assertTrue(m.focus.log.any { it.startsWith("duck:") }, name)
+                assertTrue(focus.log.any { it.startsWith("duck:") }, name)
             }
             if (expect["ttsStarted"]?.jsonPrimitive?.booleanOrNull == true) {
                 assertEquals(VoiceTurnState.AI_SPEAKING, m.state, name)
             }
             if (expect["unsupported"]?.jsonPrimitive?.booleanOrNull == true) {
-                assertTrue("unsupported" in m.focus.log, name)
+                assertTrue("unsupported" in focus.log, name)
                 assertEquals(VoiceTurnState.AI_SPEAKING, m.state, name)
             }
             if (name.contains("restore-after-barge-in")) {
                 m.onSpeechStart()
-                assertTrue("restore" in m.focus.log, name)
-                assertTrue(m.tts.lastHandle!!.cancelled, name)
+                assertTrue("restore" in focus.log, name)
+                assertTrue((m.tts as FakeTts).lastHandle!!.cancelled, name)
             } else {
                 m.onTtsEnded()
                 if (expect["restoreRequested"]?.jsonPrimitive?.booleanOrNull == true) {
-                    assertTrue("restore" in m.focus.log, name)
+                    assertTrue("restore" in focus.log, name)
                 }
             }
             m.stop()
             if (expect["focusReleased"]?.jsonPrimitive?.booleanOrNull == true) {
-                assertTrue("release" in m.focus.log, name)
+                assertTrue("release" in focus.log, name)
             }
         }
     }

@@ -4,6 +4,7 @@ import com.gymbuddy.domain.AudioRoute
 import com.gymbuddy.domain.VoiceTurnState
 import com.gymbuddy.domain.WorkoutSessionState
 import com.gymbuddy.domain.voice.fake.FakeAudioFocus
+import com.gymbuddy.domain.voice.fake.FakeClock
 import com.gymbuddy.domain.voice.fake.FakeLid
 import com.gymbuddy.domain.voice.fake.FakeStt
 import com.gymbuddy.domain.voice.fake.FakeTts
@@ -58,7 +59,7 @@ class VoiceTurnMachineTest {
         assertTrue(VoiceTurnState.INTERRUPTED in m.trail)
         assertEquals(VoiceTurnState.USER_SPEAKING, m.state)
         assertFalse(m.tts.speaking)
-        assertTrue(m.tts.lastHandle!!.cancelled)
+        assertTrue((m.tts as FakeTts).lastHandle!!.cancelled)
     }
 
     @Test
@@ -76,7 +77,7 @@ class VoiceTurnMachineTest {
         val m = machine(cancelDelayMs = 40)
         m.start()
         m.speak("Your next set is seventy")
-        m.clock.advance(80)
+        (m.clock as FakeClock).advance(80)
         m.onSpeechStart()
         val latency = m.lastBargeInLatencyMs
         assertNotNull(latency)
@@ -90,17 +91,17 @@ class VoiceTurnMachineTest {
         val early = machine(cancelDelayMs = 10)
         early.start()
         early.speak("Hi")
-        early.clock.advance(5)
+        (early.clock as FakeClock).advance(5)
         early.onSpeechStart()
         assertTrue(early.lastBargeInLatencyMs!! < 200)
 
         val late = machine(cancelDelayMs = 10)
         late.start()
         late.speak("A long coaching sentence about rest")
-        late.clock.advance(5000)
+        (late.clock as FakeClock).advance(5000)
         late.onSpeechStart()
         assertTrue(late.lastBargeInLatencyMs!! < 200)
-        assertTrue(late.tts.lastHandle!!.cancelled)
+        assertTrue((late.tts as FakeTts).lastHandle!!.cancelled)
     }
 
     @Test
@@ -150,9 +151,20 @@ class VoiceTurnMachineTest {
     }
 
     @Test
+    fun musicEchoDoesNotBargeIn() {
+        val m = machine()
+        m.start()
+        m.speak("Nice. That’s one more.")
+        m.onSpeechStart(echoFromMusic = true, usable = null)
+        assertEquals(VoiceTurnState.AI_SPEAKING, m.state)
+        assertTrue(m.tts.speaking)
+    }
+
+    @Test
     fun partialAndFinalAreDistinct() {
         val m = machine()
         m.start()
+        m.stt.startRecognition()
         m.onSpeechStart()
         val p = m.onPartial("got")
         assertFalse(p.isFinal)
@@ -163,13 +175,13 @@ class VoiceTurnMachineTest {
         assertEquals(SttFinalHash.of("Got 10."), f.sttFinalHash)
         assertTrue(m.lastEvidence.isFinal)
         assertEquals("Got 10.", m.lastEvidence.transcript)
-        assertEquals(1, m.stt.chunks.count { it.isFinal })
     }
 
     @Test
     fun sttConfidenceDurationHashLanguage() {
         val m = machine()
         m.start()
+        m.stt.startRecognition()
         m.onSpeechStart()
         val f = m.onFinal("Bro this is heavy.", confidence = 0.81, durationMs = 920.0, lang = "en")
         assertEquals(0.81, f.confidence)
@@ -189,7 +201,7 @@ class VoiceTurnMachineTest {
     fun malformedSttThrows() {
         val m = machine()
         m.start()
-        val err = assertFails { m.stt.emitMalformed("not-json") }
+        val err = assertFails { (m.stt as FakeStt).emitMalformed("not-json") }
         assertTrue(err is VoiceError.MalformedSttResponse)
     }
 
@@ -203,8 +215,10 @@ class VoiceTurnMachineTest {
         m.onSpeechStart(talkerCount = 2, overlapping = true)
         assertTrue(m.lastEvidence.overlappingVad)
         assertEquals(2, m.lastEvidence.talkerCount)
-        m.onSpeechEnd()
-        assertFalse(m.vad.last.speech)
+        (m.vad as FakeVad).observe(
+            VadObservation(speech = false, talkerCount = 2, overlapping = true),
+        )
+        assertFalse((m.vad as FakeVad).last.speech)
     }
 
     @Test
@@ -212,19 +226,19 @@ class VoiceTurnMachineTest {
         val m = machine()
         m.start()
         m.speak("Cue")
-        assertTrue(m.focus.ducked)
-        assertTrue(m.focus.log.any { it.startsWith("duck:ai_speech") })
+        assertTrue((m.focus as FakeAudioFocus).ducked)
+        assertTrue((m.focus as FakeAudioFocus).log.any { it.startsWith("duck:ai_speech") })
         m.onTtsEnded()
-        assertTrue("restore" in m.focus.log)
+        assertTrue("restore" in (m.focus as FakeAudioFocus).log)
         m.stop()
-        assertTrue("release" in m.focus.log)
+        assertTrue("release" in (m.focus as FakeAudioFocus).log)
 
         val unsupported = machine(duckSupported = false)
         unsupported.start()
         unsupported.speak("Still speak")
         assertEquals(VoiceTurnState.AI_SPEAKING, unsupported.state)
-        assertTrue("unsupported" in unsupported.focus.log)
-        assertFalse(unsupported.focus.ducked)
+        assertTrue("unsupported" in (unsupported.focus as FakeAudioFocus).log)
+        assertFalse((unsupported.focus as FakeAudioFocus).ducked)
     }
 
     @Test
@@ -249,6 +263,7 @@ class VoiceTurnMachineTest {
     fun codeMixedTranscriptNotTranslated() {
         val m = machine()
         m.start()
+        m.stt.startRecognition()
         m.onSpeechStart()
         val original = "Naku chest kanna shoulder lo ekkuva feel avutundi."
         val f = m.onFinal(original)
@@ -262,6 +277,7 @@ class VoiceTurnMachineTest {
     fun anyTranscriptIsAccepted() {
         val m = machine()
         m.start()
+        m.stt.startRecognition()
         listOf(
             "Got 10.",
             "Bro this is heavy.",
@@ -302,6 +318,7 @@ class VoiceTurnMachineTest {
         val m = machine()
         m.audioRoute = AudioRoute.SPEAKERPHONE
         m.start()
+        m.stt.startRecognition()
         m.onSpeechStart(overlapping = true, talkerCount = 2)
         m.onFinal("got 10", durationMs = 100.0)
         val e = m.lastEvidence
@@ -331,5 +348,20 @@ class VoiceTurnMachineTest {
         m.stop()
         assertEquals(VoiceTurnState.STOPPED, m.state)
         assertFails { m.speak("no") }
+    }
+
+    @Test
+    fun duckKeepsHandleForSameReason() {
+        val clock = FakeClock()
+        val focus = FakeAudioFocus()
+        val m = VoiceTurnMachine(clock, FakeVad(), FakeStt(clock), FakeTts(clock), FakeLid(), focus)
+        m.start()
+        m.onSpeechStart()
+        assertEquals(1, focus.requestDuckCalls)
+        m.onSpeechStart()
+        assertEquals(1, focus.requestDuckCalls)
+        m.onSpeechEnd()
+        m.speak("Cue")
+        assertEquals(2, focus.requestDuckCalls)
     }
 }

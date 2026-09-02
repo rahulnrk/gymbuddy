@@ -9,7 +9,7 @@ import com.gymbuddy.domain.engine.InMemoryEventLog
 import com.gymbuddy.domain.engine.PlannedExercise
 import com.gymbuddy.domain.engine.WorkoutEngine
 import com.gymbuddy.domain.engine.WorkoutPlan
-import com.gymbuddy.domain.voice.FakeClock
+import com.gymbuddy.domain.voice.fake.FakeClock
 import com.gymbuddy.domain.voice.SttFinalHash
 import com.gymbuddy.domain.voice.VoiceTurnEvidence
 import com.gymbuddy.domain.voice.fake.FakeTts
@@ -29,12 +29,16 @@ class CompanionLoopTest {
     private val we2 = "55555555-5555-4555-8555-555555555556"
     private val incline = "44444444-4444-4444-8444-444444444445"
 
-    private fun loop(log: InMemoryEventLog = InMemoryEventLog(), tts: FakeTts? = FakeTts(FakeClock())): CompanionLoop {
+    private fun loop(log: InMemoryEventLog = InMemoryEventLog(), tts: FakeTts? = null): CompanionLoop {
         val engine = WorkoutEngine(log)
+        val clock = FakeClock()
         return CompanionLoop(
             engine, log,
             WorkoutPlan(workout, listOf(PlannedExercise(we, bench, 4), PlannedExercise(we2, incline, 3))),
-            user, session, tts = tts, exerciseNames = mapOf(bench to "Bench Press"), workoutName = "Chest",
+            user, session,
+            clock = clock,
+            tts = tts ?: FakeTts(clock),
+            exerciseNames = mapOf(bench to "Bench Press"), workoutName = "Chest",
         )
     }
 
@@ -61,7 +65,7 @@ class CompanionLoopTest {
         loop.start()
         loop.seedWorkingWeight(60.0)
         loop.handleTurn("Got 10.")
-        loop.clock.advance(11_000)
+        (loop.clock as FakeClock).advance(11_000)
         val t = loop.handleTurn("Got 10.")
         assertEquals(2, t.snapshot.liveSetsOnCurrent().size)
         assertFalse(t.speak.speak)
@@ -214,9 +218,9 @@ class CompanionLoopTest {
         loop.start()
         loop.seedWorkingWeight(60.0)
         loop.handleTurn("Got 12.")
-        loop.clock.advance(11_000)
+        (loop.clock as FakeClock).advance(11_000)
         loop.handleTurn("Got 12.")
-        loop.clock.advance(11_000)
+        (loop.clock as FakeClock).advance(11_000)
         val t = loop.handleTurn("Got 11.")
         assertNotNull(t.recommendation)
         assertEquals(RecDirection.INCREASE, t.recommendation!!.direction)

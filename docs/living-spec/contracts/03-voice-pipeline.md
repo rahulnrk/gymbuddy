@@ -16,7 +16,7 @@ Natural human-AI conversation is unrestricted. Voice ports transport speech; the
 
 User speaks unconstrained gym speech, including code-mix, overlapping AI. Interrupts: AI “Your next set is—” / user “Wait, what weight?” AI stops and answers (product §12). **No push-to-talk** in MVP Gym Mode (A5).
 
-**Mic policy (single rule):** VAD is always-on for the whole Gym Mode session, including `SET_ACTIVE`. TTS is forbidden in `SET_ACTIVE` except `SAFETY_CONCERN` ≥ high.
+**Mic policy (single rule):** VAD is always-on for the whole Gym Mode session, including `SET_ACTIVE`. TTS is forbidden in `SET_ACTIVE` except `SAFETY_CONCERN` ≥ high. Wake word and cloud STT are **not** always-on: VAD gates the wake-word model, which gates the cloud (contract 35). Never run wake word on silence. Never open a cloud stream without a wake word or a coach-opened window.
 
 **Voice-set commit route (closed; implements bystander golden):**
 

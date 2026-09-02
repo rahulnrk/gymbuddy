@@ -1,8 +1,19 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization")
 }
+
+val localProps = Properties()
+val localFile = rootProject.file("local.properties")
+if (localFile.exists()) {
+    localFile.inputStream().use { localProps.load(it) }
+}
+fun localProp(name: String): String = localProps.getProperty(name).orEmpty()
+fun quotedBuildConfig(value: String): String =
+    "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
 
 android {
     namespace = "com.gymbuddy.app"
@@ -19,9 +30,13 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            buildConfigField("String", "ELEVENLABS_API_KEY", "\"\"")
+            buildConfigField("String", "VOICE_BACKEND_URL", quotedBuildConfig(localProp("voice.backend.url")))
         }
         getByName("debug") {
             isMinifyEnabled = false
+            buildConfigField("String", "ELEVENLABS_API_KEY", quotedBuildConfig(localProp("elevenlabs.api.key")))
+            buildConfigField("String", "VOICE_BACKEND_URL", quotedBuildConfig(localProp("voice.backend.url")))
         }
     }
 
@@ -35,6 +50,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -74,6 +90,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.6.8")
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.8")
 
     testImplementation(kotlin("test"))
@@ -88,5 +105,46 @@ dependencies {
 configurations {
     implementation {
         exclude(group = "org.xerial", module = "sqlite-jdbc")
+    }
+}
+
+fun assertReleaseVoiceGuard() {
+    if (project.hasProperty("voiceGuardForceFail")) {
+        throw GradleException(
+            "Release build must not see elevenlabs.api.key in local.properties",
+        )
+    }
+    val assemblingRelease = gradle.startParameter.taskNames.any {
+        it.contains("Release", ignoreCase = true)
+    }
+    if (!assemblingRelease) return
+    val propsFile = rootProject.file("local.properties")
+    if (propsFile.exists()) {
+        val text = propsFile.readText()
+        val hasKey = text.lineSequence().any { line ->
+            val trimmed = line.trim()
+            !trimmed.startsWith("#") &&
+                (trimmed.startsWith("elevenlabs.api.key=") || trimmed.startsWith("ELEVENLABS_API_KEY=")) &&
+                trimmed.substringAfter("=").isNotBlank()
+        }
+        if (hasKey) {
+            throw GradleException(
+                "Release build must not see elevenlabs.api.key in local.properties",
+            )
+        }
+    }
+    val leaked = file("src/main").walkTopDown().any { it.name == "DebugVoiceCredentials.kt" }
+    if (leaked) {
+        throw GradleException("DebugVoiceCredentials must not be on the release classpath")
+    }
+}
+
+tasks.register("assertReleaseVoiceGuard") {
+    doLast { assertReleaseVoiceGuard() }
+}
+
+tasks.configureEach {
+    if (name.startsWith("assembleRelease") || name.startsWith("bundleRelease")) {
+        dependsOn("assertReleaseVoiceGuard")
     }
 }

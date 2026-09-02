@@ -20,6 +20,7 @@ import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_OPEN_QUESTION_
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_SHORT_QUESTION_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_USER_INITIATED_MS
 import com.gymbuddy.domain.voice.fake.FakeAudioFocus
+import com.gymbuddy.domain.voice.fake.FakeClock
 import com.gymbuddy.domain.voice.fake.FakeLid
 import com.gymbuddy.domain.voice.fake.FakeStt
 import com.gymbuddy.domain.voice.fake.FakeTts

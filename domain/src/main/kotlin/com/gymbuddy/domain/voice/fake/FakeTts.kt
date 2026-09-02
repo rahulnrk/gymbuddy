@@ -1,13 +1,13 @@
 package com.gymbuddy.domain.voice.fake
 
-import com.gymbuddy.domain.voice.FakeClock
+import com.gymbuddy.domain.voice.Clock
 import com.gymbuddy.domain.voice.TtsHandle
 import com.gymbuddy.domain.voice.TtsProvider
 import com.gymbuddy.domain.voice.VoiceError
 
 class FakeTtsHandle(
     override val id: String,
-    private val clock: FakeClock,
+    private val clock: Clock,
     private val owner: FakeTts,
     override val startedAtMs: Long,
 ) : TtsHandle {
@@ -22,7 +22,7 @@ class FakeTtsHandle(
 
     override fun cancel() {
         if (!speaking && ended) return
-        clock.advance(owner.cancelDelayMs)
+        (clock as? FakeClock)?.advance(owner.cancelDelayMs)
         if (owner.interruptFails) throw VoiceError.InterruptionFailure()
         cancelled = true
         speaking = false
@@ -38,7 +38,7 @@ class FakeTtsHandle(
 }
 
 class FakeTts(
-    private val clock: FakeClock,
+    private val clock: Clock,
     var unavailable: Boolean = false,
     var cancelDelayMs: Long = 0,
     var interruptFails: Boolean = false,

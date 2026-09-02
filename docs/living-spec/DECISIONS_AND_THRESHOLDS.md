@@ -722,6 +722,27 @@ Policy only. No vendor, no audio implementation. The numbers are how long music 
 
 Review date for this block. Not a behaviour constant.
 
+### Wake-word confidence / music SNR (none)
+
+- **Where:** not in code. `VadObservation.usable` is `Boolean?`. `WakeWordObservation.detected` is a boolean.
+- **Purpose:** There is no domain threshold for wake-word confidence or music SNR. Music echo is louder and constant; treating a number we have not measured as a gate would be pretending detection worked. Unknown-with-music is unusable and falls back to the on-screen mic. An earbud tap is music controls while music plays, so it is not the fallback.
+- **Source:** `UNKNOWN — REQUIRES VALIDATION`. Adapter blocked on measurement. Voice Evidence MVP.
+- **Configurable:** No.
+
+### User speech during TTS / AEC (none)
+
+- **Where:** `listenDecision` when `VadObservation.echoFromTts` is true. Returns `VadOnly`.
+- **Purpose:** `echoFromTts` means echo was detected, not that no user is speaking underneath it. Without acoustic echo cancellation the gate cannot tell "stop, my knee" from our own returning voice, so it closes wake word and cloud. That path is barge-in outside a coach-opened window (rest countdown, mid-set cue). Wiring `VoiceTurnMachine` to this gate must not silently drop it.
+- **Source:** `UNKNOWN — REQUIRES VALIDATION`. Adapter blocked on measurement. Same block as the wake word.
+- **Configurable:** No.
+
+### `FALLBACK_ON_SCREEN_WHY` (copy, not a number)
+
+- **Where:** `listenDecision` / `ListenDecision.FallBackToOnScreen`
+- **Purpose:** Spoken when the mic is unusable. "The gym is too loud for a wake word. Use the mic on the screen." Not the earbud: while music is playing, that tap is play/pause/skip.
+- **Source:** `PRODUCT DECISION`.
+- **Configurable:** No.
+
 ## Cardio and conditioning (contract 36)
 
 Modalities and protocols are stored separately and composed. Protocol structures are `MVP HEURISTIC`. The weekly minute target is the only `PUBLISHED GUIDELINE` in this block.
@@ -778,6 +799,91 @@ Modalities and protocols are stored separately and composed. Protocol structures
 ### `REVIEWED = 2026-09-02` (cardio)
 
 Review date for this block. Protocol work/recover lengths (`workSec`, `recoverSec`, `rounds`) live on the protocol rows and are `MVP HEURISTIC` — starting shapes, not measured intervals.
+
+## ElevenLabs TTS (first sound)
+
+One spoken line on a phone. Duck music (`AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`) 1800 ms before the line starts playing; keep it ducked 2500 ms after the user goes quiet. Never pause music. Platform `SpeechRecognizer` is not used — it takes transient focus and pauses the music app. Capture is `AudioRecord` (no audio focus) streamed to ElevenLabs Scribe realtime. The mic stays armed while the First Sound screen is open so `hey coach` / `coach` works after music returns. Ducking is not cut at 60 s while the user is still talking.
+
+### `MODEL_ID = eleven_flash_v2_5`
+
+- **Where:** `ElevenLabsConstants.MODEL_ID`; WebSocket `model_id` query
+- **Purpose:** Conversational path. Time-to-first-audio decides whether the coach feels present.
+- **Source:** `PRODUCT DECISION`. Vendor docs: [Models](https://elevenlabs.io/docs/overview/models) and [realtime TTS WebSocket](https://elevenlabs.io/docs/eleven-api/guides/how-to/websockets/realtime-tts) recommend Flash v2.5 for latency.
+- **Configurable:** No. Higher-quality models are a later config change.
+
+### `OUTPUT_FORMAT = pcm_24000` / `SAMPLE_RATE_HZ = 24000`
+
+- **Where:** `ElevenLabsConstants`; `TtsPlayback.start`
+- **Purpose:** PCM the `AudioTrack` can play without an MP3 decoder on the hot path.
+- **Source:** `PLATFORM CONSTRAINT` — [TTS stream-input](https://elevenlabs.io/docs/api-reference/text-to-speech/v-1-text-to-speech-voice-id-stream-input) `output_format`.
+- **Configurable:** No.
+
+### `VOICE_ID = pNInz6obpgDQGcFmaJgB` (Adam)
+
+- **Where:** `ElevenLabsConstants.VOICE_ID`
+- **Purpose:** Gym-floor coach voice. The docs-example Alice (`Xb7hH8MSUJpSbSDYk0k2`) was too soft under earbud music. Adam is a premade male voice meant to cut through.
+- **Source:** `PRODUCT DECISION`. Gym listen: instruction + music together without ducking was unintelligible; voice change is the other half of that.
+- **Configurable:** Later.
+
+### `DUCK_LEAD_MS = 1800`
+
+- **Where:** `ElevenLabsConstants.DUCK_LEAD_MS`; `ElevenLabsTts.duckLeadMs`
+- **Purpose:** Music dips 1.8 s before the coach starts talking. Earlier 3500 ms felt long; simultaneous duck+speech was too late.
+- **Source:** `PRODUCT DECISION`. Gym listen: duck 1.8 seconds ahead of coach speak.
+- **Configurable:** Constructor override for tests (`0` so unit tests do not wait). Not a user setting.
+
+### `DUCK_HOLD_MS = 2500`
+
+- **Where:** `ElevenLabsConstants.DUCK_HOLD_MS`; `DuckHold.shouldHold`
+- **Purpose:** After the coach finishes, music stays down 2.5 s so the user can talk back. If they are still speaking, hold with no 60 s cut. Restore only after 2.5 s of quiet. Mic stays armed after restore.
+- **Source:** `PRODUCT DECISION`. Gym listen: 60 s hard cap restored music while the conversation was still going; SpeechRecognizer paused music instead of ducking.
+- **Configurable:** Constructor/test override. Not a user setting.
+
+### `STT_MODEL_ID = scribe_v2_realtime` / `STT_FORMAT = pcm_16000`
+
+- **Where:** `ElevenLabsConstants.sttUrl`; `ScribeListen`
+- **Purpose:** Cloud STT that does not request Android audio focus. Phone mic PCM at 16 kHz. `filter_background_audio=true`. Keyterms `coach` and `hey coach`.
+- **Source:** `PRODUCT DECISION`. Gym listen: need always-on hotword without pausing Spotify/YouTube Music.
+- **Configurable:** No.
+
+### `WS_HOST = wss://api.elevenlabs.io`
+
+- **Where:** `ElevenLabsConstants.streamUrl`
+- **Purpose:** Vendor WebSocket host.
+- **Source:** `PLATFORM CONSTRAINT` — [realtime TTS](https://elevenlabs.io/docs/eleven-api/guides/how-to/websockets/realtime-tts).
+- **Configurable:** No.
+
+### `RECONNECTS = 1`
+
+- **Where:** `ElevenLabsTts.streamOnce`
+- **Purpose:** One reconnect after socket drop / token expiry, then fail. A silent coach beats a late one.
+- **Source:** `PRODUCT DECISION`.
+- **Configurable:** No.
+
+### `DEBUG_TOKEN_TTL_MS = 3600000`
+
+- **Where:** `DebugVoiceCredentials.issue`
+- **Purpose:** Debug key reuse window. Not a production TTL.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** No.
+
+### `FIRST_SOUND_LINE`
+
+- **Where:** `ElevenLabsConstants.FIRST_SOUND_LINE`; First sound screen
+- **Purpose:** The one spoken line. Existing coach copy.
+- **Source:** `PRODUCT DECISION`.
+- **Configurable:** No.
+
+### `BACKEND_TOKEN_PATH = /v1/voice/token`
+
+- **Where:** `BackendVoiceCredentials`
+- **Purpose:** Placeholder path for the missing backend.
+- **Source:** `MVP HEURISTIC`.
+- **Configurable:** When the backend exists.
+
+### `REVIEWED = 2026-09-02` (ElevenLabs TTS)
+
+Review date for this block.
 
 ## Pain triage (contract 37)
 

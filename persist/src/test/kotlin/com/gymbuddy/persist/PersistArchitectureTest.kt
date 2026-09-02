@@ -30,6 +30,7 @@ class PersistArchitectureTest {
             "SttProvider",
             "TtsProvider",
             "VadProvider",
+            "WakeWordProvider",
             "androidx.compose",
             "GymModeHud",
             "Dashboard",
