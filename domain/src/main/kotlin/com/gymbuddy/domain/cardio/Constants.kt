@@ -10,10 +10,12 @@ object CardioConstants {
     const val WEEKLY_MODERATE_MAX = 300
     const val WEEKLY_VIGOROUS_MIN = 75
     const val WEEKLY_VIGOROUS_MAX = 150
-    const val WEEKLY_BEGINNER_MIN = 75
-    const val WEEKLY_BEGINNER_MAX = 150
-    const val WEEKLY_STRENGTH_MIN = 75
-    const val WEEKLY_STRENGTH_MAX = 150
+
+    /** Easy (RPE 2–4, full sentences) does not count toward ACSM moderate or vigorous. */
+    const val EASY_CREDIT = 0
+
+    /** ACSM: 75 minutes vigorous ≡ 150 minutes moderate. */
+    const val VIGOROUS_TO_MODERATE = 2
 
     const val DURATION_STEP_MIN = 5
     const val FREQUENCY_MIN = 2

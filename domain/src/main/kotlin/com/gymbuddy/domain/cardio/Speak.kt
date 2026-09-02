@@ -1,9 +1,18 @@
 package com.gymbuddy.domain.cardio
 
+import com.gymbuddy.domain.plan.PlannedSession
+
 private val BANNED = listOf(
     "bpm", "watt", "watts", "km/h", "mph", "min/km", "m/s",
     "heart rate", "heartrate", "zone 2", "zone2", "pace",
 )
+
+fun speakWeek(week: List<PlannedSession>): String =
+    week.joinToString("\n") { day ->
+        val cardio = day.cardio?.let { speak(it) } ?: "no cardio"
+        val note = day.notes.lastOrNull()?.let { "  ($it)" } ?: ""
+        "${day.day}: $cardio$note"
+    }
 
 fun speak(p: CardioPrescription): String {
     val chunks = mutableListOf<String>()

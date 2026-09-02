@@ -124,30 +124,73 @@ class CardioTest {
             if (advice.avoidHardIntervals) {
                 val cardio = day.cardio
                 assertNotNull(cardio, day.day)
-                assertFalse(cardio.protocol.hard, "${day.day} ${cardio.protocol.slug}")
+                assertEquals(ProtocolIntensity.EASY, cardio.protocol.intensity, "${day.day} ${cardio.protocol.slug}")
             }
         }
     }
 
     @Test
     fun weeklyTotalsLandInAcsmRange() {
-        val beginner = weeklyCardioTarget(Goal.GENERAL_FITNESS, TrainingAge.BEGINNER)
-        assertEquals(CardioConstants.WEEKLY_BEGINNER_MIN, beginner.min)
-        assertEquals(CardioConstants.WEEKLY_BEGINNER_MAX, beginner.max)
-        val endurance = weeklyCardioTarget(Goal.ENDURANCE, TrainingAge.INTERMEDIATE)
-        assertEquals(CardioConstants.WEEKLY_MODERATE_MIN, endurance.min)
-        assertEquals(CardioConstants.WEEKLY_MODERATE_MAX, endurance.max)
-        assertTrue(endurance.min >= CardioConstants.WEEKLY_VIGOROUS_MIN)
+        val target = weeklyCardioTarget(Goal.STRENGTH, TrainingAge.INTERMEDIATE)
+        assertEquals(CardioConstants.WEEKLY_MODERATE_MIN, target.min)
+        assertEquals(CardioConstants.WEEKLY_MODERATE_MAX, target.max)
+        assertEquals(
+            weeklyCardioTarget(Goal.ENDURANCE, TrainingAge.BEGINNER).min,
+            CardioConstants.WEEKLY_MODERATE_MIN,
+        )
+
+        val easy = rank(Goal.STRENGTH, gymIntermediate(), 25, library)
+            .first { it.protocol.intensity == ProtocolIntensity.EASY }
+        assertEquals(0.0, acsmModerateEquivalentMinutes(easy.copy(durationMin = 75)))
+        val hard = rank(Goal.ENDURANCE, gymEndurance(), 25, library).first { it.protocol.hard }
+        assertEquals(50.0, acsmModerateEquivalentMinutes(hard.copy(durationMin = 25)))
 
         val ctx = gymIntermediate()
         val built = assertIs<PlanResult.Built>(
             buildWeek(templates.single { it.id == "full-body-3d" }, ctx, catalog, warmups = warmups, stretches = stretches),
         )
         val placed = placeOnWeek(built.week, Goal.STRENGTH, ctx, library, minutesPerLiftDay = 25)
-        val total = placed.mapNotNull { it.cardio }.sumOf { it.durationMin }
-        val target = weeklyCardioTarget(Goal.STRENGTH, TrainingAge.INTERMEDIATE)
-        assertTrue(total >= target.min, "total=$total target=$target")
-        assertTrue(total <= target.max || placed.size >= CardioConstants.FREQUENCY_MAX, "total=$total")
+        val liftCardio = placed.filter { it.entries.isNotEmpty() }.mapNotNull { it.cardio }
+        assertEquals(0.0, liftCardio.sumOf { acsmModerateEquivalentMinutes(it) })
+        val credit = weekAcsmMinutes(placed)
+        assertTrue(credit >= 0.0)
+        assertTrue(
+            credit >= target.min || placed.count { it.cardio != null } >= CardioConstants.FREQUENCY_MAX,
+            "credit=$credit placed=${placed.size}",
+        )
+    }
+
+    @Test
+    fun weekVariesModalityThenProtocol() {
+        val ctx = gymIntermediate()
+        val built = assertIs<PlanResult.Built>(
+            buildWeek(templates.single { it.id == "full-body-3d" }, ctx, catalog, warmups = warmups, stretches = stretches),
+        )
+        val placed = placeOnWeek(built.week, Goal.STRENGTH, ctx, library, minutesPerLiftDay = 25)
+        val liftMods = placed.filter { it.entries.isNotEmpty() }.mapNotNull { it.cardio?.modality?.slug }
+        assertEquals(liftMods.size, liftMods.toSet().size, liftMods.toString())
+        val allPairs = placed.mapNotNull { it.cardio }.map { "${it.modality.slug}/${it.protocol.slug}" }
+        assertEquals(allPairs.size, allPairs.toSet().size, allPairs.toString())
+    }
+
+    @Test
+    fun heavyLiftWeekNamesTheMissingIntervalDay() {
+        val ctx = gymIntermediate()
+        val built = assertIs<PlanResult.Built>(
+            buildWeek(templates.single { it.id == "full-body-3d" }, ctx, catalog, warmups = warmups, stretches = stretches),
+        )
+        val placed = placeOnWeek(built.week, Goal.STRENGTH, ctx, library, minutesPerLiftDay = 25)
+        val note = noRoomForIntervalsNote(3, addedSeparateDay = placed.any { it.entries.isEmpty() })
+        assertTrue(
+            placed.filter { it.entries.isNotEmpty() }.all { day -> day.notes.any { it == note } },
+            placed.flatMap { it.notes }.toString(),
+        )
+        placed.filter { it.entries.isEmpty() }.forEach { extra ->
+            val cardio = extra.cardio
+            assertNotNull(cardio, extra.day)
+            assertTrue(cardio.protocol.intensity != ProtocolIntensity.EASY, extra.day)
+        }
+        println(speakWeek(placed))
     }
 
     @Test

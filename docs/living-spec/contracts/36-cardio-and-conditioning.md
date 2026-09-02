@@ -26,8 +26,8 @@ Someone with anterior knee pain is not offered running. Impact is a safety field
 
 - `compatible(m, p, ctx)` is false when: the protocol type is not in the modality's `suitableProtocolTypes`; the user lacks the equipment (`none` in a slot is always satisfied); `requiresAerobicBase` and the user is a beginner or has no logged cardio history; the modality `impact` is too high for a declared condition (non-overridable); the modality lists that condition as a contraindication.
 - `rank(goal, ctx, minutes)` returns legal `CardioPrescription`s, sorted deterministically. Every prescription carries plain-language `Reason`s. Exclusions are returned by `filterPairs`, not swallowed.
-- `weeklyCardioTarget(goal, trainingAge)` is ACSM 150–300 minutes moderate (or 75–150 vigorous). Beginners start 75–150. Strength/hypertrophy stay in the 75–150 band so lifting stays primary.
-- `placeOnSession` / `placeOnWeek` wire `cardioPlacement()`. Hard intervals do not go on a heavy lower-body day, and never before it. Easy aerobic is compatible with almost anything and is the default. **When in doubt, easy aerobic on a separate day.** That is the concurrent-training interference question, answered conservatively.
+- `weeklyCardioTarget` is ACSM **150–300 minutes moderate-equivalent**. 75–150 vigorous is the same statement, not a second smaller target. Easy work (RPE 2–4, full sentences) is light activity: **credit 0**. Tempo counts 1:1 as moderate. Hard work counts as vigorous × 2 toward moderate-equivalent. Concurrent training changes *placement*, not the health target. Do not credit recovery minutes against the vigorous band.
+- `placeOnSession` / `placeOnWeek` wire `cardioPlacement()`. Hard intervals do not go on a heavy lower-body day, and never before it. Easy aerobic on those days is recovery, not the ACSM target. **Variety:** a new modality before a new protocol — three identical air-bike recoveries is the Upper A / Upper B bug. When every lifting day is heavy lower, the week *says so*: *"Heavy legs all three days, so no room for intervals — a fourth day would let us add them."* Extra days, if any, are moderate or vigorous so they actually count. Do not silently stack easy work forever.
 - `nextCardioSession` changes one variable at a time: duration, then frequency, then intensity. Never all three. Never an abrupt jump in intensity.
 
 No enumerated modality × protocol rows anywhere.
@@ -50,7 +50,7 @@ None. No `:app` change.
 
 ### Error / recovery behavior
 
-No legal pairing → no prescription (do not invent a machine). Beginner + sprint request → exclude, explain the base. Knee pain + high impact → exclude by construction. Empty equipment → walking still legal. Heavy lower day + only-hard remaining → skip hard, keep easy. Weekly fill stops at five cardio sessions.
+No legal pairing → no prescription (do not invent a machine). Beginner + sprint request → exclude, explain the base. Knee pain + high impact → exclude by construction. Empty equipment → walking still legal. Heavy lower day → easy recovery only, and if that is every lifting day, say there is no room for intervals. Extra days used to chase ACSM minutes are moderate or vigorous, never more recovery. Weekly fill stops at five cardio sessions.
 
 ### Tests
 
@@ -62,8 +62,10 @@ Evidence is `:domain` Kotlin tests, not event goldens.
 4. A high-impact modality never appears for a user with a declared condition that contraindicates it — by construction, not by score.
 5. A user with no equipment still gets walking.
 6. Hard intervals are never placed on the same day as heavy lower-body work.
-7. Weekly totals land inside the ACSM range for the user's goal.
+7. Weekly ACSM credit uses intensity: easy = 0, moderate = 1×, vigorous = 2×. Recovery minutes must not satisfy the 75–150 vigorous band.
 8. Progression changes one variable at a time.
 9. No prescription contains a pace, speed, wattage or heart rate.
 10. Every prescription carries at least one plain-language reason.
 11. Determinism over 100 runs.
+12. A week does not repeat the same modality across consecutive cardio slots until other legal modalities are used.
+13. When every lifting day is heavy lower, the week carries the no-room-for-intervals note.

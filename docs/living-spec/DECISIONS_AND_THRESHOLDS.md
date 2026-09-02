@@ -728,30 +728,30 @@ Modalities and protocols are stored separately and composed. Protocol structures
 
 ### `WEEKLY_MODERATE_MIN = 150` / `WEEKLY_MODERATE_MAX = 300`
 
-- **Where:** `weeklyCardioTarget`
-- **Purpose:** Adult health cardio volume when endurance, fat-loss or general fitness is the goal and the user is not a beginner.
+- **Where:** `weeklyCardioTarget`, `weekAcsmMinutes`
+- **Purpose:** The only weekly target. ACSM adult health cardio as moderate-equivalent minutes. Strength, hypertrophy, endurance, beginner — same number. Concurrent training changes which day gets intervals, not whether 75 easy minutes count as done.
 - **Source:** `PUBLISHED GUIDELINE` — ACSM: 150–300 minutes moderate-intensity aerobic activity per week, or 75–150 vigorous.
 - **Configurable:** No.
 
 ### `WEEKLY_VIGOROUS_MIN = 75` / `WEEKLY_VIGOROUS_MAX = 150`
 
-- **Where:** `weeklyCardioTarget` (cited; the function returns the moderate band or the beginner/strength band, not a separate vigorous clock)
-- **Purpose:** The vigorous equivalent of the ACSM moderate band. Recorded so nobody invents 200 minutes of sprints.
+- **Where:** cited next to `VIGOROUS_TO_MODERATE`. Not a separate clock that easy minutes can fill.
+- **Purpose:** ACSM's other expression of the same target. 75 vigorous ≡ 150 moderate. Recovery at RPE 2–3 is neither.
 - **Source:** `PUBLISHED GUIDELINE` — ACSM, same statement as the moderate pair.
 - **Configurable:** No.
 
-### `WEEKLY_BEGINNER_MIN = 75` / `WEEKLY_BEGINNER_MAX = 150`
+### `EASY_CREDIT = 0`
 
-- **Where:** `weeklyCardioTarget` for `TrainingAge.BEGINNER`
-- **Purpose:** Start below the adult floor. ACSM states 150; we do not dump 150 minutes on week one.
-- **Source:** `GUIDELINE-DERIVED` — ACSM floor is 150 moderate. The 75 is ours.
+- **Where:** `acsmModerateEquivalentMinutes`
+- **Purpose:** Easy protocols (RPE 2–4, full sentences / easy conversation) are light activity. ACSM moderate is "you can talk but not sing." Our recovery line is "you can talk in full sentences without thinking about breath." That is below moderate and is not vigorous. Clock those minutes at zero. They still belong on a heavy lower day as recovery. They do not satisfy the weekly target.
+- **Source:** `PRODUCT DECISION` sitting on ACSM's intensity definitions. We do not invent a 0.5 discount. Zero is the honest number.
 - **Configurable:** No.
 
-### `WEEKLY_STRENGTH_MIN = 75` / `WEEKLY_STRENGTH_MAX = 150`
+### `VIGOROUS_TO_MODERATE = 2`
 
-- **Where:** `weeklyCardioTarget` for `STRENGTH` / `HYPERTROPHY`
-- **Purpose:** Concurrent training. Keep cardio in a lower band so lifting stays primary. Easy aerobic around the week, not through it.
-- **Source:** `GUIDELINE-DERIVED` — ACSM health target still exists; the reduced band is our concurrent-training stance.
+- **Where:** `acsmModerateEquivalentMinutes` for `ProtocolIntensity.HARD`
+- **Purpose:** Convert vigorous minutes into moderate-equivalent. ACSM 75 vigorous ≡ 150 moderate.
+- **Source:** `PUBLISHED GUIDELINE` — the ratio implied by ACSM's two bands.
 - **Configurable:** No.
 
 ### `DURATION_STEP_MIN = 5`

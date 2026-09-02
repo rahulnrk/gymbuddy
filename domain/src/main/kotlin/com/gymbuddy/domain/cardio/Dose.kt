@@ -1,31 +1,38 @@
 package com.gymbuddy.domain.cardio
 
 import com.gymbuddy.domain.catalog.Provenance
+import com.gymbuddy.domain.plan.PlannedSession
 import com.gymbuddy.domain.programming.Goal
 import com.gymbuddy.domain.programming.IntRange2
 import com.gymbuddy.domain.programming.TrainingAge
 
-fun weeklyCardioTarget(goal: Goal, trainingAge: TrainingAge): IntRange2 {
-    if (trainingAge == TrainingAge.BEGINNER) {
-        return IntRange2(
-            CardioConstants.WEEKLY_BEGINNER_MIN,
-            CardioConstants.WEEKLY_BEGINNER_MAX,
-            ACSM_BEGINNER,
-        )
-    }
-    if (goal == Goal.STRENGTH || goal == Goal.HYPERTROPHY) {
-        return IntRange2(
-            CardioConstants.WEEKLY_STRENGTH_MIN,
-            CardioConstants.WEEKLY_STRENGTH_MAX,
-            ACSM_CONCURRENT,
-        )
-    }
-    return IntRange2(
-        CardioConstants.WEEKLY_MODERATE_MIN,
-        CardioConstants.WEEKLY_MODERATE_MAX,
-        ACSM_WEEKLY,
-    )
+fun weeklyCardioTarget(
+    @Suppress("UNUSED_PARAMETER") goal: Goal,
+    @Suppress("UNUSED_PARAMETER") trainingAge: TrainingAge,
+): IntRange2 = IntRange2(
+    CardioConstants.WEEKLY_MODERATE_MIN,
+    CardioConstants.WEEKLY_MODERATE_MAX,
+    ACSM_WEEKLY,
+)
+
+/**
+ * Minutes that count toward ACSM 150–300 moderate-equivalent.
+ *
+ * Easy work (RPE 2–4, full sentences / easy conversation) is light activity.
+ * It is not ACSM moderate ("talk but not sing") and it is not vigorous.
+ * Credit is [CardioConstants.EASY_CREDIT] — zero.
+ *
+ * Tempo counts 1:1 as moderate. Hard work counts as vigorous, converted
+ * with [CardioConstants.VIGOROUS_TO_MODERATE] (75 vigorous ≡ 150 moderate).
+ */
+fun acsmModerateEquivalentMinutes(p: CardioPrescription): Double = when (p.protocol.intensity) {
+    ProtocolIntensity.EASY -> CardioConstants.EASY_CREDIT.toDouble()
+    ProtocolIntensity.MODERATE -> p.durationMin.toDouble()
+    ProtocolIntensity.HARD -> p.durationMin.toDouble() * CardioConstants.VIGOROUS_TO_MODERATE
 }
+
+fun weekAcsmMinutes(week: List<PlannedSession>): Double =
+    week.mapNotNull { it.cardio }.sumOf { acsmModerateEquivalentMinutes(it) }
 
 private val ACSM_WEEKLY = Provenance(
     confidence = "moderate",
@@ -34,16 +41,4 @@ private val ACSM_WEEKLY = Provenance(
     reviewed = CardioConstants.REVIEWED,
 )
 
-private val ACSM_BEGINNER = Provenance(
-    confidence = "low",
-    basis = "judgement",
-    source = "GUIDELINE-DERIVED — ACSM adult floor is 150 minutes moderate. 75–150 is our beginner start.",
-    reviewed = CardioConstants.REVIEWED,
-)
 
-private val ACSM_CONCURRENT = Provenance(
-    confidence = "low",
-    basis = "judgement",
-    source = "GUIDELINE-DERIVED — concurrent training: keep cardio in the 75–150 band so lifting stays primary",
-    reviewed = CardioConstants.REVIEWED,
-)
