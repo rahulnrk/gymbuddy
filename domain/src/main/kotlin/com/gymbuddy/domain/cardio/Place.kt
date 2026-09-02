@@ -56,14 +56,23 @@ fun placeOnWeek(
     val heavyDays = liftDays.count {
         cardioPlacement(sessionSummary(it), goal).avoidHardIntervals
     }
-    if (liftDays.isNotEmpty() && heavyDays == liftDays.size) {
-        notes += noRoomForIntervalsNote(liftDays.size, addedSeparateDay = false)
-    }
+    val allHeavy = liftDays.isNotEmpty() && heavyDays == liftDays.size
     val credit = weekAcsmMinutes(placed)
     val target = weeklyCardioTarget(goal, ctx.user.trainingAge)
     val daysUsed = ctx.user.daysPerWeek ?: placed.size
+    val easyMinutes = placed.mapNotNull { it.cardio }
+        .filter { it.protocol.intensity == ProtocolIntensity.EASY }
+        .sumOf { it.durationMin }
     if (credit < target.min) {
-        notes += shortfallNote(credit, target.min, daysUsed)
+        notes += shortfallNote(
+            credit = credit,
+            targetMin = target.min,
+            daysUsed = daysUsed,
+            easyMinutes = easyMinutes,
+            allLiftDaysHeavy = allHeavy,
+        )
+    } else if (allHeavy) {
+        notes += noRoomForIntervalsNote(liftDays.size, addedSeparateDay = false)
     }
     if (notes.isEmpty()) return placed
     return placed.map { day -> day.copy(notes = day.notes + notes) }
@@ -81,10 +90,25 @@ fun noRoomForIntervalsNote(liftDays: Int, addedSeparateDay: Boolean = false): St
     }
 }
 
-fun shortfallNote(credit: Double, targetMin: Int, daysUsed: Int): String {
-    val have = if (credit == credit.toInt().toDouble()) credit.toInt().toString() else credit.toString()
-    val next = ordinal(daysUsed + 1)
-    return "You're at $have of $targetMin. A $next day would close it."
+fun shortfallNote(
+    @Suppress("UNUSED_PARAMETER") credit: Double,
+    targetMin: Int,
+    daysUsed: Int,
+    easyMinutes: Int = 0,
+    allLiftDaysHeavy: Boolean = false,
+): String {
+    val ack = when {
+        easyMinutes > 0 && allLiftDaysHeavy ->
+            "Easy cardio this week is base work. It fits alongside heavy legs."
+        easyMinutes > 0 ->
+            "Easy cardio this week is base work. It fits the days you already train."
+        else ->
+            "This week's cardio stayed inside the days you already train."
+    }
+    val guideline =
+        "Separately, the health guideline wants about $targetMin minutes a week at an effort where you can talk but not sing."
+    val offer = "A ${ordinal(daysUsed + 1)} day would get you there."
+    return "$ack $guideline $offer"
 }
 
 internal fun ordinal(n: Int): String = when (n) {

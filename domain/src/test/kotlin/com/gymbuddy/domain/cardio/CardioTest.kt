@@ -157,7 +157,12 @@ class CardioTest {
         assertEquals(0.0, credit)
         assertEquals(ctx.user.daysPerWeek, placed.size)
         assertTrue(placed.none { it.entries.isEmpty() })
-        assertTrue(placed.any { day -> day.notes.any { "You're at 0 of 150" in it } }, placed.flatMap { it.notes }.toString())
+        assertTrue(
+            placed.any { day ->
+                day.notes.any { it.contains("base work") && it.contains("150 minutes") && "0 of 150" !in it }
+            },
+            placed.flatMap { it.notes }.toString(),
+        )
     }
 
     @Test
@@ -182,14 +187,22 @@ class CardioTest {
         val placed = placeOnWeek(built.week, Goal.STRENGTH, ctx, library, minutesPerLiftDay = 25)
         assertEquals(3, placed.size)
         assertTrue(placed.none { it.entries.isEmpty() })
-        val note = noRoomForIntervalsNote(3, addedSeparateDay = false)
-        assertTrue(
-            placed.all { day -> day.notes.any { it == note } },
-            placed.flatMap { it.notes }.toString(),
+        val shortfall = shortfallNote(
+            credit = 0.0,
+            targetMin = 150,
+            daysUsed = 3,
+            easyMinutes = 75,
+            allLiftDaysHeavy = true,
         )
-        val shortfall = shortfallNote(0.0, 150, 3)
-        assertEquals("You're at 0 of 150. A fourth day would close it.", shortfall)
-        assertTrue(placed.all { day -> day.notes.any { it == shortfall } })
+        assertTrue(shortfall.startsWith("Easy cardio this week is base work"))
+        assertTrue("heavy legs" in shortfall)
+        assertTrue("150 minutes" in shortfall)
+        assertTrue("fourth day" in shortfall)
+        assertFalse("0 of 150" in shortfall)
+        assertFalse("You're at" in shortfall)
+        assertFalse("does not count" in shortfall)
+        assertFalse(shortfall.trimStart().first().isDigit())
+        assertTrue(placed.all { day -> day.notes.any { it == shortfall } }, placed.flatMap { it.notes }.toString())
         println(speakWeek(placed))
     }
 
