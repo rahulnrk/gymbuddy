@@ -67,6 +67,7 @@ REQUIRED_CONTRACTS = [
     "33-programme-templates.md",
     "34-warmup-and-mobility.md",
     "35-voice-interaction.md",
+    "36-cardio-and-conditioning.md",
 ]
 
 REQUIRED_SCHEMAS = [
@@ -277,6 +278,10 @@ def main() -> None:
         "knowledge/schema/stretch.schema.json",
         "knowledge/catalog/warmups.json",
         "knowledge/catalog/stretches.json",
+        "knowledge/schema/cardio-modality.json",
+        "knowledge/schema/cardio-protocol.json",
+        "knowledge/catalog/cardio-modalities.json",
+        "knowledge/catalog/cardio-protocols.json",
     ]
     for rel in knowledge_paths:
         path = ROOT / rel
@@ -861,6 +866,33 @@ def main() -> None:
             for name in const_re.findall(constants_file.read_text(encoding="utf-8")):
                 if name not in decisions_text:
                     errors.append(f"voice constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
+
+    cardio_kt = ROOT / "domain" / "src" / "main" / "kotlin" / "com" / "gymbuddy" / "domain" / "cardio"
+    if not cardio_kt.is_dir():
+        errors.append("missing domain cardio package")
+    else:
+        cardio_text = "\n".join(p.read_text(encoding="utf-8") for p in cardio_kt.glob("*.kt"))
+        for req in ("fun compatible", "fun rank", "fun weeklyCardioTarget", "fun placeOnWeek", "fun nextCardioSession"):
+            if req not in cardio_text:
+                errors.append(f"cardio package missing {req}")
+        for bad in ("fun generatePlan", "fun generateWorkout"):
+            if bad in cardio_text:
+                errors.append(f"cardio package must not contain {bad}")
+        decisions_text = (ROOT / "docs" / "living-spec" / "DECISIONS_AND_THRESHOLDS.md").read_text(encoding="utf-8")
+        const_re = re.compile(r"const val ([A-Z][A-Z0-9_]*)\s*=")
+        constants_file = cardio_kt / "Constants.kt"
+        if constants_file.is_file():
+            for name in const_re.findall(constants_file.read_text(encoding="utf-8")):
+                if name not in decisions_text:
+                    errors.append(f"cardio constant {name} has no provenance row in DECISIONS_AND_THRESHOLDS.md")
+        modalities = json.loads((ROOT / "knowledge" / "catalog" / "cardio-modalities.json").read_text(encoding="utf-8"))
+        protocols = json.loads((ROOT / "knowledge" / "catalog" / "cardio-protocols.json").read_text(encoding="utf-8"))
+        if not isinstance(modalities, list) or len(modalities) < 10:
+            errors.append("cardio modalities must be a list of about 12 modes")
+        if not isinstance(protocols, list) or not (6 <= len(protocols) <= 10):
+            errors.append(f"cardio protocols should be 6–8 rows, got {len(protocols) if isinstance(protocols, list) else type(protocols)}")
+        if any("workSec" in m for m in modalities if isinstance(m, dict)):
+            errors.append("modalities must not carry protocol fields — compose, do not enumerate")
 
     print("PR1 goldens:")
     print(f"  executable: {pr1_stats['executable']}")

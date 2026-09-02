@@ -34,8 +34,9 @@ Five contracts, all `implemented`:
 | 33 programme templates | Template schema and the four splits. |
 | 34 warm-up and mobility | Pulse, drills, ramp sets, stretches. Familiarity on the plan. |
 | 35 voice interaction | Adaptive conversation window, coach clock, predictive rest. Policy only. |
+| 36 cardio and conditioning | Modalities × protocols composed, not enumerated. RPE and talk test only. |
 
-Packages: `programming`, `intake`, `picker`, `adapt`, `plan`, `catalog`, `warmup`.
+Packages: `programming`, `intake`, `picker`, `adapt`, `plan`, `catalog`, `warmup`, `cardio`.
 
 ### The knowledge base
 `knowledge/` holds 4 vocabularies (muscles, patterns, equipment, conditions),

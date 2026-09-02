@@ -722,6 +722,56 @@ Policy only. No vendor, no audio implementation. The numbers are how long music 
 
 Review date for this block. Not a behaviour constant.
 
+## Cardio and conditioning (contract 36)
+
+Modalities and protocols are stored separately and composed. Protocol structures are `MVP HEURISTIC`. The weekly minute target is the only `PUBLISHED GUIDELINE` in this block.
+
+### `WEEKLY_MODERATE_MIN = 150` / `WEEKLY_MODERATE_MAX = 300`
+
+- **Where:** `weeklyCardioTarget`
+- **Purpose:** Adult health cardio volume when endurance, fat-loss or general fitness is the goal and the user is not a beginner.
+- **Source:** `PUBLISHED GUIDELINE` — ACSM: 150–300 minutes moderate-intensity aerobic activity per week, or 75–150 vigorous.
+- **Configurable:** No.
+
+### `WEEKLY_VIGOROUS_MIN = 75` / `WEEKLY_VIGOROUS_MAX = 150`
+
+- **Where:** `weeklyCardioTarget` (cited; the function returns the moderate band or the beginner/strength band, not a separate vigorous clock)
+- **Purpose:** The vigorous equivalent of the ACSM moderate band. Recorded so nobody invents 200 minutes of sprints.
+- **Source:** `PUBLISHED GUIDELINE` — ACSM, same statement as the moderate pair.
+- **Configurable:** No.
+
+### `WEEKLY_BEGINNER_MIN = 75` / `WEEKLY_BEGINNER_MAX = 150`
+
+- **Where:** `weeklyCardioTarget` for `TrainingAge.BEGINNER`
+- **Purpose:** Start below the adult floor. ACSM states 150; we do not dump 150 minutes on week one.
+- **Source:** `GUIDELINE-DERIVED` — ACSM floor is 150 moderate. The 75 is ours.
+- **Configurable:** No.
+
+### `WEEKLY_STRENGTH_MIN = 75` / `WEEKLY_STRENGTH_MAX = 150`
+
+- **Where:** `weeklyCardioTarget` for `STRENGTH` / `HYPERTROPHY`
+- **Purpose:** Concurrent training. Keep cardio in a lower band so lifting stays primary. Easy aerobic around the week, not through it.
+- **Source:** `GUIDELINE-DERIVED` — ACSM health target still exists; the reduced band is our concurrent-training stance.
+- **Configurable:** No.
+
+### `DURATION_STEP_MIN = 5`
+
+- **Where:** `nextCardioSession`
+- **Purpose:** First progression lever. Five minutes longer, same effort, same days.
+- **Source:** `MVP HEURISTIC`. ACSM/NSCA say one variable at a time, not a five-minute step.
+- **Configurable:** No.
+
+### `FREQUENCY_MIN = 2` / `FREQUENCY_MAX = 5`
+
+- **Where:** `nextCardioSession`, `placeOnWeek`
+- **Purpose:** Second progression lever, and a cap on how many cardio sessions a week will grow to.
+- **Source:** `MVP HEURISTIC` on the cap. ACSM frequency is “most days”; 5 is ours.
+- **Configurable:** No.
+
+### `REVIEWED = 2026-09-02` (cardio)
+
+Review date for this block. Protocol work/recover lengths (`workSec`, `recoverSec`, `rounds`) live on the protocol rows and are `MVP HEURISTIC` — starting shapes, not measured intervals.
+
 ---
 
 ★ = convertible to `MEASURED` by the Voice Evidence MVP.
