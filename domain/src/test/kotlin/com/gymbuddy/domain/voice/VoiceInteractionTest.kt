@@ -312,6 +312,47 @@ class VoiceInteractionTest {
         assertNull(act)
     }
 
+    @Test
+    fun fourMinutesUnderTheBarIsSilence() {
+        val plan = sessionWithRest(90)
+        val start = CoachClock(0L, 0L, AnchorKind.LOGGED_EVENT)
+        val fourMinutes = 240_000L
+        val ticks = listOf(0L, 30_000L, 90_000L, 180_000L, fourMinutes)
+        ticks.forEach { t ->
+            val clock = start.at(t)
+            assertFalse(maySpeakProactively(clock, WorkoutSessionState.SET_ACTIVE, safetyHigh = false))
+            assertNull(
+                proactiveUtterance(
+                    clock,
+                    WorkoutSessionState.SET_ACTIVE,
+                    plan,
+                    restElapsedSec = (t / 1000).toInt(),
+                    safetyHigh = false,
+                ),
+                "spoke at ${t}ms under a loaded bar",
+            )
+        }
+    }
+
+    @Test
+    fun unansweredRestCompleteStaysSilentUntilHorizon() {
+        val plan = sessionWithRest(90)
+        val afterRest = CoachClock(
+            workoutElapsedMs = 90_000L,
+            lastAnchorMs = 0L,
+            anchorKind = AnchorKind.LOGGED_EVENT,
+        )
+        val first = proactiveUtterance(afterRest, WorkoutSessionState.RESTING, plan, restElapsedSec = 90)
+        assertIs<CoachAct.RestComplete>(first)
+        val waiting = afterRest.markRestCompleteOffered()
+        listOf(120_000L, 180_000L, 240_000L, CONFIDENCE_HORIZON_MS - 1).forEach { t ->
+            assertNull(
+                proactiveUtterance(waiting.at(t), WorkoutSessionState.RESTING, plan, restElapsedSec = (t / 1000).toInt()),
+                "asked again at ${t}ms after rest-complete",
+            )
+        }
+    }
+
     private fun sessionWithRest(restMin: Int): PlannedSession {
         val ex = catalog.bySlug("bench-press")!!
         val range = IntRange2(restMin, restMin + 30, provenance)

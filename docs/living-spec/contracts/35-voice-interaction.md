@@ -61,7 +61,7 @@ Every user utterance re-anchors the clock. So does any logged event.
 - Closed/short/open questions open the matching window. Music ducks for that window only.
 - `SET_ACTIVE`: no proactive clock speech except the existing safety ≥ high path in contract 09.
 - At the horizon: one re-sync, then silence.
-- Four minutes of silence after an anchor: nothing. That is correct.
+- Four minutes of `SET_ACTIVE`: nothing. Four minutes after rest-complete went unanswered: nothing. The coach does not guess whether they are still resting, under the bar, queuing, or gone.
 - Rest adjustment is spoken in coach language ("Take another thirty seconds — your last set dropped to six reps"), never field names, never a bare number without units.
 
 ### Structured event
@@ -96,3 +96,5 @@ Evidence is `:domain` Kotlin tests, not event goldens.
 10. Predictive rest extends on a declining set and never shortens below the goal minimum.
 11. Every proactive utterance and rest adjustment carries a plain-language reason (no field names, no bare numbers without units).
 12. `VoiceTurnState` and `WorkoutSessionState` remain independent.
+13. Four minutes of `SET_ACTIVE` yields null at every tick, including with rest elapsed.
+14. Unanswered rest-complete stays null until the horizon; it does not ask again.
