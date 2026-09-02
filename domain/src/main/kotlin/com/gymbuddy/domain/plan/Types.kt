@@ -11,6 +11,7 @@ import com.gymbuddy.domain.programming.Goal
 import com.gymbuddy.domain.programming.IntRange2
 import com.gymbuddy.domain.programming.TrainingAge
 import com.gymbuddy.domain.programming.Violation
+import com.gymbuddy.domain.cardio.CardioPrescription
 import com.gymbuddy.domain.warmup.StretchPick
 import com.gymbuddy.domain.warmup.WarmupPlan
 import kotlinx.serialization.Serializable
@@ -71,6 +72,7 @@ data class PlannedSession(
     val warmup: WarmupPlan? = null,
     val cooldown: List<StretchPick> = emptyList(),
     val cooldownDisclaimer: String? = null,
+    val cardio: CardioPrescription? = null,
 )
 
 data class TemplateChoice(
