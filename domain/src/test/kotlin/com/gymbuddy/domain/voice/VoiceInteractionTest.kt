@@ -12,12 +12,14 @@ import com.gymbuddy.domain.programming.Effort
 import com.gymbuddy.domain.programming.IntRange2
 import com.gymbuddy.domain.programming.SetPerformance
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.BARGE_IN_CANCEL_P95_MS
+import com.gymbuddy.domain.voice.VoiceInteractionConstants.DUCK_HOLD_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.CONFIDENCE_HORIZON_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.REST_DECAY_EXTENSION_SEC
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_CLOSED_ANSWER_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_HARD_CAP_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_OPEN_QUESTION_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_SHORT_QUESTION_MS
+import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_STATEMENT_MS
 import com.gymbuddy.domain.voice.VoiceInteractionConstants.WINDOW_USER_INITIATED_MS
 import com.gymbuddy.domain.voice.fake.FakeAudioFocus
 import com.gymbuddy.domain.voice.fake.FakeClock
@@ -44,10 +46,13 @@ class VoiceInteractionTest {
     )
 
     @Test
-    fun statementOpensNoWindow() {
+    fun statementOpensTheShortestWindow() {
         val window = windowFor(UtteranceKind.STATEMENT)
-        assertIs<Window.None>(window)
-        assertFalse(shouldDuck(window))
+        val stmt = assertIs<Window.CoachInitiated>(window)
+        assertEquals(WINDOW_STATEMENT_MS, stmt.maxMs)
+        assertTrue(shouldDuck(stmt))
+        assertTrue(stmt.maxMs < WINDOW_CLOSED_ANSWER_MS)
+        assertNull(stmt.coachFinishedAtElapsedMs)
     }
 
     @Test
@@ -66,17 +71,71 @@ class VoiceInteractionTest {
     }
 
     @Test
-    fun speechBeforeCloseExtendsAndRespectsHardCap() {
-        val closed = windowFor(UtteranceKind.CLOSED_ANSWER)
+    fun replyBudgetStartsWhenCoachStopsNotWhenWindowOpens() {
+        val prompt = windowFor(UtteranceKind.CLOSED_ANSWER)
+        assertIs<Window.CoachInitiated>(prompt)
+        val shortLine = onCoachFinished(prompt, elapsedMs = 1_000L)
+        val longLine = onCoachFinished(prompt, elapsedMs = 4_000L)
+        val shortDone = assertIs<Window.CoachInitiated>(shortLine)
+        val longDone = assertIs<Window.CoachInitiated>(longLine)
+        assertEquals(shortDone.maxMs, longDone.maxMs)
+        assertEquals(WINDOW_CLOSED_ANSWER_MS, shortDone.maxMs)
+
+        val shortBudget = shortDone.coachFinishedAtElapsedMs!! + shortDone.maxMs
+        val longBudget = longDone.coachFinishedAtElapsedMs!! + longDone.maxMs
+        assertEquals(WINDOW_CLOSED_ANSWER_MS, shortBudget - 1_000L)
+        assertEquals(WINDOW_CLOSED_ANSWER_MS, longBudget - 4_000L)
+
+        assertFalse(
+            onTimeout(shortDone, elapsedMs = shortBudget - 1) is Window.None,
+        )
+        assertIs<Window.None>(onTimeout(shortDone, elapsedMs = shortBudget))
+        assertFalse(
+            onTimeout(longDone, elapsedMs = longBudget - 1) is Window.None,
+        )
+        assertIs<Window.None>(onTimeout(longDone, elapsedMs = longBudget))
+
+        assertFalse(
+            onTimeout(prompt, elapsedMs = WINDOW_CLOSED_ANSWER_MS + 2_000L) is Window.None,
+            "budget must not run while the coach is still speaking",
+        )
+        val cutIn = onSpeechDetected(prompt, elapsedMs = 500L)
+        assertTrue(shouldDuck(cutIn))
+        assertFalse(cutIn is Window.None)
+        assertNull(
+            assertIs<Window.CoachInitiated>(cutIn).coachFinishedAtElapsedMs,
+            "barge-in must not start the reply budget; the coach has not finished",
+        )
+        assertEquals(WINDOW_CLOSED_ANSWER_MS, cutIn.maxMs)
+
+        val shortLate = onSpeechDetected(shortDone, elapsedMs = 1_000L + 7_000L)
+        val longLate = onSpeechDetected(longDone, elapsedMs = 4_000L + 7_000L)
+        val shortLateDone = assertIs<Window.CoachInitiated>(shortLate)
+        val longLateDone = assertIs<Window.CoachInitiated>(longLate)
+        val shortRemain =
+            shortLateDone.coachFinishedAtElapsedMs!! + shortLateDone.maxMs - (1_000L + 7_000L)
+        val longRemain =
+            longLateDone.coachFinishedAtElapsedMs!! + longLateDone.maxMs - (4_000L + 7_000L)
+        assertEquals(shortRemain, longRemain)
+        assertEquals(DUCK_HOLD_MS, shortRemain)
+    }
+
+    @Test
+    fun speechBeforeCloseExtendsPastSixtySecondsWhenStillTalking() {
+        val closed = onCoachFinished(windowFor(UtteranceKind.CLOSED_ANSWER), elapsedMs = 0L)
         val extended = onSpeechDetected(closed, elapsedMs = 7_000L)
         assertTrue(extended.maxMs > closed.maxMs)
-        assertTrue(extended.maxMs <= WINDOW_HARD_CAP_MS)
 
-        val nearCap = onSpeechDetected(
-            Window.UserInitiated(EntryPoint.EARBUD, WINDOW_HARD_CAP_MS - 1_000L),
-            elapsedMs = WINDOW_HARD_CAP_MS - 500L,
+        val pastCap = onSpeechDetected(
+            Window.UserInitiated(EntryPoint.EMERGENCY, WINDOW_HARD_CAP_MS - 1_000L),
+            elapsedMs = WINDOW_HARD_CAP_MS + 5_000L,
         )
-        assertEquals(WINDOW_HARD_CAP_MS, nearCap.maxMs)
+        assertTrue(pastCap.maxMs > WINDOW_HARD_CAP_MS, "live conversation must not be capped at 60 s")
+        assertTrue(shouldDuck(pastCap))
+        val stillOpen = onTimeout(pastCap, elapsedMs = WINDOW_HARD_CAP_MS + 5_000L, userSpeaking = true)
+        assertFalse(stillOpen is Window.None)
+        val abandoned = onTimeout(pastCap, elapsedMs = WINDOW_HARD_CAP_MS + 5_000L, userSpeaking = false)
+        assertIs<Window.None>(abandoned)
 
         assertIs<Window.None>(onSpeechDetected(Window.None, elapsedMs = 1_000L))
     }
@@ -84,11 +143,12 @@ class VoiceInteractionTest {
     @Test
     fun duckExactlyWhileWindowOpen() {
         val open = windowFor(UtteranceKind.CLOSED_ANSWER)
-        assertTrue(shouldDuck(open))
-        assertFalse(shouldDuck(onTimeout(open, elapsedMs = open.maxMs)))
+        val ready = onCoachFinished(open, elapsedMs = 0L)
+        assertTrue(shouldDuck(ready))
+        assertFalse(shouldDuck(onTimeout(ready, elapsedMs = open.maxMs)))
         assertFalse(shouldDuck(close(open)))
         assertFalse(shouldDuck(onCancel(open)))
-        assertTrue(shouldDuck(onTimeout(open, elapsedMs = open.maxMs - 1)))
+        assertTrue(shouldDuck(onTimeout(ready, elapsedMs = open.maxMs - 1)))
     }
 
     @Test
@@ -169,14 +229,17 @@ class VoiceInteractionTest {
     }
 
     @Test
-    fun threeEntryPointsProduceEquivalentUserWindows() {
-        val windows = EntryPoint.entries.map { windowFor(it) }
-        windows.forEach { w ->
-            val user = assertIs<Window.UserInitiated>(w)
-            assertEquals(WINDOW_USER_INITIATED_MS, user.maxMs)
-            assertTrue(shouldDuck(user))
-        }
-        assertEquals(3, windows.map { (it as Window.UserInitiated).via }.toSet().size)
+    fun userInitiatedWindowsShareLengthAndEmergencyIsLive() {
+        assertIs<Window.None>(windowFor(EntryPoint.WAKE_WORD))
+        assertIs<Window.None>(windowFor(EntryPoint.EARBUD))
+        assertIs<Window.None>(windowFor(EntryPoint.ON_SCREEN))
+        val emergency = assertIs<Window.UserInitiated>(windowFor(EntryPoint.EMERGENCY))
+        assertEquals(WINDOW_USER_INITIATED_MS, emergency.maxMs)
+        assertTrue(shouldDuck(emergency))
+        assertFalse(isDormantEntry(EntryPoint.EMERGENCY))
+        assertTrue(isDormantEntry(EntryPoint.WAKE_WORD))
+        assertTrue(isDormantEntry(EntryPoint.EARBUD))
+        assertTrue(isDormantEntry(EntryPoint.ON_SCREEN))
     }
 
     @Test

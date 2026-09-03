@@ -29,9 +29,9 @@ Inputs: FourContexts, committed events this turn, safety result. **`shouldSpeak`
 - MUST/MUST NOT as in `shouldSpeak`. Same-reps same-weight mid-exercise **must not** speak. +1 rep vs last set **must** speak (`useful_delta`).
 - Concise during rest; longer only for Feature 28 questions.
 - Same language as user when LID confident; otherwise primary_language.
-- Barge-in cancels in-progress coaching.
+- Barge-in cancels in-progress coaching. The mic is already open: contract 35 opens a window when the coach starts speaking, including for statements (“Nice.”, “rest is nearly up”). The withdrawn rule “a STATEMENT opens no window” must not be restored — it left the user mute after the only party who can open a window.
 - Nutrition: Feature 28, secondary, non-medical.
-- `SET_ACTIVE`: no TTS except safety ≥ high. **Precedence:** this MUST NOT wins over questions / weight-change / useful-delta. Queue those acts; drain one on RESTING (`09-coaching.voice.question-during-set-deferred`).
+- `SET_ACTIVE`: no TTS except safety ≥ high. **Precedence:** this MUST NOT wins over questions / weight-change / useful-delta. Queue those acts; drain one on RESTING (`09-coaching.voice.question-during-set-deferred`). This exists to stop the coach interrupting someone under a bar. The emergency control (contract 35 / 37) is not an exception to that rule: it is user-initiated. Pressing it means they have already stopped. The coach is not talking over a lift; the user has put the bar down to tap the screen.
 
 ### Structured event
 

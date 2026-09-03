@@ -667,7 +667,14 @@ Weights and per-slot set counts. All `MVP HEURISTIC`. The picker ranks one slot;
 
 ## Voice interaction (contract 35)
 
-Policy only. No vendor, no audio implementation. The numbers are how long music stays ducked and how long the coach still trusts the last thing it heard.
+Policy. No vendor, no audio implementation. Design of record: `SESSION-DESIGN.md` (2026-09-03). The coach opens windows. Check-in interval, its bounds, and the quiet hold are **unset**. Do not treat floor-test milliseconds as fact.
+
+### `WINDOW_STATEMENT_MS = 5000`
+
+- **Where:** `windowFor(STATEMENT)`
+- **Purpose:** Reminders ("rest is nearly up") are statements. The mic opens when the coach starts speaking, so the user can answer. Shortest of the set — the coach is not asking, so most of the time nobody answers. Must not be zero (old design) and must not reuse the 8 s closed-answer budget (that is for a question that expects "ok" / "wait").
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. 5 s is a guess: enough to say "wait", shorter than a closed answer. Not a measurement.
+- **Configurable:** n/a.
 
 ### `WINDOW_CLOSED_ANSWER_MS = 8000`
 
@@ -690,12 +697,19 @@ Policy only. No vendor, no audio implementation. The numbers are how long music 
 - **Source:** `PRODUCT DECISION`. Same cap for wake word, earbud, and on-screen so the three ways in are equivalent.
 - **Configurable:** No.
 
-### `WINDOW_HARD_CAP_MS = 60000` / `WINDOW_SPEECH_EXTENSION_MS = 5000`
+### `WINDOW_HARD_CAP_MS = 60000`
 
-- **Where:** `onSpeechDetected`
-- **Purpose:** If they are still talking, do not cut them off. Pad five seconds from last detected speech; never past 60 s. Music is ducked for the whole window.
-- **Source:** `PRODUCT DECISION`. Endpointing 800–1200 ms (contract 03) is a pause detector, not a turn cap. 60 s is a cost/feel ceiling, unmeasured.
+- **Where:** `onTimeout` when `userSpeaking` is false
+- **Purpose:** Closes a window that has been open 60 s **with nobody speaking** — abandoned, not live. Does not cut a conversation in progress.
+- **Source:** `PRODUCT DECISION`. The old live-conversation cap was a floor-test defect.
 - **Configurable:** No.
+
+### `WINDOW_SPEECH_EXTENSION_MS` (removed)
+
+- **Where:** was `onSpeechDetected`. No longer a constant. Extension pad is `DUCK_HOLD_MS`.
+- **Purpose:** Used to keep the window open 5 s after last speech while duck released at 3 s, so the mic streamed into full-volume music for 2 s. Duck and mic now end together on the quiet hold.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md` (the hold value is still unset; folding 5000 into 3000 is not a decision of the hold).
+- **Configurable:** n/a.
 
 ### `CONFIDENCE_HORIZON_MS = 300000`
 
@@ -716,6 +730,83 @@ Policy only. No vendor, no audio implementation. The numbers are how long music 
 - **Where:** `VoiceInteractionConstants`; asserted in `VoiceTurnMachineTest` and `VoiceInteractionTest`
 - **Purpose:** The window layer must not add latency to barge-in cancel. Same budget as the existing voice/latency row.
 - **Source:** `SAFETY REQUIREMENT` — product §12; KD11. Unchanged.
+- **Configurable:** No.
+
+### `CHECK_IN_INTERVAL` (unset)
+
+- **Where:** not in code. Session clock / window scheduler will own it.
+- **Purpose:** How often the coach opens a scheduled window.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. Deliberately unset. Do not fill this in from a guess.
+- **Configurable:** n/a.
+
+### `CHECK_IN_INTERVAL_MIN` (unset)
+
+- **Where:** not decided. `WINDOW_MIN_GAP_MS = 15000` exists in code from an earlier step; that is not this decision.
+- **Purpose:** Minimum gap so the coach is not chatty.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`.
+- **Configurable:** n/a.
+
+### `CHECK_IN_INTERVAL_MAX` (unset)
+
+- **Where:** not decided. `WINDOW_MAX_SILENCE_MS = 180000` exists in code from an earlier step; that is not this decision.
+- **Purpose:** Maximum silence so a quiet user is not abandoned, never while lifting.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`.
+- **Configurable:** n/a.
+
+### `QUIET_HOLD` (unset)
+
+- **Where:** `VoiceInteractionConstants.DUCK_HOLD_MS` (3000). `:app` reads this value; it no longer has its own 2500. Reconciling the split is not the same as deciding the number.
+- **Purpose:** After the exchange ends, how long duck+mic stay up. Quiet means the user stopped speaking, not that the gym went silent.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. Floor test 2026-09-02 used 2500 ms. Rahul asked for 3000 ms. The running value is 3000 so there is one hold, not two. That is not a promotion out of UNDECIDED.
+- **Configurable:** n/a.
+
+### `WAKE_WORD_PATH_LIVE = false`
+
+- **Where:** `VoiceInteractionConstants.WAKE_WORD_PATH_LIVE`; `windowFor(EntryPoint)`, `listenDecision`, `applyListenDecision`
+- **Purpose:** v1 dormancy switch. The user cannot open a window by speaking. Flip to true when LE Audio earbuds make an always-ready mic viable. Types stay.
+- **Source:** `PRODUCT DECISION` — SESSION-DESIGN.md §1. Boolean, not a duration.
+- **Configurable:** No until LE Audio.
+
+### `OBSERVED_REST_SAMPLE_MIN = 3`
+
+- **Where:** `trustedRest` — count of **rest observations** the median is taken of
+- **Purpose:** Per-exercise median only when that exercise has at least this many rest samples. Below that, fall back to the per-user pool (same minimum). A 3-set exercise's two rests still enter the user pool. Three is the smallest n where the median is a middle value, so one interrupted rest is not the answer. Median of two is their mean, which is the failure this guards.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. A guess about statistics, not a measurement. Running value 3 is leftover; not promoted.
+- **Configurable:** n/a.
+
+### `OBSERVED_REST_RECENT = 5`
+
+- **Where:** `trustedRest`
+- **Purpose:** "Recent" observed rests for the median. Five is one typical exercise of 3–4 sets plus a leftover, or a short mix across exercises. Older rests from a different day do not belong in this PR's in-memory history anyway.
+- **Source:** `MVP HEURISTIC`. Guess.
+- **Configurable:** No.
+
+### `WINDOW_MIN_GAP_MS` (in code; not the decision)
+
+- **Where:** `nextScheduledWindow`. Value 15000 is leftover from an earlier step.
+- **Purpose:** See `CHECK_IN_INTERVAL_MIN`.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. Do not treat 15000 as fact.
+- **Configurable:** n/a.
+
+### `WINDOW_MAX_SILENCE_MS` (in code; not the decision)
+
+- **Where:** `nextScheduledWindow`. Value 180000 is leftover from an earlier step.
+- **Purpose:** See `CHECK_IN_INTERVAL_MAX`.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`. Do not treat 180000 as fact.
+- **Configurable:** n/a.
+
+### `WINDOW_SET_END_SLACK_MS = 10000`
+
+- **Where:** `nextScheduledWindow`
+- **Purpose:** Treat rest that started in the last 10 s as "set probably ended." Domain is ticked, not sampled at 1 kHz. Ten seconds is one closed-answer window; late enough to miss a 1 s tick, early enough not to be a mid-rest check-in.
+- **Source:** `MVP HEURISTIC`. Guess.
+- **Configurable:** No.
+
+### `TopicCopy.OUT_OF_SCOPE` (copy, not a number)
+
+- **Where:** `TopicCopy.OUT_OF_SCOPE`; `topicReply`
+- **Purpose:** The one polite line when the question is outside training, food, and injuries. Said often. Exact: `I'm your gym coach — I can help with training, food and injuries.`
+- **Source:** `PRODUCT DECISION`.
 - **Configurable:** No.
 
 ### `REVIEWED = 2026-09-02` (voice interaction)
@@ -832,12 +923,12 @@ One spoken line on a phone. Duck music (`AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`) 18
 - **Source:** `PRODUCT DECISION`. Gym listen: duck 1.8 seconds ahead of coach speak.
 - **Configurable:** Constructor override for tests (`0` so unit tests do not wait). Not a user setting.
 
-### `DUCK_HOLD_MS = 2500`
+### `DUCK_HOLD_MS` (app no longer owns a copy)
 
-- **Where:** `ElevenLabsConstants.DUCK_HOLD_MS`; `DuckHold.shouldHold`
-- **Purpose:** After the coach finishes, music stays down 2.5 s so the user can talk back. If they are still speaking, hold with no 60 s cut. Restore only after 2.5 s of quiet. Mic stays armed after restore.
-- **Source:** `PRODUCT DECISION`. Gym listen: 60 s hard cap restored music while the conversation was still going; SpeechRecognizer paused music instead of ducking.
-- **Configurable:** Constructor/test override. Not a user setting.
+- **Where:** `:app` reads `VoiceInteractionConstants.DUCK_HOLD_MS`. The old `ElevenLabsConstants.DUCK_HOLD_MS = 2500` is gone.
+- **Purpose:** One hold. See `QUIET_HOLD` (unset). Reconciling the 2500/3000 split is not a decision of the value.
+- **Source:** `UNDECIDED — SEE SESSION-DESIGN.md`.
+- **Configurable:** n/a.
 
 ### `STT_MODEL_ID = scribe_v2_realtime` / `STT_FORMAT = pcm_16000`
 

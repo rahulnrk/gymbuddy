@@ -1,5 +1,7 @@
 package com.gymbuddy.app.voice
 
+import com.gymbuddy.domain.voice.VoiceInteractionConstants
+
 /**
  * Exact lines on the First Sound screen. Timings are reported, never judged.
  */
@@ -51,7 +53,7 @@ class SpeakDiagnostics {
     var keyPresent: Boolean = false
     var audioRoute: String = "unknown"
     var duckLeadMs: Long = ElevenLabsConstants.DUCK_LEAD_MS
-    var duckHoldMs: Long = ElevenLabsConstants.DUCK_HOLD_MS
+    var duckHoldMs: Long = VoiceInteractionConstants.DUCK_HOLD_MS
     var lastHeard: String = ""
     var hotword: String = "none"
     var vadSpeech: Boolean = false

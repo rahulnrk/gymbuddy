@@ -174,7 +174,7 @@ Rows for every new constant. `scripts/check_living_spec.py` covers contract 35.
 
 ## Tests
 
-1. A `STATEMENT` opens no window at all.
+1. ~~A `STATEMENT` opens no window at all.~~ **Withdrawn.** Contract 35 (SESSION-DESIGN.md): every coach utterance opens a window, including statements. See `WINDOW_STATEMENT_MS`.
 2. `CLOSED_ANSWER` opens a short window; `OPEN_QUESTION` a long one.
 3. Speech before close extends the window; extension respects the hard cap.
 4. Ducking is true exactly while a window is open — assert un-duck on timeout,

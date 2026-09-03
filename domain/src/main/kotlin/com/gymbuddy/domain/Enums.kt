@@ -96,7 +96,7 @@ enum class WorkoutSessionState {
 enum class VoiceTurnState {
     /** Idle / no active turn. Spec name for the user's "IDLE". */
     SILENT,
-    /** VAD armed, awaiting speech. Always-on mic while Gym Mode is on. */
+    /** VAD armed, awaiting speech. Mic is on only while a conversation window is open. */
     LISTENING,
     USER_SPEAKING,
     PROCESSING,

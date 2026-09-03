@@ -1,6 +1,7 @@
 package com.gymbuddy.app.voice
 
 import com.gymbuddy.domain.voice.Clock
+import com.gymbuddy.domain.voice.VoiceInteractionConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -13,6 +14,10 @@ import java.util.concurrent.atomic.AtomicReference
  * First Sound gym-listen loop.
  * Mic stays on while the screen is open (no audio focus).
  * Music ducks only for coach speak / a hotword hit, and stays down while the user talks.
+ *
+ * Experiment harness, not the contract-35 session runner. Always-on Scribe
+ * costs roughly 19× the windowed design. Do not promote this screen into
+ * the product path.
  */
 class FirstSoundSession(
     private val tts: ElevenLabsTts,
@@ -20,7 +25,7 @@ class FirstSoundSession(
     private val clock: Clock,
     private val ducker: TtsDucker,
     private val scope: CoroutineScope,
-    private val holdMs: Long = ElevenLabsConstants.DUCK_HOLD_MS,
+    private val holdMs: Long = VoiceInteractionConstants.DUCK_HOLD_MS,
 ) {
     var observer: SpeakObserver? = null
     private val leaving = AtomicBoolean(false)

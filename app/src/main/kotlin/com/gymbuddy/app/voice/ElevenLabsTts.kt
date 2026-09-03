@@ -5,6 +5,7 @@ import com.gymbuddy.app.voice.ElevenLabsConstants.SAMPLE_RATE_HZ
 import com.gymbuddy.domain.voice.Clock
 import com.gymbuddy.domain.voice.TtsHandle
 import com.gymbuddy.domain.voice.TtsProvider
+import com.gymbuddy.domain.voice.VoiceInteractionConstants
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -55,7 +56,7 @@ class ElevenLabsTts(
         diagnostics.reset()
         diagnostics.keyPresent = credentials.keyPresent
         diagnostics.duckLeadMs = duckLeadMs
-        diagnostics.duckHoldMs = ElevenLabsConstants.DUCK_HOLD_MS
+        diagnostics.duckHoldMs = VoiceInteractionConstants.DUCK_HOLD_MS
         val handle = ElevenLabsTtsHandle(
             id = "el-${seq.incrementAndGet()}",
             startedAtMs = tapAt,

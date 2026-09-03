@@ -21,6 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gymbuddy.app.voice.ElevenLabsConstants.FIRST_SOUND_LINE
 
+/**
+ * First Sound is an experiment harness. It does **not** implement the
+ * contract-35 window policy. The mic is armed for the whole screen (always-on
+ * Scribe), which costs roughly nineteen times the windowed design. When the
+ * real session runner exists, this screen does not become it. Debug-only.
+ */
 @Composable
 fun FirstSoundScreen(
     status: String,
@@ -42,7 +48,7 @@ fun FirstSoundScreen(
         Text("First sound", color = ink, fontSize = 28.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(8.dp))
         Text(
-            "Music stays up until the coach talks or you say hey coach. Then it ducks — not pause — and stays down while you talk. 1.8s before the coach, 2.5s after you go quiet.",
+            "Harness, not the product window. Music stays up until the coach talks or you say hey coach. Then it ducks — not pause — and stays down while you talk.",
             color = mute,
             fontSize = 16.sp,
         )

@@ -32,30 +32,29 @@ class ListenGateTest {
     @Test
     fun speechWithoutWindowRunsWakeWordNotCloud() {
         val decision = listenDecision(speech, wake = null, none)
-        assertIs<ListenDecision.RunWakeWord>(decision)
-        assertTrue(mayRunWakeWord(decision))
+        assertIs<ListenDecision.VadOnly>(decision)
+        assertFalse(mayRunWakeWord(decision))
         assertFalse(mayOpenCloud(decision))
+        assertFalse(VoiceInteractionConstants.WAKE_WORD_PATH_LIVE)
 
         val wake = FakeWakeWord()
         val stt = FakeStt(FakeClock())
         applyListenDecision(decision, wake, stt)
-        assertTrue(wake.started)
+        assertFalse(wake.started)
         assertFalse(stt.recognizing)
     }
 
     @Test
     fun wakeWordOnSpeechOpensCloud() {
         val decision = listenDecision(speech, WakeWordObservation(detected = true), none)
-        val open = assertIs<ListenDecision.OpenCloud>(decision)
-        assertEquals(CloudReason.WAKE_WORD, open.via)
+        assertIs<ListenDecision.VadOnly>(decision)
+        assertFalse(mayOpenCloud(decision))
         assertFalse(mayRunWakeWord(decision))
-        assertTrue(mayOpenCloud(decision))
 
         val wake = FakeWakeWord().also { it.start() }
         val stt = FakeStt(FakeClock())
         applyListenDecision(decision, wake, stt)
-        assertFalse(wake.started)
-        assertTrue(stt.recognizing)
+        assertFalse(stt.recognizing)
     }
 
     @Test
@@ -66,25 +65,22 @@ class ListenGateTest {
         assertEquals(CloudReason.COACH_WINDOW, open.via)
         assertTrue(mayOpenCloud(decision))
         assertFalse(mayRunWakeWord(decision))
+
+        val reminder = listenDecision(silence, wake = null, windowFor(UtteranceKind.STATEMENT))
+        assertEquals(CloudReason.COACH_WINDOW, assertIs<ListenDecision.OpenCloud>(reminder).via)
     }
 
     @Test
     fun earbudAndOnScreenWorkWithoutWakeWord() {
-        EntryPoint.entries.forEach { entry ->
+        listOf(EntryPoint.WAKE_WORD, EntryPoint.EARBUD, EntryPoint.ON_SCREEN).forEach { entry ->
+            assertIs<Window.None>(windowFor(entry))
             val decision = listenDecision(silence, wake = null, windowFor(entry))
-            val open = assertIs<ListenDecision.OpenCloud>(decision)
-            when (entry) {
-                EntryPoint.WAKE_WORD -> assertEquals(CloudReason.WAKE_WORD, open.via)
-                EntryPoint.EARBUD -> {
-                    assertEquals(CloudReason.EARBUD, open.via)
-                    assertTrue(entryWorksWithoutWakeWord(entry))
-                }
-                EntryPoint.ON_SCREEN -> {
-                    assertEquals(CloudReason.ON_SCREEN, open.via)
-                    assertTrue(entryWorksWithoutWakeWord(entry))
-                }
-            }
+            assertFalse(mayOpenCloud(decision), entry.name)
         }
+        val emergency = listenDecision(silence, wake = null, windowFor(EntryPoint.EMERGENCY))
+        val open = assertIs<ListenDecision.OpenCloud>(emergency)
+        assertEquals(CloudReason.EMERGENCY, open.via)
+        assertTrue(entryWorksWithoutWakeWord(EntryPoint.EMERGENCY))
         assertFalse(entryWorksWithoutWakeWord(EntryPoint.WAKE_WORD))
         assertTrue(entryWorksWithoutWakeWord(EntryPoint.EARBUD))
         assertTrue(entryWorksWithoutWakeWord(EntryPoint.ON_SCREEN))
@@ -123,7 +119,8 @@ class ListenGateTest {
             usable = true,
         )
         val decision = listenDecision(musicButUsable, wake = null, none)
-        assertIs<ListenDecision.RunWakeWord>(decision)
+        assertIs<ListenDecision.VadOnly>(decision)
+        assertFalse(mayRunWakeWord(decision))
     }
 
     @Test

@@ -58,7 +58,9 @@ A `SessionPainRecord` is what next session's readiness reads: *"How's that shoul
 
 ### User behavior
 
-They twinge on set two. We wait until rest. We ask until the outcome is determined. We propose. They accept.
+They twinge on set two. In v1 they **cannot** raise pain by speaking — the mic is not open unless the coach opened a window, and they cannot open one with their voice. Entry is the **on-screen emergency control** (contract 35). It opens a window immediately, out of schedule, and works whatever the session clock believes is happening, **mid-set included**. Someone in real pain is stopping anyway; reaching for the phone is acceptable.
+
+Once that window is open, we ask until the outcome is determined. We propose. They accept. The six questions and the outcomes do not change.
 
 ### System state
 
@@ -66,7 +68,9 @@ They twinge on set two. We wait until rest. We ask until the outcome is determin
 
 ### Voice behavior
 
-**Gym Mode, at rest.** Contract 09: no TTS during `SET_ACTIVE` except safety ≥ high (that is contract 11, not this). Same wording queued and drained. No condition names. No `conditions.json` display names. In-session chest is `PainCopy.IN_SESSION_CHEST` plus the shared urgency line, never intake's "You marked chest pain".
+**Emergency window, including mid-set.** Contract 35: the emergency control is the only user-initiated entry. It may speak during `SET_ACTIVE` because the user has already stopped to tap it. Safety ≥ high (contract 11) still wins if chest/faint/SOB is on the raw transcript. Same wording. No condition names. No `conditions.json` display names. In-session chest is `PainCopy.IN_SESSION_CHEST` plus the shared urgency line, never intake's "You marked chest pain".
+
+Scheduled (non-emergency) pain talk still queues during `SET_ACTIVE` and drains on rest (contract 09). Test 10 describes that path. The v1 product path is emergency.
 
 ### Structured event
 

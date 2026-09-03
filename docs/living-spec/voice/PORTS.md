@@ -13,7 +13,8 @@ SILENT is idle. LISTENING is VAD-armed. INTERRUPTED is barge-in in flight (then 
 - `Clock` (`now()` in monotonic milliseconds. Tests supply a fake; `:app` supplies wall time.)
 - `VadProvider` (speech start/stop, `setListener(VadListener)` — the adapter pushes observations; the kernel implements the listener)
 - `SttProvider` (`recognizing` is true from `startRecognition` until `abort`; a final does not end the session — one window is one recognition session; `setListener(SttListener)` — the adapter pushes chunks; `supportsOffline` gates voice logging with no network; `sttFinalHash` = sha256 of normalized final)
-- `WakeWordProvider` (on-device wake word. No vendor. Adapter blocked on measurement. `ListenDecision` decides when it may run.)
+- `WakeWordProvider` (on-device wake word. **Dormant for v1.** Phone in a pocket or locker; only usable mic is earbuds; ordinary Bluetooth open-mic drops music to call quality. Types stay. Returns if LE Audio earbuds become common.)
+- `TopicScope` (in-scope vs out-of-scope for the gym-coach brief. Real classification needs a model. Tests use `FakeTopicScope`. Production main must not keyword-classify.)
 - `TtsProvider` / `TtsHandle.cancel()` for barge-in. Completion is `speaking` going false, not a `complete()` on the port.
 - `LidProvider` (en/hi/te/ta + code-mixed; does not translate)
 - `AudioFocusController` (duck / restore / release; degrade if unsupported)
@@ -21,7 +22,7 @@ SILENT is idle. LISTENING is VAD-armed. INTERRUPTED is barge-in in flight (then 
 - `LlmProvider.phraseCoaching` → string phrasing of an allowed speech act (not implemented in PR 5)
 - `RetrievalProvider` for Feature 28 (not a chat API)
 
-Fakes live in `voice/fake/` and are test-only. `VoiceTurnMachine` and `CompanionLoop` take the ports, not the fakes. `listenDecision` / `applyListenDecision` is the gate: VAD → wake word → cloud. The gate owns the recognition session; the machine transports what the gate opened.
+Fakes live in `voice/fake/` and are test-only. `VoiceTurnMachine` and `CompanionLoop` take the ports, not the fakes. `listenDecision` / `applyListenDecision` is the gate: VAD → wake word → cloud. **The gate is dormant for v1** (same earbud-mic reason as `WakeWordProvider`). Do not delete it. The coach opens windows. The only live user-initiated entry is the emergency control.
 
 Workout engine, projector, and validator import **zero** provider types. The 250 ms / headset / overlap auto-commit gate stays in `CandidateValidator`. The voice layer only transports duration, route, talker count, and overlap.
 

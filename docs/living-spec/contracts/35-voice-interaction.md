@@ -1,129 +1,110 @@
 ---
 id: 35-voice-interaction
-status: implemented
+status: specified
 schemaVersion: 1
-source: docs/prompts/pr-voice-interaction-contract.md
+source: docs/living-spec/SESSION-DESIGN.md
 ---
 
-## Feature: Voice interaction — the conversation window and the coach's clock
+## Feature: Voice interaction — the coach runs on a clock and opens its own windows
 
-**Status:** implemented  
-**Core-loop role:** Kernel companion. Music ducks only while a conversation window is open. The coach opens most windows after speaking. The user needs a wake word, earbud tap, or on-screen mic only when they interrupt unprompted. Past the confidence horizon the coach is silent. Silence is the common, correct outcome.
+**Status:** specified  
+**Core-loop role:** Kernel companion. The coach opens listening windows. The user cannot open one by speaking. The phone is in a pocket or locker, so the only usable mic is in the earbuds; on ordinary Bluetooth an open earbud mic drops the music to call quality. The mic therefore cannot stay open across a workout. The coach decides when it opens. Facts arrive only when the user speaks in a window.
 
-This PR is policy and state. No vendor SDK, no audio code, no `:app`. `VoiceTurnMachine` stays the transport. `VoiceTurnState` stays orthogonal to `WorkoutSessionState`.
+This is policy. No vendor SDK in this contract. `VoiceTurnMachine` stays the transport. `VoiceTurnState` stays orthogonal to `WorkoutSessionState`. Design of record: `docs/living-spec/SESSION-DESIGN.md` (agreed 2026-09-03).
 
 ### User behavior
 
-Phone in a pocket, music playing. After a set, a rest, or a check-in, the coach has just said something. If that utterance invites a reply, a window opens and music ducks. The user talks naturally — *"that was fifteen at eighty"* — with no wake word. The window closes, music returns.
+Phone in a pocket or locker, music in the earbuds. They lift. Nothing is listening. When the clock decides a set has probably ended, music ducks (it never pauses), the coach starts speaking, and **the mic opens at the same moment** so they can cut in mid-sentence. They say whatever they say about the training — not a wake word, not a command. The coach logs what was said, answers what was asked, adjusts the plan if needed.
 
-A statement that invites no reply ("Nice.") opens no window. Music does not duck for eight empty seconds after a closed answer.
+The ducked period and the listening period are the same interval. It is elastic: it extends while either party is talking. The exchange ends when the user stops **or** the coach finishes answering, whichever is later. Then a quiet hold. Quiet means the user stopped speaking, not that the room went silent. A gym is never silent. Music returns to full. Mic closes. Nothing listens until the next check-in.
 
-If the user speaks first, they enter through a wake word, an earbud tap, or the on-screen mic. All three produce the same user-initiated window.
+The user cannot start a conversation by speaking. They never say "hey coach." They never tap an earbud to talk to the coach — that button is music (play, pause, skip) while A2DP is playing.
 
-**The wake word is the least reliable of the three.** It will fail in a loud gym. The system must stay usable without it.
+If something hurts, they hit one on-screen emergency control. That opens a window immediately, even mid-set, and goes into pain triage (contract 37). That is the only user-initiated entry in v1.
 
-While music is playing — the normal case — an earbud tap is a music control (play, pause, skip), not a coach trigger. Do not send the user there as a fallback. The on-screen mic is the dedicated control that does not fight the music app. When the wake word fails under music, the fallback is the mic on the screen.
-
-Earbud and on-screen still open the same user-initiated window if they arrive. The earbud path is not the recovery path for music. `voice-workout-os-source/` already has an addressee gate (speech aimed at the coach, no wake word). That is the better product answer and must be benched against a wake word before a vendor is picked. The adapter is blocked on measurement. No `:app` change in this PR.
-
-If they go quiet for minutes — rest, mid-set, queue, toilet — the coach does not guess. One re-sync near the horizon ("Ready when you are?"). If unanswered, silence until they speak.
+Android ducks; the app cannot set the duck level. The music app decides how far the volume falls.
 
 ### System state
 
 `com.gymbuddy.domain.voice` policy layer over `VoiceTurnMachine`, not a replacement.
 
-**Window.** Adaptive length, not a fixed 40 seconds.
+**Opening.** The clock aims at the gap after a set, never mid-set. A window that lands mid-set is the failure this design exists to avoid. **Every coach utterance opens a window**, including `STATEMENT` reminders. The old rule "a STATEMENT opens no window" is wrong under this design: the coach is the only party who can open a window, so a reminder with no window leaves the user mute. `WINDOW_STATEMENT_MS` is the shortest budget (UNDECIDED).
 
-| What the coach just said | Window |
-|---|---|
-| Statement inviting no reply ("Nice.") | None |
-| Closed answer ("Yes, stay at eighty.") | 8 s (`WINDOW_CLOSED_ANSWER_MS`) |
-| Direct question, short answer ("How many?") | 10 s (`WINDOW_SHORT_QUESTION_MS`) |
-| Open question ("How did that feel?") | 40 s (`WINDOW_OPEN_QUESTION_MS`) |
-| User interrupted (wake word / earbud / on-screen) | 40 s (`WINDOW_USER_INITIATED_MS`) |
+**Reply budget.** `maxMs` is time to begin speaking **after the coach stops**, not from window open. The mic still opens when the coach *starts* (barge-in). `onCoachFinished` starts the clock. Cached variants of different lengths must not change how long the user has to answer.
 
-If speech is detected before close, the window extends while they talk, hard-capped at 60 s (`WINDOW_HARD_CAP_MS`). A user saying *"actually…"* must not be cut off.
+**Holding.** The window extends while either party is still talking. There is **no hard cap** that cuts a live conversation. The 60 s cap that fired in the 2026-09-02 floor test was a defect, not a policy. `WINDOW_HARD_CAP_MS` remains in the tree from the old model; it is not this contract's rule.
 
-`shouldDuck(window)` is true exactly while the window is not `None`. Un-duck on timeout, close, and cancellation. Contract 27 still owns audio focus; this contract only says how long the duck lasts.
+**Closing.** A quiet hold after the exchange ends. Quiet = the user stopped speaking.
 
-**Silence rule.** The coach may speak proactively only when:
+**Numbers.** Check-in interval, its min and max, and the quiet hold are unset on purpose. See `DECISIONS_AND_THRESHOLDS.md` rows sourced `UNDECIDED — SEE SESSION-DESIGN.md`. Do not treat a floor-test millisecond as fact.
 
-1. workout state permits speech (contract 09: never during `SET_ACTIVE` except safety ≥ high), **and**
-2. time since the last anchoring event is within the confidence horizon (`CONFIDENCE_HORIZON_MS` = 300 s, equal to the longest published rest).
+**Mic and duck are the same interval.** Music ducks when the window opens. The mic opens when the coach starts speaking. Both last until the quiet hold after the exchange. If the conversation runs long, the duck runs long with it. Never pause.
 
-Past the horizon the coach is silent and waits. It does not guess. A missed prompt is a minor annoyance. Talking under a loaded bar is a safety failure and a product people uninstall.
+**How the coach speaks.**
 
-**Re-sync.** The only utterance allowed at the horizon: *"Ready when you are?"* Once. Answered → clock re-anchors, proactive behaviour resumes. Unanswered → silent until the user speaks. Must not ask twice.
+- Coach-initiated lines (check-ins, rest calls, reminders, transitions, encouragement) are **pre-recorded**, many variants per job, chosen at random, **never repeated within one session**. The user is not responding to these, so they do not need to be generated live.
+- Replies to the user **always come from the model**. Answering a person with a stock line is an IVR. "That felt heavy" always gets a real answer.
+- Lines carrying the user's own numbers are **generated fresh** and never stitched from recorded fragments. "Eight at sixty — that's up" lands; "set logged" does not.
 
-Every user utterance re-anchors the clock. So does any logged event.
+**Emergency.** On-screen control. Opens a window immediately, out of schedule, mid-set included. Routes to contract 37. The only user-initiated entry.
 
-**Coach clock.** `proactiveUtterance` returns at most a rest-complete prompt, the single re-sync, or null. Null is the common case. Same discipline as `ShouldSpeak`. Rest-complete fires **once** while `RESTING` and elapsed rest has reached the entry's published minimum. Unanswered, it does not ask again. Safety speech during `SET_ACTIVE` stays `ShouldSpeak`; this clock returns null there.
+**Wake word, earbud tap, generic on-screen talk — dormant.** `WakeWordProvider`, `ListenDecision`, `EntryPoint.WAKE_WORD` / `EARBUD` / `ON_SCREEN`, and the listen-gate functions stay in the tree. They are not the v1 path. Reason: the user's phone is in a pocket or locker, so the only usable mic is in their earbuds, and on ordinary Bluetooth an open earbud mic drops the music to call quality. They return if LE Audio earbuds become common. Delete nothing.
 
-**Predictive rest.** Within-session only. `adjustForToday` handles between-session readiness. On a declining set, extend rest by 30 s. Never shorten below the goal's published minimum. Every adjustment carries a spoken reason with units.
+**Listen gate.** Still in the tree. Dormant for v1. A coach-opened window or emergency is what opens cloud STT in the new model. Production constructors still take ports, not fakes.
 
-**Listen gate.** VAD (is anyone speaking?) gates the wake-word model, which gates the cloud. Each stage exists to stop the next one running. Never run wake word detection on silence. Never open a cloud stream without a wake word or a coach-opened window (or an earbud / on-screen entry, which is the same user-initiated window).
+**Topic scope.** In scope: training, technique, programming, nutrition, calories, protein, muscles and anatomy, injuries, recovery, equipment. Everything else gets one polite line:
 
-`VadObservation` models two echoes. `echoFromTts` is brief and known — we are speaking. `echoFromMusic` is louder, constant, and the harder problem. `usable` is a boolean the adapter will set after measurement; `null` is unknown. Unknown-with-music is unusable. The policy then says the signal is unusable and falls back to the on-screen mic rather than pretending a wake word fired, and rather than an earbud tap (that tap is music controls). There is no SNR or wake-word confidence number in domain.
+> I'm your gym coach — I can help with training, food and injuries.
 
-**Recognition session owner.** The listen gate owns the STT session. `applyListenDecision` starts and aborts it. `VoiceTurnMachine` transports what the gate opened: `start()` arms VAD only; `onSpeechStart` and `bargeIn` do not call `startRecognition`. `stop()` aborts if recognizing, because the voice turn is over. Always-on `LISTENING` is VAD, not cloud. Do not leave a second owner in the tree.
+Classification needs the model. Do not keyword-match — it will misfire on "my shoulder is killing me."
 
-`VoiceTurnMachine` and `CompanionLoop` take ports (`Clock`, `VadProvider`, `SttProvider`, `TtsProvider`, `LidProvider`, `AudioFocusController`), not fakes. AEC measurement still blocks wiring barge-in-under-TTS through this gate.
+**Silence / horizon.** The coach may speak a scheduled line only when workout state permits (contract 09: never during `SET_ACTIVE` except safety ≥ high). Talking under a loaded bar is a safety failure. A missed check-in is a minor annoyance.
 
-Barge-in outside a coach-opened window is not reachable through this gate yet. `echoFromTts` returns `VadOnly`, which stops wake word and cloud. Echo detected is not "no user underneath." Separating the two needs AEC, the same measurement block as the wake word. Wiring `VoiceTurnMachine` to this gate must not silently drop barge-in on a rest countdown or a mid-set cue.
-
-`applyListenDecision` starts cloud STT at most once per open window. `SttProvider.recognizing` is true from `startRecognition` until `abort`. A final does not end the session. One window is one recognition session; finals do not close it; the window closing does. Unguarded `startRecognition` or `abort` on every VAD observation would open or tear down a connection per frame.
+**Coach clock / rest-complete / predictive rest.** Existing `proactiveUtterance` and `restAdjustment` remain in the tree. They are not the session loop in §2 of the design document. Do not treat them as the scheduler.
 
 ### Voice behavior
 
-- `STATEMENT` → silent window (none). Music stays up.
-- Closed/short/open questions open the matching window. Music ducks for that window only.
-- `SET_ACTIVE`: no proactive clock speech except the existing safety ≥ high path in contract 09.
-- At the horizon: one re-sync, then silence.
-- Four minutes of `SET_ACTIVE`: nothing. Four minutes after rest-complete went unanswered: nothing. The coach does not guess whether they are still resting, under the bar, queuing, or gone.
-- Rest adjustment is spoken in coach language ("Take another thirty seconds — your last set dropped to six reps"), never field names, never a bare number without units.
-- Unusable music: "The gym is too loud for a wake word. Use the mic on the screen." Session continues. Never "tap the earbud" — that button is music. No condition names, no field names.
+- The coach opens the window. The user cannot open one by speaking.
+- Mic opens the moment the coach starts speaking. The user can cut in.
+- Duck and listen are the same elastic interval. Music ducks, never pauses. The app does not set the duck level.
+- No hard cap on a conversation in progress.
+- Coach-initiated: recorded variants, no repeat in session. Replies: model. User numbers: generated fresh, never stitched.
+- Emergency: mid-set allowed. Pain triage. Only user-initiated entry.
+- Out of scope: the line above, once.
+- `SET_ACTIVE`: no scheduled coach speech except safety ≥ high (contract 09 / 11).
 
 ### Structured event
 
-None new. Windows, clock, and rest policy do not append events. `AUDIO_FOCUS_CHANGED` remains contract 27. `COACHING_RESPONSE` / silence rows remain contract 09. `BARGE_IN` remains the voice transport.
+None new. `AUDIO_FOCUS_CHANGED` remains contract 27. `COACHING_RESPONSE` / silence rows remain contract 09. `BARGE_IN` remains the voice transport. Pain accept remains contract 37.
 
 ### Database change
 
-None. Policy only.
+None in this contract update.
 
 ### UI state
 
-None. No `:app` change. Three entry points are named so a later HUD can bind them; this PR does not draw them. The wake-word adapter is blocked on measurement.
+None in this contract update. The emergency control is named so a later HUD can bind it. Wake-word and earbud are not drawn.
+
+**First Sound** (`:app` `FirstSoundScreen`) is an experiment harness. It does not implement this window policy. It arms Scribe for the whole screen (always-on listening), which costs roughly nineteen times the windowed design. When the real session runner exists, that screen does not become it.
 
 ### Error / recovery behavior
 
-Window times out → `None`, music restores. Cancel (barge-in / stop) → `None`, music restores. Barge-in cancel stays inside the existing 200 ms budget; the window layer must not add latency. Speech after close is a new user-initiated window, not an extension of a dead one. Horizon passed and re-sync unanswered → wait. Empty plan → no rest-complete. Music echo with unknown usability → `FallBackToOnScreen`, wake word off, cloud off. A pretended wake-word hit on that signal is discarded. Do not fall back to earbud tap: while music plays, that button belongs to the music app. Wake word unavailable → on-screen still works.
+Exchange ends → quiet hold → music restores, mic closes. Cancel → restore. Barge-in cancel stays inside the existing 200 ms budget. Speech after close is not an extension of a dead window; the next listen is the next scheduled check-in or emergency. Predicted lifting → no scheduled window. Emergency ignores the clock. Dormant wake-word hits are not the product path. If Android denies duck, speak anyway (contract 27); never pause the music app as a fallback.
 
 ### Tests
 
-Evidence is `:domain` Kotlin tests, not event goldens.
+Evidence is `:domain` Kotlin tests, not event goldens. Cached coach-initiated lines may be asserted word for word. Model-generated replies must not be; assert what was **logged** and **decided**. Inventory of existing exact-line tests: `docs/research/spoken-line-test-inventory-2026-09-03.md`.
 
-1. A `STATEMENT` opens no window at all.
-2. `CLOSED_ANSWER` opens a short window; `OPEN_QUESTION` a long one.
-3. Speech before close extends the window; extension respects the hard cap.
-4. Ducking is true exactly while a window is open — un-duck on timeout, on close, and on cancellation.
-5. `maySpeakProactively` is false during `SET_ACTIVE` for anything below safety-high.
-6. Past the confidence horizon, `proactiveUtterance` returns the re-sync **once** and null thereafter.
-7. Any user utterance re-anchors the clock and restores proactive behaviour.
-8. All three entry points produce an equivalent `UserInitiated` window.
-9. Barge-in still cancels within the existing 200 ms budget — the window layer does not add latency.
-10. Predictive rest extends on a declining set and never shortens below the goal minimum.
-11. Every proactive utterance and rest adjustment carries a plain-language reason (no field names, no bare numbers without units).
-12. `VoiceTurnState` and `WorkoutSessionState` remain independent.
-13. Four minutes of `SET_ACTIVE` yields null at every tick, including with rest elapsed.
-14. Unanswered rest-complete stays null until the horizon; it does not ask again.
-15. Silence never runs the wake-word model and never opens the cloud.
-16. A coach-opened window opens the cloud with no wake-word observation.
-17. Earbud and on-screen open the cloud with no wake-word observation — the system stays usable without a wake word.
-18. Music echo with unknown `usable` falls back to the on-screen mic, not the earbud; an injected wake-word hit on that signal does not open the cloud. The spoken line does not say "earbud".
-19. `echoFromTts` closes the gate until AEC is measured. It does not claim no user is speaking underneath.
-20. `OpenCloud` calls `startRecognition` once until `abort`; a further `OpenCloud` after abort starts it again.
-21. `VadOnly` calls `abort` once if recognition was running, and not at all if it never started.
-22. A final inside an open window does not start a second recognition session. The window closing does.
-23. Same-reason duck is held; a second speech onset in one window does not restore-and-request.
-24. Production `:domain` main sources outside `voice/fake/` do not import fakes.
+1. The user cannot open a window by speaking. Scheduled windows are coach-initiated. A `STATEMENT` opens the shortest window, not none. Two coach lines of different lengths leave the same reply budget after `onCoachFinished`. Barge-in during the coach's line still works.
+2. Duck interval equals listen interval. It extends while either party is talking.
+3. Mic is defined as open from the moment the coach starts speaking.
+4. The window closes only after a quiet hold past the later of (user stopped, coach finished answering).
+5. Quiet is user-speech ending, not gym silence.
+6. No hard cap cuts a live conversation.
+7. Music ducks, never pauses.
+8. Emergency opens during predicted lifting and routes to pain triage.
+9. Wake-word / earbud types remain; the architecture test still forbids fakes in production main.
+10. Out-of-scope copy is exactly the line in this contract.
+11. `VoiceTurnState` and `WorkoutSessionState` remain independent.
+12. Barge-in cancel stays inside the existing 200 ms budget.
+13. Four minutes of `SET_ACTIVE`: no scheduled window. Emergency still works.

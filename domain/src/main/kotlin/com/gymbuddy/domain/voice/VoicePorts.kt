@@ -52,8 +52,13 @@ data class VadObservation(
 )
 
 /**
- * On-device wake-word port. No vendor, no audio. The adapter is blocked
- * on measurement. [ListenDecision] decides when this may run.
+ * On-device wake-word port. No vendor, no audio.
+ *
+ * Dormant for v1. The user's phone is in a pocket or locker, so the only
+ * usable mic is in their earbuds. On ordinary Bluetooth an open earbud mic
+ * drops the music to call quality. [ListenDecision] still decides when this
+ * may run. The type stays; it returns if LE Audio earbuds become common.
+ * See contract 35 and SESSION-DESIGN.md.
  */
 interface WakeWordProvider {
     fun start()
@@ -124,6 +129,29 @@ data class LidResult(
 
 interface LidProvider {
     fun detect(text: String): LidResult
+}
+
+enum class TopicKind {
+    IN_SCOPE,
+    OUT_OF_SCOPE,
+}
+
+/**
+ * Gym-coach brief vs everything else. Real classification needs a model.
+ * Production main must not keyword-match. Tests supply a fake.
+ */
+interface TopicScope {
+    fun classify(transcript: String): TopicKind
+}
+
+object TopicCopy {
+    const val OUT_OF_SCOPE =
+        "I'm your gym coach — I can help with training, food and injuries."
+}
+
+fun topicReply(kind: TopicKind): String? = when (kind) {
+    TopicKind.IN_SCOPE -> null
+    TopicKind.OUT_OF_SCOPE -> TopicCopy.OUT_OF_SCOPE
 }
 
 data class DuckHandle(val id: String, val granted: Boolean, val mode: String)

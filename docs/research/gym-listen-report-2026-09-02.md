@@ -153,7 +153,7 @@ Domain listen-gate / VoiceTurnMachine tests were already green from the port-dir
 - Inbound events off production ports: `SttProvider.setListener` / `VadProvider.setListener`. Push lives on fakes.
 - Listen gate owns STT start/abort. Finals do not end recognition.
 - `FakeClock` / `FakeWakeWord` only under `voice/fake/`. Architecture test forbids Fake imports in production main.
-- Conversation window policy unchanged: a STATEMENT still opens no window. First Sound is the experiment harness, not a change to `windowFor(STATEMENT)`.
+- Conversation window policy at the time: a STATEMENT opened no window. **Withdrawn 2026-09-03** (contract 35): statements open the shortest window so a reminder can be answered. First Sound remains an experiment harness.
 
 ### Numbers (DECISIONS_AND_THRESHOLDS.md)
 

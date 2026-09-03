@@ -4,6 +4,7 @@ import com.gymbuddy.domain.voice.VoiceError
 import com.gymbuddy.domain.voice.WakeWordObservation
 import com.gymbuddy.domain.voice.WakeWordProvider
 
+/** Test fake for [com.gymbuddy.domain.voice.WakeWordProvider]. Dormant for v1; see that port's KDoc. */
 class FakeWakeWord(
     var unavailable: Boolean = false,
 ) : WakeWordProvider {

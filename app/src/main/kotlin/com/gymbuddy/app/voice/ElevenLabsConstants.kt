@@ -13,8 +13,6 @@ object ElevenLabsConstants {
     const val RECONNECTS = 1
     /** Music ducks this many ms before playback starts. Gym listen: 1.8 s. */
     const val DUCK_LEAD_MS = 1_800L
-    /** Music stays ducked this many ms after the coach finishes, if the user is quiet. */
-    const val DUCK_HOLD_MS = 2_500L
     const val STT_MODEL_ID = "scribe_v2_realtime"
     const val STT_FORMAT = "pcm_16000"
     const val STT_SAMPLE_RATE_HZ = 16_000
