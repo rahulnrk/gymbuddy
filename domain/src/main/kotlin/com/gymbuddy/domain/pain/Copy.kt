@@ -50,13 +50,61 @@ object PainCopy {
         "Stop. Pain in the chest isn't something we work through. " +
             "Get this checked before we keep going."
 
+    /**
+     * In-session red-flag lines. UNDECIDED — clinician sign-off pending.
+     * Symptoms from two agreeing reviews; wording is provisional.
+     * `docs/review/RESTRICTION-PLAN.md` Tier 3. Contract 37.
+     *
+     * EMERGENCY: hospital now, sit, do not drive.
+     * SAME_DAY: hospital or doctor today. No ambulance framing.
+     * Both still [PainOutcome.UrgentReferral] — session over. Only the words differ.
+     */
+    val IN_SESSION_HEADACHE =
+        "Stop and sit down. A headache that hits suddenly and hard during a lift " +
+            "needs emergency care, not rest. Get someone to take you to a hospital now. " +
+            "Don't drive yourself."
+
+    val IN_SESSION_STROKE =
+        "Stop and sit down. Weakness on one side, a drooping face, slurred speech " +
+            "or sudden vision loss needs a hospital now. Get someone to take you. " +
+            "Don't drive yourself."
+
+    val IN_SESSION_CAUDA =
+        "Stop and sit down. Numbness around the groin, a new bladder or bowel problem, " +
+            "or both legs weakening fast needs a hospital now. Get someone to take you. " +
+            "Don't drive yourself."
+
+    val IN_SESSION_RHABDO =
+        "Stop. Muscle pain far worse than this session should cause, swelling, " +
+            "or dark or tea-coloured urine needs checking at a hospital today."
+
+    val IN_SESSION_HOT_JOINT =
+        "Stop. A joint that's hot, red, and swelling fast isn't normal soreness. " +
+            "See a doctor today."
+
+    fun urgentCare(flag: RedFlag): UrgentCare? = when (flag) {
+        RedFlag.SUDDEN_SEVERE_HEADACHE,
+        RedFlag.STROKE_SIGNS,
+        RedFlag.CAUDA_EQUINA_SIGNS,
+        -> UrgentCare.EMERGENCY
+        RedFlag.RHABDOMYOLYSIS_SIGNS,
+        RedFlag.HOT_RED_RAPIDLY_SWELLING_JOINT,
+        -> UrgentCare.SAME_DAY
+        else -> null
+    }
+
     fun urgent(flags: List<RedFlag>): String {
         val unique = flags.distinct()
-        return if (unique.singleOrNull() == RedFlag.CHEST_PAIN) {
-            "$IN_SESSION_CHEST ${ReferralCopy.RECENCY_URGENCY}"
-        } else {
-            ReferralCopy.forFlags(flags)
+        val line = when (unique.singleOrNull()) {
+            RedFlag.CHEST_PAIN -> "$IN_SESSION_CHEST ${ReferralCopy.RECENCY_URGENCY}"
+            RedFlag.SUDDEN_SEVERE_HEADACHE -> IN_SESSION_HEADACHE
+            RedFlag.STROKE_SIGNS -> IN_SESSION_STROKE
+            RedFlag.CAUDA_EQUINA_SIGNS -> IN_SESSION_CAUDA
+            RedFlag.RHABDOMYOLYSIS_SIGNS -> IN_SESSION_RHABDO
+            RedFlag.HOT_RED_RAPIDLY_SWELLING_JOINT -> IN_SESSION_HOT_JOINT
+            else -> null
         }
+        return line ?: ReferralCopy.forFlags(flags)
     }
 
     internal fun travelsFrom(where: String): String {

@@ -20,6 +20,29 @@ class PickerTest {
     )
 
     @Test
+    fun flexionIntolerantUserIsOfferedBenchPress() {
+        val ctx = fullGym().copy(
+            user = UserContext(
+                Goal.STRENGTH,
+                TrainingAge.INTERMEDIATE,
+                conditions = listOf("flexion-intolerant-back"),
+            ),
+        )
+        val offered = catalog.exercises.filter { "flexion-intolerant-back" !in it.contraindications }
+        assertEquals(63, offered.size)
+        val slot = Slot("horizontal push", SlotRole.PRIMARY)
+        val set = candidates(slot, catalog, ctx)
+        assertTrue(set.survivors.any { it.slug == "bench-press" })
+        assertTrue(
+            set.exclusions.none {
+                it.exercise.slug == "bench-press" && it.exclusion is Exclusion.Contraindicated
+            },
+        )
+        val ranked = rank(slot, catalog, ctx)
+        assertTrue(ranked.any { it.exercise.slug == "bench-press" }, ranked.map { it.exercise.slug }.toString())
+    }
+
+    @Test
     fun contraindicatedExerciseNeverRanks() {
         val ctx = fullGym().copy(
             user = UserContext(

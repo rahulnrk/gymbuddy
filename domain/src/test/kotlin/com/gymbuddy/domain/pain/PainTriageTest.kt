@@ -148,10 +148,114 @@ class PainTriageTest {
     }
 
     @Test
-    fun headPainDuringExertionRefersRatherThanUrgent() {
+    fun builtUpHeadAcheRefersRatherThanUrgent() {
         val outcome = triage(soreness().copy(where = "head"))
         assertIs<PainOutcome.ReferBeforeContinuing>(outcome)
         assertFalse(outcome is PainOutcome.UrgentReferral)
+    }
+
+    @Test
+    fun suddenSevereHeadacheStopsTheSessionToday() {
+        val byOnset = triage(PainInterview(where = "headache", onset = OnsetAnswer.SUDDEN))
+        val byFlag = triage(PainInterview(urgent = RedFlag.SUDDEN_SEVERE_HEADACHE))
+        val onsetOut = assertIs<PainOutcome.UrgentReferral>(byOnset)
+        val flagOut = assertIs<PainOutcome.UrgentReferral>(byFlag)
+        assertEquals(listOf(RedFlag.SUDDEN_SEVERE_HEADACHE), onsetOut.flags)
+        assertEquals(listOf(RedFlag.SUDDEN_SEVERE_HEADACHE), flagOut.flags)
+        assertEquals(PainQuestionId.ONSET, assertIs<PainOutcome.NeedMore>(triage(PainInterview(where = "headache"))).nextQuestion)
+        assertNull(nextQuestion(PainInterview(where = "headache", onset = OnsetAnswer.SUDDEN)))
+
+        val proposal = propose(
+            PainInterview(where = "headache", onset = OnsetAnswer.SUDDEN, currentSlug = "back-squat"),
+            mixedSession(),
+            fullGym(),
+            catalog,
+        )
+        assertEquals(
+            "Stop and sit down. A headache that hits suddenly and hard during a lift " +
+                "needs emergency care, not rest. Get someone to take you to a hospital now. " +
+                "Don't drive yourself.",
+            proposal.spoken,
+        )
+        assertEquals(PainCopy.IN_SESSION_HEADACHE, proposal.spoken)
+        assertEquals(UrgentCare.EMERGENCY, PainCopy.urgentCare(RedFlag.SUDDEN_SEVERE_HEADACHE))
+        assertFalse(ReferralCopy.RECENCY_URGENCY in proposal.spoken)
+        assertFalse("You marked" in proposal.spoken)
+        assertFalse("soon" in proposal.spoken.lowercase())
+        assertTrue("sit down" in proposal.spoken.lowercase())
+        assertTrue("don't drive" in proposal.spoken.lowercase())
+        assertTrue(proposal.reducedSession!!.entries.isEmpty())
+        val sharpSuddenHead = triage(
+            PainInterview(
+                where = "head",
+                onset = OnsetAnswer.SUDDEN,
+                sides = SidesAnswer.ONE,
+                character = PainCharacter.SHARP,
+                travel = TravelAnswer.NO,
+                currentSlug = "back-squat",
+                currentName = "Back Squat",
+            ),
+        )
+        assertIs<PainOutcome.UrgentReferral>(sharpSuddenHead)
+        assertFalse(sharpSuddenHead is PainOutcome.StopThisMovement)
+    }
+
+    @Test
+    fun missingRedFlagClustersStopTheSessionToday() {
+        val emergency = listOf(
+            RedFlag.STROKE_SIGNS to PainCopy.IN_SESSION_STROKE,
+            RedFlag.CAUDA_EQUINA_SIGNS to PainCopy.IN_SESSION_CAUDA,
+        )
+        val sameDay = listOf(
+            RedFlag.RHABDOMYOLYSIS_SIGNS to PainCopy.IN_SESSION_RHABDO,
+            RedFlag.HOT_RED_RAPIDLY_SWELLING_JOINT to PainCopy.IN_SESSION_HOT_JOINT,
+        )
+        (emergency + sameDay).forEach { (flag, line) ->
+            val outcome = assertIs<PainOutcome.UrgentReferral>(triage(PainInterview(urgent = flag)))
+            assertEquals(listOf(flag), outcome.flags)
+            val proposal = propose(PainInterview(urgent = flag), mixedSession(), fullGym(), catalog)
+            assertEquals(line, proposal.spoken)
+            assertFalse(ReferralCopy.RECENCY_URGENCY in proposal.spoken)
+            assertFalse("You marked" in proposal.spoken)
+            assertFalse("soon" in proposal.spoken.lowercase())
+            assertFalse("work through" in proposal.spoken.lowercase())
+            assertTrue(proposal.reducedSession!!.entries.isEmpty(), flag.name)
+        }
+        emergency.forEach { (flag, line) ->
+            assertEquals(UrgentCare.EMERGENCY, PainCopy.urgentCare(flag))
+            assertTrue("sit down" in line.lowercase(), line)
+            assertTrue("don't drive" in line.lowercase(), line)
+            assertTrue("hospital" in line.lowercase(), line)
+        }
+        sameDay.forEach { (flag, line) ->
+            assertEquals(UrgentCare.SAME_DAY, PainCopy.urgentCare(flag))
+            assertTrue("today" in line.lowercase(), line)
+            assertFalse("don't drive" in line.lowercase(), line)
+        }
+        assertEquals(
+            "Stop and sit down. Weakness on one side, a drooping face, slurred speech " +
+                "or sudden vision loss needs a hospital now. Get someone to take you. " +
+                "Don't drive yourself.",
+            PainCopy.IN_SESSION_STROKE,
+        )
+        assertEquals(
+            "Stop and sit down. Numbness around the groin, a new bladder or bowel problem, " +
+                "or both legs weakening fast needs a hospital now. Get someone to take you. " +
+                "Don't drive yourself.",
+            PainCopy.IN_SESSION_CAUDA,
+        )
+        assertEquals(
+            "Stop. Muscle pain far worse than this session should cause, swelling, " +
+                "or dark or tea-coloured urine needs checking at a hospital today.",
+            PainCopy.IN_SESSION_RHABDO,
+        )
+        assertEquals(
+            "Stop. A joint that's hot, red, and swelling fast isn't normal soreness. " +
+                "See a doctor today.",
+            PainCopy.IN_SESSION_HOT_JOINT,
+        )
+        val spoken = (emergency + sameDay).map { it.second } + PainCopy.IN_SESSION_HEADACHE
+        assertEquals(spoken.size, spoken.toSet().size, "each cluster must have its own line")
     }
 
     @Test
@@ -389,6 +493,11 @@ class PainTriageTest {
         PainCopy.referNight(),
         PainCopy.referOnly(),
         PainCopy.IN_SESSION_CHEST,
+        PainCopy.IN_SESSION_HEADACHE,
+        PainCopy.IN_SESSION_STROKE,
+        PainCopy.IN_SESSION_CAUDA,
+        PainCopy.IN_SESSION_RHABDO,
+        PainCopy.IN_SESSION_HOT_JOINT,
         PainCopy.followUp("shoulder"),
         PainCopy.followUp("my left knee"),
         PainCopy.followUp("quads"),
@@ -398,6 +507,11 @@ class PainTriageTest {
         PainCopy.urgent(listOf(RedFlag.CHEST_PAIN)),
         PainCopy.urgent(listOf(RedFlag.BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION)),
         PainCopy.urgent(listOf(RedFlag.DIZZINESS_OR_FAINTING)),
+        PainCopy.urgent(listOf(RedFlag.SUDDEN_SEVERE_HEADACHE)),
+        PainCopy.urgent(listOf(RedFlag.STROKE_SIGNS)),
+        PainCopy.urgent(listOf(RedFlag.CAUDA_EQUINA_SIGNS)),
+        PainCopy.urgent(listOf(RedFlag.RHABDOMYOLYSIS_SIGNS)),
+        PainCopy.urgent(listOf(RedFlag.HOT_RED_RAPIDLY_SWELLING_JOINT)),
     )
 
     private fun painMainDir(): java.io.File {
@@ -433,6 +547,12 @@ private val DIAGNOSIS = listOf(
     "torn",
     "diagnosis",
     "diagnos",
+    "stroke",
+    "cauda",
+    "rhabdomyolysis",
+    "haemorrhage",
+    "hemorrhage",
+    "subarachnoid",
 )
 
 private fun assertSpeakablePain(text: String) {

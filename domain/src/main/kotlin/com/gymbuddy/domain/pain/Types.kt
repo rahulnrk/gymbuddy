@@ -60,6 +60,12 @@ sealed interface PainOutcome {
     data class NeedMore(val nextQuestion: PainQuestionId) : PainOutcome
 }
 
+/** Copy level only. Both still end the session. Contract 37. */
+enum class UrgentCare {
+    EMERGENCY,
+    SAME_DAY,
+}
+
 data class PainProposal(
     val outcome: PainOutcome,
     val spoken: String,

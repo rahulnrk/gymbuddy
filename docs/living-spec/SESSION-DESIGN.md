@@ -301,6 +301,12 @@ of the contracts would not detect.
 ## 13. Still open
 
 - No physio has reviewed the injury data. `docs/review/PHYSIO-REVIEW.md` is
-  ready and unused.
+  ready and unused. Two AI reviews exist; they are not a clinician.
+- **Recent surgery is a session-stop with no plan-time block.** Red flag
+  `RECENT_SURGERY` stops today and blocks a first plan. Vocab ids
+  `recent-shoulder-surgery` / `recent-knee-surgery` match no exercise
+  contraindications, so after clearance the next week's plan is unrestricted.
+  Recorded in contract 30. Closed by `docs/review/RESTRICTION-PLAN.md` Tier 3,
+  not here. An undocumented hole gets forgotten; this one is written down.
 - The phone-away promise has not been tested in a genuinely loud gym.
 - Telugu/English code-switching accuracy is unmeasured.

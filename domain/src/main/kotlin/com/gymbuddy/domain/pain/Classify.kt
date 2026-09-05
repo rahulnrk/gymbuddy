@@ -18,7 +18,7 @@ fun recordIntensity(raw: Int?): Int? {
 }
 
 private val CHEST = listOf("chest", "sternum", "heart", "breastbone")
-private val HEAD = listOf("head", "skull", "temple", "forehead")
+private val HEAD = listOf("headache", "head", "skull", "temple", "forehead")
 private val SPINE = listOf("spine", "low back", "lower back", "upper back", "neck", "vertebra")
 private val JOINT = listOf("knee", "shoulder", "elbow", "wrist", "hip", "ankle", "joint")
 private val MUSCLE = listOf(

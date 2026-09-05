@@ -16,7 +16,10 @@ private val ASK_ORDER = listOf(
 
 fun nextQuestion(interview: PainInterview): PainQuestionId? {
     if (interview.urgent != null) return null
-    if (classifyLocation(interview.where) == PainLocationKind.CHEST) return null
+    val loc = classifyLocation(interview.where)
+    if (loc == PainLocationKind.CHEST) return null
+    if (loc == PainLocationKind.HEAD && interview.onset == OnsetAnswer.SUDDEN) return null
+    if (loc == PainLocationKind.HEAD && interview.onset == null) return PainQuestionId.ONSET
     ASK_ORDER.forEach { q ->
         if (!answered(interview, q)) return q
     }
@@ -25,8 +28,15 @@ fun nextQuestion(interview: PainInterview): PainQuestionId? {
 
 fun triage(interview: PainInterview): PainOutcome {
     interview.urgent?.let { return PainOutcome.UrgentReferral(listOf(it)) }
-    if (classifyLocation(interview.where) == PainLocationKind.CHEST) {
+    val loc = classifyLocation(interview.where)
+    if (loc == PainLocationKind.CHEST) {
         return PainOutcome.UrgentReferral(listOf(RedFlag.CHEST_PAIN))
+    }
+    if (loc == PainLocationKind.HEAD && interview.onset == OnsetAnswer.SUDDEN) {
+        return PainOutcome.UrgentReferral(listOf(RedFlag.SUDDEN_SEVERE_HEADACHE))
+    }
+    if (loc == PainLocationKind.HEAD && interview.onset == null) {
+        return PainOutcome.NeedMore(PainQuestionId.ONSET)
     }
 
     if (interview.travel in TRAVEL_RED || interview.character == PainCharacter.RADIATING) {

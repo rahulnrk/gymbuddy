@@ -91,6 +91,38 @@ object ReferralCopy {
                     "a doctor or qualified clinician check that before a training plan " +
                     "from this app can go further. When they say you are clear to exercise, " +
                     "tell me the date they said so."
+
+            RedFlag.SUDDEN_SEVERE_HEADACHE ->
+                "You marked a sudden severe headache. A training plan from this app " +
+                    "has to wait until a doctor or qualified clinician has checked this " +
+                    "and told you it is okay to exercise. Please get that looked at today. " +
+                    "When they say you are clear, come back and record the date they told you."
+
+            RedFlag.STROKE_SIGNS ->
+                "You marked weakness on one side, a drooping face, speech that has " +
+                    "changed, or a sudden loss of vision. A training plan from this app " +
+                    "has to wait. Please get that checked today. When a doctor or qualified " +
+                    "clinician says you are clear to exercise, record the date they told you."
+
+            RedFlag.CAUDA_EQUINA_SIGNS ->
+                "You marked numbness in the groin or between the legs, a new change in " +
+                    "bowel or bladder, or both legs getting rapidly weaker. A training " +
+                    "plan from this app has to wait. Please get that checked today. When " +
+                    "a doctor or qualified clinician says you are clear to exercise, " +
+                    "record the date they told you."
+
+            RedFlag.RHABDOMYOLYSIS_SIGNS ->
+                "You marked muscle pain far worse than the session, swelling in a muscle, " +
+                    "or urine that has gone dark or tea-coloured. A training plan from this " +
+                    "app has to wait. Please get that checked today. When a doctor or " +
+                    "qualified clinician says you are clear to exercise, record the date " +
+                    "they told you."
+
+            RedFlag.HOT_RED_RAPIDLY_SWELLING_JOINT ->
+                "You marked a joint that is hot, red, and swelling fast. That is not " +
+                    "ordinary new swelling. A training plan from this app has to wait. " +
+                    "Please get that checked today. When a doctor or qualified clinician " +
+                    "says you are clear to exercise, record the date they told you."
         }
         return if (happeningNowOrThisWeek && flag in ACUTE_SYMPTOM_FLAGS) {
             "$base $RECENCY_URGENCY"

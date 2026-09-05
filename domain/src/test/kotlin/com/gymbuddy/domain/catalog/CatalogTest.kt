@@ -90,6 +90,24 @@ class CatalogTest {
     }
 
     @Test
+    fun benchPressIsNotASpinalFlexionExercise() {
+        val bench = catalog.bySlug("bench-press")!!
+        assertFalse("flexion-intolerant-back" in bench.contraindications)
+        val row = bench.provenance.getValue("contraindications")
+        assertEquals("consensus", row.basis)
+        assertTrue("PHYSIO-REVIEW-EVIDENCE.md" in row.source)
+        assertTrue("§D1" in row.source)
+        assertEquals("2026-09-03", row.reviewed)
+        val tagged = catalog.exercises.count { "flexion-intolerant-back" in it.contraindications }
+        assertEquals(14, tagged)
+        assertEquals(63, catalog.exercises.size - tagged)
+        val push = catalog.exercises.filter { it.pattern == "horizontal push" }
+        assertEquals(4, push.size)
+        assertTrue(push.any { it.slug == "bench-press" && "flexion-intolerant-back" !in it.contraindications })
+        assertEquals(4, push.count { "flexion-intolerant-back" !in it.contraindications })
+    }
+
+    @Test
     fun everySubstituteResolves() {
         catalog.exercises.forEach { ex ->
             ex.substitutes.forEach { slug ->

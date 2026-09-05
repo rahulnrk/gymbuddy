@@ -244,7 +244,8 @@ class IntakeTest {
 
     @Test
     fun everyAcuteSymptomFlagHasARecencyQuestion() {
-        assertEquals(6, ACUTE_SYMPTOM_FLAGS.size)
+        assertEquals(RedFlag.entries.toSet(), FLAG_QUESTIONS.keys)
+        assertEquals(11, ACUTE_SYMPTOM_FLAGS.size)
         ACUTE_SYMPTOM_FLAGS.forEach { flag ->
             val q = RECENCY_QUESTIONS[flag]
             assertTrue(q != null, "$flag has no recency question id")

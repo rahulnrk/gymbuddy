@@ -12,7 +12,7 @@ source: docs/prompts/pr-intake-and-screening.md
 
 ### Red-flag list
 
-`CHEST_PAIN`, `BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION`, `DIZZINESS_OR_FAINTING`, `PALPITATIONS_OR_IRREGULAR_HEARTBEAT`, `RECENT_SURGERY`, `UNEXPLAINED_NIGHT_PAIN`, `RADIATING_NUMBNESS_OR_WEAKNESS`, `PREGNANCY_COMPLICATION`, `UNCONTROLLED_DIAGNOSED_CONDITION`, `NEW_UNEXPLAINED_SWELLING_OR_PAIN`.
+`CHEST_PAIN`, `BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION`, `DIZZINESS_OR_FAINTING`, `PALPITATIONS_OR_IRREGULAR_HEARTBEAT`, `RECENT_SURGERY`, `UNEXPLAINED_NIGHT_PAIN`, `RADIATING_NUMBNESS_OR_WEAKNESS`, `PREGNANCY_COMPLICATION`, `UNCONTROLLED_DIAGNOSED_CONDITION`, `NEW_UNEXPLAINED_SWELLING_OR_PAIN`, `SUDDEN_SEVERE_HEADACHE`, `STROKE_SIGNS`, `CAUDA_EQUINA_SIGNS`, `RHABDOMYOLYSIS_SIGNS`, `HOT_RED_RAPIDLY_SWELLING_JOINT`.
 
 Each answer is `YES | NO | UNKNOWN`. There is no boolean skip.
 
@@ -20,7 +20,7 @@ Each answer is `YES | NO | UNKNOWN`. There is no boolean skip.
 
 - Any red flag `YES` that is not covered by an explicit dated user-reported clearance → `ReferBeforeTraining`. No plan-shaped output (`IntakeResult.Ready` is unreachable).
 - Refer outranks missing required fields, **except** an unanswered recency follow-up on an acute-symptom flag. That follow-up is asked first so urgency can come from the user's stated recency, not from the app judging severity.
-- Acute-symptom flags (`CHEST_PAIN`, `BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION`, `DIZZINESS_OR_FAINTING`, `PALPITATIONS_OR_IRREGULAR_HEARTBEAT`, `RADIATING_NUMBNESS_OR_WEAKNESS`, `NEW_UNEXPLAINED_SWELLING_OR_PAIN`) each have the recency question: “Is this happening now, or has it happened in the last week?” Unasked recency is still asked. An explicit skip is `UNKNOWN`. `UNKNOWN` and `YES` both include the urgency line (the line already self-selects: “If you are feeling this right now…”). Only `NO` omits it. A false calm is worse than a false urgent. No emergency number in domain copy.
+- Acute-symptom flags (`CHEST_PAIN`, `BREATHLESSNESS_AT_REST_OR_LIGHT_EXERTION`, `DIZZINESS_OR_FAINTING`, `PALPITATIONS_OR_IRREGULAR_HEARTBEAT`, `RADIATING_NUMBNESS_OR_WEAKNESS`, `NEW_UNEXPLAINED_SWELLING_OR_PAIN`, `SUDDEN_SEVERE_HEADACHE`, `STROKE_SIGNS`, `CAUDA_EQUINA_SIGNS`, `RHABDOMYOLYSIS_SIGNS`, `HOT_RED_RAPIDLY_SWELLING_JOINT`) each have the recency question: “Is this happening now, or has it happened in the last week?” Unasked recency is still asked. An explicit skip is `UNKNOWN`. `UNKNOWN` and `YES` both include the urgency line (the line already self-selects: “If you are feeling this right now…”). Only `NO` omits it. A false calm is worse than a false urgent. No emergency number in domain copy.
 - Referral copy states the app's limit (a plan from this app has to wait), not a refusal to help.
 - `ReferBeforeTraining.message` is calm, specific about the next step, free of diagnosis, and must not contain a `conditions.json` name. The “report, not a medical record” line belongs on clearance, not on referral.
 
@@ -49,6 +49,8 @@ Visual, short, one question at a time (`NeedMore.nextQuestion` is exactly one). 
 `evaluate` returns `Ready(UserContext)` | `NeedMore` | `Refer`. `Ready` is the programming `UserContext` (declared known condition ids, equipment tokens, optional partner, sharp/radiating movement slugs). It is not a workout.
 
 Declared vocab ids feed `validateSession` contraindication `BLOCK`. Sharp or radiating pain on a movement is `safety.pain-movement` `BLOCK`. An optional 0–10 on `PainReport` is history only; in-session routing is contract 37 and does not read that number.
+
+**Known open safety gap (restriction-plan Tier 3).** `RECENT_SURGERY` as a red flag stops today's session and blocks a first plan. The condition ids `recent-shoulder-surgery` and `recent-knee-surgery` exist in `conditions.json`, but no exercise in `exercises.json` lists them. After a dated clearance, `evaluate` can return `Ready` with those ids on the user, and the picker/validator block nothing for next week's plan. Until `docs/review/RESTRICTION-PLAN.md` Tier 3 lands, that hole is known. Do not treat a cleared recent-surgery flag as a programmed regional block. This PR does not fill the lists.
 
 ### Voice behavior
 

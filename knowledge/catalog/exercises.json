@@ -137,10 +137,10 @@
         "reviewed": "2026-09-01"
       },
       "contraindications": {
-        "confidence": "low",
-        "basis": "judgement",
-        "source": "pr14a-audit",
-        "reviewed": "2026-09-01"
+        "confidence": "high",
+        "basis": "consensus",
+        "source": "docs/review/PHYSIO-REVIEW-EVIDENCE.md §D1 — no lumbar flexion in a bench press; flexion-intolerant-back tag removed",
+        "reviewed": "2026-09-03"
       }
     },
     "romNote": "Bar to the chest; wrists stacked. A rack is optional only if someone can hand the bar off.",
@@ -151,9 +151,7 @@
       "triceps": 0.65,
       "serratus": 0.2
     },
-    "contraindications": [
-      "flexion-intolerant-back"
-    ]
+    "contraindications": []
   },
   {
     "slug": "incline-dumbbell-press",
